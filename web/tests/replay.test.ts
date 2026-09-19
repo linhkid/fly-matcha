@@ -8,7 +8,7 @@ import { InputLayer, type Spikes } from "../src/engine/input";
 import type { CloudInfo } from "../src/view/cloud";
 import type { LoopState } from "../src/view/loop";
 import { touchWindow } from "../src/view/puppet";
-import { entryFor, Replay, replayAt, STAY_OVERHEAD, STAY_SECONDS, stayFor, staySecondsFor, type RecordingEntry, type RecordingIndex, type TrialRecording } from "../src/view/replay";
+import { DRINK, entryFor, Replay, replayAt, STAY_OVERHEAD, STAY_SECONDS, stayFor, staySecondsFor, type RecordingEntry, type RecordingIndex, type TrialRecording } from "../src/view/replay";
 
 const root = new URL("../../", import.meta.url);
 const options = { stepsPerSecond: 200, lightWindowSteps: 60, slowdown: 50 };
@@ -56,7 +56,7 @@ describe("what is replayed at a moment of the ceremony", () => {
 
   it("is nothing outside tasting, before his lips touch the tea, and while the recording has not arrived", () => {
     for (const [state, held] of [[moment(12, 6, { phase: "pour" }), replay()], [moment(12, from - 0.05), replay()], [moment(12, from + 1), null]] as const) {
-      const out = replayAt(state, held, 2, true, options);
+      const out = replayAt(state, false, held, 2, true, options);
       expect(out.replayed).toBeNull();
       expect(out.cloud).toBeNull();
       expect(Array.from(out.lips)).toEqual([0, 0]);
@@ -64,14 +64,19 @@ describe("what is replayed at a moment of the ceremony", () => {
   });
 
   it("runs with the ceremony's clock, and only while his lips are on the tea", () => {
-    const at = replayAt(moment(12, from + 0.1575), replay(), 2, true, options);  // 31 and a half steps in
-    expect(at.replayed).toEqual({ seed: 1, steps: 31, slowdown: 50, touching: true, pilot: true, tasteSpikes: 4, otherNeurons: 3, readoutSpikes: 0, undrawable: 1 });
+    const at = replayAt(moment(12, from + 0.1575), false, replay(), 2, true, options);  // 31 and a half steps in
+    expect(at.replayed).toEqual({ seed: 1, steps: 31, slowdown: 50, touching: true, pilot: true, tasteSpikes: 4, otherNeurons: 3, readoutSpikes: 0, undrawable: 1, extension: 0, drunk: 0 });
     expect(Array.from(at.cloud!)).toEqual([1, 1, 0]);
-    const held = replayAt(moment(12, from + 0.1575, { paused: true }), replay(), 2, true, options);
+    // a pause holds the moment as it is, light and all, so that it can be read
+    const paused = replayAt(moment(12, from + 0.1575, { paused: true }), false, replay(), 2, true, options);
+    expect(paused.replayed).toEqual(at.replayed);
+    expect(Array.from(paused.cloud!)).toEqual(Array.from(at.cloud!));
+    // a break takes him away from the cup: the count stands, his lips are off the tea, and nothing is lit
+    const held = replayAt(moment(12, from + 0.1575, { paused: true }), true, replay(), 2, true, options);
     expect(held.replayed).toEqual({ ...at.replayed!, touching: false });
     expect(held.cloud).toBeNull();
     expect(Array.from(held.lips)).toEqual([0, 0]);
-    const after = replayAt(moment(12, to + 1), replay(), 2, true, options);
+    const after = replayAt(moment(12, to + 1), false, replay(), 2, true, options);
     expect(after.replayed!.touching).toBe(false);
     expect(after.cloud).toBeNull();
     expect(after.replayed!.steps).toBe(Math.floor((to - from) * 200));           // it stopped where his lips left the tea
@@ -80,8 +85,43 @@ describe("what is replayed at a moment of the ceremony", () => {
   it("never runs past the end of the recording", () => {
     const long = touchWindow(20);
     const short: TrialRecording = { ...recording, spec: { seed: 1, durationSteps: 100 } };
-    const out = replayAt(moment(20, long[1]), new Replay(short, cloudIndex, lipIndex, new Set(["900"])), 2, true, options);
+    const out = replayAt(moment(20, long[1]), false, new Replay(short, cloudIndex, lipIndex, new Set(["900"])), 2, true, options);
     expect(out.replayed!.steps).toBe(99);
+  });
+});
+
+describe("drinking: his proboscis and the cup follow MN9, and only with a licence", () => {
+  const busy: TrialRecording = { spec: { seed: 1, durationSteps: 3000 }, spikeHash: "h", spikeStep: [100, 150, 200, 260, 320, 2000], spikeBodyId: ["900", "900", "900", "900", "900", "900"] };
+  const drinker = (): Replay => new Replay(busy, cloudIndex, lipIndex, new Set(["900"]));
+
+  it("puts the proboscis out by MN9's spikes in the last 30 ms, fully out at three, and back in when MN9 falls silent", () => {
+    expect([99, 100, 150, 200, 399, 499, 500, 620, 1999, 2000].map((t) => drinker().extensionAt(t)))
+      .toEqual([0, 1 / 3, 2 / 3, 1, 1, 1, 2 / 3, 0, 0, 1 / 3]);   // the window is (t - 300, t]: at 500 the spike at 200 has just left it
+    expect(replay().extensionAt(61)).toBeCloseTo(1 / DRINK.fullAt);                // the small recording above: MN9 once at step 61
+  });
+
+  it("drains the cup only while the proboscis is out, never refills it, and never past empty", () => {
+    const r = drinker();
+    expect(r.drunkAt(99)).toBe(0);
+    for (let t = 1; t < 3000; t++) expect(r.drunkAt(t)).toBeGreaterThanOrEqual(r.drunkAt(t - 1));
+    expect(r.drunkAt(1500)).toBeCloseTo(r.drunkAt(700), 6);                        // MN9 silent between: the level stands
+    expect(r.drunkAt(2999)).toBeGreaterThan(r.drunkAt(1500));
+    expect(r.drunkAt(2999)).toBeLessThan(0.3);
+    const silent = new Replay({ ...busy, spikeStep: [5], spikeBodyId: ["1"] }, cloudIndex, lipIndex, new Set(["900"]));
+    expect(silent.drunkAt(2999)).toBe(0);                                          // MN9 never fires: he never drinks
+  });
+
+  it("moves nothing without a licence, and nothing while he is away from the cup", () => {
+    const [from] = touchWindow(12);
+    const state = moment(12, from + 1.5);                                          // 300 steps in: MN9 has fired four times
+    const dry = replayAt(state, false, drinker(), 2, true, options).replayed!;
+    expect([dry.extension, dry.drunk, dry.readoutSpikes]).toEqual([0, 0, 4]);      // counted and lit, and the cup stays full
+    const wet = replayAt(state, false, drinker(), 2, false, options, true).replayed!;
+    expect(wet.extension).toBeGreaterThan(0.6);
+    expect(wet.drunk).toBeGreaterThan(0);
+    const away = replayAt(state, true, drinker(), 2, false, options, true).replayed!;
+    expect(away.extension).toBe(0);                                                // on a break his proboscis is in
+    expect(away.drunk).toBe(wet.drunk);                                            // and what he drank stays drunk
   });
 });
 

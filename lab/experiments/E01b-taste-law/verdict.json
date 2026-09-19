@@ -1,0 +1,194 @@
+{
+ "attempts": [
+  "E01-taste-law",
+  "E01b-taste-law"
+ ],
+ "criteria": [
+  {
+   "id": "P1",
+   "kind": "threshold",
+   "notRun": false,
+   "observed": {
+    "hits": 8,
+    "perSeed": [
+     38,
+     58,
+     48,
+     53,
+     61,
+     0,
+     35,
+     49,
+     41,
+     3
+    ]
+   },
+   "pass": false,
+   "passAtShipped": false,
+   "passingValues": null,
+   "rejected": null
+  },
+  {
+   "id": "P2",
+   "kind": "ratio_vs_control",
+   "notRun": true,
+   "observed": null,
+   "pass": null,
+   "passAtShipped": null,
+   "passingValues": null,
+   "rejected": null
+  },
+  {
+   "id": "P3a",
+   "kind": "paired_drop",
+   "notRun": false,
+   "observed": {
+    "hits": 9,
+    "perSeedDrop": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     null,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   "pass": null,
+   "passAtShipped": true,
+   "passingValues": null,
+   "rejected": null
+  },
+  {
+   "id": "P3b",
+   "kind": "monotone",
+   "notRun": false,
+   "observed": {
+    "means": [
+     38.6,
+     16.8,
+     3.2,
+     0.1,
+     0.0
+    ],
+    "slack": 3.8600000000000003
+   },
+   "pass": null,
+   "passAtShipped": true,
+   "passingValues": null,
+   "rejected": null
+  },
+  {
+   "id": "P4",
+   "kind": "control_fraction",
+   "notRun": true,
+   "observed": null,
+   "pass": null,
+   "passAtShipped": null,
+   "passingValues": null,
+   "rejected": null
+  },
+  {
+   "id": "P5",
+   "kind": "fraction_active",
+   "notRun": true,
+   "observed": null,
+   "pass": null,
+   "passAtShipped": null,
+   "passingValues": null,
+   "rejected": null
+  },
+  {
+   "id": "P7",
+   "kind": "decoder_accuracy",
+   "notRun": true,
+   "observed": null,
+   "pass": null,
+   "passAtShipped": null,
+   "passingValues": null,
+   "rejected": null
+  }
+ ],
+ "decoder": null,
+ "gates": [],
+ "id": "E01b-taste-law",
+ "inputs": {
+  "codecSha256": "f2f798a9af3573630b952153f0c83967f6bf0611486937129d816e254958788a",
+  "graphSha256": "e44513e148808b0d6fdf0198ebdfe04f8fb3783e52fef5bb178d75d6aec38ae4",
+  "lockSha256": "64b18b90f9181dd9a2f546f8213291d8f9324647ab746b4642dc3ed6260a3011",
+  "modelId": "lif-shiu-v1",
+  "seeds": {
+   "confirm": [
+    200,
+    201,
+    202,
+    203,
+    204,
+    205,
+    206,
+    207,
+    208,
+    209
+   ],
+   "holdout": [
+    210,
+    211,
+    212,
+    213,
+    214,
+    215,
+    216,
+    217,
+    218,
+    219
+   ],
+   "pilot": [
+    0,
+    1,
+    2
+   ]
+  },
+  "shipped": {
+   "signPolicy.unknown": 0,
+   "wSynMv": 0.35
+  },
+  "sweep": [
+   {
+    "param": "wSynMv",
+    "values": [
+     0.245,
+     0.35,
+     0.455
+    ]
+   },
+   {
+    "param": "signPolicy.unknown",
+    "values": [
+     0,
+     1
+    ]
+   }
+  ]
+ },
+ "notes": "The first rerun, by fallback 2 of slice 05, which was written before any data existed. E01 failed P1 at the published weight: sweet 3 gave MN9 7 to 22 spikes in ten seeds against the 32 asked for. The weight was then recalibrated on pilot seeds 0 to 2 only, by a rule written into the slice before the calibration ran: of 0.30, 0.35, 0.40, 0.45, 0.50, 0.60 and 0.70 mV, take the weight whose mean MN9 count at sweet 3 is closest to 80% of its mean count at sweet 4. The ratios were 0.26, 0.85, 0.19, 0.12, 0.04, 0.01 and 0.51, so the weight is 0.35 mV, and the sweep is 0.7, 1 and 1.3 times it. Every criterion is unchanged from E01. Fresh seeds: 200 to 209 confirm, 210 to 219 held out. Seen before this file was committed, and not used to change any criterion: at 0.35 mV the three pilot seeds gave sweet 3 counts of 111, 18 and 60, and above 0.40 mV a stronger weight made sweet 3 drive MN9 less, not more. The same early stop as E01. Controls, off the shipped model: 30 shuffled brains and three seeds per random population, as in E01.",
+ "plateau": {
+  "holds": false,
+  "param": "wSynMv",
+  "passing": [],
+  "values": [
+   0.245,
+   0.35,
+   0.455
+  ]
+ },
+ "prereg": {
+  "gitRev": "d5800d53dd8f98ca8ed5f5d286014266c43e4f7a",
+  "sha256": "c36088c4e410f58711c4f4b8292f5294bbf50532d04a9e0e287654b765788079"
+ },
+ "question": "On the MaleCNS wiring, under the published model, does sweet taste drive the proboscis motor neuron MN9, and does bitter taste suppress it, specifically and on a plateau?",
+ "stoppedEarly": true,
+ "verdict": "fail"
+}

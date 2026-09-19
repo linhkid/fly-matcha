@@ -10,7 +10,9 @@ A fly cannot brew tea or knit. It can taste, refuse bitterness, and clean dust o
 
 The user's decisions are N1 and N6 to N15 in [choices.md](choices.md). The ones that shape everything: they want to SEE it, they want real interactions and as little staging as possible (N12), a pause is a reading break with Dostoevsky (N10), tasting is unhurried (N11), and his legs should move through his own neurons with his brain reacting (N14, slice V3). Approved downloads so far, each for its own session: the Python packages, the 58 MB and 508 MB source files, the npm packages. The repository is on GitHub as `linhkid/fly-matcha`. The user makes the commits and pushes: finish a pass, say what changed, offer the command. The user sometimes edits files on GitHub, so fetch before you start. Ultracode was switched on: use workflows for reviews and research.
 
-**You are picking up at slice 04, the experiment harness,** [slices/04-experiment-harness.md](slices/04-experiment-harness.md), which needs no data, and then **05, the taste law**, which is the concept gate and is what licenses him to drink. A pilot trial takes about 3 s per 300 ms of his time on one core; trials are independent, and the machine has ten. If the user would rather see him move first, V3's stage A needs nothing new, and its stage B (his brain reacting to his own movement) can now be built, because the graph exists. Read [choices.md](choices.md) before you make any decision the slices leave open, and append to it when you do.
+**You are picking up after slice 05 failed, and the next step is the user's to choose.** Slice 04, the harness, is done. E01 and its declared rerun E01b both **failed P1**: sweet at 100 Hz does not make MN9 fire 32 times in nine of ten seeds, at the published weight (never) or at the recalibrated one (eight of ten, because the network is bistable there). The brake held in both. Read `assets/evidence/05/README.md` first. **Do not tune, and do not rerun the same claim hoping for a ninth seed.** One rerun is left by the slice's rules. `taste.drink` is off in `contracts/mechanics.json` and `make check` keeps it off. The drinking path on the page is built, tested and cannot run (choices T4). The user was offered three ways on: stay strict; show the proboscis reflex as a display of MN9 with no verdict and no draining cup; or pre-register a differently shaped question as a new experiment. Ask which, if they have not said.
+
+The user also has a real pause now (Space; the break moved to B; choices N16). This agent may commit pre-registrations and the harness they need, locally, no push (choices H1); everything else is the user's to commit.
 
 **How to look at the page without a person.** The browser pane throttles a hidden tab, so do not judge the animation through it. Open a still from the address, `?sip=3&phase=taste&at=0.5`, with `&break=1` or `&staged=1`, and shoot it with the Chrome already on the machine, headless, with a throwaway profile (choices K3). V1's accepted shots are in `assets/evidence/v1/`.
 
@@ -31,8 +33,8 @@ What slice 01 established is in [RESEARCH.md](RESEARCH.md) under "Name census" a
 - [x] 03 full graph → [slices/03](slices/03-full-graph.md). Accepted 2026-09-19; evidence in `assets/evidence/03/`. 164,506 neurons, 6,138,347 edges, graph `e44513e1…`
 - [ ] V3 he moves, and his nerves show it → [slices/v3](slices/v3-he-moves.md). Stage A needs V1 only; stage B needs 03. Leg census done 2026-09-19
 - [x] V2 first light → [slices/v2](slices/v2-first-light.md). Accepted 2026-09-19; evidence in `assets/evidence/v2/`. Pilot recordings, no verdict
-- [ ] 04 experiment harness → [slices/04](slices/04-experiment-harness.md)
-- [ ] 05 taste law, the concept gate → [slices/05](slices/05-taste-law.md)
+- [x] 04 experiment harness → [slices/04](slices/04-experiment-harness.md). Accepted 2026-09-19; evidence in `assets/evidence/04/`
+- [ ] 05 taste law, the concept gate → [slices/05](slices/05-taste-law.md). **Two attempts failed, 2026-09-19** (`assets/evidence/05/`). One rerun left. Waiting on the user
 - [ ] 06 lesion atlas, the product gate and first playable → [slices/06](slices/06-lesion-atlas.md)
 - [ ] 07 envelope and browser artifact, the architecture gate → [slices/07](slices/07-envelope-artifact.md)
 - [ ] 08 TypeScript engine → [slices/08](slices/08-ts-engine.md)

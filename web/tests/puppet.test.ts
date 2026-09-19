@@ -40,6 +40,16 @@ describe("the ceremony's poses", () => {
     }
   });
 
+  it("leaves in the cup what the replay says he has not drunk, and tips out only that", () => {
+    const sip = sips[0];
+    expect(pose("taste", 0.5, sip, 12, 0.4).cupLevel).toBeCloseTo(0.6);
+    expect(pose("taste", 0.5, sip, 12).cupLevel).toBe(1);                       // nothing handed in: nothing drunk
+    expect(pose("clean", 0, sip, 3.5, 0.4).cupLevel).toBeCloseTo(0.6);          // cleaning starts from what is left
+    expect(pose("clean", 0.5, sip, 3.5, 0.4).cupLevel).toBe(0);
+    expect(pose("taste", 0.5, sip, 12, 7).cupLevel).toBe(0);                    // never below empty
+    for (const phase of PHASES) expect(pose(phase, 0.5, sip, 12, 0.4).proboscis).toBe(0);   // the staging still never moves it
+  });
+
   it("fills the bowl before whisking, moves all of it to the cup, and tips the cup out while cleaning", () => {
     const sip = sips[0];
     expect(pose("brew", 0.3, sip).bowlLevel).toBe(1);

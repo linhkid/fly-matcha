@@ -51,3 +51,20 @@ def test_a_sip_the_codec_cannot_express_is_refused(sip):
 def test_the_decoder_has_no_thresholds_until_an_experiment_provides_them():
     decoder = CODEC["decoders"][0]
     assert decoder["extendAtLeast"] is None and decoder["refuseAtMost"] is None and decoder["evidence"] is None
+
+
+# ---------------------------------------------------------------- the decoder: only a passed experiment can write one
+
+def test_a_decoder_comes_from_a_passed_verdict_and_points_at_its_evidence():
+    from flylab.codec import build
+
+    prereg = {"measures": [{"id": "mn9", "group": "mn9", "stat": "spikes_sum", "window": [2000, 10000]}], "decoder": {"measure": "mn9"}, "durationSteps": 10000}
+    verdict = {"id": "E01", "verdict": "pass", "decoder": {"extendAtLeast": 40, "refuseAtMost": 3, "separated": True}, "prereg": {"sha256": "p"}}
+    decoder = build.build_decoder(verdict, prereg, "v")
+    assert (decoder["extendAtLeast"], decoder["refuseAtMost"], decoder["window"], decoder["group"]) == (40, 3, [2000, 10000], "mn9")
+    assert decoder["evidence"] == {"experiment": "E01", "verdictSha256": "v", "preregSha256": "p"}
+    assert [build.decode(c, decoder) for c in (40, 39, 4, 3, 0)] == ["extend", "neither", "neither", "refuse", "refuse"]
+    with pytest.raises(build.CodecError, match="ended in fail"):
+        build.build_decoder({**verdict, "verdict": "fail"}, prereg, "v")
+    with pytest.raises(build.CodecError, match="separated"):
+        build.build_decoder({**verdict, "decoder": {"extendAtLeast": 3, "refuseAtMost": 9, "separated": False}}, prereg, "v")

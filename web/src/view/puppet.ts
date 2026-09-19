@@ -1,4 +1,8 @@
 // What every prop is doing at a moment of the ceremony. Pure: phase and progress in, numbers out. All of it is staged.
+// One thing here is not free to move: the proboscis, and with it the tea he drinks. `pose()` never extends the one or
+// drains the other. How much he has drunk is handed in, and comes from the replay of a recording, and only when the
+// experiment that licenses drinking has passed (contracts/mechanics.json). With nothing handed in, the cup stays full.
+// The rest of this note is from the slice in which nothing was licensed yet:
 // One thing here is not free to move: the proboscis. Reaching for the tea is the model's decision, and until a recording
 // carries one, he neither drinks nor refuses. So the cup stays full while he tastes and the sweets stay on the table.
 
@@ -55,7 +59,8 @@ export function touchWindow(phaseSeconds: number): [number, number] {
   return [edge(0, middle), edge(phaseSeconds, middle)];
 }
 
-export function pose(phase: Phase, p: number, sip: SipLook, phaseSeconds: number = PHASE_SECONDS[phase]): Pose {
+export function pose(phase: Phase, p: number, sip: SipLook, phaseSeconds: number = PHASE_SECONDS[phase], drunk = 0): Pose {
+  const left = 1 - Math.min(1, Math.max(0, drunk));   // of the cup, after what the replay says he drank
   const tea = sip.scoops > 0;
   const rest: Pose = {
     walkTo: "bowl", tinLift: 0, tinTilt: 0, sifterOver: 0, grains: 0, heap: 0, kettleOver: 0, whisking: 0, bowlLevel: 0, bowlTilt: 0,
@@ -82,10 +87,10 @@ export function pose(phase: Phase, p: number, sip: SipLook, phaseSeconds: number
     }
     case "taste": {
       const lean = leanAt(p * phaseSeconds, phaseSeconds);
-      return { ...rest, walkTo: "cup", cupLevel: 1, mixed: 1, lean, touching: lean >= TOUCH };
+      return { ...rest, walkTo: "cup", cupLevel: left, mixed: 1, lean, touching: lean >= TOUCH };
     }
     case "clean":
-      return { ...rest, cupLevel: 1 - ease((p - 0.08) / 0.3), cupTip: there(p, 0.2, 0.4, 0.2), mixed: 1, wipe: bump(p), sweetsAway: ease((p - 0.45) / 0.45) };
+      return { ...rest, cupLevel: left * (1 - ease((p - 0.08) / 0.3)), cupTip: there(p, 0.2, 0.4, 0.2), mixed: 1, wipe: bump(p), sweetsAway: ease((p - 0.45) / 0.45) };
   }
 }
 

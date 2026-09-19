@@ -37,6 +37,9 @@ const POWDER = new THREE.Color(0x86a84a);
 /** A set of points, the colours they have when nothing fires, and which entry of the light each point reads. */
 interface Lit { points: THREE.Points; base: Float32Array; map: Int32Array }
 export interface Pin { x: number; y: number; visible: boolean }
+/** What the replay of a recording says he is doing at the cup. Both are zero unless drinking has been licensed. */
+export interface Drink { extension: number; drunk: number }
+const DRY: Drink = { extension: 0, drunk: 0 };
 
 export class Stage {
   readonly renderer: THREE.WebGLRenderer;
@@ -77,6 +80,7 @@ export class Stage {
   private resting = false;  // the viewer's wish: he is on a break, or on his way to one
   private atStation = true; // he stands where his work is, facing it
   private touchedAt = 0;
+  private drink: Drink = DRY;
   private title = "";
 
   constructor(canvas: HTMLCanvasElement, tiers: string[]) {
@@ -416,12 +420,13 @@ export class Stage {
    * picks it up again. `resting` is the viewer's wish; `atWork` says when he has caught up with it.
    * In a still the idle clock stands too, so that a shot can be taken twice and be the same.
    */
-  draw(state: LoopState, sip: SipLook, book: string, dt: number, resting: boolean, still = false): void {
+  draw(state: LoopState, sip: SipLook, book: string, dt: number, resting: boolean, still = false, drink: Drink = DRY): void {
+    this.drink = drink;
     if (!still) this.time += dt;
     this.resting = resting;
     this.rest = Math.min(1, Math.max(0, this.rest + (resting ? dt : this.atStation ? -dt : 0) / 0.8));
     if (resting) this.printCover(book);
-    this.place(onBreak(pose(state.phase, state.progress, sip, state.phaseSeconds), this.rest), sip, dt);
+    this.place(onBreak(pose(state.phase, state.progress, sip, state.phaseSeconds, drink.drunk), this.rest), sip, dt);
     if (!still) this.brain.rotation.y += dt * 0.12;
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
@@ -433,7 +438,7 @@ export class Stage {
     this.rest = resting ? 1 : 0;
     this.reading = 0; // so that nothing keeps him sitting
     if (resting) this.printCover(book);
-    const at = onBreak(pose(state.phase, state.progress, sip, state.phaseSeconds), this.rest);
+    const at = onBreak(pose(state.phase, state.progress, sip, state.phaseSeconds, this.drink.drunk), this.rest);
     this.place(at, sip, 10); // he turns and walks all the way
     this.place(at, sip, 10); // and turns to face his work, or sits down and opens his book
     this.reading = resting ? 1 : 0;
@@ -467,7 +472,7 @@ export class Stage {
     // To taste he steps up to the cup and lowers his head until his lips touch the tea. Touching is the stimulus; it is not drinking.
     this.puppet.group.position.set(this.flyX + Math.sin(TASTE_YAW) * TASTE_STEP * at.lean, TABLE_Y, WALK_Z + Math.cos(TASTE_YAW) * TASTE_STEP * at.lean);
     this.puppet.group.rotation.y = this.yaw;
-    this.puppet.update({ t, stride: this.stride, walking: Math.max(walking, at.lean > 0.02 && at.lean < 0.98 ? 0.6 : 0), lean: at.lean, calm: at.touching ? 1 : 0, reading: this.reading, whisking: at.whisking, wiping: at.wipe });
+    this.puppet.update({ t, stride: this.stride, walking: Math.max(walking, at.lean > 0.02 && at.lean < 0.98 ? 0.6 : 0), lean: at.lean, calm: at.touching ? 1 : 0, reading: this.reading, whisking: at.whisking, wiping: at.wipe, proboscis: at.touching ? this.drink.extension : 0 });
     if (at.lean > 0.02 && at.lean < 0.98) this.stride += step * 9; // stepping up to the cup, and back
     this.book.visible = this.reading > 0.02;
     this.book.scale.setScalar(Math.max(0.001, this.reading));

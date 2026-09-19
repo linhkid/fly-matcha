@@ -5,6 +5,7 @@
 
 import "./view/style.css";
 import codecFile from "../../contracts/codec/taste.codec.json";
+import mechanics from "../../contracts/mechanics.json";
 import { bitterLevel, type Codec } from "./codec/codec";
 import { audit } from "./honesty/honesty";
 import { readCloud, type CloudInfo } from "./view/cloud";
@@ -13,7 +14,7 @@ import { lipLayout } from "./view/lips";
 import { Loop, PHASE_SECONDS, type Phase } from "./view/loop";
 import { bookAt, type SipLook } from "./view/puppet";
 import { quantities, reactionCard } from "./view/reaction";
-import { entryFor, Replay, replayAt, stayFor, type RecordingEntry, type RecordingIndex } from "./view/replay";
+import { entryFor, Replay, replayAt, stayFor, type RecordingEntry, type RecordingIndex, type Replayed } from "./view/replay";
 import { sipAt, type Sip } from "./view/rotation";
 import { Stage } from "./view/scene";
 
@@ -96,6 +97,9 @@ async function start(): Promise<void> {
   if (recordings.dtMs !== 0.1) throw new Error(`the recordings were made with a step of ${recordings.dtMs} ms, and this page counts his time in steps of 0.1 ms`);
   const stepsPerSecond = 1000 / recordings.dtMs / SLOWDOWN;   // model steps per second on the wall, while the tea is on his lips
   const options = { stepsPerSecond, lightWindowSteps: LIGHT_WINDOW_STEPS, slowdown: SLOWDOWN };
+  // He drinks only if the mechanic is switched on, which `make check` allows only after the taste law experiment has passed,
+  // and only if the recordings were decoded by the decoder that experiment licensed.
+  const licensed = mechanics.some((m) => m.id === "taste.drink" && m.enabled) && recordings.decoder != null;   // an index from before decoders existed has none
   const entryOf = (sip: Sip): RecordingEntry => entryFor(recordings, sip.sweets, sip.teaId ? bitterLevel(codec, sip.teaId, sip.scoops) : 0);
 
   // One recording per sip of the grid, fetched when its bowl begins and kept. A recording that has not arrived shows nothing.
@@ -133,13 +137,24 @@ async function start(): Promise<void> {
   const loop = new Loop((sipIndex, phase) => (phase === "taste" ? stayFor(entryOf(sipAt(codec, sipIndex)), stepsPerSecond).seconds : PHASE_SECONDS[phase]));
   const address = stillFromAddress(loop, query);
 
-  // A break is the viewer's wish. The clock stops at once; it starts again only when he is back at his work,
-  // so nothing about the tea can happen while he is on his cushion or on his way from it.
+  // Two ways to stop the clock. A PAUSE holds the moment exactly as it is, light and all, so that it can be read.
+  // A BREAK is the viewer's wish that he rest: the clock stops at once and starts again only when he is back at his
+  // work, so nothing about the tea can happen while he is on his cushion or on his way from it.
+  let frozen = false;
   let resting = false;
   const pauseButton = element<HTMLButtonElement>("pause");
+  const freezeButton = element<HTMLButtonElement>("freeze");
+  const setFrozen = (wish: boolean): void => {
+    frozen = wish;
+    if (wish) loop.pause();
+    freezeButton.textContent = wish ? "Resume" : "Pause";
+    freezeButton.setAttribute("aria-pressed", String(wish));
+  };
+  freezeButton.addEventListener("click", () => setFrozen(!frozen));
+  if (query.get("paused") === "1") setFrozen(true);
   const setResting = (wish: boolean): void => {
     resting = wish;
-    if (wish) loop.pause();
+    if (wish) { setFrozen(false); loop.pause(); }
     pauseButton.textContent = wish ? "Back to the tea" : "Take a break";
     pauseButton.setAttribute("aria-pressed", String(wish));
   };
@@ -165,14 +180,15 @@ async function start(): Promise<void> {
   });
   if (address.showStaged) whatButton.click();
 
-  // Space belongs to a focused control; anywhere else it calls the break. A button clicked with the mouse gives focus back.
+  // Space belongs to a focused control; anywhere else it pauses. B is the break, H hides the text. A button clicked with the mouse gives focus back.
   window.addEventListener("keydown", (event) => {
     if (event.repeat || event.metaKey || event.ctrlKey || event.altKey) return;
     if (event.code === "Space" || event.key === " ") {
       if (event.target instanceof Element && event.target.closest("button, summary, a[href], input, select, textarea")) return;
       event.preventDefault();
-      setResting(!resting);
-    } else if (event.key === "h" || event.key === "H") setBare(!document.body.classList.contains("bare"));
+      setFrozen(!frozen);
+    } else if (event.key === "b" || event.key === "B") setResting(!resting);
+    else if (event.key === "h" || event.key === "H") setBare(!document.body.classList.contains("bare"));
   });
   document.addEventListener("click", (event) => {
     if (event.detail > 0 && event.target instanceof HTMLElement) event.target.closest("button")?.blur();
@@ -206,27 +222,32 @@ async function start(): Promise<void> {
 
   const pins = { brain: element("pin-brain"), cord: element("pin-cord") };
   let shownReplay: Replay | null = null;
+  let lastReplayed: Replayed | null = null;   // what his brain did with the bowl he has just tasted, for the card while he cleans up
   let shownMoment = "";
   let shownCount = "";
   let last = performance.now();
   const draw = (now: number): void => {
     const dt = Math.max(0, Math.min(0.1, (now - last) / 1000)); // a frame's timestamp can lie before the clock that was read first
     last = now;
-    if (!resting && loop.state().paused && stage.atWork) loop.resume();
+    if (!resting && !frozen && loop.state().paused && stage.atWork) loop.resume();
     const state = address.still ? loop.state() : loop.tick(dt);
     const sip = sipAt(codec, state.sipIndex);
     const book = bookAt(state.sipIndex);
     const replay = replayOf(entryOf(sip));
     replayOf(entryOf(sipAt(codec, state.sipIndex + 1)));   // the next bowl's recording, ahead of time
     if (replay !== shownReplay) { stage.setActive(replay ? replay.participants : [], replay ? replay.readoutPlaces : []); shownReplay = replay; }
-    const { replayed, cloud: cloudGlow, lips: glow } = replayAt(state, replay, dots.length, recordings.pilot, options);
+    const gone = resting || (state.paused && !frozen) || (frozen && !stage.atWork);   // on a break, on his way back, or paused while away
+    const { replayed, cloud: cloudGlow, lips: glow } = replayAt(state, gone, replay, dots.length, recordings.pilot, options, licensed);
+    if (state.phase === "select") lastReplayed = null;
+    if (replayed) lastReplayed = replayed;
     stage.applyActiveLight(cloudGlow);
     stage.applyLipLight(glow);
     glow.forEach((value, i) => {
       const lit = value > 0 ? 1 : 0;
       if (lit !== lipLit[i]) { lipLit[i] = lit; lipCircles[i].classList.toggle("lit", lit === 1); }
     });
-    stage.draw(state, lookOf(sip), book, dt, resting, address.still);
+    const drink = { extension: replayed ? replayed.extension : 0, drunk: replayed ? replayed.drunk : state.phase === "clean" && lastReplayed ? lastReplayed.drunk : 0 };
+    stage.draw(state, lookOf(sip), book, frozen ? 0 : dt, resting, address.still || frozen, drink);
 
     const at = stage.pins();
     for (const name of ["brain", "cord"] as const) {
@@ -236,12 +257,15 @@ async function start(): Promise<void> {
     }
 
     // The card is rewritten when the moment changes. While spikes are being counted only the line that counts them is.
-    const away = resting ? "break" : state.paused ? "returning" : "work";
+    const away = resting ? "break" : state.paused && !(frozen && stage.atWork) ? "returning" : "work";
     const waiting = state.phase === "taste" && !replay;
-    const moment = `${state.sipIndex}/${state.phase}/${away}/${replayed ? replayed.touching : "-"}/${waiting}`;
+    const moment = `${state.sipIndex}/${state.phase}/${away}/${replayed ? replayed.touching : "-"}/${waiting}/${frozen}`;
     const count = replayed ? `${Math.floor(replayed.steps / 40)}` : "";
+    const entry = entryOf(sip);
+    const verdict = licensed && recordings.decoder && entry.outcome !== undefined && entry.windowCount !== undefined
+      ? { outcome: entry.outcome, windowCount: entry.windowCount, decoder: recordings.decoder } : null;
     if (moment !== shownMoment || count !== shownCount) {
-      const card = reactionCard(reg, codec, info, { sip, phase: state.phase, phaseSeconds: state.phaseSeconds, stay: stayFor(entryOf(sip), stepsPerSecond), away: away === "work" ? null : { book, returning: away === "returning" }, replayed, waiting });
+      const card = reactionCard(reg, codec, info, { sip, phase: state.phase, phaseSeconds: state.phaseSeconds, stay: stayFor(entryOf(sip), stepsPerSecond), away: away === "work" ? null : { book, returning: away === "returning" }, replayed, waiting, frozen, verdict, bowl: state.sipIndex, summary: state.phase === "clean" ? lastReplayed : null });
       if (moment !== shownMoment) {
         element("track").innerHTML = trackHtml(reg, state);
         element("card-head").innerHTML = cardHeadHtml(card);

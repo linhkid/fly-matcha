@@ -99,6 +99,12 @@ Yes, in two honest ways, written up as slice V3. His 373 leg motor neurons sit i
 - **Blocked on:** the user's yes for 508 MB, for everything except the strings.
 - **Confidence:** the decision is the user's; the two-route design is mine.
 
+### N16. A real pause, to read by
+**User decision, 2026-09-19.** "Make a pause button so I can read what he feels and experiences - it seems too fast for me." N10 had turned pausing into a break, which changes the card to his book and so cannot be used to read it. Now there are two controls. **Pause** (Space) holds the moment exactly as it is: the ceremony's clock, his body, the turning cloud, and the light of the spikes in that instant, with the card left as it was and marked "Paused". **Take a break** (B) is still Dostoevsky. While he cleans up, the card also keeps what his brain did with the bowl he has just tasted, so that it can be read without pausing at all.
+
+- **Reach:** "his lips are on the tea" no longer follows the held clock but whether he is away from the cup, so a pause keeps the light and a break puts it out. `&paused=1` opens a still paused.
+- **Confidence:** the decision is the user's. That Space should mean pause, as everywhere else, and B the break, is mine.
+
 ## Needs the user
 
 ### N2. It is a browser toy plus a Python lab, one fly, flat art
@@ -434,3 +440,40 @@ The planning workflow asks for a second family. It was skipped, because that wou
 
 #### R2. A taste that is absent drives nothing
 **Implementation decision.** Level 0 is no drive at all, not a drive with a threshold of zero. The spikes are the same; the trials are not, because a driven neuron is an input neuron and has no refractory period. `sip_spec` lives beside the codec, as the one owner of what a sip is as a trial, and the card says "not driven".
+
+### Slice 04, 2026-09-19. Least confident first.
+
+#### H1. The user allowed this agent to commit pre-registrations
+**User decision, 2026-09-19.** The harness refuses a confirmation run unless the criteria are committed and unchanged, and until now every commit was the user's. Asked, the user chose: "Yes, commit it": local commits of an experiment's pre-registration and of the harness it needs, at the right moment, no push. Everything else stays uncommitted for the user as before.
+
+#### H2. No JSON Schema files, again
+**Implementation decision.** As in J1: nothing installed can check a schema, and one that nothing checks is a second owner. `load_prereg` is the authority on a pre-registration's shape, with a test per way of being malformed. The verdict's shape is fixed by the runner that writes it.
+
+#### H3. A criterion says where it is judged, and the plateau is judged per claim and jointly
+**Implementation decision.** `at: everySweepPoint` (the default) or `at: shipped`. Regime and decoder criteria are judged at the shipped model only; the others at every sweep point. A claim passes only if it passes at the shipped value AND on a run of adjacent values that includes it, for every value of the other swept parameters. The report shows each claim's passing values, so "no plateau" can be seen and not just asserted. The verdict also needs the claims to share a plateau.
+
+#### H4. Every trial is cached by everything that decides it
+**Implementation decision, delegated.** A trial's result is kept under the experiment's ignored `runs/` folder, keyed by the hash of the graph, the lock, the codec and the whole job. A long experiment survives being stopped, and a finished one reruns in seconds. Deleting the cache changes nothing: the byte-for-byte test does exactly that.
+
+#### H5. The shuffle deals out the real targets again
+**Implementation decision.** `shuffle` permutes the graph's own target list, so in-degrees are nearly kept along with out-degrees and synapse counts, then repairs repeated targets and self-edges by redrawing. It is a stricter control than drawing targets uniformly: a hub stays a hub, only its partners change.
+
+### Slice 05, 2026-09-19. Least confident first.
+
+#### T1. Two attempts, two fails, nothing tuned, and the next step handed to the user
+**Implementation decision.** E01 failed P1 at the published weight (sweet 3 gave MN9 7 to 22 spikes against 32). The slice's fallback 2 was followed to the letter: the calibration rule was written into the slice before the calibration ran, it gave 0.35 mV, and E01b ran with fresh seeds and unchanged criteria. E01b failed P1 by one seed, eight of ten, because at that weight the network has two states and in two seeds MN9 stayed silent. The brake passed at the shipped model in both. One rerun remains. None of the slice's fallbacks covers this outcome, and rerunning the same claim to get a ninth seed would be fishing, so the choice of what to ask next is the user's. `taste.drink` stays off.
+
+- **What was learnt that nobody expected:** on this model of the male wiring a stronger synaptic weight makes sweet 3 drive MN9 *less* above 0.40 mV, and from 0.35 mV the response is bistable. The published calibration rule has no stable solution here.
+- **Confidence:** high that this is what the rules ask for. The evidence note has the numbers.
+
+#### T2. A pre-registered early stop
+**Implementation decision, made and committed before E01's confirmation seeds ran.** A claim passes only if it passes at the shipped model. So once a claim that needs no control has failed there, the verdict is fail whatever else is computed, and the harness stops, marks the rest "not run", and says so in the verdict and the report. It turned two runs of about two hours each into ten minutes each. It cannot turn a pass into anything else, and a test holds it to that.
+
+#### T3. The decoder lives beside the codec, not in it
+**Implementation decision.** The slice wanted the decoder's thresholds written into `taste.codec.json`. An experiment's verdict names the codec's hash, so a codec that changed when the experiment passed could never reproduce the verdict that changed it. The decoder is `contracts/codec/taste.decoder.json`, written by the codec's one writer from a passed verdict and from nothing else. It does not exist yet.
+
+#### T4. What is built and switched off
+**Implementation decision.** The proboscis that follows MN9, the cup that drains while it is out, the decoded verdict on the card and words that follow it are all written and tested, behind `taste.drink` in `contracts/mechanics.json` and behind the presence of a licensed decoder in the recordings' index. With the mechanic off the page is exactly V2 plus the pause.
+
+#### T5. Deferred, and said so in the pre-registrations
+The narrow arm in which taste neurons called unclear take sign +1, the rival rule, the glutamate variant and one-sided drives were left out of E01 and E01b to keep a full run near two hours. None of them gates anything.

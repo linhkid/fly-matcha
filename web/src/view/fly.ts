@@ -3,7 +3,8 @@
 // Everything here is staged. He walks with an alternating tripod, as flies do, turns before he walks, breathes,
 // twitches his antennae, flicks his wings and moves his head in small jumps. He does not groom: grooming has a
 // circuit of its own in his brain, and a later slice wants that movement to be his.
-// The proboscis is built folded and stays folded: no code here can extend it.
+// The proboscis is built folded. It comes out by one number, `proboscis`, which the scene takes from the replay of a
+// recording, and which is zero unless the experiment that licenses drinking has passed.
 
 import * as THREE from "three";
 
@@ -18,6 +19,7 @@ export interface FlyMotion {
   reading: number;   // 0..1, sitting up with his book
   whisking: number;  // 0..1, front legs at the whisk
   wiping: number;    // 0..1, front legs at the cloth
+  proboscis: number; // 0..1, how far out. From MN9's recorded spikes, never from the staging.
 }
 
 const TAN = 0xa9854a, TAN_DARK = 0x7a5e30, BAND = 0x2e2216, LEG = 0x5e4826, EYE = 0xb3342a;
@@ -48,6 +50,7 @@ export class FlyPuppet {
   private readonly wings: THREE.Group[] = [];
   private readonly antennae: THREE.Group[] = [];
   private readonly legs: Leg[] = [];
+  private readonly trunk = new THREE.Group();   // rostrum and haustellum: what unfolds when the proboscis comes out
 
   constructor(private readonly make: Make) {
     this.group.add(this.body);
@@ -136,9 +139,10 @@ export class FlyPuppet {
       bristle.rotation.x = -0.5;
     }
     // the proboscis, folded under his head: rostrum, haustellum, and the two lobes of the labellum
-    const rostrum = this.make(new THREE.CylinderGeometry(0.05, 0.04, 0.1, 10), TAN_DARK, this.head);
+    this.head.add(this.trunk);
+    const rostrum = this.make(new THREE.CylinderGeometry(0.05, 0.04, 0.1, 10), TAN_DARK, this.trunk);
     rostrum.position.set(0, -0.16, 0.03);
-    const haustellum = this.make(new THREE.CylinderGeometry(0.032, 0.03, 0.09, 10), 0x4a3a22, this.head);
+    const haustellum = this.make(new THREE.CylinderGeometry(0.032, 0.03, 0.09, 10), 0x4a3a22, this.trunk);
     haustellum.position.set(0, -0.215, 0.055);
     haustellum.rotation.x = 0.5;
     this.labellum.position.set(0, -0.255, 0.085);
@@ -231,7 +235,10 @@ export class FlyPuppet {
     const gaze = (n: number): number => Math.sin(n * 12.9898) * 0.22;
     const free = busy * (1 - m.reading) * (1 - m.lean);
     this.head.rotation.y = free * (gaze(look - 1) + (gaze(look) - gaze(look - 1)) * jump) + m.reading * 0.14 * Math.sin(t * 1.1);
-    this.head.rotation.x = 0.3 * m.lean + 0.32 * m.reading;
+    this.head.rotation.x = 0.3 * m.lean + 0.32 * m.reading - 0.12 * m.proboscis;   // his head comes up a little as the proboscis goes down
+    this.head.position.y = 0.09 + 0.07 * m.proboscis;
+    this.trunk.scale.y = 1 + 0.55 * m.proboscis;                                     // rostrum and haustellum unfold
+    this.labellum.position.y = -0.255 - 0.16 * m.proboscis;                          // and his lips stay in the tea
     this.head.rotation.z = free * gaze(look + 40) * 0.3;
     this.antennae.forEach((antenna, i) => {
       const twitch = Math.max(0, Math.sin(t * 5.3 + i * 2.1) - 0.8) * 1.5;

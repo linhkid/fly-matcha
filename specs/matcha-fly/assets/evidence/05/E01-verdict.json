@@ -1,0 +1,193 @@
+{
+ "attempts": [
+  "E01-taste-law"
+ ],
+ "criteria": [
+  {
+   "id": "P1",
+   "kind": "threshold",
+   "notRun": false,
+   "observed": {
+    "hits": 0,
+    "perSeed": [
+     13,
+     22,
+     7,
+     7,
+     11,
+     9,
+     9,
+     7,
+     7,
+     11
+    ]
+   },
+   "pass": false,
+   "passAtShipped": false,
+   "passingValues": null,
+   "rejected": null
+  },
+  {
+   "id": "P2",
+   "kind": "ratio_vs_control",
+   "notRun": true,
+   "observed": null,
+   "pass": null,
+   "passAtShipped": null,
+   "passingValues": null,
+   "rejected": null
+  },
+  {
+   "id": "P3a",
+   "kind": "paired_drop",
+   "notRun": false,
+   "observed": {
+    "hits": 10,
+    "perSeedDrop": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.7142857142857143,
+     1.0
+    ]
+   },
+   "pass": null,
+   "passAtShipped": true,
+   "passingValues": null,
+   "rejected": null
+  },
+  {
+   "id": "P3b",
+   "kind": "monotone",
+   "notRun": false,
+   "observed": {
+    "means": [
+     10.3,
+     7.3,
+     3.2,
+     0.2,
+     0.0
+    ],
+    "slack": 1.03
+   },
+   "pass": null,
+   "passAtShipped": true,
+   "passingValues": null,
+   "rejected": null
+  },
+  {
+   "id": "P4",
+   "kind": "control_fraction",
+   "notRun": true,
+   "observed": null,
+   "pass": null,
+   "passAtShipped": null,
+   "passingValues": null,
+   "rejected": null
+  },
+  {
+   "id": "P5",
+   "kind": "fraction_active",
+   "notRun": true,
+   "observed": null,
+   "pass": null,
+   "passAtShipped": null,
+   "passingValues": null,
+   "rejected": null
+  },
+  {
+   "id": "P7",
+   "kind": "decoder_accuracy",
+   "notRun": true,
+   "observed": null,
+   "pass": null,
+   "passAtShipped": null,
+   "passingValues": null,
+   "rejected": null
+  }
+ ],
+ "decoder": null,
+ "gates": [],
+ "id": "E01-taste-law",
+ "inputs": {
+  "codecSha256": "f2f798a9af3573630b952153f0c83967f6bf0611486937129d816e254958788a",
+  "graphSha256": "e44513e148808b0d6fdf0198ebdfe04f8fb3783e52fef5bb178d75d6aec38ae4",
+  "lockSha256": "64b18b90f9181dd9a2f546f8213291d8f9324647ab746b4642dc3ed6260a3011",
+  "modelId": "lif-shiu-v1",
+  "seeds": {
+   "confirm": [
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109
+   ],
+   "holdout": [
+    110,
+    111,
+    112,
+    113,
+    114,
+    115,
+    116,
+    117,
+    118,
+    119
+   ],
+   "pilot": [
+    0,
+    1,
+    2
+   ]
+  },
+  "shipped": {
+   "signPolicy.unknown": 0,
+   "wSynMv": 0.275
+  },
+  "sweep": [
+   {
+    "param": "wSynMv",
+    "values": [
+     0.19,
+     0.275,
+     0.36
+    ]
+   },
+   {
+    "param": "signPolicy.unknown",
+    "values": [
+     0,
+     1
+    ]
+   }
+  ]
+ },
+ "notes": "Criteria are the ones written in specs/matcha-fly/slices/05-taste-law.md before any data existed; P6, the plateau, is the harness's rule. Decided before any confirmation seed, to keep the run under an hour on ten cores: off the shipped model the shuffle control uses 30 shuffled brains, not 100, with the same 5% limit; each random population is averaged over the first three confirmation seeds. Deferred to a later experiment and not gating: the narrow arm in which taste neurons called unclear take sign +1, the rival rule, the glutamate variant, one-sided drives. A pilot grid of 300 ms trials on seed 1 was seen before this file was written (assets/evidence/v2); pilot seeds never count, and no criterion was changed because of it. The shipped model is evaluated first: a claim passes only if it passes there, so if a claim that needs no control fails at the shipped model the verdict is fail, and the rest of the sweep and the controls, about two hours of computing that could not change it, are not run. Seen before this file was committed: three pilot seeds at the shipped model, in which sweet 3 gave MN9 counts of 9, 9 and 25 against the 32 that P1 asks for. P1 was not changed. If E01 fails on it, the slice's fallback 2, written before any data existed, applies: recalibrate the weight on pilot seeds by the published rule and rerun as E01b with fresh seeds.",
+ "plateau": {
+  "holds": false,
+  "param": "wSynMv",
+  "passing": [],
+  "values": [
+   0.19,
+   0.275,
+   0.36
+  ]
+ },
+ "prereg": {
+  "gitRev": "3011304dae98b36895787f089e0fdac85a50078a",
+  "sha256": "c6ecea5605620905ece6e18a2cc84b56ff3a9d6fb4689610faf61f9945d60d2c"
+ },
+ "question": "On the MaleCNS wiring, under the published model, does sweet taste drive the proboscis motor neuron MN9, and does bitter taste suppress it, specifically and on a plateau?",
+ "stoppedEarly": true,
+ "verdict": "fail"
+}

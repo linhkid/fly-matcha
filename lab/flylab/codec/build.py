@@ -131,3 +131,43 @@ def sip_spec(model_id: str, graph_sha: str, codec: dict, codec_sha: str, sweet: 
             drives.append({"group": entry["group"], "side": "both", "thr16": entry["levels"][level]["thr16"], "onStep": 0, "offStep": steps})
     return {"modelId": model_id, "variant": "base", "graphSha256": graph_sha, "codecSha256": codec_sha, "seed": seed,
             "durationSteps": steps, "drives": drives, "activated": [], "silenced": []}
+
+
+DECODER_PATH = CODEC_PATH.with_name("taste.decoder.json")
+
+
+def build_decoder(verdict: dict, prereg: dict, verdict_sha256: str) -> dict:
+    """The decoder a passed experiment licenses: two thresholds on a measure, with a pointer to the evidence.
+
+    It lives beside the codec, not inside it. The experiment's verdict names the codec's hash, so a codec that changed
+    when the experiment passed could never reproduce the verdict that changed it.
+    """
+    if verdict["verdict"] != "pass":
+        raise CodecError(f"{verdict['id']} ended in {verdict['verdict']}: there is no decoder to write")
+    thresholds = verdict["decoder"]
+    if not thresholds or not thresholds["separated"]:
+        raise CodecError("the verdict holds no separated thresholds")
+    measure = next(m for m in prereg["measures"] if m["id"] == prereg["decoder"]["measure"])
+    return {"id": "taste.decoder/1", "group": measure["group"], "stat": measure["stat"], "window": measure["window"], "durationSteps": prereg["durationSteps"],
+            "extendAtLeast": thresholds["extendAtLeast"], "refuseAtMost": thresholds["refuseAtMost"],
+            "rule": "extend if the count is at least extendAtLeast; refuse if it is at most refuseAtMost; neither in between",
+            "evidence": {"experiment": verdict["id"], "verdictSha256": verdict_sha256, "preregSha256": verdict["prereg"]["sha256"]}}
+
+
+def decode(count: int, decoder: dict) -> str:
+    if count >= decoder["extendAtLeast"]:
+        return "extend"
+    return "refuse" if count <= decoder["refuseAtMost"] else "neither"
+
+
+def write_decoder(experiment_dir: Path, path: Path = DECODER_PATH) -> Path:
+    import hashlib
+
+    verdict_bytes = (experiment_dir / "verdict.json").read_bytes()
+    decoder = build_decoder(json.loads(verdict_bytes), json.loads((experiment_dir / "prereg.json").read_text(encoding="utf-8")), hashlib.sha256(verdict_bytes).hexdigest())
+    path.write_text(json.dumps(decoder, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+    return path
+
+
+def load_decoder(path: Path = DECODER_PATH) -> dict | None:
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None

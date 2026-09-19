@@ -3,10 +3,10 @@
 // The voice line is staged and may never say more than the outcome supports. With no recording it says nothing about taste.
 
 import { levelHz, sipLevels, type Codec } from "../codec/codec";
-import { provenancesIn, Registry, type Provenance } from "../honesty/honesty";
+import { provenancesIn, ref, Registry, type Provenance } from "../honesty/honesty";
 import type { CloudInfo } from "./cloud";
 import type { Phase } from "./loop";
-import type { Replayed, Stay } from "./replay";
+import type { Decoder, Outcome, Replayed, Stay } from "./replay";
 import type { Sip } from "./rotation";
 
 /** Set while the ceremony's clock is held: he is reading `book`, or has shut it and is on his way back to his work. */
@@ -29,6 +29,9 @@ export function quantities(): Registry {
     .define({ id: "rec.neurons", label: "neurons beyond his taste neurons that have fired", provenance: "model", derivedFrom: [], explain: "Counted in the recording: every neuron of his brain and nerve cord that has fired at least once so far, his taste neurons apart." })
     .define({ id: "rec.readout", label: "spikes of MN9", provenance: "model", derivedFrom: [], explain: "MN9 is the pair of motor neurons that lifts the proboscis, one on each side. Counted in the recording. A count is what was measured. Whether it means he drinks is not decided until the taste law has been tested." })
     .define({ id: "rec.readoutLast", label: "when MN9 last fires in the recording", provenance: "model", derivedFrom: [], explain: "The moment of MN9's last spike, in his time, read from the recording. It is the one number his stay is made from." })
+    .define({ id: "rec.window", label: "spikes of MN9 in the decoder's window", provenance: "model", derivedFrom: [], explain: "MN9's spikes between 200 ms and one second of the recorded trial: the number the decoder reads." })
+    .define({ id: "decoder.threshold", label: "the decoder's thresholds", provenance: "model", derivedFrom: [], explain: "Fixed by rule from the confirmation seeds of the taste law experiment, before its held-out seeds were looked at: at or above the upper one he reaches for the tea, at or below the lower one he refuses." })
+    .define({ id: "drink.cup", label: "how much of the cup he has drunk", provenance: "staged", derivedFrom: ["rec.readout"], explain: "His proboscis is out while MN9 fires, and the cup drains while it is out. That MN9 fires is the model's. How fast a cup empties is ours." })
     .define({ id: "rec.undrawable", label: "spikes that cannot be drawn", provenance: "model", derivedFrom: ["cloud.points"], explain: "Spikes of neurons that have no cell body position and no place on his lips. They happened in the recording and cannot be shown." })
     .define({ id: "replay.slowdown", label: "how much slower than his time", provenance: "staged", derivedFrom: [], explain: "A choice of display: his milliseconds are stretched so that single spikes can be seen." })
     .define({ id: "linger.seconds", label: "how long he stays with the cup", provenance: "staged", derivedFrom: ["rec.readoutLast", "replay.slowdown"], explain: "His brain's part: the moment MN9 fires for the last time in the recording. Ours: that his lips stay on the tea until then and one breath longer, at this slowdown, never under eight seconds and never over twenty. A bowl that never reaches MN9 gets the shortest stay." })
@@ -45,6 +48,14 @@ const VOICE_WITHOUT_A_BRAIN: Record<Phase, string> = {
   pour: "Careful now.",
   taste: "(he says nothing)",
   clean: "Tidy bowl, tidy mind.",
+};
+
+// His words about the tea follow the decoder's outcome and nothing else: not the tea's name, not its level, not how long he stayed.
+// They exist only once the experiment that licenses a verdict has passed.
+const VOICE_AFTER_TASTING: Record<Outcome, string[]> = {
+  extend: ["Mm. Yes.", "I will have this one.", "Again, please."],
+  refuse: ["No. Not this one.", "Thank you, no.", "I will leave this bowl."],
+  neither: ["Hm.", "I cannot say.", "Hm. Let me think."],
 };
 
 // On a break he talks about his book. Still puppetry, still nothing about the taste of anything, and no line of the books is quoted.
@@ -68,7 +79,14 @@ export interface Moment {
   away: Away | null;
   replayed: Replayed | null;   // set from his first touch of the tea to the end of tasting
   waiting: boolean;            // the recording of this bowl has not arrived yet
+  verdict: Verdict | null;     // what the licensed decoder makes of this bowl's recording. Null until an experiment licenses one.
+  bowl: number;                // which bowl this is, so that his words vary without depending on anything about the tea
+  frozen: boolean;             // the viewer has stopped the clock to read
+  summary: Replayed | null;    // while he cleans up: what his brain did with the bowl he has just tasted, kept so it can be read
 }
+
+/** The decoded outcome of a bowl's recording, with the numbers it was decoded from. */
+export interface Verdict { outcome: Outcome; windowCount: number; decoder: Decoder }
 
 /** A line of the card. Its tags are the provenances of what it holds, plus any that its plain words need. */
 function line(title: string, html: string, prose: Provenance[] = []): CardLine {
@@ -97,30 +115,53 @@ export function reactionCard(reg: Registry, codec: Codec, info: CloudInfo, momen
     + ` ${reg.q("neurons.unlabelled", count("grn.bitter", (m) => !m.speaks))} of them, the whole type LB1b, with a transmitter the dataset calls unclear, so mute in the base model`;
 
   return {
-    heading: away ? (away.returning ? "Back to the tea" : `On a break · reading ${away.book}`) : `${PHASE_WORDS[phase]} · ${tea ? `${tea.maker} ${tea.blend}` : "hot water"}`,
+    heading: (moment.frozen ? "Paused · " : "") + (away ? (away.returning ? "Back to the tea" : `On a break · reading ${away.book}`) : `${PHASE_WORDS[phase]} · ${tea ? `${tea.maker} ${tea.blend}` : "hot water"}`),
     lines: [
       line("Served", served),
       line("Heard by", heard),
       line("Did", did(reg, moment), ["model"]), // even with no number in it, this line speaks about the model
       line("In his words", reg.q("voice.line", voice(moment, tea !== null))),
     ],
-    footnote: "The words are puppetry. The spikes are the model's, recorded from a run of his whole brain. No verdict has been licensed yet.",
+    footnote: moment.verdict
+      ? `The words are puppetry and follow the verdict. The verdict is not puppetry: it is decoded from MN9's recorded spikes by thresholds that experiment ${ref(moment.verdict.decoder.evidence.experiment)} fixed before its held-out seeds were looked at.`
+      : "The words are puppetry. The spikes are the model's, recorded from a run of his whole brain. No verdict has been licensed yet.",
   };
 }
 
-function voice({ phase, away }: Moment, tea: boolean): string {
+function voice({ phase, away, verdict, replayed, summary, bowl }: Moment, tea: boolean): string {
   if (away) return away.returning ? "Now, where was I?" : VOICE_ON_A_BREAK[away.book] ?? "One more chapter.";
+  const tasted = (phase === "taste" && replayed !== null && !replayed.touching) || (phase === "clean" && summary !== null);
+  if (verdict && tasted) return VOICE_AFTER_TASTING[verdict.outcome][bowl % 3];
   if (!tea && phase === "select") return "Only hot water today.";
   if (!tea && phase === "sift") return "Nothing to sift.";
   return VOICE_WITHOUT_A_BRAIN[phase];
 }
 
 // What his brain did, read from the recording and from nothing else. A count is a measurement. Slice 05 decides what it means.
-function did(reg: Registry, { phase, stay: length, replayed, away, waiting }: Moment): string {
+function counted(reg: Registry, r: Replayed): string {
+  return `his taste neurons fired ${reg.q("rec.taste", r.tasteSpikes.toLocaleString("en-US"), "recorded")} times,`
+    + ` ${reg.q("rec.neurons", r.otherNeurons.toLocaleString("en-US"), "recorded")} other neurons joined in across his brain and nerve cord,`
+    + ` and MN9, the pair that lifts his proboscis, fired ${reg.q("rec.readout", r.readoutSpikes, "recorded")} times.`;
+}
+
+/** What the licensed decoder makes of the whole recorded second. Said once he has lifted his head, not while his lips are on the tea. */
+function decoded(reg: Registry, verdict: Verdict): string {
+  const { outcome, windowCount, decoder } = verdict;
+  const count = reg.q("rec.window", windowCount, "recorded");
+  const [low, high] = [reg.q("decoder.threshold", decoder.refuseAtMost), reg.q("decoder.threshold", decoder.extendAtLeast)];
+  const reading = { extend: `at or above ${high}, so the decoder reads: he drinks.`, refuse: `at or below ${low}, so the decoder reads: he refuses.`, neither: `between ${low} and ${high}, so the decoder reads neither.` }[outcome];
+  return ` Over the whole recorded second MN9 fired ${count} times after the first fifth of it: ${reading}`;
+}
+
+function did(reg: Registry, { phase, stay: length, replayed, away, waiting, summary, verdict }: Moment): string {
   // the question a viewer has while he reads: does he need this break? He does not, and the page should not let them think so
   const rested = "The break is yours, not his. He is not tired: the model has no fatigue, no hunger and no memory, so every bowl starts from rest. A real fly would adapt, fill up and sleep.";
   if (away && !replayed) return rested;
-  if (phase !== "taste") return phase === "clean" ? "Tasting is over. What his brain did with it is gone: the model keeps nothing from one bowl to the next." : "Nothing to taste yet.";
+  if (phase === "clean") {
+    const gone = "Nothing of it is left in him: the model keeps nothing from one bowl to the next.";
+    return summary ? `With the bowl he has just tasted, in ${reg.q("model.time", `${(summary.steps / 10).toFixed(1)} ms`)} of his time, ${counted(reg, summary)}${verdict ? decoded(reg, verdict) : ""} ${gone}` : `Tasting is over. ${gone}`;
+  }
+  if (phase !== "taste") return "Nothing to taste yet.";
   const seconds = reg.q("linger.seconds", `${Number(length.seconds.toFixed(1))} s`);
   const last = length.lastStep === null ? "" : reg.q("rec.readoutLast", `${(length.lastStep / 10).toFixed(1)} ms`, "recorded");
   const stay = {
@@ -132,10 +173,9 @@ function did(reg: Registry, { phase, stay: length, replayed, away, waiting }: Mo
   if (waiting) return `The recording of this bowl has not arrived yet, so nothing is shown. ${stay}`;
   if (!replayed) return `His lips are not on the tea yet. ${stay}`;
   const ms = (replayed.steps / 10).toFixed(1);
+  const drinking = verdict ? ` His proboscis is out while MN9 fires, and he has drunk ${reg.q("drink.cup", `${Math.round(replayed.drunk * 100)}%`)} of the cup.${replayed.touching ? "" : decoded(reg, verdict)}` : "";
   const pilot = replayed.pilot ? ` A pilot recording of his whole brain, seed ${reg.q("trial.seed", replayed.seed)}: the taste law has not been tested yet, so this is what was measured, not a verdict.` : "";
-  return `${replayed.touching ? "The tea is on his lips. In" : "The tea was on his lips. In"} ${reg.q("model.time", `${ms} ms`)} of his time his taste neurons fired ${reg.q("rec.taste", replayed.tasteSpikes.toLocaleString("en-US"), "recorded")} times,`
-    + ` ${reg.q("rec.neurons", replayed.otherNeurons.toLocaleString("en-US"), "recorded")} other neurons joined in across his brain and nerve cord,`
-    + ` and MN9, the pair that lifts his proboscis, fired ${reg.q("rec.readout", replayed.readoutSpikes, "recorded")} times.`
+  return `${replayed.touching ? "The tea is on his lips. In" : "The tea was on his lips. In"} ${reg.q("model.time", `${ms} ms`)} of his time ${counted(reg, replayed)}`
     + ` ${reg.q("rec.undrawable", replayed.undrawable.toLocaleString("en-US"), "recorded")} of the spikes came from neurons with no position to draw. Shown ${reg.q("replay.slowdown", `${replayed.slowdown} times`)} slower.`
-    + `${pilot} ${away ? rested : stay}`;
+    + `${drinking}${pilot} ${away ? rested : stay}`;
 }

@@ -2,20 +2,26 @@
 // Every spike comes from a TrialRecording written by the lab's run_trial. A spike lands on a point of the cloud, on a
 // dot of his lips, or, for a neuron with no position anywhere, nowhere: those are counted and the page says so.
 // How far the replay has run is a function of the ceremony's clock alone, so a held clock holds it and a still repeats it.
-// His lips are on the tea only while that clock runs inside the touch window: this is the one owner of "touching".
+// His lips are on the tea while that clock stands inside the touch window and he is at his work: this is the one owner
+// of "touching". A viewer's pause stops the clock and leaves his lips, and the light of that moment, where they are.
+// A break takes him away from the cup, and then nothing is lit.
 
 import { light } from "./light";
 import type { LoopState } from "./loop";
 import { touchWindow } from "./puppet";
 
+export type Outcome = "extend" | "refuse" | "neither";
 export interface RecordingEntry {
   file: string; sweet: number; bitter: number; seed: number; specSha256: string; spikeHash: string;
   spikes: number; neurons: number; neuronsBeyondTaste: number;
   readoutSpikes: number; readoutFirstStep: number | null; readoutLastStep: number | null;
+  windowCount?: number; outcome?: Outcome;   // only with a licensed decoder: MN9's count in the decoder's window, and what it decodes to
 }
+/** The decoder an experiment licensed: thresholds on MN9's count in a window of the trial, with a pointer to the evidence. */
+export interface Decoder { window: [number, number]; extendAtLeast: number; refuseAtMost: number; evidence: { experiment: string } }
 export interface RecordingIndex {
   pilot: boolean; note: string; modelId: string; graphSha256: string; codecSha256: string; durationSteps: number; dtMs: number;
-  readout: { group: string; bodyIds: string[] }; recordings: RecordingEntry[];
+  readout: { group: string; bodyIds: string[] }; decoder: Decoder | null; recordings: RecordingEntry[];
 }
 export interface TrialRecording { spikeStep: number[]; spikeBodyId: string[]; spikeHash: string; spec: { seed: number; durationSteps: number } }
 
@@ -26,6 +32,8 @@ export interface Replayed {
   otherNeurons: number;     // neurons beyond them that have fired at least once so far
   readoutSpikes: number;    // spikes of MN9 so far
   undrawable: number;       // spikes so far of neurons that have no position: they happened, and cannot be shown
+  extension: number;        // 0..1, how far his proboscis is out now. Zero unless drinking is licensed.
+  drunk: number;            // 0..1 of the cup, so far. Zero unless drinking is licensed.
 }
 
 export interface ReplayOptions { stepsPerSecond: number; lightWindowSteps: number; slowdown: number }
@@ -64,6 +72,10 @@ export function stayFor(entry: RecordingEntry, stepsPerSecond: number): Stay {
   return { seconds: wanted, why: "silent", lastStep };
 }
 
+// MN9 lifts the proboscis. How its spikes become a movement is ours: the proboscis is fully out when MN9 has fired
+// three times in the last 30 ms of his time, and a quarter of a second of full extension empties the cup.
+export const DRINK = { windowSteps: 300, fullAt: 3, drainSteps: 2500 };
+
 const upTo = (sorted: ArrayLike<number>, value: number): number => { // how many entries are <= value
   let [low, high] = [0, sorted.length];
   while (low < high) { const middle = (low + high) >> 1; if (sorted[middle] <= value) low = middle + 1; else high = middle; }
@@ -78,6 +90,8 @@ export class Replay {
   private readonly readoutUpTo: Uint32Array;
   private readonly nowhereUpTo: Uint32Array;
   private readonly firstSteps: number[];           // when each neuron beyond the taste neurons first fired, ascending
+  private readonly readoutSteps: number[];         // when MN9 fired, ascending
+  private readonly drained: Float32Array;          // by step: the share of the cup that full extension so far would have emptied
 
   constructor(readonly recording: TrialRecording, cloudIndex: Map<string, number>, private readonly lipIndex: Map<string, number>, readout: Set<string>) {
     const { spikeStep, spikeBodyId } = recording;
@@ -101,7 +115,21 @@ export class Replay {
     this.place = new Map();
     for (const body of new Set(spikeBodyId)) { const point = cloudIndex.get(body); if (point !== undefined) this.place.set(body, rank.get(point)!); }
     this.firstSteps = [...first.values()].sort((a, b) => a - b);
+    this.readoutSteps = spikeStep.filter((_, i) => readout.has(spikeBodyId[i]));
+    this.drained = new Float32Array(recording.spec.durationSteps);
+    let total = 0;
+    for (let t = 0; t < this.drained.length; t++) { total += this.extensionAt(t); this.drained[t] = Math.min(1, total / DRINK.drainSteps); }
     this.readoutPlaces = [...readout].map((body) => this.place.get(body)).filter((k): k is number => k !== undefined).sort((a, b) => a - b);
+  }
+
+  /** How far out his proboscis is at a step: MN9's spikes in the window that ends there, against the number that means fully out. */
+  extensionAt(tStep: number): number {
+    const inWindow = upTo(this.readoutSteps, tStep) - upTo(this.readoutSteps, tStep - DRINK.windowSteps);
+    return Math.min(1, inWindow / DRINK.fullAt);
+  }
+
+  drunkAt(tStep: number): number {
+    return tStep < 0 ? 0 : this.drained[Math.min(tStep, this.drained.length - 1)];
   }
 
   /** Counts of everything that has happened up to and including step `tStep`. */
@@ -120,7 +148,7 @@ export class Replay {
 }
 
 /** What is replayed, and lit, at a moment of the ceremony. `replay` is null while the recording has not arrived. */
-export function replayAt(state: LoopState, replay: Replay | null, lips: number, pilot: boolean, options: ReplayOptions):
+export function replayAt(state: LoopState, away: boolean, replay: Replay | null, lips: number, pilot: boolean, options: ReplayOptions, licensed = false):
     { replayed: Replayed | null; cloud: Float32Array | null; lips: Float32Array } {
   const dark = new Float32Array(lips);
   if (state.phase !== "taste" || !replay) return { replayed: null, cloud: null, lips: dark };
@@ -128,10 +156,12 @@ export function replayAt(state: LoopState, replay: Replay | null, lips: number, 
   const t = state.progress * state.phaseSeconds;
   if (t < from) return { replayed: null, cloud: null, lips: dark };
   const steps = Math.min(replay.recording.spec.durationSteps - 1, Math.floor((Math.min(t, to) - from) * options.stepsPerSecond));
-  const touching = t <= to && !state.paused;
+  const touching = t <= to && !away;
   const glow = touching ? replay.glowAt(steps, options.lightWindowSteps) : null;
   return {
-    replayed: { seed: replay.recording.spec.seed, steps, slowdown: options.slowdown, touching, pilot, ...replay.countsAt(steps) },
+    // Drinking is a mechanic, and a mechanic needs a passed experiment. Unlicensed, MN9 is counted and lit and moves nothing.
+    replayed: { seed: replay.recording.spec.seed, steps, slowdown: options.slowdown, touching, pilot, ...replay.countsAt(steps),
+      extension: licensed && touching ? replay.extensionAt(steps) : 0, drunk: licensed ? replay.drunkAt(steps) : 0 },
     cloud: glow ? glow.cloud : null,
     lips: glow ? glow.lips : dark,
   };

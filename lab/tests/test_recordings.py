@@ -31,6 +31,15 @@ def test_level_zero_is_no_drive_at_all():
     assert [d["group"] for d in sip_spec("m", "g", CODEC, "c", 0, 3, 1, 3000)["drives"]] == ["grn.bitter"]
 
 
+def test_with_a_licensed_decoder_the_summary_holds_the_count_in_its_window_and_the_outcome():
+    recording = {"spikeStep": [10, 2000, 2500, 9999, 10000], "spikeBodyId": ["20", "20", "21", "20", "20"]}
+    decoder = {"window": [2000, 10000], "extendAtLeast": 3, "refuseAtMost": 1}
+    summary = R.summarise(recording, readout={"20", "21"}, taste=set(), decoder=decoder)
+    assert (summary["windowCount"], summary["outcome"], summary["readoutSpikes"]) == (3, "extend", 5)      # the window is [2000, 10000)
+    assert R.summarise({"spikeStep": [5], "spikeBodyId": ["20"]}, {"20"}, set(), decoder)["outcome"] == "refuse"
+    assert "outcome" not in R.summarise(recording, {"20"}, set())                                          # no decoder, no verdict
+
+
 def test_the_summary_counts_what_the_recording_holds():
     recording = {"spikeStep": [0, 0, 5, 40, 41, 90], "spikeBodyId": ["1", "2", "9", "20", "9", "20"]}
     assert R.summarise(recording, readout={"20", "21"}, taste={"1", "2"}) == {
@@ -45,7 +54,9 @@ needs_graph = pytest.mark.skipif(not R.GRAPH_PATH.exists(), reason="needs the wh
 def test_the_recordings_are_of_this_codec_this_model_and_this_lock_and_hold_what_they_say():
     """Needs no graph. A recording made under another codec, model or lock is stale, and this is where that is caught (rule 5)."""
     index = json.loads((R.OUT_DIR / "index.json").read_text())
-    assert index["pilot"] is True and len(index["recordings"]) == 25 and index["durationSteps"] == R.DURATION_STEPS
+    assert len(index["recordings"]) == 25 and index["durationSteps"] == R.duration_steps(index["decoder"])
+    from flylab.codec.build import load_decoder
+    assert index["decoder"] == load_decoder() and index["pilot"] is (index["decoder"] is None)   # a verdict on the page only with a licensed decoder
     lock_bytes = (CIRCUITS_DIR / "taste.lock.json").read_bytes()
     lock = json.loads(lock_bytes)
     codec_sha = hashlib.sha256(CODEC_PATH.read_bytes()).hexdigest()
@@ -58,7 +69,8 @@ def test_the_recordings_are_of_this_codec_this_model_and_this_lock_and_hold_what
         assert recording["spec"] == sip_spec(index["modelId"], index["graphSha256"], CODEC, codec_sha, entry["sweet"], entry["bitter"], entry["seed"], index["durationSteps"])
         steps, bodies = np.array(recording["spikeStep"], dtype=np.int64), np.array([int(b) for b in recording["spikeBodyId"]], dtype=np.uint64)
         assert oracle.spike_hash(steps, bodies) == recording["spikeHash"]      # the hash is of these spikes, not just a string the index repeats
-        assert R.summarise(recording, groups["mn9"], groups["grn.sweet"] | groups["grn.bitter"]) == {k: entry[k] for k in ("spikes", "neurons", "neuronsBeyondTaste", "readoutSpikes", "readoutFirstStep", "readoutLastStep")}
+        keys = ("spikes", "neurons", "neuronsBeyondTaste", "readoutSpikes", "readoutFirstStep", "readoutLastStep") + (("windowCount", "outcome") if index["decoder"] else ())
+        assert R.summarise(recording, groups["mn9"], groups["grn.sweet"] | groups["grn.bitter"], index["decoder"]) == {k: entry[k] for k in keys}
         assert recording["spikeStep"] == sorted(recording["spikeStep"]) and recording["sentinelBreaches"] == []
     empty = next(e for e in index["recordings"] if e["sweet"] == 0 and e["bitter"] == 0)
     assert empty["spikes"] == 0                      # no tea, no spikes: the model has no activity of its own

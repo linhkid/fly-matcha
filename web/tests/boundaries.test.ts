@@ -45,7 +45,8 @@ describe("banned calls", () => {
   // In the engine, the scope and the swatch nothing may read a clock, make randomness of its own, or touch the page.
   // An allow-list for Math, because a deny-list is always one name short.
   const MATH_ALLOWED = new Set(["floor", "abs", "min", "max", "trunc", "sign", "imul"]);
-  const NEVER_IN_PURE = /\b(performance|Date|crypto|document|window|navigator|requestAnimationFrame|setTimeout|setInterval|localStorage|fetch)\b/;
+  // `window` only as the global: a decoder has a `window` of steps, and a property of that name touches no page
+  const NEVER_IN_PURE = /\b(performance|Date|crypto|document|navigator|requestAnimationFrame|setTimeout|setInterval|localStorage|fetch)\b|(?<![.\w])window\s*[.\[(]/;
 
   it("lets the engine, the scope and the swatch use nothing but arithmetic", () => {
     for (const path of files(src).filter((p) => /^(engine|scope|swatch)\//.test(relative(src, p)))) {
@@ -74,6 +75,8 @@ describe("banned calls", () => {
     expect(seen).toEqual(["three", "../view/scene", "three", "fs", "<computed>", "side-effect"]);
     expect("const t = performance.now()").toMatch(NEVER_IN_PURE);
     expect("new Date().getTime()").toMatch(NEVER_IN_PURE);
+    expect("window.innerWidth").toMatch(NEVER_IN_PURE);
+    expect("decoder.window[0]; interface D { window: [number, number] }").not.toMatch(NEVER_IN_PURE);
     expect("Math['random']()").toMatch(/\bMath\s*\[/);
   });
 });
