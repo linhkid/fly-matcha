@@ -1,0 +1,25 @@
+{
+ "id": "E00-synthetic",
+ "question": "On a built-in graph of eight neurons, where X excites the readout and Y inhibits it, does the harness pass a true claim, fail a false one, and reject a claim that holds at one weight only?",
+ "world": "e00",
+ "modelId": "lif-shiu-v1",
+ "attempts": [],
+ "sweep": [{"param": "wSynMv", "values": [0.19, 0.275, 0.36]}],
+ "shipped": {"wSynMv": 0.36},
+ "conditions": [
+  {"id": "x", "drives": [{"group": "x", "thr16": 6553, "side": "both"}]},
+  {"id": "y", "drives": [{"group": "y", "thr16": 6553, "side": "both"}]}
+ ],
+ "controls": [],
+ "seeds": {"pilot": [0, 1, 2], "confirm": [100, 101, 102, 103, 104, 105], "holdout": []},
+ "durationSteps": 3000,
+ "measures": [{"id": "r", "group": "r", "stat": "spikes_sum", "window": [0, 3000]}],
+ "criteria": [
+  {"id": "T1", "kind": "threshold", "says": "Driving X makes the readout fire at least 100 times. True, and true at every weight.", "measure": "r", "condition": "x", "op": ">=", "value": 100, "overSeeds": {"atLeast": 5, "of": 6}},
+  {"id": "T2", "kind": "threshold", "says": "Driving Y makes the readout fire at least 100 times. False: Y inhibits it.", "measure": "r", "condition": "y", "op": ">=", "value": 100, "overSeeds": {"atLeast": 5, "of": 6}},
+  {"id": "T3", "kind": "threshold", "says": "Driving X makes the readout fire at least 150 times. True at the shipped weight and at no other: a result on the slope of a cliff.", "measure": "r", "condition": "x", "op": ">=", "value": 150, "overSeeds": {"atLeast": 5, "of": 6}}
+ ],
+ "plateau": {"param": "wSynMv", "minAdjacent": 2, "mustHoldForAll": []},
+ "gates": [],
+ "notes": "The harness's own test. Its verdict is fail on purpose: one of its three claims is false and one has no plateau."
+}

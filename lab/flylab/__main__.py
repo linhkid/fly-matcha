@@ -111,6 +111,37 @@ def _graph(args: argparse.Namespace) -> int:
     return 0
 
 
+def _exp(args: argparse.Namespace) -> int:
+    from flylab.experiments import harness, mechanics, report
+
+    if args.command == "gate":
+        problems = mechanics.unlicensed()
+        for problem in problems:
+            print("mechanics gate:", problem)
+        print("mechanics gate:", "FAIL" if problems else "ok")
+        return 1 if problems else 0
+    path = harness.EXPERIMENTS_DIR / args.experiment / "prereg.json"
+    try:
+        experiment = harness.Experiment(path, workers=args.workers)
+        if args.command == "pilot":
+            pilot = experiment.pilot()
+            for measure, by_condition in pilot["values"].items():
+                for condition, by_seed in by_condition.items():
+                    print(f"  {measure:<8} {condition:<8} {[by_seed[s] for s in sorted(by_seed)]}")
+            print("pilot seeds never count. Nothing was consumed.")
+            return 0
+        outcome = experiment.confirm()
+    except harness.HarnessError as refusal:
+        print("refused:", refusal)
+        return 2
+    verdict = outcome["verdict"]
+    (path.parent / "report.html").write_text(report.render(experiment.prereg, verdict), encoding="utf-8")
+    for result in verdict["criteria"]:
+        print(f"  {result['id']:<4} {'pass' if result['pass'] else result['rejected'] or 'fail':<11} {result['kind']}")
+    print(f"{verdict['id']}: {verdict['verdict']}   (plateau along {verdict['plateau']['param']}: {verdict['plateau']['passing']})")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="flylab")
     areas = parser.add_subparsers(dest="area", required=True)
@@ -137,6 +168,12 @@ def main(argv: list[str] | None = None) -> int:
     graph.add_argument("command", choices=["build", "info"])
     graph.add_argument("path", nargs="?", type=Path, help="a .fskg file; default data/built/full/malecns.fskg")
     graph.set_defaults(handler=_graph)
+
+    exp = areas.add_parser("exp", help="run a pre-registered experiment, or check the mechanics gate")
+    exp.add_argument("command", choices=["pilot", "run", "gate"])
+    exp.add_argument("experiment", nargs="?", help="experiment id, e.g. E00-synthetic")
+    exp.add_argument("--workers", type=int, default=1)
+    exp.set_defaults(handler=_exp)
 
     census = areas.add_parser("census", help="bind a circuit's roles to body IDs")
     census.add_argument("circuit", help="circuit name, e.g. taste")

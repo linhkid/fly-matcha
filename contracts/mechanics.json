@@ -1,0 +1,4 @@
+[
+ {"id": "taste.drink", "requires": "E01-taste-law", "enabled": false},
+ {"id": "taste.brake", "requires": "E01-taste-law", "enabled": false}
+]
