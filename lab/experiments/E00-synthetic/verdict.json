@@ -1,0 +1,125 @@
+{
+ "attempts": [
+  "E00-synthetic"
+ ],
+ "criteria": [
+  {
+   "id": "T1",
+   "kind": "threshold",
+   "observed": {
+    "hits": 6,
+    "perSeed": [
+     155,
+     154,
+     155,
+     157,
+     156,
+     157
+    ]
+   },
+   "pass": true,
+   "passAtShipped": true,
+   "passingValues": [
+    0.19,
+    0.275,
+    0.36
+   ],
+   "rejected": null
+  },
+  {
+   "id": "T2",
+   "kind": "threshold",
+   "observed": {
+    "hits": 0,
+    "perSeed": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "pass": false,
+   "passAtShipped": false,
+   "passingValues": [],
+   "rejected": null
+  },
+  {
+   "id": "T3",
+   "kind": "threshold",
+   "observed": {
+    "hits": 6,
+    "perSeed": [
+     155,
+     154,
+     155,
+     157,
+     156,
+     157
+    ]
+   },
+   "pass": false,
+   "passAtShipped": true,
+   "passingValues": [
+    0.36
+   ],
+   "rejected": "no plateau"
+  }
+ ],
+ "decoder": null,
+ "gates": [],
+ "id": "E00-synthetic",
+ "inputs": {
+  "codecSha256": null,
+  "graphSha256": "",
+  "lockSha256": null,
+  "modelId": "lif-shiu-v1",
+  "seeds": {
+   "confirm": [
+    100,
+    101,
+    102,
+    103,
+    104,
+    105
+   ],
+   "holdout": [],
+   "pilot": [
+    0,
+    1,
+    2
+   ]
+  },
+  "shipped": {
+   "wSynMv": 0.36
+  },
+  "sweep": [
+   {
+    "param": "wSynMv",
+    "values": [
+     0.19,
+     0.275,
+     0.36
+    ]
+   }
+  ]
+ },
+ "notes": "The harness's own test. Its verdict is fail on purpose: one of its three claims is false and one has no plateau.",
+ "plateau": {
+  "holds": false,
+  "param": "wSynMv",
+  "passing": [],
+  "values": [
+   0.19,
+   0.275,
+   0.36
+  ]
+ },
+ "prereg": {
+  "gitRev": "30c6da63f3c1f626abec2f6f88dcfab162b04d62",
+  "sha256": "eaed225b8cc0adc64d59bb4aa1bb0c6b0995f16103421094715ce267461a83fe"
+ },
+ "question": "On a built-in graph of eight neurons, where X excites the readout and Y inhibits it, does the harness pass a true claim, fail a false one, and reject a claim that holds at one weight only?",
+ "verdict": "fail"
+}

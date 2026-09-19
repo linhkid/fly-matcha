@@ -1,0 +1,14 @@
+{
+ "preregSha256": "eaed225b8cc0adc64d59bb4aa1bb0c6b0995f16103421094715ce267461a83fe",
+ "seeds": {
+  "confirm": [
+   100,
+   101,
+   102,
+   103,
+   104,
+   105
+  ],
+  "holdout": []
+ }
+}

@@ -6,6 +6,8 @@
 - Pilot seeds run freely and never count. Held-out seeds are touched only by the decoder check and the rival rule.
 - A criterion that passes at a single value of the swept parameter is rejected: no plateau.
 - No timestamps anywhere: running a finished experiment again gives the same `verdict.json`, byte for byte.
+- A prereg may ask to stop early. A claim passes only if it passes at the shipped model, so once a claim that needs no
+  control has failed there the verdict is fail whatever the rest would show, and the rest is not computed. The verdict says so.
 """
 
 from __future__ import annotations
@@ -26,7 +28,7 @@ from flylab.model.spec import CONTRACTS_DIR, apply_overrides, model_from_definit
 
 EXPERIMENTS_DIR = REPO_ROOT / "lab" / "experiments"
 PREREG_KEYS = {"id", "question", "world", "modelId", "attempts", "sweep", "shipped", "conditions", "controls", "seeds", "durationSteps",
-               "measures", "decoder", "criteria", "plateau", "gates", "notes"}
+               "measures", "decoder", "criteria", "plateau", "gates", "notes", "stopEarly"}
 EVERYWHERE, SHIPPED = "everySweepPoint", "shipped"
 
 
@@ -284,6 +286,11 @@ class Experiment:
         everywhere = [c for c in p["criteria"] if c.get("at", EVERYWHERE) == EVERYWHERE]
         at_shipped = [c for c in p["criteria"] if c.get("at") == SHIPPED]
         swept_conditions = sorted({cond for c in everywhere for cond in _conditions_of(c, set(self.conditions))})
+        if p.get("stopEarly"):
+            stopped = self._stop_early(everywhere, swept_conditions, sha)
+            if stopped:
+                verdict_path.write_text(json.dumps(stopped, indent=1, sort_keys=True) + "\n")
+                return {"verdict": stopped, "byPoint": [], "holdout": {}}
         by_point = []
         for point in _points(p):
             shipped = point == p["shipped"]
@@ -327,6 +334,34 @@ class Experiment:
         }
         verdict_path.write_text(json.dumps(verdict, indent=1, sort_keys=True) + "\n")
         return {"verdict": verdict, "byPoint": by_point, "holdout": holdout_values}
+
+    def _stop_early(self, everywhere: list[dict], swept_conditions: list[str], sha: str) -> dict | None:
+        """The verdict, if a claim that needs no control already fails at the shipped model. Otherwise None, and the whole experiment runs."""
+        p = self.prereg
+        self.log(f"shipped model first {p['shipped']}: can the verdict still be a pass?")
+        values, fractions = self.measure(p["shipped"], swept_conditions, p["seeds"]["confirm"])
+        quick = [c for c in everywhere if c["kind"] in ("threshold", "paired_drop", "monotone")]
+        outcomes = {c["id"]: self.evaluate(c, p["shipped"], True, values, fractions, None) for c in quick}
+        if all(passed for passed, _ in outcomes.values()):
+            return None
+        results = []
+        for c in p["criteria"]:
+            if c["id"] in outcomes:
+                passed, observed = outcomes[c["id"]]
+                results.append({"id": c["id"], "kind": c["kind"], "observed": observed, "passAtShipped": passed, "pass": False if not passed else None,
+                                "rejected": None, "passingValues": None, "notRun": False})
+            else:
+                results.append({"id": c["id"], "kind": c["kind"], "observed": None, "passAtShipped": None, "pass": None, "rejected": None, "passingValues": None, "notRun": True})
+        return {
+            "id": p["id"], "question": p["question"], "attempts": [*p.get("attempts", []), p["id"]],
+            "prereg": {"sha256": sha, "gitRev": git_rev(self.path)},
+            "inputs": {"graphSha256": self.world.graph.sha256, "lockSha256": self.world.lock_sha256, "modelId": p["modelId"], "codecSha256": self.world.codec_sha256,
+                       "sweep": p["sweep"], "shipped": p["shipped"], "seeds": p["seeds"]},
+            "criteria": results,
+            "plateau": {"param": p["plateau"]["param"], "values": next(sw["values"] for sw in p["sweep"] if sw["param"] == p["plateau"]["param"]), "passing": [], "holds": False},
+            "decoder": None, "verdict": "fail", "gates": [], "stoppedEarly": True,
+            "notes": p.get("notes", ""),
+        }
 
     def _plateau(self, by_point: list[dict], ids: list[str]) -> dict:
         """Along one swept parameter: at which of its values does a criterion pass for ALL values of every other swept parameter?"""

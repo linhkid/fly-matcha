@@ -13,6 +13,10 @@ code{font-size:12.5px;background:#f3f1ea;padding:1px 4px;border-radius:3px}.smal
 
 
 def _chip(result: dict) -> str:
+    if result.get("notRun"):
+        return '<span class="verdict none">not run</span>'
+    if result["pass"] is None:
+        return '<span class="verdict none">passes at the shipped model; not taken further</span>'
     if result["pass"]:
         return '<span class="verdict pass">pass</span>'
     if result.get("rejected"):
@@ -40,6 +44,7 @@ def render(prereg: dict, verdict: dict, extra_html: str = "") -> str:
 <p class="q">{escape(verdict['question'])}</p>
 <h2>Criteria, written before the confirmation seeds ran</h2>
 <table><tr><th>Id</th><th>The claim</th><th>Result</th><th>Along {escape(plateau['param'])}</th><th>Observed at the shipped model</th></tr>{rows}</table>
+{"<p><b>Stopped early, as the pre-registration allows.</b> A claim passes only if it passes at the shipped model. One that needs no control failed there, so the verdict could no longer be a pass, and the rest of the sweep and the controls were not computed.</p>" if verdict.get("stoppedEarly") else ""}
 <h2>The plateau rule</h2>
 <p>Along <code>{escape(plateau['param'])}</code>, values {escape(str(plateau['values']))}: all swept criteria pass together at {escape(str(plateau['passing']))}.
 A claim that passes at a single value is rejected. The rule {'holds' if plateau['holds'] else 'does not hold'}.</p>

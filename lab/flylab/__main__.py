@@ -66,8 +66,17 @@ def _model(args: argparse.Namespace) -> int:
 
 
 def _codec(args: argparse.Namespace) -> int:
-    from flylab.codec.build import write_codec, write_fixture
+    from flylab.codec.build import CodecError, write_codec, write_decoder, write_fixture
 
+    if args.command == "decoder":   # only a passed experiment can write it
+        from flylab.experiments.harness import EXPERIMENTS_DIR
+
+        try:
+            print("decoder:", write_decoder(EXPERIMENTS_DIR / "E01-taste-law"))
+        except (CodecError, FileNotFoundError) as refusal:
+            print("refused:", refusal)
+            return 2
+        return 0
     print("codec:  ", write_codec())
     print("fixture:", write_fixture())
     return 0
@@ -137,7 +146,8 @@ def _exp(args: argparse.Namespace) -> int:
     verdict = outcome["verdict"]
     (path.parent / "report.html").write_text(report.render(experiment.prereg, verdict), encoding="utf-8")
     for result in verdict["criteria"]:
-        print(f"  {result['id']:<4} {'pass' if result['pass'] else result['rejected'] or 'fail':<11} {result['kind']}")
+        word = "not run" if result.get("notRun") else "undecided" if result["pass"] is None else "pass" if result["pass"] else result["rejected"] or "fail"
+        print(f"  {result['id']:<4} {word:<11} {result['kind']}")
     print(f"{verdict['id']}: {verdict['verdict']}   (plateau along {verdict['plateau']['param']}: {verdict['plateau']['passing']})")
     return 0
 
@@ -157,7 +167,7 @@ def main(argv: list[str] | None = None) -> int:
     model.set_defaults(handler=_model)
 
     codec = areas.add_parser("codec", help="write the codec and its fixture")
-    codec.add_argument("command", choices=["build"])
+    codec.add_argument("command", choices=["build", "decoder"])
     codec.set_defaults(handler=_codec)
 
     web = areas.add_parser("web", help="export what the browser needs")

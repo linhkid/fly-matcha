@@ -214,3 +214,33 @@ def test_a_mechanic_cannot_be_switched_on_without_a_passed_experiment_that_gates
 
 def test_the_committed_mechanics_are_all_licensed():
     assert mechanics.unlicensed() == []
+
+
+def test_a_prereg_may_stop_early_once_the_verdict_can_no_longer_be_a_pass(tmp_path):
+    path = copy_of_e00(tmp_path)
+    prereg = json.loads(path.read_text())
+    prereg["stopEarly"] = True
+    path.write_text(json.dumps(prereg))
+    calls = []
+    experiment = harness.Experiment(path, log=lambda *_: None)
+    real = experiment.trials.run
+    experiment.trials.run = lambda jobs: calls.append(len(jobs)) or real(jobs)
+    verdict = experiment.confirm(committed=lambda p: True)["verdict"]
+    assert calls == [12]                                                       # the shipped weight only: 2 conditions x 6 seeds, not three weights
+    assert verdict["verdict"] == "fail" and verdict["stoppedEarly"] is True and verdict["gates"] == []
+    by_id = {r["id"]: r for r in verdict["criteria"]}
+    assert (by_id["T2"]["passAtShipped"], by_id["T2"]["pass"]) == (False, False)  # the false claim decided it
+    assert (by_id["T1"]["passAtShipped"], by_id["T1"]["pass"]) == (True, None)    # true at the shipped weight, and not taken further
+    first = (path.parent / "verdict.json").read_bytes()
+    harness.Experiment(path, log=lambda *_: None).confirm(committed=lambda p: True)
+    assert (path.parent / "verdict.json").read_bytes() == first
+
+
+def test_stopping_early_never_turns_a_pass_into_anything_else(tmp_path):
+    path = copy_of_e00(tmp_path)
+    prereg = json.loads(path.read_text())
+    prereg["stopEarly"] = True
+    prereg["criteria"] = [prereg["criteria"][0]]                                # only the true claim: nothing fails at the shipped weight
+    path.write_text(json.dumps(prereg))
+    verdict = harness.Experiment(path, log=lambda *_: None).confirm(committed=lambda p: True)["verdict"]
+    assert verdict["verdict"] == "pass" and "stoppedEarly" not in verdict and verdict["criteria"][0]["passingValues"] == [0.19, 0.275, 0.36]
