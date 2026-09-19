@@ -1,4 +1,4 @@
-# fly-sim-k: what to know before touching it
+# fly-matcha: what to know before touching it
 
 The plan is the source of truth: `specs/matcha-fly/README.md` has a "Next Agent Prompt" with the current pickup point. `specs/matcha-fly/CONTRACTS.md` says who owns each concept and fixes the formats. `specs/matcha-fly/choices.md` records every decision made where the spec was silent; append to it when you make one.
 

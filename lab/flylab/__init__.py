@@ -1,4 +1,4 @@
-"""flylab: the Python lab for fly-sim-k.
+"""flylab: the Python lab for fly-matcha.
 
 Everything that touches the connectome starts here: fetching the source files,
 binding circuit roles to body IDs (the census), and, in later slices, the graph,

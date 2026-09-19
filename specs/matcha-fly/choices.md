@@ -19,6 +19,12 @@ Matcha has one step, tasting, that rests on the best-validated computation in fl
 - **Reversal, should the user ever change their mind:** slices 01–08 carry no theme at all; their names are `flylab` and `FSKGRAPH` on purpose. Theme enters as copy in 06, 09 and 11 and as the whole of 12. A knitting game would make the whisk-rhythm branch a blocking dependency.
 - **Still open under this decision:** the answer settled the theme only. It was not an answer to N2–N5, and it was not an instruction to start building or to download anything.
 
+### N6. The project folder is called `fly-matcha`
+**User decision, 2026-09-19.** The user renamed the folder from `fly-sim-k`. Planning documents under `assets/planning/` keep the old name because they are history. The spec folder stays `specs/matcha-fly/`, and the internal names `flylab` and `FSKGRAPH` stay, because they name no theme and no folder.
+
+- **Reach:** the lab package is now put on the path by a relative entry, so a further rename or move cannot break the import.
+- The README's title, "Fly brews Matcha?", is the user's own, written on GitHub the same day. It stands as written.
+
 ## Needs the user
 
 ### N2. It is a browser toy plus a Python lab, one fly, flat art
@@ -170,10 +176,10 @@ The planning workflow asks for a second family. It was skipped, because that wou
 
 - **Confidence:** high.
 
-#### I10. Nothing is committed
-**Process decision.** The repository was initialised as the slice says. No commit was made, because the user asked for slice 01 and was not asked about commits. The evidence folder records "uncommitted" where a commit hash would go.
+#### I10. Commits are the user's call
+**Process decision.** The repository was initialised as the slice says, and no commit was made, because the user had asked for slice 01 and had not been asked about commits. The user then made the first commit themselves, `fcb42f6`. The same holds for later slices: finish the pass, report, offer the command.
 
-- **Reversal:** one command, given in the hand-back.
+- **Reach:** the experiment harness of slice 04 refuses an uncommitted prereg, so from slice 05 on a run needs a commit before its confirmation seeds. Ask at that point rather than committing silently.
 - **Confidence:** high that asking first is right.
 
 #### I11. The census binds typed bodies only, and knows eight transmitter labels

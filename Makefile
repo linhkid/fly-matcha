@@ -1,4 +1,4 @@
-# fly-sim-k. `make check` must be green at the end of every slice.
+# fly-matcha. `make check` must be green at the end of every slice.
 PY := .venv/bin/python
 
 .PHONY: venv check test data-guard census
@@ -6,7 +6,7 @@ PY := .venv/bin/python
 venv:            ## create the environment; installing packages is a download and needs the user's yes
 	python3 -m venv .venv
 	$(PY) -m pip install --disable-pip-version-check -r lab/requirements.txt
-	echo "$(CURDIR)/lab" > "$$($(PY) -c 'import site; print(site.getsitepackages()[0])')/flylab.pth"
+	echo "../../../../lab" > "$$($(PY) -c 'import site; print(site.getsitepackages()[0])')/flylab.pth"  # relative to site-packages: survives renaming the folder
 
 check: test data-guard
 

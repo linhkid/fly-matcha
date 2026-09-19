@@ -1,6 +1,6 @@
 # Evidence: slice 01, ground and census
 
-**Accepted 2026-09-19. Census gate: pass.** Made on an uncommitted working tree: the repository was initialised in this slice and the user had not been asked about commits. When the first commit is made, record its hash here.
+**Accepted 2026-09-19. Census gate: pass.** Committed by the user as `fcb42f6` (`fcb42f680ebe85d1cdf7b6a75f83731fe99a59ad`), the repository's root commit, which also holds the whole plan. The evidence was taken on that tree just before it was committed.
 
 - `taste.census.html` is the report the slice was judged on: 29 of 29 roles bound, the three gating roles (`mn9`, `grn.bitter`, `grn.sweet`) on independent evidence, 7 of 7 anchors matching.
 - `source-columns.txt` is the "look before binding" dump of both source tables.

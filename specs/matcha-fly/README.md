@@ -6,7 +6,7 @@ A fly cannot brew tea or knit. It can taste, refuse bitterness, and clean dust o
 
 ## Next Agent Prompt
 
-**Status, 2026-09-19:** slice 01 is done and its census gate passed. The user chose the theme, matcha (choices N1), and approved two downloads: the Python packages and the 58 MB stage A files. Nothing else is approved. The repository is initialised and **nothing is committed**, because the user was not asked about commits; ask before the first one, then record its hash in `assets/evidence/01/README.md`.
+**Status, 2026-09-19:** slice 01 is done and its census gate passed. The user chose the theme, matcha (choices N1), and approved two downloads: the Python packages and the 58 MB stage A files. Nothing else is approved. The user committed slice 01 themselves as `fcb42f6`. Commits are the user's call: finish a pass, say what changed, and offer the command rather than committing unasked.
 
 **You are picking up at slice 02**, which needs no data: read [CONTRACTS.md](CONTRACTS.md), then [slices/02-model-oracle.md](slices/02-model-oracle.md). Slice 03 is also unblocked by slice 01 but downloads 508 MB and needs the user's yes first. Read [choices.md](choices.md) before you make any decision the slices leave open, and append to it when you do.
 
