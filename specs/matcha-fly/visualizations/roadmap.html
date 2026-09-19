@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matcha Fly — concept and roadmap</title>
+<style>
+  :root {
+    --bg: #f7f6f1; --fg: #22261d; --muted: #5d6354; --card: #ffffff; --border: #d9dccf;
+    --accent: #55792a; --accent-soft: #e6eed8; --amber: #8a5a00; --amber-soft: #f6ead0;
+    --grey-soft: #ebebe6; --risk: #9b2f2f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #161811; --fg: #e9ebe2; --muted: #a3a898; --card: #1f2219; --border: #363a2d;
+      --accent: #a9cc6e; --accent-soft: #2a331c; --amber: #e2b35a; --amber-soft: #3a2f16;
+      --grey-soft: #2a2c25; --risk: #e58a8a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg);
+         font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 1040px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 30px; line-height: 1.15; margin: 0 0 8px; letter-spacing: -0.01em; }
+  h2 { font-size: 20px; margin: 44px 0 6px; }
+  p.lede { font-size: 17px; color: var(--muted); margin: 0 0 6px; max-width: 70ch; }
+  p.note { color: var(--muted); margin: 4px 0 16px; max-width: 75ch; }
+  .chip { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px;
+          border: 1px solid var(--border); background: var(--grey-soft); color: var(--muted); white-space: nowrap; }
+  .chip.strong { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+  .chip.plausible { background: var(--amber-soft); color: var(--amber); border-color: transparent; }
+  .chip.unknown { color: var(--risk); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(235px, 1fr)); gap: 14px; margin-top: 14px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+  .card .n { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase; }
+  .card h3 { font-size: 17px; margin: 2px 0 8px; }
+  .card p { margin: 0 0 8px; }
+  .card .path { font: 12.5px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted);
+                background: var(--grey-soft); border-radius: 6px; padding: 6px 8px; margin: 8px 0; overflow-wrap: anywhere; }
+  .card .row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  figure { margin: 18px 0 0; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+  figure .scroll { overflow-x: auto; }
+  figure svg { display: block; width: 100%; min-width: 640px; height: auto; color: var(--fg); }
+  figcaption { color: var(--muted); font-size: 13.5px; margin-top: 10px; max-width: 85ch; }
+  table { border-collapse: collapse; width: 100%; margin-top: 12px; font-size: 14px; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+  .tablewrap { overflow-x: auto; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 4px 8px; margin-top: 14px; }
+  code { font: 13px ui-monospace, SFMono-Regular, Menlo, monospace; }
+  ol.decide { padding-left: 20px; max-width: 80ch; }
+  ol.decide li { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+<main>
+  <span class="chip strong">Theme decided 2026-09-19: matcha</span> <span class="chip">Plan · three decisions still open</span>
+  <h1>Matcha Fly</h1>
+  <p class="lede">Host a tea ceremony for one simulated male fruit fly. Every step of the ceremony is something a fly really does, run by a circuit you can watch, poke and break in the real MaleCNS wiring diagram.</p>
+  <p class="note">A fly cannot brew tea or knit. It can taste, refuse bitterness, stop at food, clean dust off itself with a whisking motion of its front legs, and learn a smell. The ceremony is built from those.</p>
+
+  <h2>The ceremony, mapped to circuits</h2>
+  <p class="note">Ordered by how much evidence says the circuit will work in a simple spiking model. The game is built on the first card. Everything after it is an experiment that may fail without blocking the game.</p>
+  <div class="grid">
+    <div class="card">
+      <div class="n">Anchor</div>
+      <h3>Sweet first, then the bitter bowl</h3>
+      <p>The fly tastes. Sugar makes the proboscis extend. Caffeine in matcha excites bitter taste neurons, which shut it down. You balance the wagashi sweet against the tea.</p>
+      <div class="path">taste neurons → GNG relay hubs → MN9 (proboscis)</div>
+      <div class="row"><span class="chip strong">Strong evidence</span><span class="chip">Validated in Shiu 2024, reproduced on MaleCNS</span></div>
+    </div>
+    <div class="card">
+      <div class="n">Experiment</div>
+      <h3>Sift the matcha</h3>
+      <p>Matcha powder is dust. Labs dust flies to make them groom. Bristle touch sensors should recruit grooming command neurons, and the fly decides what to clean first.</p>
+      <div class="path">head bristle mechanosensors → second-order → descending grooming neurons</div>
+      <div class="row"><span class="chip plausible">Plausible</span><span class="chip">Names unverified in MaleCNS</span></div>
+    </div>
+    <div class="card">
+      <div class="n">Experiment</div>
+      <h3>Arrive at the bowl</h3>
+      <p>A walking fly that steps in something sweet stops and reaches down. Leg taste neurons live in the nerve cord, which only this connectome joins to the brain.</p>
+      <div class="path">tarsal sweet neurons (VNC) → ascending → stop + MN9</div>
+      <div class="row"><span class="chip plausible">Plausible</span><span class="chip">Walking itself is scripted</span></div>
+    </div>
+    <div class="card">
+      <div class="n">Research spike</div>
+      <h3>Whisk (and knit)</h3>
+      <p>Front-leg rubbing at 7–8 Hz looks exactly like whisking. Knitting is the same motion. Nobody has shown this rhythm emerging from the wiring in a spiking model.</p>
+      <div class="path">DNg11 / DNg12 → 13A·13B inhibitory pairs → T1 leg motor neurons</div>
+      <div class="row"><span class="chip unknown">Unknown</span><span class="chip">Fallback: neurons decide when, animation scripted</span></div>
+    </div>
+    <div class="card">
+      <div class="n">Late experiment</div>
+      <h3>Learn the aroma</h3>
+      <p>Pair the smell of matcha with sugar and the mushroom body should shift its vote toward approach. In FlyBrain this moved the numbers but not the behaviour.</p>
+      <div class="path">odor → Kenyon cells → MBONs, gated by PAM / PPL1 dopamine</div>
+      <div class="row"><span class="chip unknown">Weak so far</span><span class="chip">Needs added plasticity rule</span></div>
+    </div>
+    <div class="card">
+      <div class="n">Garnish</div>
+      <h3>The brain swatch</h3>
+      <p>Your knitting idea, kept cheap: each session's spikes are knitted into a swatch, one stitch per neuron per moment. Sweet bowls and bitter bowls make visibly different cloth.</p>
+      <div class="path">recorded spikes → knit chart (no new neuroscience)</div>
+      <div class="row"><span class="chip strong">No risk</span><span class="chip">Real data only</span></div>
+    </div>
+  </div>
+
+  <h2>The anchor circuit, and where honesty lives</h2>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 900 330" role="img" aria-label="Sweet and bitter taste neurons converge through relay neurons in the gnathal ganglion onto the MN9 motor neuron. Only the middle band comes from the connectome; the dials on the left and the behaviour on the right are our model.">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="currentColor"/></marker>
+        <marker id="bar" viewBox="0 0 4 12" refX="2" refY="6" markerWidth="4" markerHeight="12" orient="auto"><rect x="0" y="0" width="4" height="12" fill="#c0504d"/></marker>
+      </defs>
+      <!-- bands -->
+      <rect x="4" y="4" width="186" height="322" rx="10" fill="none" stroke="currentColor" stroke-opacity="0.25" stroke-dasharray="5 5"/>
+      <rect x="200" y="4" width="500" height="322" rx="10" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.35"/>
+      <rect x="710" y="4" width="186" height="322" rx="10" fill="none" stroke="currentColor" stroke-opacity="0.25" stroke-dasharray="5 5"/>
+      <text x="97" y="26" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor" opacity="0.7">OUR MODEL</text>
+      <text x="450" y="26" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor" opacity="0.7">FROM THE CONNECTOME: WIRING + SIGNS</text>
+      <text x="803" y="26" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor" opacity="0.7">OUR MODEL</text>
+      <!-- dials -->
+      <rect x="22" y="70" width="150" height="50" rx="8" fill="none" stroke="currentColor"/>
+      <text x="97" y="91" text-anchor="middle" font-size="13" fill="currentColor">Sweet dial</text>
+      <text x="97" y="108" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">dose → spike rate</text>
+      <rect x="22" y="220" width="150" height="50" rx="8" fill="none" stroke="currentColor"/>
+      <text x="97" y="241" text-anchor="middle" font-size="13" fill="currentColor">Matcha dial</text>
+      <text x="97" y="258" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">caffeine → spike rate</text>
+      <!-- sensory -->
+      <rect x="222" y="70" width="150" height="50" rx="8" fill="none" stroke="currentColor"/>
+      <text x="297" y="91" text-anchor="middle" font-size="13" fill="currentColor">Sweet taste neurons</text>
+      <text x="297" y="108" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">labellum, legs</text>
+      <rect x="222" y="220" width="150" height="50" rx="8" fill="none" stroke="currentColor"/>
+      <text x="297" y="241" text-anchor="middle" font-size="13" fill="currentColor">Bitter taste neurons</text>
+      <text x="297" y="258" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">Gr66a class</text>
+      <!-- hubs -->
+      <rect x="432" y="70" width="150" height="50" rx="8" fill="none" stroke="currentColor"/>
+      <text x="507" y="91" text-anchor="middle" font-size="13" fill="currentColor">Excitatory relays</text>
+      <text x="507" y="108" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">acetylcholine, GNG</text>
+      <rect x="432" y="220" width="150" height="50" rx="8" fill="none" stroke="#c0504d" stroke-width="1.6"/>
+      <text x="507" y="241" text-anchor="middle" font-size="13" fill="currentColor">Inhibitory relays</text>
+      <text x="507" y="258" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">GABA / glutamate, GNG</text>
+      <!-- MN9 -->
+      <rect x="612" y="145" width="76" height="50" rx="8" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <text x="650" y="166" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">MN9</text>
+      <text x="650" y="183" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">1 left, 1 right</text>
+      <!-- behaviour -->
+      <rect x="728" y="145" width="150" height="50" rx="8" fill="none" stroke="currentColor"/>
+      <text x="803" y="166" text-anchor="middle" font-size="13" fill="currentColor">Proboscis extends</text>
+      <text x="803" y="183" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">spikes → drink or refuse</text>
+      <!-- arrows -->
+      <line x1="172" y1="95" x2="220" y2="95" stroke="currentColor" marker-end="url(#arr)"/>
+      <text x="196" y="87" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.75">Poisson</text>
+      <line x1="172" y1="245" x2="220" y2="245" stroke="currentColor" marker-end="url(#arr)"/>
+      <text x="196" y="237" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.75">Poisson</text>
+      <line x1="372" y1="95" x2="430" y2="95" stroke="currentColor" marker-end="url(#arr)"/>
+      <text x="401" y="87" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.75">excites</text>
+      <line x1="372" y1="245" x2="430" y2="245" stroke="currentColor" marker-end="url(#arr)"/>
+      <text x="401" y="237" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.75">excites</text>
+      <line x1="582" y1="100" x2="622" y2="143" stroke="currentColor" marker-end="url(#arr)"/>
+      <text x="622" y="112" text-anchor="start" font-size="10.5" fill="currentColor" opacity="0.75">excites</text>
+      <line x1="582" y1="240" x2="624" y2="198" stroke="#c0504d" stroke-width="1.8" marker-end="url(#bar)"/>
+      <text x="622" y="236" text-anchor="start" font-size="10.5" fill="#c0504d" font-weight="700">inhibits</text>
+      <line x1="688" y1="170" x2="726" y2="170" stroke="currentColor" marker-end="url(#arr)"/>
+      <text x="707" y="162" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.75">spikes</text>
+    </svg>
+    </div>
+    <figcaption>The red hop is the whole game: bitter taste neurons recruit inhibitory relays that silence MN9, and enough sweetness wins anyway. This is the published picture of the circuit; slices 01, 03 and 05 must find these populations in MaleCNS and measure the real paths. Only the shaded band is biology. The dials and the drink decision are ours, and the interface says so.</figcaption>
+  </figure>
+
+  <h2>The ladder</h2>
+  <p class="note">Twelve slices on the trunk, each answering one question with something you can run. Six branches hang off it and block nothing. Work that needs no download can start while you decide about the data.</p>
+  <figure>
+    <div class="scroll">
+      <svg viewBox="0 -10 960 310" role="img" aria-label="Slice ladder. Two roots, census and oracle, join at the taste law. The trunk then runs lesion atlas, envelope, taste bench, scope, journal, tea room. The engine is built from fixtures in parallel and joins at the bench. Six branches hang below and block nothing.">
+      <defs><marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="currentColor"/></marker></defs>
+      <polyline points="98,47.0 118,47.0" fill="none" stroke="currentColor" stroke-opacity="0.8" marker-end="url(#a2)"/>
+      <polyline points="196,47.0 275.0,47.0 275.0,114" fill="none" stroke="currentColor" stroke-opacity="0.8" marker-end="url(#a2)"/>
+      <text x="281.0" y="92" text-anchor="start" font-size="10.5" fill="currentColor" opacity="0.75">harness</text>
+      <polyline points="98,137.0 118,137.0" fill="none" stroke="currentColor" stroke-opacity="0.8" marker-end="url(#a2)"/>
+      <polyline points="196,137.0 236,137.0" fill="none" stroke="currentColor" stroke-opacity="0.8" marker-end="url(#a2)"/>
+      <polyline points="314,137.0 334,137.0" fill="none" stroke="currentColor" stroke-opacity="0.8" marker-end="url(#a2)"/>
+      <polyline points="412,137.0 432,137.0" fill="none" stroke="currentColor" stroke-opacity="0.8" marker-end="url(#a2)"/>
+      <polyline points="510,137.0 560,137.0" fill="none" stroke="currentColor" stroke-opacity="0.8" marker-end="url(#a2)"/>
+      <polyline points="638,137.0 658,137.0" fill="none" stroke="currentColor" stroke-opacity="0.8" marker-end="url(#a2)"/>
+      <polyline points="736,137.0 756,137.0" fill="none" stroke="currentColor" stroke-opacity="0.8" marker-end="url(#a2)"/>
+      <polyline points="834,137.0 854,137.0" fill="none" stroke="currentColor" stroke-opacity="0.8" marker-end="url(#a2)"/>
+      <polyline points="59.0,24 59.0,10 471.0,10 471.0,24" fill="none" stroke="currentColor" stroke-opacity="0.8" marker-end="url(#a2)"/>
+      <text x="250" y="7" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.75">fixtures</text>
+      <polyline points="471.0,114 471.0,70" fill="none" stroke="currentColor" stroke-opacity="0.8" marker-end="url(#a2)"/>
+      <text x="477.0" y="96" text-anchor="start" font-size="10.5" fill="currentColor" opacity="0.75">real graph</text>
+      <polyline points="510,47.0 599.0,47.0 599.0,114" fill="none" stroke="currentColor" stroke-opacity="0.8" marker-end="url(#a2)"/>
+      <polyline points="275.0,160 275.0,236" fill="none" stroke="currentColor" stroke-opacity="0.8" stroke-dasharray="4 4" marker-end="url(#a2)"/>
+      <polyline points="275.0,212 59.0,212 59.0,236" fill="none" stroke="currentColor" stroke-opacity="0.8" stroke-dasharray="4 4" marker-end="url(#a2)"/>
+      <polyline points="275.0,212 471.0,212 471.0,236" fill="none" stroke="currentColor" stroke-opacity="0.8" stroke-dasharray="4 4" marker-end="url(#a2)"/>
+      <polyline points="471.0,212 569.0,212 569.0,236" fill="none" stroke="currentColor" stroke-opacity="0.8" stroke-dasharray="4 4" marker-end="url(#a2)"/>
+      <polyline points="98,259.0 118,259.0" fill="none" stroke="currentColor" stroke-opacity="0.8" stroke-dasharray="4 4" marker-end="url(#a2)"/>
+      <polyline points="373.0,160 373.0,196 667.0,196 667.0,236" fill="none" stroke="currentColor" stroke-opacity="0.8" stroke-dasharray="4 4" marker-end="url(#a2)"/>
+      <rect x="20" y="24" width="78" height="46" rx="8" style="fill:var(--card)" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 3"/>
+      <text x="59.0" y="43" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">02</text>
+      <text x="59.0" y="59" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.8">oracle</text>
+      <rect x="118" y="24" width="78" height="46" rx="8" style="fill:var(--card)" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 3"/>
+      <text x="157.0" y="43" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">04</text>
+      <text x="157.0" y="59" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.8">harness</text>
+      <rect x="432" y="24" width="78" height="46" rx="8" style="fill:var(--card)" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 3"/>
+      <text x="471.0" y="43" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">08</text>
+      <text x="471.0" y="59" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.8">engine</text>
+      <rect x="20" y="114" width="78" height="46" rx="8" style="fill:var(--card)" stroke="#c0504d" stroke-width="2.2"/>
+      <text x="59.0" y="133" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">01</text>
+      <text x="59.0" y="149" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.8">census</text>
+      <rect x="118" y="114" width="78" height="46" rx="8" style="fill:var(--card)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="157.0" y="133" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">03</text>
+      <text x="157.0" y="149" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.8">full graph</text>
+      <rect x="236" y="114" width="78" height="46" rx="8" style="fill:var(--card)" stroke="#c0504d" stroke-width="2.2"/>
+      <text x="275.0" y="133" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">05</text>
+      <text x="275.0" y="149" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.8">taste law</text>
+      <rect x="334" y="114" width="78" height="46" rx="8" style="fill:var(--accent-soft)" stroke="#c0504d" stroke-width="2.2"/>
+      <text x="373.0" y="133" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">06</text>
+      <text x="373.0" y="149" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.8">lesion atlas</text>
+      <rect x="432" y="114" width="78" height="46" rx="8" style="fill:var(--card)" stroke="#c0504d" stroke-width="2.2"/>
+      <text x="471.0" y="133" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">07</text>
+      <text x="471.0" y="149" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.8">envelope</text>
+      <rect x="560" y="114" width="78" height="46" rx="8" style="fill:var(--accent-soft)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="599.0" y="133" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">09</text>
+      <text x="599.0" y="149" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.8">taste bench</text>
+      <rect x="658" y="114" width="78" height="46" rx="8" style="fill:var(--card)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="697.0" y="133" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">10</text>
+      <text x="697.0" y="149" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.8">scope</text>
+      <rect x="756" y="114" width="78" height="46" rx="8" style="fill:var(--card)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="795.0" y="133" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">11</text>
+      <text x="795.0" y="149" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.8">journal</text>
+      <rect x="854" y="114" width="78" height="46" rx="8" style="fill:var(--accent-soft)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="893.0" y="133" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">12</text>
+      <text x="893.0" y="149" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.8">tea room</text>
+      <rect x="20" y="236" width="78" height="46" rx="8" style="fill:var(--grey-soft)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="59.0" y="255" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">B2</text>
+      <text x="59.0" y="271" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.8">dust</text>
+      <rect x="118" y="236" width="78" height="46" rx="8" style="fill:var(--grey-soft)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="157.0" y="255" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">B3</text>
+      <text x="157.0" y="271" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.8">whisk</text>
+      <rect x="236" y="236" width="78" height="46" rx="8" style="fill:var(--grey-soft)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="275.0" y="255" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">B4</text>
+      <text x="275.0" y="271" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.8">stop</text>
+      <rect x="432" y="236" width="78" height="46" rx="8" style="fill:var(--grey-soft)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="471.0" y="255" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">B5</text>
+      <text x="471.0" y="271" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.8">aroma</text>
+      <rect x="530" y="236" width="78" height="46" rx="8" style="fill:var(--grey-soft)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="569.0" y="255" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">B6</text>
+      <text x="569.0" y="271" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.8">male</text>
+      <rect x="628" y="236" width="78" height="46" rx="8" style="fill:var(--grey-soft)" stroke="currentColor" stroke-width="1.2"/>
+      <text x="667.0" y="255" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">B1</text>
+      <text x="667.0" y="271" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.8">swatch</text>
+      </svg>
+    </div>
+    <figcaption>
+      <span class="chip" style="border-color:#c0504d;color:#c0504d">red outline: a kill point. Nothing after it starts until its verdict is written</span>
+      <span class="chip strong">green fill: something you can play</span>
+      <span class="chip">dashed outline: needs no data</span>
+      <span class="chip">grey: optional branch</span><br><br>
+      The gates are names (01), the concept (05), the product (06) and the architecture (07). Slice 06 is the first playable and needs no browser engine: it is a quiz over recordings from the whole brain. Slice 09 is the first live one. Slice 12 ships version one.
+    </figcaption>
+  </figure>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>#</th><th>Question</th><th>What you can run or see</th></tr></thead>
+      <tbody>
+        <tr><td><strong>01</strong></td><td>Do the cast members exist under names we can bind with evidence?</td><td>A census report: every role found, missing or colliding</td></tr>
+        <tr><td><strong>02</strong></td><td>Is our neuron the published one, reproducible bit for bit?</td><td>A model check report</td></tr>
+        <tr><td><strong>03</strong></td><td>Does the whole graph load into a facts-only format?</td><td>A command that prints counts and the top inputs to MN9</td></tr>
+        <tr><td><strong>04</strong></td><td>Can an experiment fail honestly?</td><td>A synthetic experiment that passes one claim and fails another</td></tr>
+        <tr><td><strong>05</strong></td><td>Does sweet drive MN9 and bitter suppress it, specifically, on a plateau?</td><td>The taste law report, with shuffled wiring and the one-line rival</td></tr>
+        <tr><td><strong>06</strong></td><td>Is predict-then-lesion deep enough to be a game?</td><td><code>/atlas</code>, a quiz over recorded whole-brain runs</td></tr>
+        <tr><td><strong>07</strong></td><td>How small a graph equals the whole brain over what the toy offers?</td><td>An extraction report</td></tr>
+        <tr><td><strong>08</strong></td><td>Is the browser engine the same model?</td><td><code>/lab/engine</code>, a parity table</td></tr>
+        <tr><td><strong>09</strong></td><td>Does a real wiring diagram refusing your tea feel like something?</td><td><code>/bench/taste</code>: compose, bet, run, replay</td></tr>
+        <tr><td><strong>10</strong></td><td>Can a cold reader see who excites whom and what fired?</td><td>The circuit scope, then the light wand</td></tr>
+        <tr><td><strong>11</strong></td><td>Do the experiments add up to understanding?</td><td>Puzzles, earned names, the "Didn't work" chapter</td></tr>
+        <tr><td><strong>12</strong></td><td>Can the ceremony be built without adding a simulation concept?</td><td><code>/tearoom</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Three tags, shown on everything</h2>
+  <div class="grid">
+    <div class="card"><div class="n">Connectome</div><h3>From the fly</h3><p>Which neurons exist, who connects to whom, how many synapses, the predicted transmitter.</p></div>
+    <div class="card"><div class="n">Model</div><h3>Ours, and we say so</h3><p>The neuron equation, excitatory or inhibitory sign, the weight of a synapse, how a scoop of matcha becomes spikes, how spikes become "he drinks".</p></div>
+    <div class="card"><div class="n">Staged</div><h3>Puppetry</h3><p>The walk to the bowl, the order of the ceremony, whisking unless an experiment says otherwise. The legs are puppetry. The decision to move them was not.</p></div>
+  </div>
+
+  <h2>Decided</h2>
+  <p class="note"><strong>Theme: matcha.</strong> You chose it on 2026-09-19. Tasting is the one step with strong evidence behind it, and knitting stays as the brain swatch. Slices 01 to 08 carry no theme, so the choice costs nothing to revisit until slice 06.</p>
+
+  <h2>Decisions still waiting for you</h2>
+  <ol class="decide">
+    <li><strong>How play feels.</strong> One-second trials with whole scoops and slow replay, not live dials. A taste decision is over in tens of milliseconds.</li>
+    <li><strong>Engine language.</strong> TypeScript in a Web Worker, not Rust compiled to WebAssembly as in both reference projects. It matters from slice 08.</li>
+    <li><strong>Downloads.</strong> Python packages from PyPI, then 58 MB for the census, then about 500 MB of connection weights from Janelia's public bucket. Nothing is downloaded until you say yes in that session.</li>
+  </ol>
+  <p class="note">Every other assumption made on your behalf is in <code>choices.md</code>, least confident first.</p>
+
+</main>
+</body>
+</html>

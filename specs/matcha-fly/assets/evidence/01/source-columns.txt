@@ -1,0 +1,50 @@
+== body-annotations.feather
+211,577 rows, 36 columns
+  assignedOlHex1               float64    non-null   23,720  distinct      36  e.g. 12.0, 28.0, 5.0, 17.0, 20.0, 15.0, 9.0, 11.0, 24.0, 14.0
+  assignedOlHex2               float64    non-null   23,720  distinct      39  e.g. 26.0, 22.0, 9.0, 28.0, 12.0, 30.0, 20.0, 32.0, 16.0, 25.0
+  bodyId                       int64      non-null  211,577  distinct 211,577  e.g. 10001, 10002, 10003, 10005, 10006, 10009, 10010, 10011, 10012, 10013
+  flywireType                  str        non-null  143,156  distinct   8,199  e.g. DNp01, OCG01d, VCH, AOTU019, VS1,VS2,VS3,VS4,VS5,VS6,VS7,VS8, CT1, OA-AL2i1, MBON01, HSN, HSE
+  group                        float64    non-null  147,514  distinct  13,747  e.g. 10001.0, 10002.0, 10003.0, 10005.0, 10006.0, 10009.0, 10011.0, 10013.0, 10015.0, 10016.0
+  instance                     str        non-null  161,506  distinct  23,932  e.g. DNp01(GF)_R, OCG01d_L, VCH_R, AOTU019_R, VS_L, CT1_L, DNp01(GF)_L, OA-AL2i1_L, VS_R, MBON01(y5B'2a)_R
+  somaSide                     str        non-null  150,726  distinct       3  e.g. R, L, M
+  statusLabel                  category   non-null  210,690  distinct      19  e.g. Roughly traced, Prelim Roughly traced, Unimportant, Reviewed, Glia, RT Hard to trace, Out of scope, Orphan, PRT Orphan, Orphan-artifact
+  superclass                   str        non-null  166,700  distinct      27  e.g. descending_neuron, visual_projection, visual_centrifugal, cb_intrinsic, ol_intrinsic, cb_motor, ascending_neuron, cb_endocrine, cb_sensory, vnc_intrinsic
+  type                         str        non-null  164,506  distinct  11,751  e.g. DNp01, OCG01d, VCH, AOTU019, VS, CT1, OA-AL2i1, MBON01, HSN, HSE
+  vfbId                        str        non-null  166,686  distinct 166,686  e.g. VFB_jrmc30my, VFB_jrmc1nh6, VFB_jrmc074n, VFB_jrmc3hk6, VFB_jrmc003x, VFB_jrmc350s, VFB_jrmc30mz, VFB_jrmc1nfb, VFB_jrmc003v, VFB_jrmc2094
+  hemibrainType                str        non-null   32,919  distinct   4,495  e.g. Giant Fiber, OCG01, VCH, AOTU019, VS, CT1, P1-9, MBON01, HSN, HSE
+  itoleeHl                     str        non-null   37,754  distinct     203  e.g. putative_primary, no_lineage, VLPl&p1_lateral, LB3, ALad1__prim, MX0__prim, SLPp&v1_ventral, EBa1, DM1_posterior, ALl1_ventral
+  supertype                    str        non-null   34,096  distinct   1,925  e.g. 10006, 10015, 10021, 10033, 10039, 10041, 10042, 10043, 10046, 10049
+  birthtime                    str        non-null    7,904  distinct       2  e.g. early, late
+  mancBodyid                   float64    non-null   18,715  distinct  18,277  e.g. 10000.0, 10002.0, 10012.0, 10061.0, 17621.0, 10111.0, 10339.0, 10021.0, 16746.0, 10093.0
+  mancGroup                    float64    non-null   14,554  distinct   5,830  e.g. 10000.0, 10012.0, 10061.0, 16837.0, 10093.0, 16567.0, 10023.0, 14557.0, 10307.0, 17211.0
+  mancType                     str        non-null   22,744  distinct   3,893  e.g. DNp01, DNp18, DNxl053, DNg56, DNg100, DNxn149, DNp20, DNp27, DNb05, DNp30
+  subclass                     str        non-null   21,930  distinct      49  e.g. lt, xn, xl, pm, BA, CA, XA, nm, fl, ut
+  synonyms                     str        non-null    3,955  distinct     280  e.g. Kennedy and Broadie 2018: GF, fru-M-100201, Matsuo 2016: AMMC-Di3, Kimura 2008, Kohatsu 2010: P2b; Cachero , Sapkal 2024: BDN2, Dorkenwald 2024: DNOVS1, Matsuo 2016: AMMC-Di7, Cachero 2010: aDT-e, Cachero 2010: aIP-b, McKellar 2019: DNa12
+  class                        str        non-null   26,513  distinct      21  e.g. MBON, ALPN, CX, ol_bilateral, ALLN, ALIN, DAN, mechanosensory, ALON, unknown_sensory
+  rootSide                     str        non-null   17,939  distinct       3  e.g. L, R, unknown
+  somaNeuromere                str        non-null   21,820  distinct      21  e.g. LB, MX, DC, T1, MD, A1, CG, T2, GNG, TC
+  trumanHl                     str        non-null   19,753  distinct      76  e.g. 03B_put1, 00B, 09B_put1, 07B, 12B, TBD, 09A_put1, 02A_put2, 07B_put2, 17A_put2
+  dimorphism                   str        non-null    2,368  distinct       4  e.g. male-specific, potentially sexually dimorphic, potentially male-specific, sexually dimorphic
+  matchingNotes                str        non-null    3,425  distinct     277  e.g. extra VNC branch mcns, biological variability, mcns bushier in VNC, more extensive dendrites in male, extra branches in male, extended anterior projection mcns, matched to one systematic type of a manc, biological variability mcns; does not re, more ventral, posterior branching mcns, extensive dorsal branching in mcns
+  entryNerve                   str        non-null   11,835  distinct      21  e.g. AN, aPhN, AbN4, ON, AbN2, MxLbN, ADMN, DMetaN, AbN3, ProLN
+  mancSerial                   float64    non-null    5,422  distinct     939  e.g. 11305.0, 10052.0, 11210.0, 12460.0, 12131.0, 11130.0, 10202.0, 10681.0, 10208.0, 10879.0
+  mcnsSerial                   float64    non-null    3,945  distinct     707  e.g. 10041.0, 10069.0, 10071.0, 10080.0, 10124.0, 10150.0, 10165.0, 10168.0, 10199.0, 10291.0
+  serialMotif                  str        non-null      902  distinct       8  e.g. brain convergent, independent, vnc convergent, cns convergent, cns tiling, sequential, complex, centripetal
+  fruDsx                       str        non-null    5,012  distinct       6  e.g. fru_low, fru_high, dsx_high, coexpress_low, coexpress_high, dsx_low
+  exitNerve                    str        non-null    1,005  distinct      28  e.g. PhN, NCC, CvN, AN, MxLbN, ON, AbN3, PDMN, AbN2, ADMN,DMetaN
+  receptorType                 str        non-null      752  distinct       3  e.g. putative_ppk25, putative_ppk23, putative_IR52b
+  somaLocation                 object     non-null  141,781  distinct      -1  e.g. array([37124, 22258, 36274]), array([50214, 10279, 27497]), array([46716, 21029, 15714]), array([41190, 18491, 12885]), array([69604, 28368, 42459]), array([49929, 20895, 14711]), array([58238, 22234, 36276]), array([52451, 31818, 14233]), array([23402, 27713, 43514]), array([47491,  8285, 17919])
+  tosomaLocation               object     non-null      995  distinct      -1  e.g. array([59041, 40434, 26364]), array([59111, 40346, 26227]), array([40857, 33079, 24534]), array([41510, 33037, 24519]), array([42085, 28673, 12126]), array([ 52183,  48280, 115927]), array([40858, 33009, 24825]), array([ 50866,  48567, 117685]), array([36197, 62038, 80683]), array([ 53417,  47788, 117669])
+  status                       str        non-null  206,105  distinct       6  e.g. Traced, Unimportant, Glia, Orphan, Anchor, Assign
+== body-neurotransmitters.feather
+1,835,518 rows, 10 columns
+  body                         int64      non-null 1,835,518  distinct 1,835,518  e.g. 10001, 10002, 10003, 10005, 10006, 10009, 10010, 10011, 10012, 10013
+  cell_type                    str        non-null  164,446  distinct  11,751  e.g. DNp01, OCG01d, VCH, AOTU019, VS, CT1, OA-AL2i1, MBON01, HSN, HSE
+  total_nt_predictions         int32      non-null 1,835,518  distinct   3,164  e.g. 1015, 1443, 4425, 2837, 426, 31347, 976, 10304, 464, 2616
+  predicted_nt_confidence      float64    non-null 1,834,661  distinct 105,294  e.g. 0.5004955542656235, 0.9558953111126071, 0.8793247902745723, 0.8350762055239446, 0.9041343101711969, 0.860412893303577, 0.557140683373016, 0.9028908693597331, 0.8597659870389329, 0.721265767041154
+  predicted_nt                 str        non-null 1,835,518  distinct       8  e.g. acetylcholine, gaba, octopamine, glutamate, unclear, serotonin, dopamine, histamine
+  ground_truth                 str        non-null   85,484  distinct       7  e.g. gaba, acetylcholine, glutamate, octopamine, serotonin, dopamine, histamine
+  celltype_total_nt_predictions int32      non-null 1,835,518  distinct   5,177  e.g. 1991, 2818, 8721, 5673, 5260, 60752, 21975, 5284, 890, 874
+  celltype_predicted_nt        str        non-null 1,835,518  distinct       8  e.g. acetylcholine, gaba, octopamine, glutamate, unclear, serotonin, dopamine, histamine
+  celltype_predicted_nt_confidence float64    non-null  164,445  distinct  11,716  e.g. 0.5282633322710556, 0.9564758206514237, 0.8747990679914234, 0.8305035310416371, 0.8200380661073382, 0.865697784118039, 0.9001997897207289, 0.7129867398374853, 0.7971761187216452, 0.9070527893618052
+  consensus_nt                 str        non-null 1,835,518  distinct       8  e.g. acetylcholine, gaba, unclear, glutamate, octopamine, serotonin, dopamine, histamine

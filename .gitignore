@@ -1,0 +1,12 @@
+# data never enters the repository (spec rule 8)
+data/raw/
+data/built/full/
+# environments and caches
+.venv/
+node_modules/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+# bulky experiment run output
+lab/experiments/*/runs/

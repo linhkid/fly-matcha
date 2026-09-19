@@ -1,0 +1,838 @@
+{
+  "circuit": "taste",
+  "version": 1,
+  "description": "Who plays which part when a male fly tastes sweet and bitter, and the populations the branches will need. Every binding carries its evidence. Roles marked required gate slice 01.",
+  "roles": [
+    {
+      "id": "mn9",
+      "role": "readout",
+      "select": {
+        "type": [
+          "MN9"
+        ]
+      },
+      "expect": {
+        "count": 2,
+        "perSide": 1,
+        "nt": "acetylcholine",
+        "basis": "anchor"
+      },
+      "required": true,
+      "evidence": {
+        "claim": "Bound by its annotated type name, MN9 (superclass cb_motor, subclass pm). The taste-feeding preprint gives MN9 the rostrum protraction step, the first movement of proboscis extension.",
+        "source": "Taste-feeding connectome preprint, bioRxiv 10.1101/2025.08.25.671814, read 2026-09-19 as Europe PMC record PPR1072256 at https://europepmc.org/article/PPR/PPR1072256 (Results, feeding motor neurons) and MaleCNS v1.0 body annotations",
+        "kind": "annotation"
+      },
+      "explain": "The motor neuron that lifts the proboscis. One on each side. If it fires, he reaches for the tea."
+    },
+    {
+      "id": "grn.bitter",
+      "role": "sensory input",
+      "select": {
+        "type": [
+          "LB1a",
+          "LB1b",
+          "LB1c",
+          "LB1d"
+        ]
+      },
+      "expect": {
+        "count": 38,
+        "nt": "acetylcholine",
+        "basis": "observed"
+      },
+      "required": true,
+      "evidence": {
+        "claim": "Labellar neurons labelled by the bitter receptor line Gr33a-GAL4 were matched by morphology to subtypes LB1a to LB1d, which the authors propose as the bitter-sensing, aversive subtypes. FlyWire had already annotated these neurons as bitter.",
+        "source": "Taste-feeding connectome preprint, bioRxiv 10.1101/2025.08.25.671814, read 2026-09-19 as Europe PMC record PPR1072256 at https://europepmc.org/article/PPR/PPR1072256 (Results, labellar bristle GRNs; Figure 2E, 2G)",
+        "kind": "paper"
+      },
+      "explain": "Taste neurons on the lips that detect bitter compounds such as caffeine. The matcha dial drives these.",
+      "flag": "proposed · six silent",
+      "caveat": "Assigned by matching shapes to light-microscopy images, not by recording from these cells. The 6 LB1b neurons have no usable transmitter label ('unclear' in the source), so in the base model their outputs carry sign 0 and do nothing: 32 of 38 bitter neurons speak."
+    },
+    {
+      "id": "grn.sweet",
+      "role": "sensory input",
+      "select": {
+        "type": [
+          "LB3b",
+          "LB3c"
+        ]
+      },
+      "expect": {
+        "count": 34,
+        "nt": "acetylcholine",
+        "basis": "anchor"
+      },
+      "required": true,
+      "evidence": {
+        "claim": "The projection patterns of both LB3b and LB3c matched neurons labelled by the sugar receptor line Gr64f-GAL4; the authors call them likely sweet-sensing. LB3b also matched Ir56b-GAL4, the low-salt attraction line.",
+        "source": "Taste-feeding connectome preprint, bioRxiv 10.1101/2025.08.25.671814, read 2026-09-19 as Europe PMC record PPR1072256 at https://europepmc.org/article/PPR/PPR1072256 (Results, labellar bristle GRNs; Figure 2E, 2G)",
+        "kind": "paper"
+      },
+      "explain": "Taste neurons on the lips that detect sugar. The sweet dial drives these.",
+      "flag": "proposed",
+      "caveat": "Assigned by matching shapes to light-microscopy images, not by recording from these cells. Filing LB3b under sweet, and not under a separate low-salt group, is this project's reading: the low-salt line is reported to label cells that also carry sugar receptors. Slice 05 tests the predicted sign; it does not define the group."
+    },
+    {
+      "id": "grn.water",
+      "role": "sensory input",
+      "select": {
+        "type": [
+          "LB3a"
+        ]
+      },
+      "expect": {
+        "count": 17,
+        "basis": "anchor"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "LB3a morphology matched ppk28-GAL4 positive neurons, proposed elsewhere as water-sensing.",
+        "source": "Taste-feeding connectome preprint, bioRxiv 10.1101/2025.08.25.671814, read 2026-09-19 as Europe PMC record PPR1072256 at https://europepmc.org/article/PPR/PPR1072256 (Results, labellar bristle GRNs; Figure 2E, 2G)",
+        "kind": "paper"
+      },
+      "explain": "Taste neurons that detect water. A possible later ingredient."
+    },
+    {
+      "id": "grn.ir94e",
+      "role": "sensory input",
+      "select": {
+        "type": [
+          "LB1e"
+        ]
+      },
+      "expect": {
+        "count": 19,
+        "basis": "observed"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "LB1e morphology matches Ir94e-expressing neurons; the authors make it the fifth LB1 subtype, within a broadly aversive type.",
+        "source": "Taste-feeding connectome preprint, bioRxiv 10.1101/2025.08.25.671814, read 2026-09-19 as Europe PMC record PPR1072256 at https://europepmc.org/article/PPR/PPR1072256 (Results, labellar bristle GRNs; Figure 2E) ; for the model result, Shiu et al. 2024 at https://pmc.ncbi.nlm.nih.gov/articles/PMC11446845/",
+        "kind": "paper"
+      },
+      "explain": "A second aversive taste population. The published brain model found these also inhibit feeding."
+    },
+    {
+      "id": "grn.highsalt",
+      "role": "sensory input",
+      "select": {
+        "type": [
+          "LB3d"
+        ]
+      },
+      "expect": {
+        "count": 26,
+        "basis": "anchor"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "LB3d matches Ir7c-GAL4 and ppk23-GAL4 positive neurons involved in avoiding high salt, and Ir47a neurons sensing heavy metal ions. Aversive, despite sitting in the otherwise appetitive LB3 type and sharing its downstream partners.",
+        "source": "Taste-feeding connectome preprint, bioRxiv 10.1101/2025.08.25.671814, read 2026-09-19 as Europe PMC record PPR1072256 at https://europepmc.org/article/PPR/PPR1072256 (Results, labellar bristle GRNs)",
+        "kind": "paper"
+      },
+      "explain": "Looks like a sweet neuron by shape, behaves like a warning. Kept out of the sweet group on purpose.",
+      "flag": "sign in doubt",
+      "caveat": "The paper describes these cells as glutamatergic, which would make them inhibitory in this model. The dataset's per-neuron predictions are split (11 acetylcholine, 8 unclear, 7 glutamate) and the consensus is acetylcholine. Do not use as an ingredient until that is settled."
+    },
+    {
+      "id": "grn.labellar.unassigned",
+      "role": "sensory input",
+      "select": {
+        "type": [
+          "LB2a",
+          "LB2b",
+          "LB2c",
+          "LB2d",
+          "LB3",
+          "LB4a",
+          "LB4b"
+        ]
+      },
+      "expect": {
+        "count": 31,
+        "basis": "observed"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "No receptor or modality could be assigned to LB2a to LB2d; they cluster with aversive types. LB4 and the single neuron typed plain LB3 are not assigned either.",
+        "source": "Taste-feeding connectome preprint, bioRxiv 10.1101/2025.08.25.671814, read 2026-09-19 as Europe PMC record PPR1072256 at https://europepmc.org/article/PPR/PPR1072256 (Results, connectivity clusters; Figure 7A)",
+        "kind": "paper"
+      },
+      "explain": "Labellar taste neurons nobody has assigned a taste to yet."
+    },
+    {
+      "id": "grn.tastepeg",
+      "role": "sensory input",
+      "select": {
+        "where": {
+          "class": [
+            "gustatory"
+          ],
+          "subclass": [
+            "taste peg"
+          ]
+        }
+      },
+      "expect": {
+        "count": 60,
+        "basis": "observed"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "Annotated class gustatory, subclass taste peg.",
+        "source": "MaleCNS v1.0 body annotations",
+        "kind": "annotation"
+      },
+      "explain": "Taste neurons in pegs on the inner lip surface."
+    },
+    {
+      "id": "grn.pharyngeal",
+      "role": "sensory input",
+      "select": {
+        "where": {
+          "class": [
+            "gustatory"
+          ],
+          "subclass": [
+            "pharyngeal sensillum"
+          ]
+        }
+      },
+      "expect": {
+        "count": 48,
+        "basis": "observed"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "Annotated class gustatory, subclass pharyngeal sensillum; the paper names them PhG1 to PhG16.",
+        "source": "MaleCNS v1.0 body annotations and Taste-feeding connectome preprint, bioRxiv 10.1101/2025.08.25.671814, read 2026-09-19 as Europe PMC record PPR1072256 at https://europepmc.org/article/PPR/PPR1072256",
+        "kind": "annotation"
+      },
+      "explain": "Taste neurons inside the throat, which check food after it is swallowed."
+    },
+    {
+      "id": "grn.leg.sweet",
+      "role": "sensory input",
+      "select": {
+        "type": [
+          "LgLG4"
+        ]
+      },
+      "expect": {
+        "count": 43,
+        "basis": "observed"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "LgLG4 anatomy matched Gr64f-GAL4 and Ir56b-GAL4 positive leg neurons; the authors propose it mediates appetitive responses to sugar and low salt, and it reaches every feeding motor neuron within a few hops.",
+        "source": "Taste-feeding connectome preprint, bioRxiv 10.1101/2025.08.25.671814, read 2026-09-19 as Europe PMC record PPR1072256 at https://europepmc.org/article/PPR/PPR1072256 (Results, leg GRNs; Figure 6I)",
+        "kind": "paper"
+      },
+      "explain": "Sweet taste neurons on the feet. What would tell a walking fly it has stepped in something good. Used by branch B4."
+    },
+    {
+      "id": "grn.leg.pheromone",
+      "role": "sensory input",
+      "select": {
+        "where": {
+          "subclass": [
+            "leg bristle"
+          ],
+          "receptorType": [
+            "putative_ppk23",
+            "putative_ppk25",
+            "putative_IR52b"
+          ]
+        }
+      },
+      "expect": {
+        "count": 463,
+        "basis": "observed"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "The receptorType column marks these leg bristle neurons putative_ppk23, putative_ppk25 or putative_IR52b, receptors tied to pheromone taste. The dataset itself calls the assignment putative.",
+        "source": "MaleCNS v1.0 body annotations (receptorType column) and Taste-feeding connectome preprint, bioRxiv 10.1101/2025.08.25.671814, read 2026-09-19 as Europe PMC record PPR1072256 at https://europepmc.org/article/PPR/PPR1072256",
+        "kind": "annotation"
+      },
+      "explain": "Foot neurons that taste another fly. Used by branch B6."
+    },
+    {
+      "id": "touch.tastebristle",
+      "role": "touch, not taste",
+      "select": {
+        "type": [
+          "BM_Taste"
+        ]
+      },
+      "expect": {
+        "count": 40,
+        "nt": "acetylcholine",
+        "basis": "anchor"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "Annotated class mechanosensory. BM-Taste neurons are the touch-sensitive neurons at the base of the labellar taste bristles; activating them elicits proboscis grooming.",
+        "source": "MaleCNS v1.0 body annotations and https://elifesciences.org/articles/108044",
+        "kind": "annotation"
+      },
+      "explain": "Touch sensors that share a bristle with taste neurons. The name misleads: fly-escape fed these to its taste group."
+    },
+    {
+      "id": "touch.eyebristle",
+      "role": "touch",
+      "select": {
+        "type": [
+          "BM_InOm"
+        ]
+      },
+      "expect": {
+        "count": 745,
+        "basis": "anchor"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "Annotated class mechanosensory; bristles between the facets of the eye. Dust on the eyes is the first thing a fly grooms away.",
+        "source": "MaleCNS v1.0 body annotations and https://elifesciences.org/articles/02951",
+        "kind": "annotation"
+      },
+      "explain": "Where matcha dust would land first. Input population for branch B2."
+    },
+    {
+      "id": "touch.headbristle.other",
+      "role": "touch",
+      "select": {
+        "typeRegex": "^BM_(?!InOm$|Taste$)"
+      },
+      "expect": {
+        "countRange": [
+          60,
+          100
+        ],
+        "basis": "observed"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "The remaining head bristle mechanosensory types.",
+        "source": "MaleCNS v1.0 body annotations",
+        "kind": "annotation"
+      },
+      "explain": "Touch sensors elsewhere on the head."
+    },
+    {
+      "id": "touch.johnston.grooming",
+      "role": "touch",
+      "select": {
+        "where": {
+          "subclass": [
+            "grooming"
+          ]
+        }
+      },
+      "expect": {
+        "countRange": [
+          40,
+          90
+        ],
+        "basis": "observed"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "Johnston's-organ neurons annotated with subclass grooming (mostly JO-FV, JO-FD1).",
+        "source": "MaleCNS v1.0 body annotations",
+        "kind": "annotation"
+      },
+      "explain": "Antennal movement sensors the dataset itself ties to grooming. A second input candidate for branch B2."
+    },
+    {
+      "id": "relay.shiu2022",
+      "role": "relay",
+      "select": {
+        "contains": {
+          "synonyms": "Shiu 2022:"
+        }
+      },
+      "expect": {
+        "countRange": [
+          30,
+          60
+        ],
+        "basis": "observed"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "Neurons whose synonyms column cites Shiu 2022, the study that traced the sugar-to-proboscis circuit and gave its relays nicknames such as Usnea, Phantom and Clavicle.",
+        "source": "MaleCNS v1.0 body annotations (synonyms column) and https://elifesciences.org/articles/79887",
+        "kind": "crosswalk"
+      },
+      "explain": "The named relays between tongue and muscle, found through the dataset's own cross-references."
+    },
+    {
+      "id": "mn.proboscis.other",
+      "role": "readout",
+      "select": {
+        "typeRegex": "^(?!MN9$).+",
+        "where": {
+          "superclass": [
+            "cb_motor"
+          ],
+          "subclass": [
+            "pm"
+          ]
+        }
+      },
+      "expect": {
+        "countRange": [
+          50,
+          80
+        ],
+        "basis": "observed"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "Annotated superclass cb_motor, subclass pm. The paper lists MN4a haustellum extension, MN6 labellar extension, MN8 labellar spreading, MN11 pharyngeal pumping, CEM crop entry.",
+        "source": "MaleCNS v1.0 body annotations and Taste-feeding connectome preprint, bioRxiv 10.1101/2025.08.25.671814, read 2026-09-19 as Europe PMC record PPR1072256 at https://europepmc.org/article/PPR/PPR1072256",
+        "kind": "annotation"
+      },
+      "explain": "The other muscles of drinking, for later."
+    },
+    {
+      "id": "dn.dng11",
+      "role": "descending",
+      "select": {
+        "type": [
+          "DNg11"
+        ]
+      },
+      "expect": {
+        "count": 6,
+        "basis": "anchor"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "Carries the name of the neuron that elicits front-leg rubbing in Guo et al. 2022, by annotation only.",
+        "source": "MaleCNS v1.0 body annotations and https://www.cell.com/current-biology/fulltext/S0960-9822(21)01742-5 ; inputs as listed at https://reiserlab.github.io/celltype-explorer-drosophila-male-cns/types/DNg11.html",
+        "kind": "annotation"
+      },
+      "explain": "Named like the leg-rubbing command neuron of the papers, but probably not it.",
+      "flag": "name collision",
+      "caveat": "All six are predicted GABAergic in this file, and the type's page on the cell type explorer lists visual and posterior-slope inputs. A command neuron for leg rubbing should excite leg circuits. Do not design around this name; branch B2 ranks every descending type without favouring any."
+    },
+    {
+      "id": "dn.dng12",
+      "role": "descending",
+      "select": {
+        "typeRegex": "^DNg12_"
+      },
+      "expect": {
+        "countRange": [
+          30,
+          70
+        ],
+        "basis": "observed"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "DNg12 elicits front-leg rubbing alternating with head sweeps in Guo et al. 2022. In MaleCNS the name is eight subtypes, DNg12_a to DNg12_h.",
+        "source": "MaleCNS v1.0 body annotations and https://www.cell.com/current-biology/fulltext/S0960-9822(21)01742-5",
+        "kind": "crosswalk"
+      },
+      "explain": "Candidate grooming command neurons. Which subtype reaches the front legs is a question for slice 03's wiring.",
+      "flag": "name match only",
+      "caveat": "The link to the grooming neuron of Guo 2022 rests on the shared name, carried by the type and cross-match columns. Slice 03's wiring decides which subtype, if any, reaches the front legs."
+    },
+    {
+      "id": "dn.adn",
+      "role": "descending",
+      "select": {
+        "type": [
+          "DNg62",
+          "DNge078"
+        ]
+      },
+      "expect": {
+        "count": 4,
+        "basis": "observed"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "The synonyms column cites Hampel 2015 for DNg62 as aDN1 and DNge078 as aDN2, the antennal grooming descending neurons.",
+        "source": "MaleCNS v1.0 body annotations (synonyms column) and https://elifesciences.org/articles/08758",
+        "kind": "crosswalk"
+      },
+      "explain": "The antennal grooming command neurons of the published brain model, under their MaleCNS names."
+    },
+    {
+      "id": "in.13a",
+      "role": "premotor",
+      "select": {
+        "typeRegex": "^IN13A"
+      },
+      "expect": {
+        "countRange": [
+          300,
+          600
+        ],
+        "nt": "gaba",
+        "basis": "observed"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "Hemilineage 13A interneurons, named IN13A### as in the male nerve cord dataset.",
+        "source": "MaleCNS v1.0 body annotations and https://elifesciences.org/articles/106446",
+        "kind": "annotation"
+      },
+      "explain": "Inhibitory neurons that set flexors against extensors in the legs. Branch B3."
+    },
+    {
+      "id": "in.13b",
+      "role": "premotor",
+      "select": {
+        "typeRegex": "^IN13B"
+      },
+      "expect": {
+        "countRange": [
+          300,
+          600
+        ],
+        "nt": "gaba",
+        "basis": "observed"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "Hemilineage 13B interneurons.",
+        "source": "MaleCNS v1.0 body annotations and https://elifesciences.org/articles/106446",
+        "kind": "annotation"
+      },
+      "explain": "Their partners in the same leg circuit. Branch B3."
+    },
+    {
+      "id": "mn.foreleg",
+      "role": "readout",
+      "select": {
+        "where": {
+          "superclass": [
+            "vnc_motor"
+          ],
+          "subclass": [
+            "fl"
+          ]
+        }
+      },
+      "expect": {
+        "countRange": [
+          100,
+          170
+        ],
+        "basis": "observed"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "Annotated superclass vnc_motor, subclass fl (front leg).",
+        "source": "MaleCNS v1.0 body annotations",
+        "kind": "annotation"
+      },
+      "explain": "Front-leg motor neurons: what would move if he whisked. Branch B3."
+    },
+    {
+      "id": "mb.kc",
+      "role": "memory",
+      "select": {
+        "where": {
+          "class": [
+            "Kenyon_Cell"
+          ]
+        }
+      },
+      "expect": {
+        "countRange": [
+          3500,
+          4500
+        ],
+        "basis": "observed"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "Annotated class Kenyon_Cell.",
+        "source": "MaleCNS v1.0 body annotations",
+        "kind": "annotation"
+      },
+      "explain": "The mushroom body's odour code. Branch B5."
+    },
+    {
+      "id": "mb.mbon",
+      "role": "memory",
+      "select": {
+        "where": {
+          "class": [
+            "MBON"
+          ]
+        }
+      },
+      "expect": {
+        "countRange": [
+          80,
+          120
+        ],
+        "basis": "observed"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "Annotated class MBON.",
+        "source": "MaleCNS v1.0 body annotations",
+        "kind": "annotation"
+      },
+      "explain": "Mushroom body outputs that vote approach or avoid. Branch B5."
+    },
+    {
+      "id": "mb.pam",
+      "role": "memory",
+      "select": {
+        "typeRegex": "^PAM"
+      },
+      "expect": {
+        "nt": "dopamine"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "PAM dopamine neurons, by type name.",
+        "source": "MaleCNS v1.0 body annotations",
+        "kind": "annotation"
+      },
+      "explain": "Reward dopamine. Branch B5."
+    },
+    {
+      "id": "mb.ppl1",
+      "role": "memory",
+      "select": {
+        "typeRegex": "^PPL1"
+      },
+      "expect": {
+        "nt": "dopamine"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "PPL1 dopamine neurons, by type name.",
+        "source": "MaleCNS v1.0 body annotations",
+        "kind": "annotation"
+      },
+      "explain": "Punishment dopamine. Branch B5."
+    },
+    {
+      "id": "song.pip10",
+      "role": "descending",
+      "select": {
+        "type": [
+          "pIP10"
+        ]
+      },
+      "expect": {
+        "count": 2,
+        "basis": "anchor"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "pIP10, a descending neuron of the courtship song pathway, by type name.",
+        "source": "MaleCNS v1.0 body annotations",
+        "kind": "annotation"
+      },
+      "explain": "Light it and a male should sing. Branch B6."
+    },
+    {
+      "id": "court.mal",
+      "role": "courtship",
+      "select": {
+        "typeRegex": "^mAL_m"
+      },
+      "expect": {
+        "count": 98,
+        "basis": "observed"
+      },
+      "required": false,
+      "evidence": {
+        "claim": "The mAL_m types, which the annotations mark fru_high and male-specific; part of the pathway from pheromone taste to courtship. Other types beginning mAL carry neither mark and are left out.",
+        "source": "MaleCNS v1.0 body annotations",
+        "kind": "annotation"
+      },
+      "explain": "Branch B6. Mostly inhibitory here, so the pathway may stay silent in this model."
+    }
+  ],
+  "aliases": [
+    {
+      "name": "Usnea",
+      "context": "sugar relay nickname, Shiu 2022"
+    },
+    {
+      "name": "Phantom",
+      "context": "sugar relay nickname, Shiu 2022"
+    },
+    {
+      "name": "Rattle",
+      "context": "sugar relay nickname, Shiu 2022"
+    },
+    {
+      "name": "G2N-1",
+      "context": "sugar relay nickname"
+    },
+    {
+      "name": "Clavicle",
+      "context": "sugar relay nickname, Shiu 2022"
+    },
+    {
+      "name": "Fudog",
+      "context": "sugar relay nickname, Shiu 2022"
+    },
+    {
+      "name": "Zorro",
+      "context": "sugar relay nickname, Shiu 2022"
+    },
+    {
+      "name": "FMIn",
+      "context": "sugar relay nickname"
+    },
+    {
+      "name": "Fdg",
+      "context": "feeding neuron"
+    },
+    {
+      "name": "Scapula",
+      "context": "relay nickname, Shiu 2022"
+    },
+    {
+      "name": "Bract",
+      "context": "premotor nickname, Shiu 2022",
+      "note": "Split into Bract 1 and Bract 2."
+    },
+    {
+      "name": "Roundup",
+      "context": "premotor nickname, Shiu 2022"
+    },
+    {
+      "name": "Roundtree",
+      "context": "premotor nickname, Shiu 2022",
+      "note": "GNG120 is one of MN9's strongest inputs on the cell type explorer."
+    },
+    {
+      "name": "Tentacular",
+      "context": "relay nickname, Sterne 2021"
+    },
+    {
+      "name": "aBN1",
+      "context": "antennal grooming interneuron, Hampel 2015",
+      "note": "Not in the dataset under any name we can search. Find it by wiring from Johnston's-organ types in slice 03, or not at all."
+    },
+    {
+      "name": "aBN2",
+      "context": "antennal grooming interneuron, Hampel 2015",
+      "note": "As aBN1."
+    },
+    {
+      "name": "aDN1",
+      "context": "antennal grooming descending neuron, Hampel 2015"
+    },
+    {
+      "name": "aDN2",
+      "context": "antennal grooming descending neuron, Hampel 2015"
+    },
+    {
+      "name": "aDN",
+      "context": "antennal descending neuron",
+      "note": "Name collision: the synonyms column gives aDN to AOTU103m, a male-specific courtship neuron from a different literature. Use aDN1 and aDN2."
+    },
+    {
+      "name": "DNg11",
+      "context": "front-leg-rub command neuron, Guo 2022",
+      "note": "Exists as a type, but see the name-collision flag on its role."
+    },
+    {
+      "name": "DNg12",
+      "context": "leg-rub and head-sweep command neuron, Guo 2022",
+      "note": "Not a type by itself: eight subtypes."
+    },
+    {
+      "name": "JO-C",
+      "context": "Johnston's organ neurons, Hampel 2015",
+      "note": "Split into JO-CA1, JO-CA2, JO-CL, JO-CM."
+    },
+    {
+      "name": "JO-E",
+      "context": "Johnston's organ neurons",
+      "note": "Split into JO-ED1, JO-ED2_a to c, JO-EV1 to 6."
+    },
+    {
+      "name": "JO-F",
+      "context": "Johnston's organ neurons",
+      "note": "Split into JO-FD1, JO-FD2, JO-FV; the FV and FD1 neurons carry subclass 'grooming'."
+    },
+    {
+      "name": "Giant Fiber",
+      "context": "escape command neuron"
+    }
+  ],
+  "anchors": [
+    {
+      "type": "MN9",
+      "expected": 2,
+      "seen": "cell type explorer, 2026-09-18"
+    },
+    {
+      "type": "LB1a",
+      "expected": 11,
+      "seen": "cell type explorer, 2026-09-18"
+    },
+    {
+      "type": "LB3a",
+      "expected": 17,
+      "seen": "cell type explorer, 2026-09-18"
+    },
+    {
+      "type": "LB3c",
+      "expected": 23,
+      "seen": "cell type explorer, 2026-09-18"
+    },
+    {
+      "type": "LB3d",
+      "expected": 26,
+      "seen": "cell type explorer, 2026-09-18"
+    },
+    {
+      "type": "BM_Taste",
+      "expected": 40,
+      "seen": "cell type explorer, 2026-09-18"
+    },
+    {
+      "type": "BM_InOm",
+      "expected": 745,
+      "seen": "cell type explorer, 2026-09-18"
+    }
+  ],
+  "notes": [
+    {
+      "title": "Why another project counted 165 labellar sugar neurons",
+      "text": "There are exactly 165 labellar bristle taste neurons in MaleCNS, across 16 types and every modality: bitter, sweet, water, salt and unassigned. The flyverse-core project's '165 labellar sugar GRNs' is that whole population. By the paper's assignment the sweet ones are LB3b and LB3c, 34 neurons."
+    },
+    {
+      "title": "Some taste neurons are mute in the base model",
+      "text": "15 of the 165 have no usable transmitter label ('unclear' in the source): all of LB1b (6), LB2b (3), LB2d (5) and the single LB3. Under the base sign policy an unlabelled neuron's outputs carry sign 0. Slice 05 runs a second arm with sign +1, and the difference for bitter is these six LB1b neurons."
+    },
+    {
+      "title": "No taste neuron and no named taste relay is flagged as dimorphic",
+      "text": "The dimorphism column is empty for every gustatory sensory neuron and for all 43 neurons cited to Shiu 2022. That is the dataset's headline, the periphery is the same in both sexes, seen on this circuit. Branch B6 turns it into the maleness strip."
+    },
+    {
+      "title": "Johnston's organ types use hyphens",
+      "text": "JO-FV, JO-CM, JO-EV1 and so on, 672 neurons in 34 types. 'JO-C' alone is not a type, which is why the explorer returned nothing for it."
+    }
+  ],
+  "inventory": {
+    "where": {
+      "class": [
+        "gustatory"
+      ]
+    },
+    "caption": "Every neuron annotated class gustatory, by subclass and type. The leg and wing types with a receptor type are the pheromone tasters."
+  }
+}
