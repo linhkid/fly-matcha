@@ -133,7 +133,14 @@ def _exp(args: argparse.Namespace) -> int:
     try:
         experiment = harness.Experiment(path, workers=args.workers)
         if args.command == "pilot":
-            pilot = experiment.pilot()
+            if args.set:   # pilot seeds at another point of the model, for a calibration the slice declared in advance
+                point = {**experiment.prereg["shipped"], **{k: float(v) for k, v in (pair.split("=") for pair in args.set)}}
+                conditions = args.conditions.split(",") if args.conditions else sorted(experiment.conditions)
+                values, _ = experiment.measure(point, conditions, experiment.prereg["seeds"]["pilot"])
+                pilot = {"values": values}
+                print("  at", point)
+            else:
+                pilot = experiment.pilot()
             for measure, by_condition in pilot["values"].items():
                 for condition, by_seed in by_condition.items():
                     print(f"  {measure:<8} {condition:<8} {[by_seed[s] for s in sorted(by_seed)]}")
@@ -183,6 +190,8 @@ def main(argv: list[str] | None = None) -> int:
     exp.add_argument("command", choices=["pilot", "run", "gate"])
     exp.add_argument("experiment", nargs="?", help="experiment id, e.g. E00-synthetic")
     exp.add_argument("--workers", type=int, default=1)
+    exp.add_argument("--set", action="append", help="pilot only: a model parameter to override, e.g. wSynMv=0.4")
+    exp.add_argument("--conditions", help="pilot only: comma-separated condition ids")
     exp.set_defaults(handler=_exp)
 
     census = areas.add_parser("census", help="bind a circuit's roles to body IDs")
