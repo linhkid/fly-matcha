@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fly brews matcha</title>
+  </head>
+  <body>
+    <canvas id="stage"></canvas>
+    <main id="hud">
+      <header id="title" class="panel"></header>
+      <nav id="controls" class="panel">
+        <div id="track"></div>
+        <button id="pause" type="button" aria-pressed="false">Pause</button>
+      </nav>
+      <aside id="card" class="panel" aria-live="polite"></aside>
+      <aside id="lips" class="panel"></aside>
+      <aside id="legend" class="panel"></aside>
+      <aside id="staged" class="panel" hidden></aside>
+      <footer id="foot"><span id="credits"></span> <button id="what" type="button" aria-pressed="false">What is staged here?</button></footer>
+      <p id="problem" class="panel" hidden></p>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

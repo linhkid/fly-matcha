@@ -23,7 +23,9 @@ Does not deliver spikes (V2), a verdict on any sip (05), lesions (06, 10) or a l
 lab/flylab/web/cloud.py      export_cloud(annotations, lock) -> data/built/web/brain.cloud + brain.cloud.json
 web/src/view/cloud.ts        readCloud(buf) -> Cloud {bodyId: BigUint64Array, xyz: Float32Array, group: Uint8Array}
 web/src/view/light.ts        light(cloud, recording | null, tStep, windowSteps) -> Float32Array      pure; null or no spikes gives all zeros
-web/src/view/loop.ts         Loop: brew → present → taste → verdict → rest → next sip, forever; pause() and resume()
+web/src/view/loop.ts         Loop: select → sift → brew → pour → taste → clean → next sip, forever; pause() and resume()
+web/src/view/reaction.ts     reactionCard(sip, phase, recording | null) -> what the card says, as data with a tag on every line
+lab/flylab/codec/build.py    the codec's one writer, created here with the levels and the tea menu; slice 05 adds the decoder
 web/src/honesty/             Provenance, SpikeSource, QuantityDef, <Q>, the DOM audit        (moved here from slice 06)
 ```
 
@@ -33,9 +35,22 @@ web/src/honesty/             Provenance, SpikeSource, QuantityDef, <Q>, the DOM 
 
 ## The loop
 
-By default the scene never stops. A sip is composed from the tea menu and the sweets, in a fixed rotation over the 25 sips of the grid and the seeds; he is offered it; the taste phase runs; the outcome shows; a short rest; the next sip. A pause button, and the space bar, hold everything. While paused, later slices offer the player's own tools: compose a sip (09), bet and silence (06, 10).
+The user set the staging on 2026-09-19: "just movement of it brew the matcha: select, sift, brew, pour to cup and taste. then clean then do that again." Nothing more detailed than that is wanted. Six phases, simple shapes, forever: he **selects** a tea from the menu, **sifts** it, **brews** it with the whisk, **pours** it into the cup, **tastes**, **cleans** up, and starts again with the next sip of a fixed rotation over teas, scoops and sweets. A pause button, and the space bar, hold everything. While paused, later slices offer the player's own tools: compose a sip (09), bet and silence (06, 10).
 
-In this slice the taste phase has nothing to replay. It shows the sip, the dark brain, and one line: "no recording yet: the wiring is loaded by slice 03". No outcome is shown and no proboscis moves, because a verdict nobody computed would be a lie.
+## The reaction card
+
+The user also asked that "the feelings and reaction have to be shown somewhere like a text modal with the brain cloud". A card sits beside the cloud and is rewritten every phase. It has four lines, each with its tag, and the split between them is the honest answer to "what does a simulated fly feel":
+
+| Line | Says | Tag |
+|---|---|---|
+| Served | the tea, the scoops, the sweets, and the bitter and sweet levels they resolve to | `staged` for the tea's tier, `model` for the levels |
+| Heard by | which neurons that sip drives and how many: 34 sweet, 38 bitter of which 6 cannot speak in the base model | `connectome` for the counts, `model` for the rates |
+| Did | what the brain did: spikes in the taste neurons, the relays and the two MN9 neurons, and the outcome once slice 05 licenses one | `model`, with source `recorded` or `live` |
+| In his words | one short line in the fly's voice, chosen by the outcome and by nothing else | `staged` |
+
+Under the card, always: the words are puppetry; the decision is not. The voice line may never say more than the outcome supports. With no recording it says nothing about taste at all.
+
+In this slice the taste phase has nothing to replay. "Did" reads: no recording yet, his wiring is loaded by slice 03, and we do not make reactions up. No proboscis moves, because a verdict nobody computed would be a lie.
 
 The order of the rotation is fixed, not random, so that the same build shows the same sequence. Walking, whisking, pouring and the order of the ceremony are `staged` and tagged so.
 
@@ -47,7 +62,9 @@ The order of the rotation is fixed, not random, so that the same build shows the
 
 - `light()` on a null recording, and on a recording with no spikes, returns all zeros. A unit test, and the reason the slice exists.
 - The cloud file regenerates byte for byte; its body IDs are a subset of the lock's universe; every group in the JSON exists in the lock.
-- The loop under a fake clock: phases in order, forever; pause freezes the phase and the clock; resume continues from the same point.
+- The loop under a fake clock: the six phases in order, forever; pause freezes the phase and the clock; resume continues from the same point.
+- The reaction card with no recording claims nothing: no outcome, no voice line about taste, and every line carries its tag.
+- The codec's menu table resolves every tea and scoop count to one of the five levels, and the rotation visits all 25 sips of the grid.
 - The DOM audit finds every quantity tagged. Group colours are `connectome`. Everything that moves is `staged`.
 - The import-boundary test and the banned-call grep pass.
 - **Visual variable: is it legible what is fly, what is brain, and what is taste neuron?** Crop: the whole frame at rest, paused. Out of scope: art quality, lighting, the fly's anatomy.

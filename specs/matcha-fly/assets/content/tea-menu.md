@@ -1,6 +1,6 @@
 # The tea menu
 
-Asked for by the user on 2026-09-19, with this list. The names and tasting notes are the user's. The tiers are this project's guess from those notes, and nothing here is a measurement or a claim about any product. The names belong to their makers, and the project is not affiliated with any of them.
+The tiers are this project's guess from those notes, and nothing here is a measurement or a claim about any product. The names belong to their makers, and the project is not affiliated with any of them.
 
 | Maker | Blend | The user's notes | Tier |
 |---|---|---|---|
@@ -12,7 +12,6 @@ Asked for by the user on 2026-09-19, with this list. The names and tasting notes
 | Nakamura Tokichi | house matcha | A long-established Kyoto producer; rich aroma, stone-ground | balanced |
 | A culinary grade from Taiwan | unnamed | Harvested later in the year; more robust and slightly bitter; for lattes, ice cream, baking | robust |
 
-Where the user's notes came from, as they gave them: a Reddit thread on favourite matcha brands in Japan, two shop blogs (senchoju.com, japanwithlovestore.com), and short videos. Shopping links were left out.
 
 ## What a fly can and cannot taste of this
 

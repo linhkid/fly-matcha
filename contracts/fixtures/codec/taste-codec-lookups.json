@@ -1,0 +1,1288 @@
+{
+ "about": "Every tea and scoop count with the bitter level it resolves to, and every sweet level, with thresholds.",
+ "fixture": "taste-codec-lookups",
+ "refused": [
+  {
+   "scoops": 1,
+   "sweets": 0,
+   "tea": "no-such-tea"
+  },
+  {
+   "scoops": 4,
+   "sweets": 0,
+   "tea": "kannoshiro"
+  },
+  {
+   "scoops": 1,
+   "sweets": 5,
+   "tea": "kannoshiro"
+  },
+  {
+   "scoops": -1,
+   "sweets": 0,
+   "tea": "kannoshiro"
+  }
+ ],
+ "sips": [
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "kannoshiro"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "kannoshiro"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "kannoshiro"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "kannoshiro"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "kannoshiro"
+  },
+  {
+   "bitter": 1,
+   "bitterThr16": 163,
+   "scoops": 1,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "kannoshiro"
+  },
+  {
+   "bitter": 1,
+   "bitterThr16": 163,
+   "scoops": 1,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "kannoshiro"
+  },
+  {
+   "bitter": 1,
+   "bitterThr16": 163,
+   "scoops": 1,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "kannoshiro"
+  },
+  {
+   "bitter": 1,
+   "bitterThr16": 163,
+   "scoops": 1,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "kannoshiro"
+  },
+  {
+   "bitter": 1,
+   "bitterThr16": 163,
+   "scoops": 1,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "kannoshiro"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 2,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "kannoshiro"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 2,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "kannoshiro"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 2,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "kannoshiro"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 2,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "kannoshiro"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 2,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "kannoshiro"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 3,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "kannoshiro"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 3,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "kannoshiro"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 3,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "kannoshiro"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 3,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "kannoshiro"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 3,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "kannoshiro"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "hoshiju"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "hoshiju"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "hoshiju"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "hoshiju"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "hoshiju"
+  },
+  {
+   "bitter": 1,
+   "bitterThr16": 163,
+   "scoops": 1,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "hoshiju"
+  },
+  {
+   "bitter": 1,
+   "bitterThr16": 163,
+   "scoops": 1,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "hoshiju"
+  },
+  {
+   "bitter": 1,
+   "bitterThr16": 163,
+   "scoops": 1,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "hoshiju"
+  },
+  {
+   "bitter": 1,
+   "bitterThr16": 163,
+   "scoops": 1,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "hoshiju"
+  },
+  {
+   "bitter": 1,
+   "bitterThr16": 163,
+   "scoops": 1,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "hoshiju"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 2,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "hoshiju"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 2,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "hoshiju"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 2,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "hoshiju"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 2,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "hoshiju"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 2,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "hoshiju"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 3,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "hoshiju"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 3,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "hoshiju"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 3,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "hoshiju"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 3,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "hoshiju"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 3,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "hoshiju"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "isuzu"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "isuzu"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "isuzu"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "isuzu"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "isuzu"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 1,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "isuzu"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 1,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "isuzu"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 1,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "isuzu"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 1,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "isuzu"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 1,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "isuzu"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 2,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "isuzu"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 2,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "isuzu"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 2,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "isuzu"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 2,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "isuzu"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 2,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "isuzu"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "isuzu"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "isuzu"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "isuzu"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "isuzu"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "isuzu"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "aoarashi"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "aoarashi"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "aoarashi"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "aoarashi"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "aoarashi"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 1,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "aoarashi"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 1,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "aoarashi"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 1,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "aoarashi"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 1,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "aoarashi"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 1,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "aoarashi"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 2,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "aoarashi"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 2,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "aoarashi"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 2,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "aoarashi"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 2,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "aoarashi"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 2,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "aoarashi"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "aoarashi"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "aoarashi"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "aoarashi"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "aoarashi"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "aoarashi"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "ogurayama"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "ogurayama"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "ogurayama"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "ogurayama"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "ogurayama"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 1,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "ogurayama"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 1,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "ogurayama"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 1,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "ogurayama"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 1,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "ogurayama"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 1,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "ogurayama"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 2,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "ogurayama"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 2,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "ogurayama"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 2,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "ogurayama"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 2,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "ogurayama"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 2,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "ogurayama"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "ogurayama"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "ogurayama"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "ogurayama"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "ogurayama"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "ogurayama"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "nakamura-tokichi"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "nakamura-tokichi"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "nakamura-tokichi"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "nakamura-tokichi"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "nakamura-tokichi"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 1,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "nakamura-tokichi"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 1,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "nakamura-tokichi"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 1,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "nakamura-tokichi"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 1,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "nakamura-tokichi"
+  },
+  {
+   "bitter": 2,
+   "bitterThr16": 327,
+   "scoops": 1,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "nakamura-tokichi"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 2,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "nakamura-tokichi"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 2,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "nakamura-tokichi"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 2,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "nakamura-tokichi"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 2,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "nakamura-tokichi"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 2,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "nakamura-tokichi"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "nakamura-tokichi"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "nakamura-tokichi"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "nakamura-tokichi"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "nakamura-tokichi"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "nakamura-tokichi"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "taiwan-culinary"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "taiwan-culinary"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "taiwan-culinary"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "taiwan-culinary"
+  },
+  {
+   "bitter": 0,
+   "bitterThr16": 0,
+   "scoops": 0,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "taiwan-culinary"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 1,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "taiwan-culinary"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 1,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "taiwan-culinary"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 1,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "taiwan-culinary"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 1,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "taiwan-culinary"
+  },
+  {
+   "bitter": 3,
+   "bitterThr16": 655,
+   "scoops": 1,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "taiwan-culinary"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 2,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "taiwan-culinary"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 2,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "taiwan-culinary"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 2,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "taiwan-culinary"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 2,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "taiwan-culinary"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 2,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "taiwan-culinary"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 0,
+   "sweetThr16": 0,
+   "sweets": 0,
+   "tea": "taiwan-culinary"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 1,
+   "sweetThr16": 163,
+   "sweets": 1,
+   "tea": "taiwan-culinary"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 2,
+   "sweetThr16": 327,
+   "sweets": 2,
+   "tea": "taiwan-culinary"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 3,
+   "sweetThr16": 655,
+   "sweets": 3,
+   "tea": "taiwan-culinary"
+  },
+  {
+   "bitter": 4,
+   "bitterThr16": 1310,
+   "scoops": 3,
+   "sweet": 4,
+   "sweetThr16": 1310,
+   "sweets": 4,
+   "tea": "taiwan-culinary"
+  }
+ ]
+}

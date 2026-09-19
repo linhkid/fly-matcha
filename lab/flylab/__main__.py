@@ -56,6 +56,22 @@ def _model(args: argparse.Namespace) -> int:
     return 0
 
 
+def _codec(args: argparse.Namespace) -> int:
+    from flylab.codec.build import write_codec, write_fixture
+
+    print("codec:  ", write_codec())
+    print("fixture:", write_fixture())
+    return 0
+
+
+def _web(args: argparse.Namespace) -> int:
+    from flylab.web.cloud import export_cloud
+
+    for path in export_cloud():
+        print(f"{path}  {path.stat().st_size / 1e6:.2f} MB")
+    return 0
+
+
 def _census(args: argparse.Namespace) -> int:
     from flylab.census.cli import run_census
 
@@ -75,6 +91,14 @@ def main(argv: list[str] | None = None) -> int:
     model = areas.add_parser("model", help="the reference neuron model")
     model.add_argument("command", choices=["check", "fixtures", "probe"])
     model.set_defaults(handler=_model)
+
+    codec = areas.add_parser("codec", help="write the codec and its fixture")
+    codec.add_argument("command", choices=["build"])
+    codec.set_defaults(handler=_codec)
+
+    web = areas.add_parser("web", help="export what the browser needs")
+    web.add_argument("command", choices=["cloud"])
+    web.set_defaults(handler=_web)
 
     census = areas.add_parser("census", help="bind a circuit's roles to body IDs")
     census.add_argument("circuit", help="circuit name, e.g. taste")

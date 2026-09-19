@@ -347,7 +347,7 @@ def test_restless_counts_neurons_away_from_rest():
 
 def test_the_committed_fixtures_regenerate_byte_for_byte(tmp_path):
     written = fixtures.write_all(tmp_path)
-    committed = sorted(p for p in (CONTRACTS_DIR / "fixtures").rglob("*.json"))
+    committed = sorted(p for folder in ("lif", "trial", "prng") for p in (CONTRACTS_DIR / "fixtures" / folder).glob("*.json"))
     assert [p.relative_to(tmp_path) for p in sorted(written)] == [p.relative_to(CONTRACTS_DIR / "fixtures") for p in committed]
     for fresh in written:
         assert fresh.read_bytes() == (CONTRACTS_DIR / "fixtures" / fresh.relative_to(tmp_path)).read_bytes(), fresh.name

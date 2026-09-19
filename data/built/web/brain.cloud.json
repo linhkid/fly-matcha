@@ -1,0 +1,506 @@
+{
+ "version": 1,
+ "dataset": "MaleCNS v1.0 (Janelia FlyEM, CC-BY 4.0)",
+ "annotationsSha256": "2177e246113e4cfbf1e7772ec37c6da1955ff22e8063d0b1f833101f99a9a3b2",
+ "typedNeurons": 164506,
+ "points": 138556,
+ "groups": [
+  {
+   "code": 0,
+   "id": "none",
+   "points": 133928
+  },
+  {
+   "code": 1,
+   "id": "mn9",
+   "points": 2
+  },
+  {
+   "code": 2,
+   "id": "relay.shiu2022",
+   "points": 42
+  },
+  {
+   "code": 3,
+   "id": "mn.proboscis.other",
+   "points": 61
+  },
+  {
+   "code": 4,
+   "id": "dn.adn",
+   "points": 4
+  },
+  {
+   "code": 5,
+   "id": "dn.dng12",
+   "points": 41
+  },
+  {
+   "code": 6,
+   "id": "mb.mbon",
+   "points": 96
+  },
+  {
+   "code": 7,
+   "id": "mb.pam",
+   "points": 316
+  },
+  {
+   "code": 8,
+   "id": "mb.ppl1",
+   "points": 16
+  },
+  {
+   "code": 9,
+   "id": "mb.kc",
+   "points": 4050
+  }
+ ],
+ "voxelBounds": {
+  "low": [
+   2468.0,
+   4758.0,
+   10154.0
+  ],
+  "high": [
+   93668.0,
+   68996.0,
+   134531.0
+  ]
+ },
+ "mouthparts": [
+  {
+   "bodyId": "71254",
+   "group": "grn.sweet",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "72059",
+   "group": "grn.sweet",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "78240",
+   "group": "grn.sweet",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "85806",
+   "group": "grn.sweet",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "92440",
+   "group": "grn.sweet",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "101087",
+   "group": "grn.sweet",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "120303",
+   "group": "grn.sweet",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "140015",
+   "group": "grn.sweet",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "142827",
+   "group": "grn.sweet",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "159772",
+   "group": "grn.sweet",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "163597",
+   "group": "grn.sweet",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "180314",
+   "group": "grn.sweet",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "183084",
+   "group": "grn.sweet",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "187492",
+   "group": "grn.sweet",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "190769",
+   "group": "grn.sweet",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "202888",
+   "group": "grn.sweet",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "209155",
+   "group": "grn.sweet",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "215556",
+   "group": "grn.sweet",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "261450",
+   "group": "grn.sweet",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "262567",
+   "group": "grn.sweet",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "272263",
+   "group": "grn.sweet",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "512551",
+   "group": "grn.sweet",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "516217",
+   "group": "grn.sweet",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "531237",
+   "group": "grn.sweet",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "557646",
+   "group": "grn.sweet",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "933317",
+   "group": "grn.sweet",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "942168",
+   "group": "grn.sweet",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "957530",
+   "group": "grn.sweet",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "158893964",
+   "group": "grn.sweet",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "174444965",
+   "group": "grn.sweet",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "213650853",
+   "group": "grn.sweet",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "349137284",
+   "group": "grn.sweet",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "475202322",
+   "group": "grn.sweet",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "766547228",
+   "group": "grn.sweet",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "54104",
+   "group": "grn.bitter",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "81741",
+   "group": "grn.bitter",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "107241",
+   "group": "grn.bitter",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "115666",
+   "group": "grn.bitter",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "125111",
+   "group": "grn.bitter",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "139178",
+   "group": "grn.bitter",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "144334",
+   "group": "grn.bitter",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "154544",
+   "group": "grn.bitter",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "163395",
+   "group": "grn.bitter",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "168492",
+   "group": "grn.bitter",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "173462",
+   "group": "grn.bitter",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "208885",
+   "group": "grn.bitter",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "256844",
+   "group": "grn.bitter",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "375038",
+   "group": "grn.bitter",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "511882",
+   "group": "grn.bitter",
+   "side": "L",
+   "speaks": false
+  },
+  {
+   "bodyId": "514546",
+   "group": "grn.bitter",
+   "side": "R",
+   "speaks": false
+  },
+  {
+   "bodyId": "514547",
+   "group": "grn.bitter",
+   "side": "L",
+   "speaks": false
+  },
+  {
+   "bodyId": "517255",
+   "group": "grn.bitter",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "518112",
+   "group": "grn.bitter",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "522746",
+   "group": "grn.bitter",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "522752",
+   "group": "grn.bitter",
+   "side": "R",
+   "speaks": false
+  },
+  {
+   "bodyId": "522753",
+   "group": "grn.bitter",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "522754",
+   "group": "grn.bitter",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "522761",
+   "group": "grn.bitter",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "522762",
+   "group": "grn.bitter",
+   "side": "R",
+   "speaks": false
+  },
+  {
+   "bodyId": "522841",
+   "group": "grn.bitter",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "533618",
+   "group": "grn.bitter",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "549024",
+   "group": "grn.bitter",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "556797",
+   "group": "grn.bitter",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "557937",
+   "group": "grn.bitter",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "912379",
+   "group": "grn.bitter",
+   "side": "L",
+   "speaks": false
+  },
+  {
+   "bodyId": "140334446",
+   "group": "grn.bitter",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "144295263",
+   "group": "grn.bitter",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "304136793",
+   "group": "grn.bitter",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "324178811",
+   "group": "grn.bitter",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "602736959",
+   "group": "grn.bitter",
+   "side": "R",
+   "speaks": true
+  },
+  {
+   "bodyId": "772366874",
+   "group": "grn.bitter",
+   "side": "L",
+   "speaks": true
+  },
+  {
+   "bodyId": "911389008",
+   "group": "grn.bitter",
+   "side": "R",
+   "speaks": true
+  }
+ ],
+ "note": "Positions are cell body locations from the annotation table. Neurons without one, which includes every taste neuron, are not in the cloud."
+}

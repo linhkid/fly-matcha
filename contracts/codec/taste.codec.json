@@ -1,0 +1,172 @@
+{
+  "id": "taste/1",
+  "channels": [
+    {
+      "id": "sweet",
+      "group": "grn.sweet",
+      "tag": "model",
+      "levels": [
+        {
+          "label": "none",
+          "hz": 0,
+          "thr16": 0
+        },
+        {
+          "label": "1 piece",
+          "hz": 25,
+          "thr16": 163
+        },
+        {
+          "label": "2 pieces",
+          "hz": 50,
+          "thr16": 327
+        },
+        {
+          "label": "3 pieces",
+          "hz": 100,
+          "thr16": 655
+        },
+        {
+          "label": "4 pieces",
+          "hz": 200,
+          "thr16": 1310
+        }
+      ]
+    },
+    {
+      "id": "bitter",
+      "group": "grn.bitter",
+      "tag": "model",
+      "levels": [
+        {
+          "label": "none",
+          "hz": 0,
+          "thr16": 0
+        },
+        {
+          "label": "1 level",
+          "hz": 25,
+          "thr16": 163
+        },
+        {
+          "label": "2 levels",
+          "hz": 50,
+          "thr16": 327
+        },
+        {
+          "label": "3 levels",
+          "hz": 100,
+          "thr16": 655
+        },
+        {
+          "label": "4 levels",
+          "hz": 200,
+          "thr16": 1310
+        }
+      ]
+    }
+  ],
+  "menu": {
+    "tag": "staged",
+    "note": "Which tier a tea belongs to was guessed from tasting notes. A fly tastes only the bitterness: two teas of one tier are the same tea to him.",
+    "maxScoops": 3,
+    "tiers": {
+      "smooth": [
+        1,
+        2,
+        3
+      ],
+      "balanced": [
+        2,
+        3,
+        4
+      ],
+      "robust": [
+        3,
+        4,
+        4
+      ]
+    },
+    "teas": [
+      {
+        "id": "kannoshiro",
+        "maker": "Ippodo Tea",
+        "blend": "Kannoshiro",
+        "tier": "smooth",
+        "notes": "Vibrant, smooth, high-grade ceremonial."
+      },
+      {
+        "id": "hoshiju",
+        "maker": "Hoshino Seichaen",
+        "blend": "Hoshiju",
+        "tier": "smooth",
+        "notes": "From Yame; intense nuttiness and savoury depth."
+      },
+      {
+        "id": "isuzu",
+        "maker": "Marukyu Koyamaen",
+        "blend": "Isuzu",
+        "tier": "balanced",
+        "notes": "Popular and high quality; for drinking and for cooking."
+      },
+      {
+        "id": "aoarashi",
+        "maker": "Marukyu Koyamaen",
+        "blend": "Aoarashi",
+        "tier": "balanced",
+        "notes": "A favourite among travellers."
+      },
+      {
+        "id": "ogurayama",
+        "maker": "Yamamasa Koyamaen",
+        "blend": "Ogurayama",
+        "tier": "balanced",
+        "notes": "Well-balanced everyday blend; subtle umami, dark chocolate or nutty notes."
+      },
+      {
+        "id": "nakamura-tokichi",
+        "maker": "Nakamura Tokichi",
+        "blend": "house matcha",
+        "tier": "balanced",
+        "notes": "A long-established Kyoto producer; rich aroma, stone-ground."
+      },
+      {
+        "id": "taiwan-culinary",
+        "maker": "A culinary grade from Taiwan",
+        "blend": "unnamed",
+        "tier": "robust",
+        "notes": "Harvested later in the year; more robust and slightly bitter; for lattes and baking."
+      }
+    ]
+  },
+  "decoders": [
+    {
+      "id": "proboscis",
+      "group": "mn9",
+      "stat": "spikes_sum",
+      "window": [
+        2000,
+        10000
+      ],
+      "extendAtLeast": null,
+      "refuseAtMost": null,
+      "evidence": null,
+      "tag": "model"
+    }
+  ],
+  "envelope": {
+    "sides": [
+      "both",
+      "left",
+      "right"
+    ],
+    "opsOnOneSidedSips": false,
+    "lesionable": [],
+    "activatable": [],
+    "maxConcurrentOps": 1,
+    "seeds": [],
+    "variants": [
+      "base"
+    ]
+  }
+}

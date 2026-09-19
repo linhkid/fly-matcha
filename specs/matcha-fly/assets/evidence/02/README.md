@@ -1,6 +1,6 @@
 # Evidence: slice 02, model and oracle
 
-**Accepted 2026-09-19.** Made on the working tree on top of commit `c2e26da`; the user commits. When this slice is committed, record the hash here.
+**Accepted 2026-09-19.** Committed by the user as `3b7d9d0`.
 
 - `model-check.html` is the report for a person. The oracle's potential follows the analytic curve of the published model to about 1e-15 mV. The rate plot is a landmark, not a test: this model has no constant input, so no exact curve exists to compare with. The third plot shows the 22-step freeze with an arrival kept.
 - `probe.txt` is one simulated second of a random graph with 160,000 neurons and 4 million edges, in three regimes.

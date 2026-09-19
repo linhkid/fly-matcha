@@ -49,7 +49,7 @@ Verdict `pass` needs all seven.
 
 `lab/experiments/E01-taste-law/`. On a pass, `lab/flylab/codec/build.py` writes `contracts/codec/taste.codec.json` with the two channels, their five levels, and the decoder thresholds with an `evidence` pointer into the verdict. The slice creates the Python codec interpreter and its fixtures under `contracts/fixtures/codec/`. It enables `taste.drink`, `taste.brake`, `taste.shuffle`, `taste.gluflip` and `taste.rival` in `contracts/mechanics.json`.
 
-The same writer adds the tea menu to the codec as a `menu` block: the teas and tiers of [assets/content/tea-menu.md](../assets/content/tea-menu.md), and the table that turns a tier and a number of scoops into one of the five bitter levels. A test checks that every cell of that table is an existing level, so the menu can never ask for a trial outside the grid this slice measured. Tier assignments carry the tag `staged`; levels carry `model`.
+Slice V1 already created the codec's writer and file, with the levels and the tea menu; this slice adds the decoder thresholds through the same writer. The `menu` block holds the teas and tiers of [assets/content/tea-menu.md](../assets/content/tea-menu.md), and the table that turns a tier and a number of scoops into one of the five bitter levels. A test checks that every cell of that table is an existing level, so the menu can never ask for a trial outside the grid this slice measured. Tier assignments carry the tag `staged`; levels carry `model`.
 
 ## What the human sees
 
