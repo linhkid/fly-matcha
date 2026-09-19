@@ -4,18 +4,8 @@
 export const PHASES = ["select", "sift", "brew", "pour", "taste", "clean"] as const;
 export type Phase = (typeof PHASES)[number];
 
-/** How long each step takes, unless the loop is told otherwise. Tasting is the unhurried one. */
+/** How long each step takes, unless the loop is told otherwise. Tasting is the unhurried one: the page sets it, bowl by bowl, from what his brain did. */
 export const PHASE_SECONDS: Record<Phase, number> = { select: 3.5, sift: 3.5, brew: 4.5, pour: 3, taste: 10, clean: 3.5 };
-
-/**
- * How long he stays with the cup. He is never rushed, and the time is not the same twice running.
- * Staged: until a recording exists, the time comes from this list and ignores the tea on purpose. Eleven entries:
- * a number with no factor in common with the twenty-five sips of a cycle, nor with the two, six or seven ways a sip
- * of the grid can be served, so every named serving meets every time and nobody can read a liking into a long stay.
- * From slice V2 the time he stays is the model's: as long as the replayed recording keeps MN9 firing.
- */
-export const LINGER_SECONDS = [9, 12, 8, 14, 10, 13, 11, 8.5, 12.5, 9.5, 13.5] as const;
-export const lingerSeconds = (sipIndex: number): number => LINGER_SECONDS[sipIndex % LINGER_SECONDS.length];
 
 export type Seconds = (sipIndex: number, phase: Phase) => number;
 const byTheClock: Seconds = (_sip, phase) => PHASE_SECONDS[phase];

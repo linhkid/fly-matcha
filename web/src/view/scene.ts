@@ -1,7 +1,7 @@
 // The stage: a fly at a tea table and the cloud of his neurons.
 // Everything built from a mesh is staged: pose() in puppet.ts says where the props are, fly.ts moves his body.
 // The points are the fly's: their number, their places and their groups come from the connectome. Light on the points
-// comes only from applyLight() and applyLipLight(), which take the output of light(): no spikes, no light.
+// comes only from applyActiveLight() and applyLipLight(), which take the output of light(): no spikes, no light.
 
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
@@ -66,7 +66,8 @@ export class Stage {
   private readonly brain = new THREE.Group();
   private readonly tether: THREE.Line;
   private readonly dot: THREE.CanvasTexture;
-  private readonly cloudPoints: Lit[] = [];
+  private cloud: Cloud | null = null;
+  private active: { points: THREE.Points; count: number; readout: THREE.Points; places: number[] } | null = null; // the neurons that fire in the recording being replayed
   private lipPoints: Lit | null = null;
   private flyX = AT.tins;
   private yaw = 0;
@@ -273,6 +274,7 @@ export class Stage {
    * nerve cord a little denser than the brain. Colour is flat paint. Nothing here is light.
    */
   setCloud(cloud: Cloud, info: CloudInfo): void {
+    this.cloud = cloud;
     for (const group of info.groups) {
       for (const cord of [false, true]) {
         const members: number[] = [];
@@ -287,8 +289,7 @@ export class Stage {
           colour.set([base.r, base.g, base.b], 3 * k);
         });
         const named = group.id !== "none";
-        const points = this.points(position, colour, named ? (group.id === "mn9" ? 0.075 : 0.042) : cord ? 0.026 : 0.018, named ? 0.95 : cord ? 0.95 : 0.8, this.brain);
-        this.cloudPoints.push({ points, base: colour.slice(), map: Int32Array.from(members) });
+        this.points(position, colour, named ? (group.id === "mn9" ? 0.075 : 0.042) : cord ? 0.026 : 0.018, named ? 0.95 : cord ? 0.95 : 0.8, this.brain);
       }
     }
   }
@@ -316,9 +317,51 @@ export class Stage {
     colour.needsUpdate = true;
   }
 
-  /** `glow` comes from light(): one number per cloud point. All zeros leaves the cloud exactly as it is. */
-  applyLight(glow: Float32Array): void {
-    for (const lit of this.cloudPoints) Stage.boost(lit, glow);
+  /**
+   * The neurons that fire in the recording being replayed, as a layer of their own over the painted cloud: a few thousand
+   * points whose light changes every frame, where rewriting all the cloud's colours would not do. They add light, and the
+   * painted cloud under them does not change. `indices` are points of the cloud; with none, the layer goes.
+   */
+  setActive(indices: number[], readoutPlaces: number[] = []): void {
+    if (this.active) {
+      for (const points of [this.active.points, this.active.readout]) {
+        this.brain.remove(points);
+        points.geometry.dispose();
+        (points.material as THREE.Material).dispose();
+      }
+      this.active = null;
+    }
+    if (!this.cloud || !indices.length) return;
+    const layer = (points: number[], size: number): THREE.Points => {
+      const position = new Float32Array(points.length * 3);
+      points.forEach((point, k) => position.set([this.cloud!.xyz[3 * point] * CLOUD_SCALE, -this.cloud!.xyz[3 * point + 2] * CLOUD_SCALE, this.cloud!.xyz[3 * point + 1] * CLOUD_SCALE], 3 * k));
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute("position", new THREE.BufferAttribute(position, 3));
+      geometry.setAttribute("color", new THREE.BufferAttribute(new Float32Array(points.length * 3), 3)); // black: adds nothing
+      const material = new THREE.PointsMaterial({ size, vertexColors: true, transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending, map: this.dot });
+      const made = new THREE.Points(geometry, material);
+      this.brain.add(made);
+      return made;
+    };
+    // MN9 is two neurons among thousands: when one of them fires it has to be seen, so they get a larger point of their own
+    this.active = { points: layer(indices, 0.13), count: indices.length, readout: layer(readoutPlaces.map((k) => indices[k]), 0.5), places: readoutPlaces };
+  }
+
+  /** `glow` comes from light(): one number per active neuron, or null for none. No spikes in the window, no light. */
+  applyActiveLight(glow: Float32Array | null): void {
+    if (!this.active) return;
+    // light from another recording's neurons would be light with no spike behind it: stop, loudly
+    if (glow && glow.length !== this.active.count) throw new Error(`light for ${glow.length} neurons was handed to a layer of ${this.active.count}`);
+    const paint = (points: THREE.Points, count: number, valueOf: (k: number) => number, tint: [number, number, number]): void => {
+      const colour = points.geometry.getAttribute("color") as THREE.BufferAttribute;
+      for (let k = 0; k < count; k++) {
+        const lit = glow ? Math.min(1, valueOf(k) * 0.6) : 0;   // one spike in the window is a clear flash, two are full light
+        colour.setXYZ(k, lit * tint[0], lit * tint[1], lit * tint[2]);
+      }
+      colour.needsUpdate = true;
+    };
+    paint(this.active.points, this.active.count, (k) => glow![k], [1, 0.86, 0.45]);
+    paint(this.active.readout, this.active.places.length, (k) => glow![this.active!.places[k]], [1, 0.95, 0.8]);
   }
 
   /** The same for the taste neurons: one number per dot, in the order given to setLips(). */

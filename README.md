@@ -11,6 +11,9 @@ make venv                                        # installs pinned packages from
 .venv/bin/python -m flylab data plan --stage A   # what would be fetched, from response headers only
 .venv/bin/python -m flylab data fetch --stage A --yes
 .venv/bin/python -m flylab census taste          # writes circuits/taste.lock.json and circuits/taste.census.html
+.venv/bin/python -m flylab data fetch --stage B --yes   # 508 MB of wiring: ask before downloading
+.venv/bin/python -m flylab graph build           # the whole brain as one file, under data/built/full/ (never committed)
+.venv/bin/python -m flylab web recordings        # his brain's response to each of the 25 sips, for the page to replay
 make check
 ```
 
@@ -21,7 +24,7 @@ make web     # installs the page's packages from npm: ask before downloading
 make dev     # then open http://localhost:5173
 ```
 
-He selects a tea, sifts, brews, pours, tastes and cleans up, forever, beside the cloud of his 138,556 placed neurons. When the tea touches his lips, his 72 taste neurons fire: real spikes of the model, computed in your browser as you watch, slowed fifty times. The cloud behind them stays dark until his wiring is loaded (slice 03, a 508 MB download). **Take a break** (or the space bar) holds the ceremony: he goes to his cushion and reads Dostoevsky until you send him back. Every panel folds, and **H** hides all text. **What is staged here?** tints everything that is puppetry. `?sip=3&phase=taste&at=0.5` opens the page as a still of one moment.
+He selects a tea, sifts, brews, pours, tastes and cleans up, forever, beside the cloud of his 138,556 placed neurons. When the tea touches his lips, light runs through the cloud: every flash is a spike from a recording of his whole brain tasting that sip, 164,506 neurons on their real wiring, slowed fifty times. He stays with the cup until the motor neuron that lifts his proboscis has fallen silent. These are pilot recordings: what was measured, not yet a verdict, so he does not drink yet. **Take a break** (or the space bar) holds the ceremony: he goes to his cushion and reads Dostoevsky until you send him back. Every panel folds, and **H** hides all text. **What is staged here?** tints everything that is puppetry. `?sip=3&phase=taste&at=0.5` opens the page as a still of one moment.
 
 ## Layout
 

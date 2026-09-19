@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+from pathlib import Path
 
 from flylab import CIRCUITS_DIR, RAW_DIR
 
@@ -20,7 +21,15 @@ def _data(args: argparse.Namespace) -> int:
             print(fetch.describe(fetch.plan(args.stage)))
             print("Refusing to download without --yes. Ask the user first (spec rule 8).")
             return 2
-        for record in fetch.run(args.stage, consent=True, directory=RAW_DIR):
+        shown = {"at": -1}
+
+        def progress(name: str, have: int, total: int) -> None:
+            step = have * 20 // max(total, 1)          # a line every five percent, not every block
+            if step != shown["at"]:
+                shown["at"] = step
+                print(f"  {name}: {have / 1e6:7.1f} of {total / 1e6:.1f} MB", file=sys.stderr, flush=True)
+
+        for record in fetch.run(args.stage, consent=True, directory=RAW_DIR, progress=progress):
             print(f"verified {record.file}: {record.bytes:,} bytes, sha256 {record.sha256[:16]}…")
         return 0
     if args.command == "columns":
@@ -67,6 +76,13 @@ def _codec(args: argparse.Namespace) -> int:
 def _web(args: argparse.Namespace) -> int:
     from flylab.web.cloud import export_cloud
 
+    if args.command == "recordings":   # needs the whole-brain graph: python -m flylab graph build
+        from flylab.web.recordings import export_recordings
+
+        index = export_recordings()
+        total = sum(path.stat().st_size for path in index.parent.glob("*.json"))
+        print(f"{index.parent}  {len(list(index.parent.glob('s*.json')))} recordings, {total / 1e6:.1f} MB")
+        return 0
     for path in export_cloud():
         print(f"{path}  {path.stat().st_size / 1e6:.2f} MB")
     return 0
@@ -76,6 +92,23 @@ def _census(args: argparse.Namespace) -> int:
     from flylab.census.cli import run_census
 
     return run_census(args.circuit, RAW_DIR, CIRCUITS_DIR)
+
+
+def _graph(args: argparse.Namespace) -> int:
+    import pandas as pd
+
+    from flylab import REPO_ROOT
+    from flylab.data.fetch import ANNOTATIONS
+    from flylab.graph import build, info
+    from flylab.graph import format as fskg
+
+    path = REPO_ROOT / "data" / "built" / "full" / "malecns.fskg" if args.path is None else args.path
+    if args.command == "build":
+        graph, manifest = build.build_full(RAW_DIR, progress=lambda rows: print(f"  {rows:,} rows", end="\r", file=sys.stderr))
+        sha = fskg.write_graph(path, graph, manifest)
+        print(f"\nwrote {path}: {graph.n:,} neurons, {graph.e:,} edges, sha256 {sha}")
+    print(info.describe(path, pd.read_feather(RAW_DIR / ANNOTATIONS, columns=["bodyId", "type"])))
+    return 0
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -97,8 +130,13 @@ def main(argv: list[str] | None = None) -> int:
     codec.set_defaults(handler=_codec)
 
     web = areas.add_parser("web", help="export what the browser needs")
-    web.add_argument("command", choices=["cloud"])
+    web.add_argument("command", choices=["cloud", "recordings"])
     web.set_defaults(handler=_web)
+
+    graph = areas.add_parser("graph", help="build and inspect the whole-brain graph (needs the stage B file)")
+    graph.add_argument("command", choices=["build", "info"])
+    graph.add_argument("path", nargs="?", type=Path, help="a .fskg file; default data/built/full/malecns.fskg")
+    graph.set_defaults(handler=_graph)
 
     census = areas.add_parser("census", help="bind a circuit's roles to body IDs")
     census.add_argument("circuit", help="circuit name, e.g. taste")

@@ -191,8 +191,11 @@ def test_the_lock_is_byte_stable_and_describes_whole_types():
     second = B.dump_lock(B.build_lock(circuit(*roles), B.census(circuit(*roles), shuffled, TRANSMITTERS), "abc", "def"))
     assert first == second
     lock = B.build_lock(circuit(*roles), run(*roles), "abc", "def")
-    assert lock["groups"][1] == {"id": "grn.sweet", "bodyIds": ["10"], "perSide": {"L": 1, "R": 0, "unknown": 0},
+    assert lock["groups"][1] == {"id": "grn.sweet", "bodyIds": ["10"], "sides": "L", "perSide": {"L": 1, "R": 0, "unknown": 0},
                                  "ntHistogram": {"acetylcholine": 1}, "evidenceKind": "paper"}
+    mn9 = lock["groups"][0]
+    assert len(mn9["sides"]) == len(mn9["bodyIds"]) and set(mn9["sides"]) <= set("LRU")   # a trial can drive one side: each body says which it is on
+    assert lock["version"] == 2
     # one of two LBa neurons is bound, yet the type entry describes the whole type: hop depth will be a property of types
     assert {t["type"]: (t["nNeurons"], t["nt"], t["hopDepth"]) for t in lock["types"]} == {"LBa": (2, "acetylcholine", None), "MN9": (2, "acetylcholine", None)}
     assert (lock["annotationsSha256"], lock["transmittersSha256"], lock["graphSha256"]) == ("abc", "def", None)
@@ -229,3 +232,12 @@ def test_aliases_report_where_a_literature_name_lives():
     assert rows[1]["matches"] == [] and not rows[1]["isType"]
     assert rows[2]["isType"]
     assert rows[3]["matches"] == []   # regex metacharacters in a name are harmless
+
+
+def test_a_circuit_file_cannot_claim_the_layer_that_is_counted():
+    hub = role("hub.mine", {"type": ["MN9"]})
+    with pytest.raises(B.CircuitError, match="hub."):
+        B.validate_circuit(circuit(hub))
+    counted = role("mn9", {"type": ["MN9"]}, kind="connectivity")
+    with pytest.raises(B.CircuitError, match="bind_connectivity"):
+        B.validate_circuit(circuit(counted))

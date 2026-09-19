@@ -18,10 +18,11 @@ from dataclasses import dataclass, field
 
 import pandas as pd
 
-LOCK_VERSION = 1
+LOCK_VERSION = 2  # 2: every group carries one side letter per body, and connectivity may add hubs and hop depths
 TRANSMITTER_NAMES = ("acetylcholine", "gaba", "glutamate", "histamine", "dopamine", "octopamine", "serotonin")
 CROSSWALK_COLUMNS = ("flywireType", "hemibrainType", "mancType", "synonyms")
 EVIDENCE_KINDS = ("annotation", "paper", "crosswalk", "connectivity")
+ROLE_EVIDENCE_KINDS = ("annotation", "paper", "crosswalk")  # what a circuit file may claim; the fourth kind is counted, not claimed
 INDEPENDENT_EVIDENCE = ("annotation", "paper")
 EXPECTATION_BASES = ("paper", "anchor", "observed")
 
@@ -58,6 +59,7 @@ class Bound:
 
     id: str
     body_ids: list[int]
+    sides: str  # one letter per body, in the order of body_ids: L, R, or U for unknown
     per_side: dict[str, int]
     nt_histogram: dict[str, int]
     nt_confidence: float | None  # median per-neuron confidence of the transmitter prediction
@@ -116,6 +118,8 @@ def validate_circuit(circuit: dict, columns: set[str] | None = None) -> None:
                 raise CircuitError(f"role {name} lacks '{key}'")
         if name in seen:
             raise CircuitError(f"duplicate role id {name}")
+        if name.startswith("hub."):
+            raise CircuitError(f"role {name}: ids starting with 'hub.' belong to bind_connectivity, which counts synapses; a circuit file cannot declare one")
         seen.add(name)
 
         select = role["select"]
@@ -151,8 +155,8 @@ def validate_circuit(circuit: dict, columns: set[str] | None = None) -> None:
 
         evidence = role["evidence"]
         unknown(f"role {name} evidence", evidence, EVIDENCE_KEYS)
-        if evidence.get("kind") not in EVIDENCE_KINDS:
-            raise CircuitError(f"role {name}: evidence.kind must be one of {EVIDENCE_KINDS}")
+        if evidence.get("kind") not in ROLE_EVIDENCE_KINDS:
+            raise CircuitError(f"role {name}: evidence.kind must be one of {ROLE_EVIDENCE_KINDS}; 'connectivity' is written by bind_connectivity and by nothing else")
         if not evidence.get("source") or not evidence.get("claim"):
             raise CircuitError(f"role {name}: evidence needs a claim and a source")
 
@@ -260,15 +264,22 @@ def _overlaps(circuit: dict, selected: dict[str, pd.DataFrame]) -> list[tuple[st
 def _bind(role: dict, rows: pd.DataFrame) -> Bound:
     sides = rows["side"].value_counts().to_dict()
     confidence = rows["ntConfidence"].median()
+    ordered = rows.sort_values("bodyId")
     return Bound(
         id=role["id"],
-        body_ids=sorted(int(b) for b in rows["bodyId"]),
+        body_ids=[int(b) for b in ordered["bodyId"]],
+        sides=side_letters(ordered["side"]),
         per_side={k: int(sides.get(k, 0)) for k in ("L", "R", "unknown")},
         nt_histogram={k: int(v) for k, v in sorted(rows["nt"].value_counts().to_dict().items())},
         nt_confidence=None if pd.isna(confidence) else round(float(confidence), 3),
         types=sorted(rows["type"].unique()),
         matched_by=describe_select(role["select"]),
     )
+
+
+def side_letters(sides: pd.Series) -> str:
+    """The census's sides as the letters a trial uses: L, R, and U for a body whose side the dataset does not give."""
+    return "".join(side if side in ("L", "R") else "U" for side in sides)
 
 
 def describe_select(select: dict) -> str:
@@ -318,7 +329,7 @@ def build_lock(circuit: dict, result: CensusResult, annotations_sha256: str, tra
         raise ValueError("no lock for a census with a failed required role")
     kinds = {role["id"]: role["evidence"]["kind"] for role in circuit["roles"]}
     groups = [
-        {"id": b.id, "bodyIds": [str(i) for i in b.body_ids], "perSide": b.per_side,
+        {"id": b.id, "bodyIds": [str(i) for i in b.body_ids], "sides": b.sides, "perSide": b.per_side,
          "ntHistogram": b.nt_histogram, "evidenceKind": kinds[b.id]}
         for b in result.bound.values()
     ]

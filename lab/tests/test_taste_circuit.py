@@ -5,9 +5,13 @@ import json
 import pandas as pd
 import pytest
 
-from flylab import CIRCUITS_DIR, RAW_DIR
+from flylab import CIRCUITS_DIR, RAW_DIR, REPO_ROOT
 from flylab.census import binding as B
+from flylab.census import connectivity
 from flylab.data.fetch import ANNOTATIONS, TRANSMITTERS, file_hashes
+from flylab.graph.format import read_graph
+
+GRAPH = REPO_ROOT / "data" / "built" / "full" / "malecns.fskg"
 
 CIRCUIT = json.loads((CIRCUITS_DIR / "taste.circuit.json").read_text(encoding="utf-8"))
 needs_data = pytest.mark.skipif(not (RAW_DIR / ANNOTATIONS).exists(), reason="stage A files not fetched")
@@ -28,8 +32,14 @@ def test_the_committed_lock_reproduces_byte_for_byte_and_the_gate_passes():
     result = B.census(CIRCUIT, pd.read_feather(RAW_DIR / ANNOTATIONS), pd.read_feather(RAW_DIR / TRANSMITTERS))
     assert result.failures == []
     lock = B.build_lock(CIRCUIT, result, file_hashes(RAW_DIR / ANNOTATIONS)[0], file_hashes(RAW_DIR / TRANSMITTERS)[0])
-    assert B.dump_lock(lock) == (CIRCUITS_DIR / "taste.lock.json").read_text(encoding="utf-8")
+    committed = json.loads((CIRCUITS_DIR / "taste.lock.json").read_text(encoding="utf-8"))
+    # what the annotations alone decide reproduces anywhere; the hubs and hop depths need the whole-brain graph as well
+    assert [g for g in committed["groups"] if g["evidenceKind"] != "connectivity"] == lock["groups"]
+    assert (committed["annotationsSha256"], committed["transmittersSha256"]) == (lock["annotationsSha256"], lock["transmittersSha256"])
     assert B.gate(CIRCUIT, result, B.check_anchors(CIRCUIT, result.frame))["pass"]
+    if GRAPH.exists():
+        bound = connectivity.bind_connectivity(lock, read_graph(GRAPH), result.frame)
+        assert B.dump_lock(bound) == (CIRCUITS_DIR / "taste.lock.json").read_text(encoding="utf-8")
 
 
 @needs_data

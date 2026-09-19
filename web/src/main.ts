@@ -1,6 +1,7 @@
 // The page: load the cloud, start the endless ceremony, keep the words beside it up to date.
-// His brain's wiring is not loaded in this slice, so the cloud stays dark. One layer is alive: while the tea is on his
-// lips, the model's own rule forces spikes in his taste neurons, computed here as you watch, and light() shows them.
+// While the tea is on his lips the page replays a recording of his whole brain tasting that sip: real spikes of the
+// model on his real wiring, written by the lab. light() turns them into light, on his lips and in the cloud, and
+// nothing else does. Between sips the cloud is dark, because the model has no activity of its own.
 
 import "./view/style.css";
 import codecFile from "../../contracts/codec/taste.codec.json";
@@ -8,20 +9,19 @@ import { bitterLevel, type Codec } from "./codec/codec";
 import { audit } from "./honesty/honesty";
 import { readCloud, type CloudInfo } from "./view/cloud";
 import { cardBodyHtml, cardHeadHtml, footHtml, legendHtml, lipsHtml, stagedHtml, titleHtml, trackHtml } from "./view/hud";
-import { light } from "./view/light";
 import { lipLayout } from "./view/lips";
-import { LiveLayer } from "./view/live";
-import { lingerSeconds, Loop, PHASE_SECONDS, type Phase } from "./view/loop";
+import { Loop, PHASE_SECONDS, type Phase } from "./view/loop";
 import { bookAt, type SipLook } from "./view/puppet";
 import { quantities, reactionCard } from "./view/reaction";
+import { entryFor, Replay, replayAt, stayFor, type RecordingEntry, type RecordingIndex } from "./view/replay";
 import { sipAt, type Sip } from "./view/rotation";
 import { Stage } from "./view/scene";
 
 const codec: Codec = codecFile;
 const SLOWDOWN = 50;                        // his time is shown this many times slower than it runs
-const STEPS_PER_SECOND = 10_000 / SLOWDOWN; // model steps of 0.1 ms per second on the wall, while the tea is on his lips
 const LIGHT_WINDOW_STEPS = 60;              // a spike stays lit for 6 ms of his time, which is 0.3 s on screen
-const MAX_SEED = 0xffffffff;                // a bowl's index is its trial's seed
+const RETRY_SECONDS = 15;                   // how long a recording that failed to arrive is left alone before it is asked for again
+const MAX_BOWL = 0xffffffff;
 
 const element = <T extends HTMLElement>(id: string): T => document.getElementById(id) as T;
 
@@ -44,7 +44,7 @@ function stillFromAddress(loop: Loop, query: URLSearchParams): { still: boolean;
   if (!phase) return running;
   try {
     const bowl = Number(query.get("sip") ?? "1");
-    if (bowl - 1 > MAX_SEED) throw new Error(`no such moment: bowl ${bowl} has no seed`);
+    if (bowl - 1 > MAX_BOWL) throw new Error(`no such moment: bowl ${bowl}`);
     loop.seek(bowl - 1, phase as Phase, Number(query.get("at") ?? "0"));
   } catch (error) {
     // a moment that does not exist is not worth a blank page: say so, and let the ceremony run
@@ -74,9 +74,11 @@ function rememberFolds(ids: string[], asked: string | null): void {
 }
 
 async function start(): Promise<void> {
-  const [infoResponse, cloudResponse] = await Promise.all([fetch("/brain.cloud.json"), fetch("/brain.cloud")]);
+  const [infoResponse, cloudResponse, indexResponse] = await Promise.all([fetch("/brain.cloud.json"), fetch("/brain.cloud"), fetch("/recordings/index.json")]);
   if (!infoResponse.ok || !cloudResponse.ok) throw new Error("The brain cloud is missing. Build it with: python -m flylab web cloud");
+  if (!indexResponse.ok) throw new Error("The recordings are missing. Build them with: python -m flylab web recordings");
   const info: CloudInfo = await infoResponse.json();
+  const recordings: RecordingIndex = await indexResponse.json();
   const cloud = readCloud(await cloudResponse.arrayBuffer());
   const query = new URLSearchParams(location.search);
 
@@ -86,11 +88,37 @@ async function start(): Promise<void> {
   stage.setCloud(cloud, info);
   stage.setLips(dots);
 
-  // The one road from spikes to light. The cloud has no spikes to show until his wiring is loaded: light() hands back zeros.
+  // Where a recorded spike can land: on a point of the cloud, or on a dot of his lips.
   const cloudIndex = new Map<string, number>();
   for (let i = 0; i < cloud.n; i++) cloudIndex.set(cloud.bodyId[i].toString(), i);
-  stage.applyLight(light(cloud.n, cloudIndex, null, 0, LIGHT_WINDOW_STEPS));
-  const liveLayer = new LiveLayer(codec, dots, { stepsPerSecond: STEPS_PER_SECOND, lightWindowSteps: LIGHT_WINDOW_STEPS, slowdown: SLOWDOWN });
+  const lipIndex = new Map(dots.map((dot, i) => [dot.bodyId, i]));
+  const readout = new Set(recordings.readout.bodyIds);
+  if (recordings.dtMs !== 0.1) throw new Error(`the recordings were made with a step of ${recordings.dtMs} ms, and this page counts his time in steps of 0.1 ms`);
+  const stepsPerSecond = 1000 / recordings.dtMs / SLOWDOWN;   // model steps per second on the wall, while the tea is on his lips
+  const options = { stepsPerSecond, lightWindowSteps: LIGHT_WINDOW_STEPS, slowdown: SLOWDOWN };
+  const entryOf = (sip: Sip): RecordingEntry => entryFor(recordings, sip.sweets, sip.teaId ? bitterLevel(codec, sip.teaId, sip.scoops) : 0);
+
+  // One recording per sip of the grid, fetched when its bowl begins and kept. A recording that has not arrived shows nothing.
+  // One that failed is left alone for a while and said once: asking again every frame would be sixty requests a second.
+  const fetched = new Map<string, Replay | "coming" | { failedAt: number }>();
+  const replayOf = (entry: RecordingEntry): Replay | null => {
+    const held = fetched.get(entry.file);
+    const again = typeof held === "object" && !(held instanceof Replay) && performance.now() - held.failedAt > RETRY_SECONDS * 1000;
+    if (held === undefined || again) {
+      fetched.set(entry.file, "coming");
+      fetch(`/recordings/${entry.file}`)
+        .then((response) => { if (!response.ok) throw new Error(`${entry.file}: ${response.status}`); return response.json(); })
+        .then((recording) => {
+          if (recording.spikeHash !== entry.spikeHash) throw new Error(`${entry.file} is not the recording the index names`);
+          fetched.set(entry.file, new Replay(recording, cloudIndex, lipIndex, readout));
+        })
+        .catch((error: unknown) => {
+          if (!again) problem(`${error instanceof Error ? error.message : String(error)}. That bowl is shown without his brain's response. Click to dismiss.`);
+          fetched.set(entry.file, { failedAt: performance.now() });
+        });
+    }
+    return held instanceof Replay ? held : null;
+  };
 
   element("title-body").innerHTML = titleHtml(reg, info);
   element("lips-body").innerHTML = lipsHtml(reg, dots, SLOWDOWN);
@@ -101,8 +129,8 @@ async function start(): Promise<void> {
   const lipCircles = [...element("lips-body").querySelectorAll("circle")];
   const lipLit = new Uint8Array(dots.length);
 
-  // Tasting is never rushed and never takes the same time twice running. Staged, until a recording can set it.
-  const loop = new Loop((sipIndex, phase) => (phase === "taste" ? lingerSeconds(sipIndex) : PHASE_SECONDS[phase]));
+  // Tasting is never rushed, and how long it lasts is set by what his brain did with the sip: he stays until MN9 has fallen silent.
+  const loop = new Loop((sipIndex, phase) => (phase === "taste" ? stayFor(entryOf(sipAt(codec, sipIndex)), stepsPerSecond).seconds : PHASE_SECONDS[phase]));
   const address = stillFromAddress(loop, query);
 
   // A break is the viewer's wish. The clock stops at once; it starts again only when he is back at his work,
@@ -177,6 +205,7 @@ async function start(): Promise<void> {
   if (address.still) stage.settle(loop.state(), lookOf(sipAt(codec, loop.state().sipIndex)), bookAt(loop.state().sipIndex), resting);
 
   const pins = { brain: element("pin-brain"), cord: element("pin-cord") };
+  let shownReplay: Replay | null = null;
   let shownMoment = "";
   let shownCount = "";
   let last = performance.now();
@@ -187,7 +216,11 @@ async function start(): Promise<void> {
     const state = address.still ? loop.state() : loop.tick(dt);
     const sip = sipAt(codec, state.sipIndex);
     const book = bookAt(state.sipIndex);
-    const { live, glow } = liveLayer.at(state, sip);
+    const replay = replayOf(entryOf(sip));
+    replayOf(entryOf(sipAt(codec, state.sipIndex + 1)));   // the next bowl's recording, ahead of time
+    if (replay !== shownReplay) { stage.setActive(replay ? replay.participants : [], replay ? replay.readoutPlaces : []); shownReplay = replay; }
+    const { replayed, cloud: cloudGlow, lips: glow } = replayAt(state, replay, dots.length, recordings.pilot, options);
+    stage.applyActiveLight(cloudGlow);
     stage.applyLipLight(glow);
     glow.forEach((value, i) => {
       const lit = value > 0 ? 1 : 0;
@@ -204,10 +237,11 @@ async function start(): Promise<void> {
 
     // The card is rewritten when the moment changes. While spikes are being counted only the line that counts them is.
     const away = resting ? "break" : state.paused ? "returning" : "work";
-    const moment = `${state.sipIndex}/${state.phase}/${away}/${live ? live.touching : "-"}`;
-    const count = live ? `${live.sweetSpikes}/${live.bitterSpikes}/${Math.floor(live.steps / 40)}` : "";
+    const waiting = state.phase === "taste" && !replay;
+    const moment = `${state.sipIndex}/${state.phase}/${away}/${replayed ? replayed.touching : "-"}/${waiting}`;
+    const count = replayed ? `${Math.floor(replayed.steps / 40)}` : "";
     if (moment !== shownMoment || count !== shownCount) {
-      const card = reactionCard(reg, codec, info, { sip, phase: state.phase, phaseSeconds: state.phaseSeconds, recording: null, away: away === "work" ? null : { book, returning: away === "returning" }, live });
+      const card = reactionCard(reg, codec, info, { sip, phase: state.phase, phaseSeconds: state.phaseSeconds, stay: stayFor(entryOf(sip), stepsPerSecond), away: away === "work" ? null : { book, returning: away === "returning" }, replayed, waiting });
       if (moment !== shownMoment) {
         element("track").innerHTML = trackHtml(reg, state);
         element("card-head").innerHTML = cardHeadHtml(card);

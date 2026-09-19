@@ -381,3 +381,56 @@ The planning workflow asks for a second family. It was skipped, because that wou
 
 #### K14. He comes to the cup at an angle, and the tea stands a little over half way up the glass
 **Implementation decision, on the second critic's advice.** Head-on, his face hid the glass and his lips. At 40 degrees the contact shows in profile. Matcha is a suspension, so the glass holds a solid green body, not a green skin on clear water, and above it the glass is clear so that his lips stay in sight. The whisk gained tines.
+
+### Slice 03, 2026-09-19. Least confident first.
+
+#### M1. Every bound taste group is a source for hop depth and has a hub of its own
+**Implementation decision.** The slice named hubs for "each taste population" and CONTRACTS.md defined hop depth from "any bound `grn.*` group". I followed the contract for both: ten hubs, not five. A taste type can sit in its own population's hub, because taste neurons synapse onto each other, and the count is kept as counted.
+
+- **Reach:** the lock grew to version 2 and about 90 kB. The atlas and the scope read hop depth from it.
+- **Reversal:** one prefix in `lab/flylab/census/connectivity.py`.
+
+#### M2. The lock has two layers, and only one reproduces without the graph
+**Implementation decision.** What the annotations decide reproduces from the 58 MB of stage A. Hubs and hop depths need the 508 MB as well. The committed lock holds both; a checkout without the graph verifies the first layer and trusts the second, and a test says which it did.
+
+#### M3. The manifest is `<name>.manifest.json`, and a file without one does not load
+**Implementation decision, delegated.** `read_graph` wants the manifest beside the file, `synthetic: false` in it, and the file's own hash. The arrays are read-only views onto a memory map.
+
+#### M4. The whole table is keyed and sorted in memory
+**Implementation decision, delegated.** 25.6 million rows become 64-bit keys, sorted once, summed by key, thresholded. It takes under five seconds and about a gigabyte. The file turned out to hold no duplicate pairs, but the sum comes first all the same, because the contract says so and the next release may differ.
+
+#### M5. A pilot was run and written down the moment the graph existed
+**Implementation decision.** Rule 1 forbids a mechanic without an experiment; it does not forbid looking. The pilot is in `assets/evidence/03/README.md`, labelled as one seed with no control, with the one odd thing it showed left unexplained for slice 05.
+
+### Slice V2, 2026-09-19. Least confident first.
+
+#### P1v2. A recording is 300 ms of his time
+**Implementation decision.** The slice said "the second after a sip". At fifty-fold slowdown a second is fifty seconds on the wall, and the user asked for a tasting that is unhurried, not endless. His lips are on the tea for at most about fourteen seconds, which is 287 ms of his time, so 300 ms is all a replay can show. It also keeps the bundle at 5.7 MB.
+
+- **Reach:** MN9 counts on the page are counts in 300 ms, not the per-second rates of the papers. Slice 05 runs its own, longer trials.
+- **Reversal:** `DURATION_STEPS` in `lab/flylab/web/recordings.py`, and a different slowdown.
+
+#### P2v2. His brain sets his stay, through a mapping that is ours
+**Implementation decision, from N11.** His lips stay on the tea until MN9's last spike in the recording and one breath longer, never under eight seconds in all and never over twenty. The step of the last spike is the model's; turning it into seconds is ours, so the seconds are tagged `staged` with MN9 as their declared input. `LINGER_SECONDS` is gone. He still does not drink.
+
+#### P3v2. Firing neurons are a layer of their own, and MN9 is drawn large
+**Implementation decision, delegated.** A few thousand additive points over the painted cloud, relit every frame from `light()`. Two neurons among thousands would be lost, so MN9 has a larger point. Size is emphasis, not activity: it is dark unless it fires.
+
+#### P4v2. No scrubber yet
+**Implementation decision.** A break holds the replay where it was. A scrubber is a player's tool and arrives with the slices that give the player tools.
+
+#### P5v2. The input-only live layer of V1 was deleted, and its rule kept as a test
+**Implementation decision.** With whole-brain recordings, his lips are lit from the recording, which holds the forced spikes and any his wiring adds. `web/src/view/live.ts` went. The browser's engine files stay for slice 08, and a test now holds them to the lab on real data: every spike they say the tea forces is in the recording, for the same seed.
+
+#### R1. What the review of slices 03 and V2 found, and what was done
+**Implementation decision, 2026-09-19.** Three reviewers and an adversarial verifier per finding; the account's spending limit cut three verifiers off, so ten findings were fixed unverified, on reading the code.
+
+- **The card lied about most bowls.** "He stays until MN9 has fallen silent" was printed always. Now there are four true sentences: MN9 never fires (the least stay), it fell silent early (the least stay, he is never rushed), it fell silent and he stayed a breath longer, or it was still firing when the longest stay ended. The step of MN9's last spike is a registered quantity, `model`, `recorded`, and his stay declares it as its input.
+- **The download could still throw away a good partial file**, on its last attempt or when a resume brought no bytes. It now keeps what arrived, retries the statuses the server documents as transient, and names a partial file for the object it is the start of, so a later run cannot append to another object's bytes.
+- **A census run without the graph silently replaced the lock with one that had no hubs.** It now keeps the earlier connectivity layer if the annotation layer is unchanged, and refuses otherwise. A test that needs no graph holds the committed lock to its eleven hubs.
+- **A failed fetch of a recording was asked for again sixty times a second.** It is now left alone for fifteen seconds and said once.
+- **"Sip" had crept back** into the words on the page. A test now reads every string the page can show and refuses the word.
+- A circuit file can no longer claim the `connectivity` kind or a `hub.` id. `resolve` refuses a group whose sides do not match its bodies. `bind_connectivity` refuses a census and a graph built from different annotation files. The builder keeps body IDs at 64 bits whatever it is handed, counts every self-edge as a self-edge, and the manifest names the three files that made the bytes. The recordings' index names the lock by its hash, and the staleness guards run without the graph. A light layer refuses light meant for another recording.
+
+#### R2. A taste that is absent drives nothing
+**Implementation decision.** Level 0 is no drive at all, not a drive with a threshold of zero. The spikes are the same; the trials are not, because a driven neuron is an input neuron and has no refractory period. `sip_spec` lives beside the codec, as the one owner of what a sip is as a trial, and the card says "not driven".

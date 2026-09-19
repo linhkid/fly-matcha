@@ -1,0 +1,64 @@
+{
+  "counts": {
+    "ntHistogram": {
+      "acetylcholine": 102577,
+      "dopamine": 392,
+      "gaba": 21869,
+      "glutamate": 29107,
+      "histamine": 7883,
+      "octopamine": 101,
+      "serotonin": 48,
+      "unknown": 2529
+    },
+    "signCoverage": 0.981338,
+    "unknownNt": 2529
+  },
+  "dataset": {
+    "attribution": "MaleCNS v1.0 (Janelia FlyEM, CC-BY 4.0)",
+    "license": "CC-BY 4.0",
+    "name": "MaleCNS",
+    "version": "1.0"
+  },
+  "exporter": {
+    "gitRev": "a7098484b650542a1275ca6e95b88c64026cf310",
+    "sourceSha256": {
+      "build.py": "465897f31597f9a0c2fbbf5a45e2aebc175ce6db979f328afe2c2eb671444c78",
+      "format.py": "d804a4f2a1f70adaaad2540b879f56e0bc25fde120b77f1fe84f4a0d27d4639b",
+      "graph.py": "a780bd19cac28bfecc92337384a96127d440807a3cb178b3eb9dad323e97123f"
+    }
+  },
+  "filters": {
+    "droppedBelowThreshold": 18981773,
+    "droppedSelfEdges": 89,
+    "droppedUntypedBodies": 47071,
+    "rowsBetweenTyped": 25120209,
+    "summedDuplicatePairs": 0,
+    "weightsRows": 25563197
+  },
+  "graph": {
+    "E": 6138347,
+    "N": 164506,
+    "file": "malecns.fskg",
+    "minSynapses": 5,
+    "sha256": "e44513e148808b0d6fdf0198ebdfe04f8fb3783e52fef5bb178d75d6aec38ae4"
+  },
+  "kind": "full",
+  "sources": [
+    {
+      "bytes": 14483314,
+      "file": "body-annotations.feather",
+      "sha256": "2177e246113e4cfbf1e7772ec37c6da1955ff22e8063d0b1f833101f99a9a3b2"
+    },
+    {
+      "bytes": 43282834,
+      "file": "body-neurotransmitters.feather",
+      "sha256": "95c9289220663abeb3409f3ad9e5a7f8a53f8093f5139d15502cd08da8879621"
+    },
+    {
+      "bytes": 508025642,
+      "file": "connectome-weights-traced-only.feather",
+      "sha256": "9b3beab17bad5f618be3f2c02d3139a8d07b822565919c013f1e5506d93e604b"
+    }
+  ],
+  "synthetic": false
+}

@@ -115,3 +115,19 @@ def write_fixture(directory: Path = CONTRACTS_DIR / "fixtures" / "codec") -> Pat
     path = directory / "taste-codec-lookups.json"
     path.write_text(json.dumps(codec_fixture(load_codec()), indent=1, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8")
     return path
+
+
+def sip_spec(model_id: str, graph_sha: str, codec: dict, codec_sha: str, sweet: int, bitter: int, seed: int, steps: int) -> dict:
+    """The trial a sip is: each taste population driven on both sides for the whole trial, at its level's threshold.
+
+    Level 0 is no drive at all, not a drive with a threshold of zero. The spikes are the same, since a threshold of
+    zero never fires, but the trials are not: a driven neuron is an input neuron and has no refractory period
+    (contracts/MODEL.md), and an undriven taste neuron keeps its own. A taste that is absent drives nothing.
+    """
+    drives = []
+    for channel, level in (("sweet", sweet), ("bitter", bitter)):
+        entry = next(c for c in codec["channels"] if c["id"] == channel)
+        if level:
+            drives.append({"group": entry["group"], "side": "both", "thr16": entry["levels"][level]["thr16"], "onStep": 0, "offStep": steps})
+    return {"modelId": model_id, "variant": "base", "graphSha256": graph_sha, "codecSha256": codec_sha, "seed": seed,
+            "durationSteps": steps, "drives": drives, "activated": [], "silenced": []}

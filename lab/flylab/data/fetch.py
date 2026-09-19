@@ -9,10 +9,16 @@ at any time.
 from __future__ import annotations
 
 import base64
+import glob
 import hashlib
 import json
+import ssl
+import time
+from collections.abc import Callable
 from dataclasses import asdict, dataclass
+from http.client import IncompleteRead
 from pathlib import Path
+from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 DATASET = "MaleCNS v1.0 (Janelia FlyEM, CC-BY 4.0)"
@@ -73,14 +79,27 @@ def _remote_facts(url: str, headers) -> tuple[int, str, str]:
     return int(headers["Content-Length"]), md5, headers.get("x-goog-generation", "")
 
 
+def _head(url: str, attempts: int = 5, pause: float = 2.0) -> tuple[int, str, str]:
+    """A file's declared size, md5 and generation. A dropped connection is asked again; a server's refusal is not."""
+    for attempt in range(attempts):
+        try:
+            with urlopen(Request(url, method="HEAD"), timeout=60) as response:
+                return _remote_facts(url, response.headers)
+        except HTTPError:
+            raise
+        except (TimeoutError, ConnectionError, URLError):
+            if attempt == attempts - 1:
+                raise
+            time.sleep(pause)
+    raise AssertionError("unreachable")
+
+
 def plan(stage: str) -> list[SourceRequest]:
     """What ``run`` would fetch, read from response headers only."""
     requests = []
     for local, remote in STAGES[stage]:
         url = f"{BUCKET}/{remote}"
-        with urlopen(Request(url, method="HEAD"), timeout=60) as response:
-            size, md5, generation = _remote_facts(url, response.headers)
-        requests.append(SourceRequest(local, url, size, md5, generation))
+        requests.append(SourceRequest(local, url, *_head(url)))
     return requests
 
 
@@ -106,21 +125,90 @@ def verify_file(path: Path, size: int, md5: str) -> str:
     return sha
 
 
-def _download(request: SourceRequest, path: Path) -> str:
-    """Stream to ``<name>.part``, verify, then rename. Nothing unverified ever carries the final name."""
-    temporary = path.with_name(path.name + ".part")
-    try:
-        with urlopen(request.url, timeout=60) as response, temporary.open("wb") as output:
-            while block := response.read(BLOCK):
-                output.write(block)
-        sha = verify_file(temporary, request.bytes, request.md5)
+Progress = Callable[[str, int, int], None]
+ATTEMPTS = 12
+TRANSIENT = frozenset({408, 429, 500, 502, 503, 504})   # the statuses Google Cloud Storage documents as worth asking again
+
+
+def _partial(path: Path, request: SourceRequest) -> Path:
+    """The partial file is named for the object it is the start of, so no run continues another object's bytes."""
+    tag = hashlib.sha256(f"{request.generation}:{request.md5}".encode()).hexdigest()[:16]
+    return path.with_name(f"{path.name}.{tag}.part")
+
+
+def _download(request: SourceRequest, path: Path, progress: Progress | None = None, attempts: int = ATTEMPTS, pause: float = 2.0) -> str:
+    """Stream to ``<name>.part``, verify, then rename. Nothing unverified ever carries the final name.
+
+    A stalled or dropped connection keeps the partial file, and the next attempt, or the next run, asks the
+    server for the rest. The partial file is named for the generation and md5 it was planned under, so a later
+    run that plans a different object starts again instead of appending to another object's bytes; within a run
+    the generation is pinned with x-goog-if-generation-match. A partial file is thrown away only when it cannot
+    be the start of the right file: a whole re-read of the source ended short, the object changed, or the
+    finished file fails its checksum. Running out of attempts keeps it.
+    """
+    temporary = _partial(path, request)
+    for stale in path.parent.glob(glob.escape(path.name) + ".*.part"):   # the start of some other object: useless now
+        if stale != temporary:
+            stale.unlink()
+    for attempt in range(attempts):
+        have = temporary.stat().st_size if temporary.exists() else 0
+        if have > request.bytes:
+            temporary.unlink()
+            have = 0
+        restarted = False
+        before = have
+        if have < request.bytes:
+            headers = {"Range": f"bytes={have}-"} if have else {}
+            if request.generation and request.url.startswith("http"):
+                headers["x-goog-if-generation-match"] = request.generation
+            try:
+                with urlopen(Request(request.url, headers=headers), timeout=60) as response:
+                    if have and getattr(response, "status", None) != 206:   # the range was ignored: this is the whole file again
+                        have, restarted = 0, True
+                    with temporary.open("ab" if have else "wb") as output:
+                        try:
+                            while block := response.read(BLOCK):
+                                output.write(block)
+                                have += len(block)
+                                if progress:
+                                    progress(request.file, have, request.bytes)
+                        except IncompleteRead as cut:
+                            output.write(cut.partial)
+                            have += len(cut.partial)
+            except HTTPError as error:
+                if error.code == 412:                                        # another generation: the partial file is of another object
+                    temporary.unlink(missing_ok=True)
+                    raise CorruptDownload(f"{request.file}: the object changed on the server since it was planned") from error
+                if error.code not in TRANSIENT or attempt == attempts - 1:   # a refusal, or the last try: the partial file stays
+                    raise
+                error.close()
+                time.sleep(pause)
+                continue
+            except (TimeoutError, ConnectionError, URLError, ssl.SSLError) as error:
+                if attempt == attempts - 1:
+                    raise
+                if progress:
+                    progress(request.file, temporary.stat().st_size if temporary.exists() else 0, request.bytes)
+                time.sleep(pause)
+                continue
+        if have < request.bytes:
+            if restarted or (have <= before and not request.url.startswith("http")):   # read whole and still short: the source itself is short
+                temporary.unlink(missing_ok=True)
+                raise CorruptDownload(f"{request.file}: the source ended at {have:,} bytes, expected {request.bytes:,}")
+            if have <= before:                                                # a connection that closed before any byte is a dropped one
+                time.sleep(pause)
+            continue
+        try:
+            sha = verify_file(temporary, request.bytes, request.md5)
+        except CorruptDownload:
+            temporary.unlink(missing_ok=True)
+            raise
         temporary.replace(path)
         return sha
-    finally:
-        temporary.unlink(missing_ok=True)
+    raise CorruptDownload(f"{request.file}: gave up after {attempts} attempts; what arrived is kept, and the next run continues from it")
 
 
-def run(stage: str, consent: bool, directory: Path, requests: list[SourceRequest] | None = None) -> list[SourceRecord]:
+def run(stage: str, consent: bool, directory: Path, requests: list[SourceRequest] | None = None, progress: Progress | None = None) -> list[SourceRecord]:
     """Fetch one stage. A file already present and intact is not fetched again.
 
     ``requests`` defaults to ``plan(stage)``; tests pass their own.
@@ -134,7 +222,7 @@ def run(stage: str, consent: bool, directory: Path, requests: list[SourceRequest
         try:
             sha = verify_file(path, request.bytes, request.md5)
         except CorruptDownload:
-            sha = _download(request, path)
+            sha = _download(request, path, progress)
         records.append(SourceRecord(request.file, request.url, request.bytes, request.md5, sha, request.generation))
     merge_sources(directory / "sources.json", records)
     return records

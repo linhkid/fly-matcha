@@ -56,35 +56,16 @@ There are two implementations of the model, the oracle and the engine, and never
 
 ## Graph artifact: `.fskg` version 1
 
-Little-endian. Every section starts on an 8-byte boundary, zero padded.
-
-```
-char[8]  "FSKGRAPH"
-u32      version = 1
-u32      N            neurons
-u32      E            edges
-u32      minSynapses  edge threshold used at build (5)
-u64[N]   bodyId       ascending; neuron index = rank
-u8[N]    nt           0 unknown 1 acetylcholine 2 GABA 3 glutamate 4 histamine 5 dopamine 6 octopamine 7 serotonin
-u8[N]    flags        bit0 = sentinel (simulated, out-edges omitted)
-u32[N+1] outOffset    rows are PRESYNAPTIC
-u32[E]   target       ascending within a row
-u16[E]   synCount     build asserts <= 65535
-```
-
-**The file holds facts only.** No floats, no signs, no group names. Sign policy and weight scale belong to the model, so flipping glutamate is a model variant and not a new artifact. This is a deliberate break from fly-escape's `FLYGRAPH`, whose signed f64 weights fuse synapse counts, predicted transmitter and model scale into one number and then need a summation-order contract.
-
-Build rules for the full graph: bodies with a non-null `type`; the traced-only weights file; if the file has more than one row per `(pre, post)` pair, sum them first; then keep edges with at least 5 synapses; drop self-edges, which in electron microscopy are mostly segmentation artefacts, and count them in the manifest. `nt` comes from `consensus_nt`, lower-cased, matched against the seven names above; anything else is 0.
-
-The manifest beside it: `{kind: full|subgraph, dataset{name,version,license,attribution}, sources[], graph{file,sha256,N,E,minSynapses}, filters{droppedUntyped,droppedSelfEdges,summedDuplicatePairs}, counts{ntHistogram,unknownNt}, parent?{graphSha256}, extraction?{lockSha256,codecSha256,modelId,rule,seeds,heldOutBreachRate,sentinelRule}, exporter{gitRev,sourceSha256}, synthetic:false}`. A reader refuses `synthetic:true` outside tests. Groups live in the circuit lock, not here.
+Moved to the repository when slice 03 was accepted: **`contracts/GRAPH.md`** is the authority for the layout, for what a reader must refuse, for the manifest and for how the full graph is built. Golden file: `contracts/fixtures/graph/tiny.fskg`. Owners: `lab/flylab/graph/format.py` for the bytes, `lab/flylab/graph/build.py` for what goes in.
 
 ## Circuit file and lock
 
 A circuit file lists roles. Each role selects neurons by type name, type pattern, annotation columns or explicit body IDs, states what it expects to find, and carries its evidence: a claim, a source, and a kind (`annotation`, `paper`, `crosswalk` through the dataset's own synonym columns, or `connectivity`). The file also holds literature aliases to look up, anchor counts seen elsewhere, and notes for the report. `validate_circuit` in `lab/flylab/census/census.py` is the authority on its shape. Only roles bound on `annotation` or `paper` evidence may gate a slice. Every expected count states its basis: `paper`, `anchor` (seen elsewhere before the file was downloaded) or `observed` (pinned from this file to catch drift, and not evidence). An unknown key anywhere in a role is an error, so a typo can neither widen a binding nor switch off a check.
 
 ```
-{ version: 1, circuit, annotationsSha256, transmittersSha256, graphSha256 | null,
-  groups: [{ id, bodyIds: [decimal strings], perSide: {L, R, unknown}, ntHistogram, evidenceKind: annotation|paper|crosswalk|connectivity }],
+{ version: 2, circuit, annotationsSha256, transmittersSha256, graphSha256 | null,
+  groups: [{ id, bodyIds: [decimal strings, ascending], sides: "LRU…" one letter per body, perSide: {L, R, unknown}, ntHistogram,
+             evidenceKind: annotation|paper|crosswalk|connectivity, byType?: [{ type, synapses }] }],
   types:  [{ type, nNeurons, nt, hopDepth: int | null }] }
 ```
 
@@ -96,6 +77,9 @@ A circuit file lists roles. Each role selects neurons by type name, type pattern
 - `expect.nt` is met when at least half of a group's neurons carry that transmitter.
 - `hopDepth` is the smallest number of edges on a directed path from any neuron of any bound `grn.*` group to any neuron of the type, over the full graph, ignoring sign. Taste neurons are 0. Unreachable is `null`. `bind_connectivity` recomputes it for every type whenever the lock changes; nothing else computes it.
 - Ranking by synapse count breaks ties by type name, ascending.
+- `sides` is what lets a trial drive one side of a group: `resolve(lock, graph)` in `lab/flylab/census/connectivity.py` turns a lock into `{groupId: {indices, sides}}` as `contracts/TRIAL.md` defines it, and refuses a body the graph does not hold and a lock bound against another graph.
+- Groups with `evidenceKind: connectivity` are written by `bind_connectivity` and by nothing else, from counts of synapses in the graph named by `graphSha256`: `hub.mn9.in`, the 20 types with most synapses onto MN9, and `hub.grn.out.<population>`, the 10 types that receive most from each bound `grn.*` group. A hub holds every neuron of its types, and `byType` keeps the counts it was ranked by. A taste type may be in its own population's hub: taste neurons synapse onto each other.
+- The annotation part of a lock reproduces from the stage A files alone. The connectivity part needs the full graph as well, so a checkout without it can verify the first and must trust the second.
 
 ## Neuron model
 

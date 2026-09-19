@@ -1,0 +1,17 @@
+malecns.fskg  sha256 e44513e148808b0d6fdf0198ebdfe04f8fb3783e52fef5bb178d75d6aec38ae4
+  neurons 164,506   edges 6,138,347   synapses 88,487,798   threshold 5
+  dropped as untyped: 47,071 bodies;  self-edges dropped: 89;  pairs summed: 0;  below threshold: 18,981,773
+  transmitters: acetylcholine 102,577, dopamine 392, gaba 21,869, glutamate 29,107, histamine 7,883, octopamine 101, serotonin 48, unknown 2,529
+  sign coverage under the base policy: 98.1%
+  neurons with no out-edge: 6,094
+  top inputs to MN9 (2 neurons), by type:
+    DNge062           556 synapses from  2 neurons   acetylcholine
+    GNG015            478 synapses from  2 neurons   gaba
+    GNG120            442 synapses from  2 neurons   acetylcholine
+    GNG095            432 synapses from  2 neurons   gaba
+    GNG117            410 synapses from  2 neurons   acetylcholine
+    GNG130            407 synapses from  2 neurons   gaba
+    GNG108            380 synapses from  2 neurons   acetylcholine
+    GNG234            362 synapses from  2 neurons   acetylcholine
+    GNG180            287 synapses from  2 neurons   gaba
+    GNG184            272 synapses from  2 neurons   gaba

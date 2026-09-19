@@ -1,7 +1,7 @@
 {
   "annotationsSha256": "2177e246113e4cfbf1e7772ec37c6da1955ff22e8063d0b1f833101f99a9a3b2",
   "circuit": "taste",
-  "graphSha256": null,
+  "graphSha256": "e44513e148808b0d6fdf0198ebdfe04f8fb3783e52fef5bb178d75d6aec38ae4",
   "groups": [
     {
       "bodyIds": [
@@ -17,7 +17,8 @@
         "L": 1,
         "R": 1,
         "unknown": 0
-      }
+      },
+      "sides": "LR"
     },
     {
       "bodyIds": [
@@ -70,7 +71,8 @@
         "L": 19,
         "R": 19,
         "unknown": 0
-      }
+      },
+      "sides": "LLRRLRLRRLLRRRLRLLLRRLLRRRLRRLLLLRLRLR"
     },
     {
       "bodyIds": [
@@ -118,7 +120,8 @@
         "L": 17,
         "R": 17,
         "unknown": 0
-      }
+      },
+      "sides": "LRLLRRRRRLRLRRLRRRLLLLRLRLRRLLRLLL"
     },
     {
       "bodyIds": [
@@ -149,7 +152,8 @@
         "L": 9,
         "R": 8,
         "unknown": 0
-      }
+      },
+      "sides": "LRRLRLLRLRLRRRLLL"
     },
     {
       "bodyIds": [
@@ -182,7 +186,8 @@
         "L": 11,
         "R": 8,
         "unknown": 0
-      }
+      },
+      "sides": "RRLLLLRLRLLLLLRLRRR"
     },
     {
       "bodyIds": [
@@ -222,7 +227,8 @@
         "L": 11,
         "R": 15,
         "unknown": 0
-      }
+      },
+      "sides": "RLRRLLRLRRLRLRLLLLRRRRRRLR"
     },
     {
       "bodyIds": [
@@ -268,7 +274,8 @@
         "L": 16,
         "R": 15,
         "unknown": 0
-      }
+      },
+      "sides": "RLRRLRLLRRRLRRLLRRLRLRRLLLLRLLL"
     },
     {
       "bodyIds": [
@@ -342,7 +349,8 @@
         "L": 30,
         "R": 30,
         "unknown": 0
-      }
+      },
+      "sides": "RRRRRRRRRRRRLRRRRRLRLRRLLRLLLLRLLLRRRLRLLLLLLRRLLLLRLLLRLLLL"
     },
     {
       "bodyIds": [
@@ -404,7 +412,8 @@
         "L": 24,
         "R": 24,
         "unknown": 0
-      }
+      },
+      "sides": "RRRLLRRLLRRLRRRLRLLLLRLRRLRRRLRLRRLRLLRLLRLLRLLL"
     },
     {
       "bodyIds": [
@@ -461,7 +470,8 @@
         "L": 23,
         "R": 20,
         "unknown": 0
-      }
+      },
+      "sides": "RRRLRRLRRLLRLLLLLLLRRLRRLRLLLLRLRRLRRRLRLLL"
     },
     {
       "bodyIds": [
@@ -940,7 +950,8 @@
         "L": 230,
         "R": 233,
         "unknown": 0
-      }
+      },
+      "sides": "LRLRRRRRLLRRRLLLRLRLLLRRRLLRLRRLRLRLLRRLRLRLLRRRLLRRLRLLLRLLRLLRRRRRRLLLLLLRLRLLRLLRRLRRLLRLLRRLRRLLLRRRLRRLRRRLRLRRLRLLRRLLRRRRRRRRLLLLRRLRLLRLRRLLRRRRLRLRLLLLLLRLLLLRRRLRRLRLRLLRLLLLLLLRRLLRRLRLRLLLLLRRRLRLRLLRRLRLRRRLLLRRLRLRLRRLRLLLLRRRRRLLRRLLRLLRLRRLRRRRRLLLRLLRRLLRLLRLRLLLLLLRLRLRRRLLRRRLLRLLRLLRRRLRLRLRLLRRLRLRRRRRRLLLLLRLRRRRLLLRRRLLLLRLLRLLLRLLRRLLRLRRLRLRLRRRRRRRLRLRLRRLLLLLRLRLRLRLRLRRLRRLRRLRRRRRRRRLLRRRLRRRRLLLRLRLRLRLRLRLLRRRLLRLRLLLLLLRRRLLLLR"
     },
     {
       "bodyIds": [
@@ -994,7 +1005,8 @@
         "L": 23,
         "R": 17,
         "unknown": 0
-      }
+      },
+      "sides": "LLLLRRLLLLRRLLLRRRLLLLLRRRRRLRRLLRLRLRLL"
     },
     {
       "bodyIds": [
@@ -1753,7 +1765,8 @@
         "L": 340,
         "R": 405,
         "unknown": 0
-      }
+      },
+      "sides": "LLLLLRLLLLLLLLLLLLLLLRLLLLLLRLLLLLLLLLLLLLLLLLLLRLLLLLLLLLLLLLLLLLLLLLLLLLRLRLLLLLLLLLLLLLLLLLLLRLLLLLLLLLLLLLLLLRLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLRLLLLLLLLRRLLLLLLLLLLRLLLLLLLLLLLLLRRLRRRLLRLRLLLRLLLLRRLLLLRLLRLLRRLLLLLLRLLLRRRRLLRLLRLLLRRLRRLRLLLRRLLRLLRRRRRLLLRRLLLRLLLRRRLRLRRRRRRLRRRRLRRLLLLRRLLRRLRLLRLRRRLLRRRLRLRRRRLRRRRRRRRRLLLLRRLLRRRLRLRLRRRLRRLRLRRRLRRRRLRRLRLRRRRLRLLRRLLLRLRRRRRRRRRRRRRRRLLRRLLLLRRRRLRRRRRRLRLRRRRLRLRRRRRLRRRLRRLRRRRLLRLRRRRRRRRRRLLLLRRLLLRLLLLLLLLRRRRLLRRRRRRLLLRRRRRRLRRRRRRRRRLRLRLRLRRRRRRRRRRRRRRLRRRLRRRLRRRRRRLRRRLRRRRRRRRRLLRRRRRLRRRRRLRRRRRLRRRRRRRRRLRRRRRRRRRRRRRLRLRRRRRLRRLRRRRLLRRRRRRRRLRRRRRRRRRLRRRRRRRRRRLRLRRRLLLLRLRRRRRRRRRLRRRRRLRLRRRRRRRRRLRRRRRRRLRRRRRRRRRRLRRRLRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRL"
     },
     {
       "bodyIds": [
@@ -1845,7 +1858,8 @@
         "L": 30,
         "R": 48,
         "unknown": 0
-      }
+      },
+      "sides": "LLRLLLLRLRLRRLRLRLLLRLLRLLRLRRRRLLRRRRRRRRRLRLLLRRRLRRRRRRRRRRRLLRRLLRRRRRRRLR"
     },
     {
       "bodyIds": [
@@ -1924,7 +1938,8 @@
         "L": 40,
         "R": 25,
         "unknown": 0
-      }
+      },
+      "sides": "RRLLRLLLLLLLRRLLLLLLLLLLRLRLLLLLLRRLLRRLRRLRRRRRRRRLLRLLRRLRLLLLL"
     },
     {
       "bodyIds": [
@@ -1983,7 +1998,8 @@
         "L": 21,
         "R": 22,
         "unknown": 0
-      }
+      },
+      "sides": "RLRRRLLLRLLRRRLRRLLLRRRRLRRRLLRLRLLRLLLRLLR"
     },
     {
       "bodyIds": [
@@ -2064,7 +2080,8 @@
         "L": 34,
         "R": 31,
         "unknown": 0
-      }
+      },
+      "sides": "LRRLRRRRRLLLLLLLLLRLRLRLLRRRRRRRLRLLRLLRLRLRLRRLRRRRLLLLLLRLLLRRL"
     },
     {
       "bodyIds": [
@@ -2084,7 +2101,8 @@
         "L": 3,
         "R": 3,
         "unknown": 0
-      }
+      },
+      "sides": "LRLRLR"
     },
     {
       "bodyIds": [
@@ -2140,7 +2158,8 @@
         "L": 21,
         "R": 21,
         "unknown": 0
-      }
+      },
+      "sides": "RRRLLRRRLRRLLRLLRRLRLLRRLRLRRLRLRLLLLLRRLL"
     },
     {
       "bodyIds": [
@@ -2158,7 +2177,8 @@
         "L": 2,
         "R": 2,
         "unknown": 0
-      }
+      },
+      "sides": "LLRR"
     },
     {
       "bodyIds": [
@@ -2605,7 +2625,8 @@
         "L": 216,
         "R": 216,
         "unknown": 0
-      }
+      },
+      "sides": "LLLLLRRRRLLRRRLRLLRRRRRLRLLRRLRRRRLLLLLLLLLRRLLLRLLRRRRRRRLRLRLLRLLLRLRLRRLLRLLLRLLLRLLLRRRLLRRRRLRRLLLLLLLLLLRLLLLLLRLRLRLLRRLRLLLRLRRLLRRLLLLRRLLLRLLLLRLRRLRLLLLRRLRLLLRLRRLRLLLLRLLLRRLRLRRRLRLLRLRRRLRRRRRLRLLLLLRRLRRLLLRLRLLLLRRRRRLRLLLLLLLRRLLLRRLRLRRLLRRRRLRLRLRRLRRRRRLRLRRLLLRRRRRRRRRLRRLRRRRLRRRRLLRLRRRLRRLLLRLRRRRRLRLRLLRLLRRLRRRRRLRLRLLRLRRRLLLLLLLRLRRLRRLLRRLRLRRLLLLRRLLRRLLLRLRRRRRRRRRRRLRLLRRLLRLLRLRLLLLRRRRLRLRRRLRL"
     },
     {
       "bodyIds": [
@@ -3058,7 +3079,8 @@
         "L": 220,
         "R": 219,
         "unknown": 0
-      }
+      },
+      "sides": "RRRLRRRRRRLRLLRRLRLRRLLLRRRLRRLRRRLRRRLRRRLLRLRRLRRLRLLLLRLRLLLLRLLLLLRRRRLLLRRLLRRLRRRRLRLRLLRLRRLRLRLRRRRRRLRRLRLRLRLLLLLLRLRRLRLRLRRRLRLLLLLRRLLLRLRLRRRLLRRRLLRRLRRLRRLLRLRRRRRLRRLLRRLLLRRLRLLRLRLRRLLRRLLLRLRRRRLLRLLLLLRLRLRLRLRRLRRLRLRLRRRRLRRLLLLLLRRRLLRLLRLLRLRRRLRLLLRRRRRLRRLRRLLLLRLLLLLLRLRLLRLRLRLLLRLRLRLLLLLLRRLLLRRLRRLRLRLRRLRLRLLLRRLLRRLLLRRRRLRRRLLLLLLRLLRLLRLRRRRRRLRRLLLLLLRRLRLRLLRRLLLLLLRRRRRLRLLRRLLLRLRRLLLRRLLLRLLRRRL"
     },
     {
       "bodyIds": [
@@ -3207,7 +3229,8 @@
         "L": 68,
         "R": 65,
         "unknown": 0
-      }
+      },
+      "sides": "LLRLRLRLRRLLLLRLRLRRLLRLLRRLLRLRLLLRLRLLRRLLRLLRLLLLRRLLRRLRRRRLLLLRRLLLRRRRLRLLLLLLRRLRRRRRRLRLRLRLLLLRLRRLRRRRRLLRRRRRRRLRRLLLRLLLR"
     },
     {
       "bodyIds": [
@@ -7285,7 +7308,8 @@
         "L": 2019,
         "R": 2045,
         "unknown": 0
-      }
+      },
+      "sides": "LRRRRRRLRLRRLRRRRRRLRRRRRRRRRLLRLRRRRRLLLLLRRRLRLLRRLLRRLRRRRRLRRRRRRLLRRLRLLRRLRRRLLRRRRLRRRRRRLRLRRRRRRLLLLRRLRRRLRLLLLRRRRRLRRLLRRRLLRLLRLRRRLRRLRRLRLRRRRRRLRLRRLRRLRLLRRLRLLRRRRRLRLLLLRRLLLRRRRRLRRRRLRLRRRRRRRLRRRRLLRLRLRRLLLLLLLLRRLLRRRLRLRRLLRRRRRRRLRRRLLLLRLRRRRRLRRRLRRRLRRRLRRRRRRRRLRRLLRRRRLRLLLLLLLLRRRRRRRRRRRLRRLRRRRRLRRRRRLRRLLRLRLLLRRRLLRLRLRLRRRRRRRLLRRRRRRRLRLLLLRLRRRRRLLRLRLRLRRRLRRRLRLRRLRRLRLRRRRLRRRRLLRRLRLRRRRRRRRRRLRRLLLLRRLLRRRRRRRRLRRLRRRRRLRRRLRLRLLRLLRLLLRRLLRRRRLRRLRRRRLRLLRLLRRLRLRLRLRLRRRLRLRRRRLRRRLRLRLRRRRRLRRRLRRRRRLRRRRRRRRRLRLRRLLLRRLRRRRLLRRRRLRLLRRRRRLRLRLRRLLLRRRRRRRLRLRRRRRRRRLLRLRRRRRRLRLLRLLRRLLLRRLRRRLRLRLRRRLRRLRRLLRRRLLRLLLRRRRRLRLLRLLRRRRRRRRRRRRRRLRRRLLRRRRRLLRRRLRLRRRRLRRRRRLLLLLRLLLRRRRRLRRRRRLRLLRLRRLRLRRRRRRRRLRLRRRLRRRRLLRRRLRLLLRRRRRLLRRRRRRRRLLRLRRLLRLRRRRLRRRLRLRRLLRRLRLRLLRLRRRLRRLLLLRLRRRRLLLLLLRRLRLLRRRRLRLLRRLRLRLRRRRRRRRRRRRRLRRLRRRRRRLRRLLRLRRLRLRRLLRRLRLLRLRRRLRRRRRRRLRLLLLLRRRLLLRRRLRRRRLLRLLRRRLRRLLRRLLLRRLLRLLRRRRRRRLRLRRRLLRLLLRRLRRRRRRLRRRRRRRLLLRRRRRLRRRRLRRRRLRRRLLRLLRLLLRRLRLLLRRRRRRRRRLRLLRRLRLRRRLLRRRLRRLRRRRRRRRLRRLLLLRRLLLRRRLRLLRRRRRRLRLLRRRLLRRRRLLLRLRRRRRRRLRRLRLRRLLLRRRLLRRRLLRRRLRRRLRRRRLRLLRRLRRLLRLRRRRLLRRLRRRRRLLRRLRRLLRLRRRRRLLLRLRRRRLLLLRLLRLRLLLRRLLRLLRLRRLLLLLLRRLRLRLLRLLLLRRRLLLRLRLRLRRRLLLRLRRLLRRRLLLRRRLLLRLRLRRRLRRLRLLRRRRRLLLLRRRRRRRRRLRRLRRRRLRLRLLLRRLRRRRRRLLRRRLLRLRLRLLRLRRLRRRLRRLRLRLLRRRLRRRRRLLLRRRRRRRLRLRLRRRRLLLLRRRLRRRRRRRRLRLRLRLLRLLLRLRRRRLRLRRRLRRRRLRRRLRRRLRRRRLLLLLRLRLLRRRLLLRRLLLRLLLLRLLLLRRLRRRRRLRLRLRRRRRRRRLRLLRLLLRLRRLLRRLLRRRLLLRRRLRLLRRRLRLRLLRRLRRRRRRLRRRLRRLRRLRLRRLRLRRLRLRRLRLLRLRRLRLRRRLRLLLLRLLLRLRRRLRRRLRLRLRLLLRRRRRRRLRRRLLRLRRRLLRRRRRLRRRLLLRRLLRLLLRRLLRLLLLLRRLLLRRRLRRRRLLRLRLRRRLLRRRRRLRLRRLLRRRLLRRLRRRLLRRLLRRRLRLRLRLRLRLRRRLLLLRRRLRRLRRLRRLLLLRRRRRRLLLLRRLRRRRRLRLLRLLRRLLLRRRRRRLLLLRLRRRRLRRRLLRRLLRRRRRRLRLRLLRLRLLRRRLRLLLRRLRRRLRLRRLLLRRRLRLLLLRLLRLRLRLRRRRLRRLRRRLRRRLRRRRLRLRRLLRLRRLRRLRLRRRRLLLLLRRLRRRLRLRRRRLRLLRRLLRRRRLRRLLLLRLLLLRRRLRLRRRLRRRLLLRRRRRRRRLRRLRRRRRLRRRRRLRLLLLRRRRLRRRRRRLRLRRRRRLLRLRLRLRRRLRRRRLRLRLRLRRRRRLLLRLRRRRRRRLLRLLLLLLRRLLRLLLLRRLRLLLLLRRLRRRLRRRLLRLLLLRRRLLRRRRRLLRLLLRLLRRRRRLLLLRRLLRRLRRLRLRRRRRLLRLRLLLRLLRLLRRLLRLLLLLLRLRRRRRLRLLLLRRLRRRRRRLLLLRRLRLLLLRLRLRRRLLLRLLRRRLLRRLLRLLRRLLLLLRLLRRLRRLLLLRRRLRLRLRLLRLRLLRRLRLRRRRRRRLRLLLLLRRRLLLLLLRLLRLLRRRLRRRRLRLLRLLRRRLLLRLRRLRLRRLRLRRRRLRRLLLLLRRRLLLRRRLLRRRLLLLRRLRRRLRLRLRLLRRLRLLRRRLLLRRLLRRLRRRLLRRLLLLRRLLRLRLLLRRLLLLLRLRRLLLLLLLLRLLLLRLRLLLLRLRRRLLRRLRLLLRLLLRRRLLRRLLLRRLLRLLRRLLRLLLLLLLRLLLRLLRLRLRLLLLLLLLLLLLLLRLLLRRRLRLLRLLRLLLRRRLRRLLRLRLRRLRLLRLLRLLLLLLLLLRLLRRLLRRLLLLLLLLLLLLLRLLLLLLLLRLLLLLLRLRRLRRRRRLLRLRLRRLRLLRRLLLLRLRRRLLRRLRRRLRLLLRLLRLLRRLLLLRLLLRLRLRLRLRLLLLLRLLRRRRLLLRRLRLLRRRLLLLLLRLRRLRRRLLRLLRLRLLLRLLRLLLLLRLRLLLRLLLRLRLRLLLLRRRRLLRLLRLLLLLRLLRRLRLLRLRRLLRLRLLLLLRRRLRLLLRRRLLLLLRLRLLLLLRLRLLLLRLLLRLLLLLLLLLLLLRLLLRLLLRLRRRLRRLLLLLRLRRLRLRRLLLLLLRRRLRRLLLRRRLLLRLLLLLRLLLLRLLLRLRLRLLLRRLLLLLRLLRLRLRLLLRLLRLLRLRLLLLRLLLLLLLLLLLRRLRRLLLLRLLRRLLLRLLLLLRRLLRLLRLRRLRLRLLLRLRLLLLRLLRRLLLLLLRLRLRLLLLRLLRRLLRRLLLLLLRLLLLLRLLLLLRLLLLLLLLLLLLLLRRRLLRLLLLLLLLRLLRLLRLLRLLRLRLLRRLLRLLLLRLLLRLLLLRLLLLLLRLLLLLRRLLLLLLRLLLLLLLLLLLLRLLLLLLLLLLLRLLLRLLLLLLLLLRLLRRLRLLLLLLLLRLRLLRLLLRRLLRLRRLRRLLRRLLLLLLLLLLLLRRLLLRLRLRLLLLLLRLRLLLRRLLRLLRLLLLLRLLLLLLLLLLLLLLRLRLLLLLLLRRLRLLRLLRLRLRLLLLLLRLLRLLRLLLRRLLLLLRLLRRLLLRLRLLLRLLLLRLRLLRLLLLRLLLLRRLLRLRRLLRRLRLRRLLLLLRLLLLLRLLRLLLLRRLRLLLRLLLLRLLRRLRRLRRLRRLLLRLRLRLLLLLRRLLLLLRLLLLRLLLLLLLLLRRRRLLRLRRRRLRLRLLLLRLLLLLRLLLRLLLLLLRLLLLLRLLRRLLRLLLRLLRRLRLLLLRLRLLLLLLLLLLLRLLLLLLRLLLLLLLLLLLLLRRRLLLLRLRRLLLLLLLRLLLLLLLLRLLLLLRLRRLLRRLLRLLLLRRLLLLLLLLRLLLLLRRRLLLRLRRLLLLRLLLLLRLLLLLLLRLLLRLLRLRLLLRLLLRLRLRLLRLRLLLLRRLRRLRLLRRRRRLLLRLRLLLLLLRLLLLLLLLRLRRRRRLLLLRRRRRLLLRLLLLRRLLRRLLLRLRLLRRRLLLLRRRLLLRLRLRRLLLLRLLLRLLLLLLRRLLRRRRRRLLRRRLRRLRRLRLLRRRLRLRLLRRRRRLRRLRLRRRRRRRRRRLLRRRRRRRRLRRRRRLRRRLRRRRRRRRRRRRLLLLLRLRRRRRRRRRRRLRLRRRRLLLRRRRRLLLRRLLRRRLLLRRRRRLLLRRRRLRLRLLRLRLRLRRRRLLLRLRRLLRLLRLRRRRLRRRLRLLRRRLLRLLRRRRRRLLRRRLLLRLRRLRLLLLLLLLLLLLLLRRRRLLLRLRLRL"
     },
     {
       "bodyIds": [
@@ -7398,7 +7422,8 @@
         "L": 48,
         "R": 49,
         "unknown": 0
-      }
+      },
+      "sides": "RRRRLLRLLLRRLRLRLRLLRLLLRLRRLLLLLRRRRLLLRLLLLRRLRRLRLRLRLRLRRLLLLRRRRRLRRLLLLLLRRRLRRRRLLRLLRRRRR"
     },
     {
       "bodyIds": [
@@ -7728,7 +7753,8 @@
         "L": 158,
         "R": 158,
         "unknown": 0
-      }
+      },
+      "sides": "RRLRRLRRLRLLLLLLRRLRLLLLLLLLLLRLRLLLLRRLLRLLLLRLLLLLRRRRLRRRLLLLRLLRRRRLRRRLRLLLRRRLLLLLRLRRLRRRRLLRLRLLRLLLRRLLLRRRRLRRRRRRRLRRLRLRLLLLRRRRRLRLLLLRLLLLLRRRLLLRLLLLLRLRLRLLRLRRRLLLLRLLLRLLRLLRRLRRRLRLRRLLRLLLRRLRLRLLRLRLLLLRRRRLLRLRRLRRLRRLRLLRRRRLRRLRLRRLRRLRLRRRRRRRLLRLRRRRRRLRLRRRLLRRLLRLLLLRRRRLLLLRRRRRRRRLRRLR"
     },
     {
       "bodyIds": [
@@ -7758,7 +7784,8 @@
         "L": 8,
         "R": 8,
         "unknown": 0
-      }
+      },
+      "sides": "RLLLRRRRRLRLLLRL"
     },
     {
       "bodyIds": [
@@ -7774,7 +7801,8 @@
         "L": 1,
         "R": 1,
         "unknown": 0
-      }
+      },
+      "sides": "RL"
     },
     {
       "bodyIds": [
@@ -7887,673 +7915,2668 @@
         "L": 49,
         "R": 49,
         "unknown": 0
-      }
+      },
+      "sides": "LLRRRRLLRLRLRLLRLRLLRRLLRRRLLLLLLLRLRRLLRRRRRLLRRRRLRRRLLLRRRRLRRRRRRRLLRLLRRLLLLLLLLLLLLLRRRRRRLL"
+    },
+    {
+      "bodyIds": [
+        "10673",
+        "10833",
+        "10849",
+        "10881",
+        "11179",
+        "11755",
+        "12364",
+        "12734",
+        "12752",
+        "12804",
+        "12851",
+        "13319",
+        "13402",
+        "13719",
+        "13754",
+        "14593",
+        "14718",
+        "14856",
+        "14891",
+        "16142",
+        "16595",
+        "17782",
+        "26764",
+        "28181",
+        "43765",
+        "131272",
+        "238142",
+        "511989",
+        "512614",
+        "513162",
+        "513655",
+        "519839",
+        "522702",
+        "523039",
+        "523040",
+        "523590",
+        "523679",
+        "524426",
+        "572814"
+      ],
+      "byType": [
+        {
+          "synapses": 556,
+          "type": "DNge062"
+        },
+        {
+          "synapses": 478,
+          "type": "GNG015"
+        },
+        {
+          "synapses": 442,
+          "type": "GNG120"
+        },
+        {
+          "synapses": 432,
+          "type": "GNG095"
+        },
+        {
+          "synapses": 410,
+          "type": "GNG117"
+        },
+        {
+          "synapses": 407,
+          "type": "GNG130"
+        },
+        {
+          "synapses": 380,
+          "type": "GNG108"
+        },
+        {
+          "synapses": 362,
+          "type": "GNG234"
+        },
+        {
+          "synapses": 287,
+          "type": "GNG180"
+        },
+        {
+          "synapses": 272,
+          "type": "GNG184"
+        },
+        {
+          "synapses": 231,
+          "type": "DNge051"
+        },
+        {
+          "synapses": 219,
+          "type": "DNge080"
+        },
+        {
+          "synapses": 151,
+          "type": "GNG654"
+        },
+        {
+          "synapses": 122,
+          "type": "GNG182"
+        },
+        {
+          "synapses": 104,
+          "type": "GNG002"
+        },
+        {
+          "synapses": 78,
+          "type": "GNG281"
+        },
+        {
+          "synapses": 76,
+          "type": "GNG586"
+        },
+        {
+          "synapses": 63,
+          "type": "DNge055"
+        },
+        {
+          "synapses": 60,
+          "type": "GNG159"
+        },
+        {
+          "synapses": 59,
+          "type": "GNG027"
+        }
+      ],
+      "evidenceKind": "connectivity",
+      "id": "hub.mn9.in",
+      "ntHistogram": {
+        "acetylcholine": 16,
+        "gaba": 20,
+        "glutamate": 2,
+        "unknown": 1
+      },
+      "perSide": {
+        "L": 20,
+        "R": 19,
+        "unknown": 0
+      },
+      "sides": "LRLRRRRRLLLRLRLRRLLRRLRRRRLRLLLLLRLLLLR"
+    },
+    {
+      "bodyIds": [
+        "11021",
+        "11201",
+        "11243",
+        "11896",
+        "12054",
+        "12716",
+        "12811",
+        "12900",
+        "14289",
+        "15170",
+        "16794",
+        "18343",
+        "24701",
+        "24922",
+        "25684",
+        "27252",
+        "27302",
+        "27737",
+        "28674",
+        "37921",
+        "40046",
+        "50250",
+        "81741",
+        "85395",
+        "94555",
+        "107241",
+        "125111",
+        "208885",
+        "256844",
+        "512795",
+        "517255",
+        "517913",
+        "518112",
+        "518309",
+        "518461",
+        "522746",
+        "522753",
+        "522754",
+        "522761",
+        "522841",
+        "524610",
+        "530151",
+        "533618",
+        "539704",
+        "543158",
+        "304136793",
+        "324178811",
+        "772366874"
+      ],
+      "byType": [
+        {
+          "synapses": 2848,
+          "type": "GNG016"
+        },
+        {
+          "synapses": 2231,
+          "type": "GNG087"
+        },
+        {
+          "synapses": 1150,
+          "type": "GNG397"
+        },
+        {
+          "synapses": 1128,
+          "type": "GNG453"
+        },
+        {
+          "synapses": 914,
+          "type": "GNG551"
+        },
+        {
+          "synapses": 873,
+          "type": "GNG409"
+        },
+        {
+          "synapses": 620,
+          "type": "GNG057"
+        },
+        {
+          "synapses": 600,
+          "type": "Z_lvPNm1"
+        },
+        {
+          "synapses": 557,
+          "type": "LB1c"
+        },
+        {
+          "synapses": 490,
+          "type": "DNpe007"
+        }
+      ],
+      "evidenceKind": "connectivity",
+      "id": "hub.grn.out.bitter",
+      "ntHistogram": {
+        "acetylcholine": 39,
+        "gaba": 2,
+        "glutamate": 5,
+        "unknown": 2
+      },
+      "perSide": {
+        "L": 24,
+        "R": 24,
+        "unknown": 0
+      },
+      "sides": "LLLRLRLRRLRLLLRLRRRRRRLRLRLRRLLLLRRRLLRRLLLRRRLL"
+    },
+    {
+      "bodyIds": [
+        "15259",
+        "15321",
+        "15734",
+        "17709",
+        "18474",
+        "19480",
+        "21746",
+        "21763",
+        "21828",
+        "30088",
+        "31018",
+        "72059",
+        "78240",
+        "85806",
+        "89638",
+        "92440",
+        "101087",
+        "120303",
+        "140015",
+        "142827",
+        "180314",
+        "190769",
+        "202888",
+        "215556",
+        "261450",
+        "262567",
+        "512550",
+        "512551",
+        "514625",
+        "516217",
+        "518540",
+        "519441",
+        "526948",
+        "531237",
+        "558926",
+        "933317",
+        "942168",
+        "957530",
+        "158893964",
+        "349137284",
+        "475202322"
+      ],
+      "byType": [
+        {
+          "synapses": 1517,
+          "type": "LB3c"
+        },
+        {
+          "synapses": 1361,
+          "type": "GNG038"
+        },
+        {
+          "synapses": 902,
+          "type": "GNG042"
+        },
+        {
+          "synapses": 757,
+          "type": "ANXXX462a"
+        },
+        {
+          "synapses": 741,
+          "type": "GNG215"
+        },
+        {
+          "synapses": 580,
+          "type": "GNG175"
+        },
+        {
+          "synapses": 495,
+          "type": "GNG232"
+        },
+        {
+          "synapses": 464,
+          "type": "AN13B002"
+        },
+        {
+          "synapses": 426,
+          "type": "GNG132"
+        },
+        {
+          "synapses": 351,
+          "type": "ANXXX462b"
+        }
+      ],
+      "evidenceKind": "connectivity",
+      "id": "hub.grn.out.sweet",
+      "ntHistogram": {
+        "acetylcholine": 33,
+        "gaba": 8
+      },
+      "perSide": {
+        "L": 21,
+        "R": 20,
+        "unknown": 0
+      },
+      "sides": "RLRLLRLRRLRRLLLRRRRRLLRRLLRLLRRLRLLLRRLLL"
+    },
+    {
+      "bodyIds": [
+        "12831",
+        "13083",
+        "13104",
+        "13961",
+        "15321",
+        "15734",
+        "16331",
+        "16691",
+        "17709",
+        "18590",
+        "19480",
+        "22758",
+        "26470",
+        "26643",
+        "136183",
+        "140619",
+        "141663",
+        "160435",
+        "166190",
+        "167663",
+        "178913",
+        "183061",
+        "187776",
+        "199308",
+        "203234",
+        "374701",
+        "512730",
+        "514625",
+        "516215",
+        "518540",
+        "518542",
+        "521230",
+        "556512",
+        "388541892",
+        "456838775",
+        "553738738",
+        "786482749"
+      ],
+      "byType": [
+        {
+          "synapses": 477,
+          "type": "GNG175"
+        },
+        {
+          "synapses": 466,
+          "type": "GNG229"
+        },
+        {
+          "synapses": 372,
+          "type": "DNg67"
+        },
+        {
+          "synapses": 220,
+          "type": "LB3a"
+        },
+        {
+          "synapses": 212,
+          "type": "ANXXX462a"
+        },
+        {
+          "synapses": 172,
+          "type": "GNG042"
+        },
+        {
+          "synapses": 152,
+          "type": "GNG089"
+        },
+        {
+          "synapses": 146,
+          "type": "GNG452"
+        },
+        {
+          "synapses": 127,
+          "type": "GNG054"
+        },
+        {
+          "synapses": 120,
+          "type": "DNpe030"
+        }
+      ],
+      "evidenceKind": "connectivity",
+      "id": "hub.grn.out.water",
+      "ntHistogram": {
+        "acetylcholine": 25,
+        "gaba": 12
+      },
+      "perSide": {
+        "L": 19,
+        "R": 18,
+        "unknown": 0
+      },
+      "sides": "LLRLLRLLLRRRRRLRRLRLLRLRLRLLLRRRRRLLL"
+    },
+    {
+      "bodyIds": [
+        "11021",
+        "11772",
+        "12054",
+        "12605",
+        "12716",
+        "13228",
+        "14579",
+        "15612",
+        "16794",
+        "17790",
+        "17931",
+        "23301",
+        "25783",
+        "35532",
+        "42483",
+        "44816",
+        "58517",
+        "111660",
+        "137497",
+        "154359",
+        "175572",
+        "200001",
+        "209688",
+        "232730",
+        "513146",
+        "514416",
+        "520087",
+        "522428",
+        "534361",
+        "534419",
+        "908747",
+        "919429",
+        "214700177",
+        "418840426",
+        "491986845",
+        "551057545",
+        "633272971",
+        "792429427",
+        "912111327",
+        "947005552"
+      ],
+      "byType": [
+        {
+          "synapses": 1470,
+          "type": "GNG016"
+        },
+        {
+          "synapses": 1171,
+          "type": "GNG592"
+        },
+        {
+          "synapses": 777,
+          "type": "LB1e"
+        },
+        {
+          "synapses": 411,
+          "type": "GNG489"
+        },
+        {
+          "synapses": 361,
+          "type": "GNG147"
+        },
+        {
+          "synapses": 345,
+          "type": "GNG566"
+        },
+        {
+          "synapses": 85,
+          "type": "mAL4B"
+        },
+        {
+          "synapses": 61,
+          "type": "GNG551"
+        },
+        {
+          "synapses": 60,
+          "type": "AN27X022"
+        },
+        {
+          "synapses": 46,
+          "type": "GNG230"
+        }
+      ],
+      "evidenceKind": "connectivity",
+      "id": "hub.grn.out.ir94e",
+      "ntHistogram": {
+        "acetylcholine": 23,
+        "gaba": 4,
+        "glutamate": 11,
+        "unknown": 2
+      },
+      "perSide": {
+        "L": 20,
+        "R": 20,
+        "unknown": 0
+      },
+      "sides": "LRLRRLRRRLRLLLRRRRLLLLRLLRLRRRLLLLLRLRRR"
+    },
+    {
+      "bodyIds": [
+        "15321",
+        "15734",
+        "18880",
+        "19480",
+        "21746",
+        "21763",
+        "25783",
+        "26027",
+        "30088",
+        "31018",
+        "33339",
+        "89638",
+        "93290",
+        "125405",
+        "129171",
+        "130693",
+        "140851",
+        "158537",
+        "178321",
+        "199196",
+        "201075",
+        "204726",
+        "210344",
+        "236475",
+        "261048",
+        "312102",
+        "317616",
+        "512550",
+        "512552",
+        "512730",
+        "514625",
+        "516216",
+        "516218",
+        "526948",
+        "534419",
+        "550065",
+        "556512",
+        "558926",
+        "916953",
+        "147619274",
+        "245892505",
+        "422510463",
+        "581710868",
+        "885642755"
+      ],
+      "byType": [
+        {
+          "synapses": 789,
+          "type": "GNG038"
+        },
+        {
+          "synapses": 660,
+          "type": "GNG042"
+        },
+        {
+          "synapses": 607,
+          "type": "ANXXX462a"
+        },
+        {
+          "synapses": 487,
+          "type": "LB3d"
+        },
+        {
+          "synapses": 452,
+          "type": "GNG232"
+        },
+        {
+          "synapses": 405,
+          "type": "GNG197"
+        },
+        {
+          "synapses": 330,
+          "type": "AN13B002"
+        },
+        {
+          "synapses": 319,
+          "type": "ANXXX462b"
+        },
+        {
+          "synapses": 306,
+          "type": "GNG230"
+        },
+        {
+          "synapses": 295,
+          "type": "GNG089"
+        }
+      ],
+      "evidenceKind": "connectivity",
+      "id": "hub.grn.out.highsalt",
+      "ntHistogram": {
+        "acetylcholine": 38,
+        "gaba": 6
+      },
+      "perSide": {
+        "L": 20,
+        "R": 24,
+        "unknown": 0
+      },
+      "sides": "LRRRLRLLLRRLLRRLLRLRRLRLRLLRLLLLRRRRRLRRRRLR"
+    },
+    {
+      "bodyIds": [
+        "11173",
+        "12597",
+        "12675",
+        "13115",
+        "13363",
+        "14117",
+        "14424",
+        "14475",
+        "14557",
+        "14826",
+        "15242",
+        "16183",
+        "37921",
+        "72047",
+        "94555",
+        "122806",
+        "128129",
+        "152400",
+        "515650",
+        "517913",
+        "518461",
+        "521206",
+        "530151",
+        "530561",
+        "538117",
+        "908743",
+        "917499",
+        "923024",
+        "388968038",
+        "816904261",
+        "884238775"
+      ],
+      "byType": [
+        {
+          "synapses": 523,
+          "type": "GNG510"
+        },
+        {
+          "synapses": 495,
+          "type": "AN27X021"
+        },
+        {
+          "synapses": 422,
+          "type": "LB4b"
+        },
+        {
+          "synapses": 391,
+          "type": "PRW064"
+        },
+        {
+          "synapses": 368,
+          "type": "GNG453"
+        },
+        {
+          "synapses": 366,
+          "type": "LB4a"
+        },
+        {
+          "synapses": 349,
+          "type": "DNg103"
+        },
+        {
+          "synapses": 335,
+          "type": "PRW047"
+        },
+        {
+          "synapses": 317,
+          "type": "GNG090"
+        },
+        {
+          "synapses": 272,
+          "type": "PRW046"
+        }
+      ],
+      "evidenceKind": "connectivity",
+      "id": "hub.grn.out.labellar.unassigned",
+      "ntHistogram": {
+        "acetylcholine": 25,
+        "gaba": 6
+      },
+      "perSide": {
+        "L": 16,
+        "R": 15,
+        "unknown": 0
+      },
+      "sides": "RRLRRRLLRLLLRRLRLLRLRLLRRRLRLLL"
+    },
+    {
+      "bodyIds": [
+        "11935",
+        "12144",
+        "12293",
+        "13393",
+        "15259",
+        "15933",
+        "16181",
+        "16951",
+        "18474",
+        "19040",
+        "24776",
+        "28514",
+        "31789",
+        "32428",
+        "45856",
+        "77434",
+        "146756",
+        "146880",
+        "149384",
+        "151220",
+        "156079",
+        "156512",
+        "157030",
+        "157131",
+        "157398",
+        "158200",
+        "159466",
+        "159854",
+        "160114",
+        "160450",
+        "160475",
+        "161040",
+        "161485",
+        "163001",
+        "163239",
+        "163469",
+        "164437",
+        "166316",
+        "166816",
+        "167313",
+        "169896",
+        "170350",
+        "170643",
+        "171047",
+        "173010",
+        "175078",
+        "176139",
+        "178033",
+        "181374",
+        "183009",
+        "194906",
+        "270082",
+        "284701",
+        "286350",
+        "305187",
+        "514345",
+        "516285",
+        "516643",
+        "516644",
+        "518541",
+        "520888",
+        "523038",
+        "555292",
+        "556022",
+        "139536760",
+        "208587231",
+        "372711713",
+        "380771816",
+        "427340616",
+        "433166791",
+        "466363045",
+        "641453735",
+        "646393090",
+        "777730219",
+        "934523007"
+      ],
+      "byType": [
+        {
+          "synapses": 2697,
+          "type": "GNG141"
+        },
+        {
+          "synapses": 970,
+          "type": "GNG131"
+        },
+        {
+          "synapses": 950,
+          "type": "claw_tpGRN"
+        },
+        {
+          "synapses": 877,
+          "type": "GNG132"
+        },
+        {
+          "synapses": 864,
+          "type": "GNG135"
+        },
+        {
+          "synapses": 736,
+          "type": "GNG412"
+        },
+        {
+          "synapses": 687,
+          "type": "GNG129"
+        },
+        {
+          "synapses": 681,
+          "type": "GNG078"
+        },
+        {
+          "synapses": 672,
+          "type": "GNG350"
+        },
+        {
+          "synapses": 624,
+          "type": "GNG165"
+        }
+      ],
+      "evidenceKind": "connectivity",
+      "id": "hub.grn.out.tastepeg",
+      "ntHistogram": {
+        "acetylcholine": 64,
+        "gaba": 9,
+        "unknown": 2
+      },
+      "perSide": {
+        "L": 38,
+        "R": 37,
+        "unknown": 0
+      },
+      "sides": "LRRRRLRRLLRRRRLLRRRRRRRRRLRRRRRLRLRRLLRLLLLLLLRRRRLLLLLLRRRLLLLLLLRLLLRLLLL"
+    },
+    {
+      "bodyIds": [
+        "11021",
+        "11200",
+        "12022",
+        "12054",
+        "12113",
+        "12716",
+        "13258",
+        "14475",
+        "14557",
+        "15242",
+        "16794",
+        "18343",
+        "24634",
+        "24922",
+        "26832",
+        "27302",
+        "28381",
+        "29379",
+        "29670",
+        "30097",
+        "30382",
+        "31408",
+        "31975",
+        "33108",
+        "33661",
+        "33780",
+        "34191",
+        "35220",
+        "36873",
+        "36988",
+        "41922",
+        "53134",
+        "58331",
+        "84250",
+        "86091",
+        "86313",
+        "99095",
+        "130472",
+        "514189",
+        "518124",
+        "523725",
+        "530561",
+        "532187",
+        "543158",
+        "545077"
+      ],
+      "byType": [
+        {
+          "synapses": 2669,
+          "type": "GNG406"
+        },
+        {
+          "synapses": 2578,
+          "type": "GNG320"
+        },
+        {
+          "synapses": 2577,
+          "type": "GNG319"
+        },
+        {
+          "synapses": 2077,
+          "type": "GNG016"
+        },
+        {
+          "synapses": 1886,
+          "type": "GNG551"
+        },
+        {
+          "synapses": 1837,
+          "type": "GNG022"
+        },
+        {
+          "synapses": 1584,
+          "type": "PRW046"
+        },
+        {
+          "synapses": 1508,
+          "type": "PRW047"
+        },
+        {
+          "synapses": 1488,
+          "type": "PRW070"
+        },
+        {
+          "synapses": 1102,
+          "type": "GNG409"
+        }
+      ],
+      "evidenceKind": "connectivity",
+      "id": "hub.grn.out.pharyngeal",
+      "ntHistogram": {
+        "acetylcholine": 20,
+        "gaba": 21,
+        "glutamate": 2,
+        "unknown": 2
+      },
+      "perSide": {
+        "L": 23,
+        "R": 22,
+        "unknown": 0
+      },
+      "sides": "LLLLRRRLRLRLLLRRRRRLRLLLRRLLRLRLRLRRRLLLRRLRL"
+    },
+    {
+      "bodyIds": [
+        "11173",
+        "12675",
+        "16687",
+        "21763",
+        "25819",
+        "27180",
+        "27859",
+        "28192",
+        "30088",
+        "30095",
+        "30889",
+        "33596",
+        "38616",
+        "43697",
+        "57382",
+        "64916",
+        "512929",
+        "515950",
+        "517915",
+        "521656",
+        "800745",
+        "800760",
+        "800773",
+        "800784",
+        "801940",
+        "807976",
+        "809185",
+        "809227",
+        "809578",
+        "809629",
+        "809675",
+        "809833",
+        "809925",
+        "810045",
+        "810166",
+        "810344",
+        "810550",
+        "810811",
+        "811065",
+        "811297",
+        "811563",
+        "811612",
+        "811874",
+        "812103",
+        "812898",
+        "812956",
+        "813722",
+        "813816",
+        "814181",
+        "814336",
+        "814362",
+        "815258",
+        "815267",
+        "815314",
+        "815660",
+        "815716",
+        "815749",
+        "815872",
+        "815989",
+        "816151",
+        "816369",
+        "816396",
+        "816932",
+        "817031",
+        "817173",
+        "817291",
+        "817565",
+        "817735",
+        "817849",
+        "818080",
+        "818747",
+        "818877",
+        "819335",
+        "819511",
+        "819719",
+        "820154",
+        "820780",
+        "820809",
+        "821011",
+        "821083",
+        "822246",
+        "825524",
+        "827154",
+        "827574",
+        "830835",
+        "844312",
+        "850925",
+        "863321",
+        "881126",
+        "881519",
+        "904093",
+        "909028",
+        "910152",
+        "911351",
+        "911406",
+        "912794",
+        "913195",
+        "914315",
+        "933183",
+        "934956",
+        "935121",
+        "940581",
+        "941022",
+        "941509",
+        "1050190015",
+        "1050291683",
+        "1057442452",
+        "1338931584"
+      ],
+      "byType": [
+        {
+          "synapses": 1696,
+          "type": "LgLG4"
+        },
+        {
+          "synapses": 932,
+          "type": "AN01B004"
+        },
+        {
+          "synapses": 849,
+          "type": "AN05B106"
+        },
+        {
+          "synapses": 699,
+          "type": "IN01B065"
+        },
+        {
+          "synapses": 539,
+          "type": "DNg103"
+        },
+        {
+          "synapses": 417,
+          "type": "IN12B007"
+        },
+        {
+          "synapses": 356,
+          "type": "IN01B075"
+        },
+        {
+          "synapses": 332,
+          "type": "AN09B033"
+        },
+        {
+          "synapses": 331,
+          "type": "IN01B080"
+        },
+        {
+          "synapses": 280,
+          "type": "AN13B002"
+        }
+      ],
+      "evidenceKind": "connectivity",
+      "id": "hub.grn.out.leg.sweet",
+      "ntHistogram": {
+        "acetylcholine": 59,
+        "gaba": 49
+      },
+      "perSide": {
+        "L": 59,
+        "R": 49,
+        "unknown": 0
+      },
+      "sides": "RLLRRLLLLRRRLLRLLRRRRLLRLRRRRLRRLLLRRLLLRRRLRLRRLLRRRRLRLLRLRLLLLLLLLLRRRLRLLRLRLRLLLLLLLRRLRRLRLRRLRLLLRLLL"
+    },
+    {
+      "bodyIds": [
+        "11431",
+        "12286",
+        "17416",
+        "18164",
+        "18430",
+        "18696",
+        "200336",
+        "800035",
+        "800040",
+        "800320",
+        "801269",
+        "803913",
+        "805770",
+        "806645",
+        "806784",
+        "807376",
+        "807472",
+        "807958",
+        "807990",
+        "808071",
+        "808278",
+        "808369",
+        "808379",
+        "808403",
+        "808523",
+        "808524",
+        "808675",
+        "808695",
+        "808700",
+        "808897",
+        "808968",
+        "809109",
+        "809134",
+        "809149",
+        "809296",
+        "809364",
+        "809482",
+        "809517",
+        "809534",
+        "809671",
+        "809770",
+        "809798",
+        "809861",
+        "809899",
+        "809934",
+        "809953",
+        "809992",
+        "809996",
+        "810164",
+        "810380",
+        "810461",
+        "810484",
+        "810505",
+        "810549",
+        "810606",
+        "810621",
+        "810924",
+        "810958",
+        "810971",
+        "811117",
+        "811120",
+        "811200",
+        "811240",
+        "811276",
+        "811372",
+        "811515",
+        "811641",
+        "811655",
+        "811743",
+        "811797",
+        "811815",
+        "811820",
+        "811866",
+        "811883",
+        "811921",
+        "811930",
+        "811977",
+        "812001",
+        "812052",
+        "812092",
+        "812096",
+        "812222",
+        "812257",
+        "812399",
+        "812432",
+        "812433",
+        "812439",
+        "812487",
+        "812671",
+        "812687",
+        "812735",
+        "812760",
+        "812761",
+        "812778",
+        "812809",
+        "812891",
+        "812976",
+        "813154",
+        "813256",
+        "813335",
+        "813426",
+        "813468",
+        "813486",
+        "813487",
+        "813526",
+        "813567",
+        "813569",
+        "813604",
+        "813636",
+        "813656",
+        "813785",
+        "813913",
+        "813977",
+        "813985",
+        "814020",
+        "814026",
+        "814125",
+        "814139",
+        "814149",
+        "814268",
+        "814317",
+        "814332",
+        "814492",
+        "814496",
+        "814544",
+        "814557",
+        "814558",
+        "814599",
+        "814710",
+        "814864",
+        "814904",
+        "814906",
+        "814914",
+        "814922",
+        "814944",
+        "815011",
+        "815091",
+        "815109",
+        "815110",
+        "815152",
+        "815154",
+        "815156",
+        "815158",
+        "815181",
+        "815367",
+        "815404",
+        "815519",
+        "815531",
+        "815561",
+        "815578",
+        "815598",
+        "815614",
+        "815646",
+        "815689",
+        "815753",
+        "815761",
+        "815772",
+        "815792",
+        "815850",
+        "815901",
+        "815960",
+        "815998",
+        "816008",
+        "816083",
+        "816214",
+        "816255",
+        "816272",
+        "816273",
+        "816285",
+        "816329",
+        "816447",
+        "816485",
+        "816566",
+        "816578",
+        "816604",
+        "816759",
+        "816844",
+        "816900",
+        "816907",
+        "816927",
+        "816972",
+        "816973",
+        "817007",
+        "817023",
+        "817034",
+        "817098",
+        "817126",
+        "817238",
+        "817352",
+        "817412",
+        "817428",
+        "817517",
+        "817549",
+        "817570",
+        "817644",
+        "817656",
+        "817660",
+        "817687",
+        "817812",
+        "817847",
+        "817861",
+        "817873",
+        "817902",
+        "818011",
+        "818102",
+        "818149",
+        "818156",
+        "818187",
+        "818197",
+        "818201",
+        "818205",
+        "818221",
+        "818240",
+        "818354",
+        "818361",
+        "818378",
+        "818385",
+        "818412",
+        "818440",
+        "818475",
+        "818572",
+        "818573",
+        "818574",
+        "818575",
+        "818603",
+        "818607",
+        "818649",
+        "818782",
+        "818800",
+        "818827",
+        "818830",
+        "818835",
+        "818951",
+        "819004",
+        "819025",
+        "819029",
+        "819031",
+        "819061",
+        "819090",
+        "819177",
+        "819182",
+        "819243",
+        "819308",
+        "819334",
+        "819347",
+        "819357",
+        "819359",
+        "819414",
+        "819456",
+        "819457",
+        "819498",
+        "819537",
+        "819568",
+        "819576",
+        "819622",
+        "819624",
+        "819642",
+        "819769",
+        "819802",
+        "819815",
+        "819944",
+        "819949",
+        "819995",
+        "820115",
+        "820120",
+        "820124",
+        "820185",
+        "820222",
+        "820226",
+        "820407",
+        "820449",
+        "820487",
+        "820489",
+        "820526",
+        "820545",
+        "820694",
+        "820705",
+        "820707",
+        "820767",
+        "820870",
+        "821004",
+        "821037",
+        "821050",
+        "821097",
+        "821121",
+        "821138",
+        "821238",
+        "821271",
+        "821300",
+        "821308",
+        "821418",
+        "821469",
+        "821580",
+        "821588",
+        "821664",
+        "821744",
+        "821748",
+        "821760",
+        "821805",
+        "821869",
+        "822157",
+        "822264",
+        "822324",
+        "822362",
+        "822372",
+        "822403",
+        "822551",
+        "822777",
+        "822784",
+        "822832",
+        "822976",
+        "823027",
+        "823116",
+        "823278",
+        "823361",
+        "823399",
+        "823555",
+        "823728",
+        "823949",
+        "824258",
+        "824556",
+        "824710",
+        "824934",
+        "825098",
+        "825175",
+        "825411",
+        "825461",
+        "825555",
+        "825839",
+        "826307",
+        "826374",
+        "826507",
+        "826578",
+        "827243",
+        "827354",
+        "827465",
+        "828914",
+        "829017",
+        "829590",
+        "830051",
+        "830384",
+        "830692",
+        "831584",
+        "834279",
+        "834651",
+        "837848",
+        "839214",
+        "839907",
+        "842385",
+        "843529",
+        "844397",
+        "844446",
+        "846026",
+        "846186",
+        "847564",
+        "850668",
+        "863213",
+        "864655",
+        "868112",
+        "877104",
+        "885131",
+        "903475",
+        "904083",
+        "905265",
+        "905725",
+        "906067",
+        "906068",
+        "906069",
+        "906507",
+        "906508",
+        "906509",
+        "907867",
+        "908459",
+        "909025",
+        "909179",
+        "909387",
+        "909563",
+        "910635",
+        "910810",
+        "910826",
+        "911139",
+        "911312",
+        "911422",
+        "911569",
+        "911630",
+        "911631",
+        "911797",
+        "912149",
+        "912360",
+        "912816",
+        "912924",
+        "912927",
+        "914748",
+        "914989",
+        "915044",
+        "915216",
+        "933097",
+        "1050731280",
+        "1050786848",
+        "1053251763",
+        "1053658959",
+        "1054652803",
+        "1058211932",
+        "1058243944",
+        "1059968252",
+        "1060266212",
+        "1060436908",
+        "1063126793",
+        "1064653834",
+        "1066271676",
+        "1077651596",
+        "1079026313",
+        "1080143470",
+        "1088357292"
+      ],
+      "byType": [
+        {
+          "synapses": 17753,
+          "type": "LgLG1a"
+        },
+        {
+          "synapses": 13262,
+          "type": "AN05B102a"
+        },
+        {
+          "synapses": 11157,
+          "type": "IN05B011a"
+        },
+        {
+          "synapses": 10970,
+          "type": "LgLG1b"
+        },
+        {
+          "synapses": 10702,
+          "type": "IN05B002"
+        },
+        {
+          "synapses": 7489,
+          "type": "AN05B023b"
+        },
+        {
+          "synapses": 6998,
+          "type": "AN05B102c"
+        },
+        {
+          "synapses": 6870,
+          "type": "IN05B011b"
+        },
+        {
+          "synapses": 5335,
+          "type": "LgLG2"
+        },
+        {
+          "synapses": 3530,
+          "type": "AN05B023c"
+        }
+      ],
+      "evidenceKind": "connectivity",
+      "id": "hub.grn.out.leg.pheromone",
+      "ntHistogram": {
+        "acetylcholine": 270,
+        "gaba": 10,
+        "unknown": 134
+      },
+      "perSide": {
+        "L": 205,
+        "R": 209,
+        "unknown": 0
+      },
+      "sides": "LRLRLRLLRLRRLRRRRLLLRLRLLLRRRRLRRLRRLRLRLRLLRRRLRRRLLRLLLLRRRRRRLLLLLLRLRLLRRLRRLRLLRRLRLLLRRRLRRLRRRLLRRLRLLRLLRRRRRRRLLLRLRLLRRLRRRRLRLRLLLLLLLLLLRRLRRLRLRLLRLLLLLRRLLRRLLRLLLLLRRRLRLLLRRLRLRRRLLLRRLRLRLRRLRLLLLRRRRRLLRRLLRLLRLRRLRRRLLLRLRRLLRLLRLRLLLLLLRLLRRRLRRRLLRLLLRRRLRLRLLLRRLRLRRRRRRLLLLRLRRRRLLLRRRLLLLRLLRLLLRLLRRLLRLRRLRLRLRRRRRLRLRRLLLLRLLRLRRRLLRLRRLRRRRRRRRLRRRLRRRRRLLLRLRLRLRLRLRLRRLRLRLLLLLRRRLL"
     }
   ],
   "transmittersSha256": "95c9289220663abeb3409f3ad9e5a7f8a53f8093f5139d15502cd08da8879621",
   "types": [
     {
-      "hopDepth": null,
+      "hopDepth": 1,
+      "nNeurons": 6,
+      "nt": "acetylcholine",
+      "type": "AN01B004"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "AN05B023b"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "AN05B023c"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "acetylcholine",
+      "type": "AN05B102a"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "acetylcholine",
+      "type": "AN05B102c"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 4,
+      "nt": "acetylcholine",
+      "type": "AN05B106"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 6,
+      "nt": "acetylcholine",
+      "type": "AN09B033"
+    },
+    {
+      "hopDepth": 1,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "AN13B002"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "AN27X021"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "AN27X022"
+    },
+    {
+      "hopDepth": 1,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "ANXXX462a"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "acetylcholine",
+      "type": "ANXXX462b"
+    },
+    {
+      "hopDepth": 2,
       "nNeurons": 47,
       "nt": "glutamate",
       "type": "Acc. ti flexor MN"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 22,
       "nt": "unknown",
       "type": "Acc. tr flexor MN"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 7,
       "nt": "acetylcholine",
       "type": "BM_Hau"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 745,
       "nt": "acetylcholine",
       "type": "BM_InOm"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 15,
       "nt": "acetylcholine",
       "type": "BM_MaPa"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 40,
       "nt": "acetylcholine",
       "type": "BM_Taste"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 22,
       "nt": "acetylcholine",
       "type": "BM_Vib"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 8,
       "nt": "acetylcholine",
       "type": "BM_Vt_PoOc"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 26,
       "nt": "acetylcholine",
       "type": "BM_vOcci_vPoOr"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "unknown",
       "type": "CEM"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "DNg103"
+    },
+    {
+      "hopDepth": 3,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "DNg11"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 8,
       "nt": "acetylcholine",
       "type": "DNg12_a"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 10,
       "nt": "acetylcholine",
       "type": "DNg12_b"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 8,
       "nt": "acetylcholine",
       "type": "DNg12_c"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "DNg12_d"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "acetylcholine",
       "type": "DNg12_e"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "acetylcholine",
       "type": "DNg12_f"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "DNg12_g"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "DNg12_h"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "DNg62"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "DNg67"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "DNge051"
+    },
+    {
+      "hopDepth": 2,
+      "nNeurons": 2,
+      "nt": "glutamate",
+      "type": "DNge055"
+    },
+    {
+      "hopDepth": 2,
+      "nNeurons": 2,
+      "nt": "acetylcholine",
+      "type": "DNge062"
+    },
+    {
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "DNge078"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "DNge080"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "DNge173"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "DNge174"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "acetylcholine",
+      "type": "DNpe007"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "acetylcholine",
+      "type": "DNpe030"
+    },
+    {
+      "hopDepth": 2,
       "nNeurons": 20,
       "nt": "glutamate",
       "type": "Fe reductor MN"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
+      "nNeurons": 1,
+      "nt": "unknown",
+      "type": "GNG002"
+    },
+    {
+      "hopDepth": 2,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "GNG015"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "unknown",
+      "type": "GNG016"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "glutamate",
+      "type": "GNG022"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "GNG027"
+    },
+    {
+      "hopDepth": 1,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "GNG038"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "GNG042"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "GNG054"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "glutamate",
+      "type": "GNG057"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "GNG078"
+    },
+    {
+      "hopDepth": 1,
       "nNeurons": 3,
       "nt": "glutamate",
       "type": "GNG087"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "acetylcholine",
+      "type": "GNG089"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "GNG090"
+    },
+    {
+      "hopDepth": 2,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "GNG095"
+    },
+    {
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "GNG108"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
+      "nNeurons": 2,
+      "nt": "acetylcholine",
+      "type": "GNG117"
+    },
+    {
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "GNG120"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "GNG129"
+    },
+    {
+      "hopDepth": 2,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "GNG130"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "GNG131"
+    },
+    {
+      "hopDepth": 1,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "GNG132"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "acetylcholine",
+      "type": "GNG135"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "unknown",
+      "type": "GNG141"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 3,
+      "nt": "glutamate",
+      "type": "GNG147"
+    },
+    {
+      "hopDepth": 2,
+      "nNeurons": 2,
+      "nt": "acetylcholine",
+      "type": "GNG159"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 4,
+      "nt": "acetylcholine",
+      "type": "GNG165"
+    },
+    {
+      "hopDepth": 1,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "GNG175"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "GNG180"
+    },
+    {
+      "hopDepth": 2,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "GNG182"
+    },
+    {
+      "hopDepth": 2,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "GNG184"
+    },
+    {
+      "hopDepth": 1,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "GNG197"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "GNG215"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "GNG229"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "GNG230"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "GNG232"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
+      "nNeurons": 2,
+      "nt": "acetylcholine",
+      "type": "GNG234"
+    },
+    {
+      "hopDepth": 2,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "GNG281"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 9,
+      "nt": "gaba",
+      "type": "GNG319"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 8,
+      "nt": "gaba",
+      "type": "GNG320"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 3,
+      "nt": "gaba",
+      "type": "GNG350"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 3,
+      "nt": "acetylcholine",
+      "type": "GNG397"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 12,
+      "nt": "acetylcholine",
+      "type": "GNG406"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 4,
+      "nt": "acetylcholine",
+      "type": "GNG409"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 6,
+      "nt": "acetylcholine",
+      "type": "GNG412"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 4,
+      "nt": "gaba",
+      "type": "GNG452"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 5,
+      "nt": "acetylcholine",
+      "type": "GNG453"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "acetylcholine",
+      "type": "GNG489"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "acetylcholine",
+      "type": "GNG510"
+    },
+    {
+      "hopDepth": 1,
       "nNeurons": 1,
       "nt": "acetylcholine",
       "type": "GNG528"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "GNG551"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "glutamate",
+      "type": "GNG566"
+    },
+    {
+      "hopDepth": 1,
       "nNeurons": 3,
       "nt": "acetylcholine",
       "type": "GNG585"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "GNG586"
+    },
+    {
+      "hopDepth": 1,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "GNG588"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
+      "nNeurons": 3,
+      "nt": "glutamate",
+      "type": "GNG592"
+    },
+    {
+      "hopDepth": 2,
+      "nNeurons": 2,
+      "nt": "acetylcholine",
+      "type": "GNG654"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 20,
+      "nt": "gaba",
+      "type": "IN01B065"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 3,
+      "nt": "gaba",
+      "type": "IN01B075"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 16,
+      "nt": "gaba",
+      "type": "IN01B080"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "IN05B002"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "IN05B011a"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "IN05B011b"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 6,
+      "nt": "gaba",
+      "type": "IN12B007"
+    },
+    {
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13A001"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13A002"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13A003"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "gaba",
       "type": "IN13A004"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13A005"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13A006"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13A007"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13A008"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13A009"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13A010"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13A011"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13A012"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "gaba",
       "type": "IN13A013"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13A014"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 5,
       "nt": "gaba",
       "type": "IN13A015"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13A017"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13A018"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13A019"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 8,
       "nt": "gaba",
       "type": "IN13A020"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13A021"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 8,
       "nt": "gaba",
       "type": "IN13A022"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "gaba",
       "type": "IN13A023"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13A024"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "gaba",
       "type": "IN13A025"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13A026"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "gaba",
       "type": "IN13A027"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 7,
       "nt": "gaba",
       "type": "IN13A028"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 9,
       "nt": "gaba",
       "type": "IN13A029"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 9,
       "nt": "gaba",
       "type": "IN13A030"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13A031"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 4,
       "nt": "gaba",
       "type": "IN13A032"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13A033"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 8,
       "nt": "gaba",
       "type": "IN13A034"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 10,
       "nt": "gaba",
       "type": "IN13A035"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 7,
       "nt": "gaba",
       "type": "IN13A036"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "gaba",
       "type": "IN13A037"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 13,
       "nt": "gaba",
       "type": "IN13A038"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13A039"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 8,
       "nt": "gaba",
       "type": "IN13A040"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 7,
       "nt": "gaba",
       "type": "IN13A041"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13A042"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 5,
       "nt": "gaba",
       "type": "IN13A043"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13A044"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 16,
       "nt": "gaba",
       "type": "IN13A045"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 7,
       "nt": "gaba",
       "type": "IN13A046"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 9,
       "nt": "gaba",
       "type": "IN13A047"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 8,
       "nt": "gaba",
       "type": "IN13A049"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 14,
       "nt": "gaba",
       "type": "IN13A050"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 12,
       "nt": "gaba",
       "type": "IN13A051"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "gaba",
       "type": "IN13A052"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "gaba",
       "type": "IN13A053"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13A054"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 8,
       "nt": "gaba",
       "type": "IN13A055"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13A056"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 10,
       "nt": "gaba",
       "type": "IN13A057"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "gaba",
       "type": "IN13A058"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 13,
       "nt": "gaba",
       "type": "IN13A059"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 7,
       "nt": "gaba",
       "type": "IN13A060"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13A061"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 12,
       "nt": "gaba",
       "type": "IN13A062"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 3,
       "nt": "gaba",
       "type": "IN13A063"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13A064"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13A065"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 5,
       "nt": "gaba",
       "type": "IN13A067"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 13,
       "nt": "gaba",
       "type": "IN13A068"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 3,
       "nt": "gaba",
       "type": "IN13A069"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "gaba",
       "type": "IN13A071"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 4,
       "nt": "gaba",
       "type": "IN13A072"
@@ -8565,1667 +10588,1703 @@
       "type": "IN13A073"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13A074"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 5,
       "nt": "gaba",
       "type": "IN13A075"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B001"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B004"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B005"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B006"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B007"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B008"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B009"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 5,
       "nt": "gaba",
       "type": "IN13B010"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B011"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B012"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B013"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B014"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B015"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B017"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B018"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B019"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B020"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B021"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 11,
       "nt": "gaba",
       "type": "IN13B022"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B023"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B024"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 7,
       "nt": "gaba",
       "type": "IN13B025"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 9,
       "nt": "gaba",
       "type": "IN13B026"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 7,
       "nt": "gaba",
       "type": "IN13B027"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 5,
       "nt": "gaba",
       "type": "IN13B028"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B029"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "gaba",
       "type": "IN13B030"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 3,
       "nt": "gaba",
       "type": "IN13B031"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 7,
       "nt": "gaba",
       "type": "IN13B032"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 8,
       "nt": "gaba",
       "type": "IN13B033"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "gaba",
       "type": "IN13B034"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 8,
       "nt": "gaba",
       "type": "IN13B035"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B036"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "gaba",
       "type": "IN13B037"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B038"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B039"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B040"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B041"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 5,
       "nt": "gaba",
       "type": "IN13B042"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B043"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 9,
       "nt": "gaba",
       "type": "IN13B044"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
       "nNeurons": 7,
       "nt": "gaba",
       "type": "IN13B045"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "gaba",
       "type": "IN13B046"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B048"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B049"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 8,
       "nt": "gaba",
       "type": "IN13B050"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B051"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 5,
       "nt": "gaba",
       "type": "IN13B052"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B053"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B054"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 5,
       "nt": "gaba",
       "type": "IN13B055"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 10,
       "nt": "gaba",
       "type": "IN13B056"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B057"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 10,
       "nt": "gaba",
       "type": "IN13B058"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B059"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "gaba",
       "type": "IN13B060"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B061"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 3,
       "nt": "gaba",
       "type": "IN13B062"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B063"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B064"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 8,
       "nt": "gaba",
       "type": "IN13B065"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B066"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B067"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B068"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 3,
       "nt": "gaba",
       "type": "IN13B069"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B070"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 1,
       "nt": "gaba",
       "type": "IN13B071"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B072"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B073"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B074"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B075"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B076"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B077"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 11,
       "nt": "gaba",
       "type": "IN13B078"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 10,
       "nt": "gaba",
       "type": "IN13B079"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "gaba",
       "type": "IN13B080"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B081"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B082"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B084"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B085"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 8,
       "nt": "gaba",
       "type": "IN13B087"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "gaba",
       "type": "IN13B088"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B089"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 12,
       "nt": "gaba",
       "type": "IN13B090"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 1,
       "nt": "gaba",
       "type": "IN13B091"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 7,
       "nt": "gaba",
       "type": "IN13B093"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 1,
       "nt": "gaba",
       "type": "IN13B094"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 4,
       "nt": "gaba",
       "type": "IN13B096_a"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B096_b"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "IN13B097"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 5,
       "nt": "gaba",
       "type": "IN13B098"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B099"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 1,
       "nt": "gaba",
       "type": "IN13B100"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B102"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B103"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "IN13B104"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 1,
       "nt": "gaba",
       "type": "IN13B105"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 4,
       "nt": "acetylcholine",
       "type": "JO-FD1"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 70,
       "nt": "acetylcholine",
       "type": "JO-FV"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 102,
       "nt": "acetylcholine",
       "type": "JO-unclear"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "KC"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 199,
       "nt": "acetylcholine",
       "type": "KCa'b'-ap1"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 291,
       "nt": "acetylcholine",
       "type": "KCa'b'-ap2"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 205,
       "nt": "acetylcholine",
       "type": "KCa'b'-m"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 488,
       "nt": "acetylcholine",
       "type": "KCab-c"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 536,
       "nt": "acetylcholine",
       "type": "KCab-m"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 129,
       "nt": "acetylcholine",
       "type": "KCab-p"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 657,
       "nt": "acetylcholine",
       "type": "KCab-s"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 1,
       "nt": "acetylcholine",
       "type": "KCg"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 206,
       "nt": "acetylcholine",
       "type": "KCg-d"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 1342,
       "nt": "acetylcholine",
       "type": "KCg-m"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "KCg-s1"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "KCg-s2"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "KCg-s3"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "KCg-s4"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 11,
       "nt": "acetylcholine",
       "type": "LB1a"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 6,
       "nt": "unknown",
       "type": "LB1b"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 16,
       "nt": "acetylcholine",
       "type": "LB1c"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 5,
       "nt": "acetylcholine",
       "type": "LB1d"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 19,
       "nt": "acetylcholine",
       "type": "LB1e"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 4,
       "nt": "acetylcholine",
       "type": "LB2a"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 3,
       "nt": "unknown",
       "type": "LB2b"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 6,
       "nt": "acetylcholine",
       "type": "LB2c"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 5,
       "nt": "unknown",
       "type": "LB2d"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 1,
       "nt": "unknown",
       "type": "LB3"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 17,
       "nt": "acetylcholine",
       "type": "LB3a"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 11,
       "nt": "acetylcholine",
       "type": "LB3b"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 23,
       "nt": "acetylcholine",
       "type": "LB3c"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 26,
       "nt": "acetylcholine",
       "type": "LB3d"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 4,
       "nt": "acetylcholine",
       "type": "LB4a"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 8,
       "nt": "acetylcholine",
       "type": "LB4b"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 136,
       "nt": "acetylcholine",
       "type": "LgLG1a"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 134,
       "nt": "unknown",
       "type": "LgLG1b"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 130,
       "nt": "acetylcholine",
       "type": "LgLG2"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 43,
       "nt": "acetylcholine",
       "type": "LgLG4"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 13,
       "nt": "glutamate",
       "type": "LgLG5"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 16,
       "nt": "acetylcholine",
       "type": "LgLG6"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 21,
       "nt": "acetylcholine",
       "type": "LgLG7"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 14,
       "nt": "unknown",
       "type": "LgLG8"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "glutamate",
       "type": "MBON01"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "glutamate",
       "type": "MBON02"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "glutamate",
       "type": "MBON03"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "glutamate",
       "type": "MBON04"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "glutamate",
       "type": "MBON05"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "glutamate",
       "type": "MBON06"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 4,
       "nt": "glutamate",
       "type": "MBON07"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 4,
       "nt": "gaba",
       "type": "MBON09"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 9,
       "nt": "gaba",
       "type": "MBON10"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "MBON11"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "acetylcholine",
       "type": "MBON12"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "MBON13"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "acetylcholine",
       "type": "MBON14"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 4,
       "nt": "acetylcholine",
       "type": "MBON15"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 4,
       "nt": "acetylcholine",
       "type": "MBON15-like"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "MBON16"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "MBON17"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "MBON17-like"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "MBON18"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 4,
       "nt": "acetylcholine",
       "type": "MBON19"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "MBON20"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "MBON21"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "MBON22"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "MBON23"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "MBON24"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "glutamate",
       "type": "MBON25"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "glutamate",
       "type": "MBON25-like"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "MBON26"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "MBON27"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "MBON28"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "MBON29"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "glutamate",
       "type": "MBON30"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "MBON31"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "MBON32"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "MBON33"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "glutamate",
       "type": "MBON34"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "MBON35"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "acetylcholine",
       "type": "MN1"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 3,
       "nt": "unknown",
       "type": "MN10"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 3,
       "nt": "acetylcholine",
       "type": "MN11D"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "MN11V"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "unknown",
       "type": "MN12D"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
       "nNeurons": 2,
       "nt": "unknown",
       "type": "MN13"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "unknown",
       "type": "MN2Da"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "unknown",
       "type": "MN2Db"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "unknown",
       "type": "MN2V"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "acetylcholine",
       "type": "MN3L"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "unknown",
       "type": "MN3M"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "acetylcholine",
       "type": "MN4a"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "unknown",
       "type": "MN4b"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "unknown",
       "type": "MN5"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "MN6"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "unknown",
       "type": "MN7"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "MN8"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "MN9"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "glutamate",
       "type": "MNx01"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "unknown",
       "type": "MNx02"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 3,
       "nt": "unknown",
       "type": "MNx03"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "unknown",
       "type": "MNx04"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "unknown",
       "type": "MNx05"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 44,
       "nt": "dopamine",
       "type": "PAM01"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 17,
       "nt": "dopamine",
       "type": "PAM02"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 12,
       "nt": "dopamine",
       "type": "PAM03"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 32,
       "nt": "dopamine",
       "type": "PAM04"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 20,
       "nt": "dopamine",
       "type": "PAM05"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 28,
       "nt": "dopamine",
       "type": "PAM06"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 14,
       "nt": "dopamine",
       "type": "PAM07"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 50,
       "nt": "dopamine",
       "type": "PAM08"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 9,
       "nt": "dopamine",
       "type": "PAM09"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 15,
       "nt": "dopamine",
       "type": "PAM10"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 15,
       "nt": "dopamine",
       "type": "PAM11"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 22,
       "nt": "dopamine",
       "type": "PAM12"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 16,
       "nt": "dopamine",
       "type": "PAM13"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 18,
       "nt": "dopamine",
       "type": "PAM14"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "dopamine",
       "type": "PAM15"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "dopamine",
       "type": "PPL101"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "dopamine",
       "type": "PPL102"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "dopamine",
       "type": "PPL103"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "dopamine",
       "type": "PPL104"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "dopamine",
       "type": "PPL105"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "dopamine",
       "type": "PPL106"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "dopamine",
       "type": "PPL107"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 2,
       "nt": "dopamine",
       "type": "PPL108"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "acetylcholine",
+      "type": "PRW046"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "acetylcholine",
+      "type": "PRW047"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "acetylcholine",
+      "type": "PRW064"
+    },
+    {
+      "hopDepth": 1,
+      "nNeurons": 2,
+      "nt": "gaba",
+      "type": "PRW070"
+    },
+    {
+      "hopDepth": 0,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "PhG10"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "PhG11"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "PhG12"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "PhG13"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "PhG14"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "PhG15"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "PhG16"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "PhG1a"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "PhG1b"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 4,
       "nt": "acetylcholine",
       "type": "PhG1c"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 4,
       "nt": "acetylcholine",
       "type": "PhG2"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "PhG3"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 4,
       "nt": "acetylcholine",
       "type": "PhG4"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "PhG5"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "PhG6"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 4,
       "nt": "acetylcholine",
       "type": "PhG7"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 4,
       "nt": "acetylcholine",
       "type": "PhG8"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 4,
       "nt": "acetylcholine",
       "type": "PhG9"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 14,
       "nt": "unknown",
       "type": "Pleural remotor/abductor MN"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "acetylcholine",
       "type": "Sternal adductor MN"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 12,
       "nt": "unknown",
       "type": "Sternal anterior rotator MN"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 22,
       "nt": "unknown",
       "type": "Sternal posterior rotator MN"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 14,
       "nt": "unknown",
       "type": "Sternotrochanter MN"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 3,
       "nNeurons": 9,
       "nt": "glutamate",
       "type": "Ta depressor MN"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 5,
       "nt": "glutamate",
       "type": "Ta levator MN"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 8,
       "nt": "glutamate",
       "type": "Tergopleural/Pleural promotor MN"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 12,
       "nt": "unknown",
       "type": "Tergotr. MN"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 12,
       "nt": "unknown",
       "type": "Ti extensor MN"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 37,
       "nt": "glutamate",
       "type": "Ti flexor MN"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 11,
       "nt": "unknown",
       "type": "Tr extensor MN"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 35,
       "nt": "glutamate",
       "type": "Tr flexor MN"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
+      "nNeurons": 9,
+      "nt": "acetylcholine",
+      "type": "Z_lvPNm1"
+    },
+    {
+      "hopDepth": 0,
       "nNeurons": 50,
       "nt": "acetylcholine",
       "type": "claw_tpGRN"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 0,
       "nNeurons": 10,
       "nt": "acetylcholine",
       "type": "dorsal_tpGRN"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 21,
       "nt": "glutamate",
       "type": "ltm MN"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 9,
       "nt": "glutamate",
       "type": "ltm1-tibia MN"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 12,
       "nt": "glutamate",
       "type": "ltm2-femur MN"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
+      "nNeurons": 3,
+      "nt": "glutamate",
+      "type": "mAL4B"
+    },
+    {
+      "hopDepth": 2,
       "nNeurons": 12,
       "nt": "gaba",
       "type": "mAL_m1"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "mAL_m10"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "mAL_m11"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 4,
       "nt": "unknown",
       "type": "mAL_m2a"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "mAL_m2b"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 3,
       "nt": "unknown",
       "type": "mAL_m3a"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 8,
       "nt": "unknown",
       "type": "mAL_m3b"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 10,
       "nt": "gaba",
       "type": "mAL_m3c"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 3,
       "nt": "gaba",
       "type": "mAL_m4"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "mAL_m5a"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "mAL_m5b"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 6,
       "nt": "gaba",
       "type": "mAL_m5c"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 8,
       "nt": "unknown",
       "type": "mAL_m6"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "gaba",
       "type": "mAL_m7"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 16,
       "nt": "gaba",
       "type": "mAL_m8"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 1,
       "nNeurons": 4,
       "nt": "gaba",
       "type": "mAL_m9"
     },
     {
-      "hopDepth": null,
+      "hopDepth": 2,
       "nNeurons": 2,
       "nt": "acetylcholine",
       "type": "pIP10"
     }
   ],
-  "version": 1
+  "version": 2
 }

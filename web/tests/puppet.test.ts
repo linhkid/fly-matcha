@@ -1,12 +1,9 @@
 // The ceremony's poses. Staged, but not free to lie: with no recording he neither drinks nor refuses.
 import { describe, expect, it } from "vitest";
-import { readFileSync } from "node:fs";
-import type { Codec } from "../src/codec/codec";
-import { LINGER_SECONDS, lingerSeconds, PHASES } from "../src/view/loop";
-import { sipAt } from "../src/view/rotation";
+import { PHASES } from "../src/view/loop";
 import { bookAt, BOOKS, onBreak, pose, touchWindow, type Pose, type SipLook } from "../src/view/puppet";
 
-const codec: Codec = JSON.parse(readFileSync(new URL("../../contracts/codec/taste.codec.json", import.meta.url), "utf8"));
+const STAYS = [8, 9.5, 12, 14.25, 20]; // his brain sets the stay, anywhere from the least to the most
 const sips: SipLook[] = [
   { teaIndex: 2, scoops: 3, sweets: 2, bitterLevel: 3 },
   { teaIndex: null, scoops: 0, sweets: 4, bitterLevel: 0 },
@@ -98,7 +95,7 @@ describe("tasting, unhurried", () => {
   it("takes the same seconds to come and go however long he stays, so a longer taste is a longer stay", () => {
     const sip = sips[0];
     const stay = (seconds: number): number => steps.filter((p) => pose("taste", p, sip, seconds).touching).length * seconds / 100;
-    for (const seconds of LINGER_SECONDS) {
+    for (const seconds of STAYS) {
       expect(pose("taste", 0.9 / seconds, sip, seconds).lean).toBe(0);            // first he looks at it
       expect(pose("taste", 3.5 / seconds, sip, seconds).touching).toBe(true);     // lowered by 3.4 s
       expect(pose("taste", (seconds - 0.7) / seconds, sip, seconds).lean).toBe(0); // and he is up before he leaves
@@ -106,13 +103,13 @@ describe("tasting, unhurried", () => {
       expect(stay(seconds)).toBeLessThan(seconds - 4.4);
       for (let i = 1; i < steps.length; i++) {
         const jump = Math.abs(pose("taste", steps[i], sip, seconds).lean - pose("taste", steps[i - 1], sip, seconds).lean);
-        expect(jump, `${seconds} s at ${steps[i]}`).toBeLessThan(0.12);
+        expect(jump / (seconds / 100), `${seconds} s at ${steps[i]}`).toBeLessThan(0.9); // never faster than this per second, however long the stay
       }
     }
   });
 
   it("knows between which seconds his lips are on the tea, from the lean itself", () => {
-    for (const seconds of LINGER_SECONDS) {
+    for (const seconds of STAYS) {
       const [from, to] = touchWindow(seconds);
       expect(from).toBeGreaterThan(3);
       expect(from).toBeLessThan(3.4);
@@ -125,21 +122,4 @@ describe("tasting, unhurried", () => {
     }
   });
 
-  it("never gives the same time twice running, and lets every named serving meet every time", () => {
-    expect(Array.from({ length: 12 }, (_, i) => lingerSeconds(i))).toEqual([9, 12, 8, 14, 10, 13, 11, 8.5, 12.5, 9.5, 13.5, 9]);
-    for (let i = 0; i < 50; i++) expect(lingerSeconds(i)).not.toBe(lingerSeconds(i + 1));
-    expect(Math.min(...LINGER_SECONDS)).toBeGreaterThanOrEqual(8);
-    // by cell of the grid, and by what is actually served: a tea, a number of scoops, a number of sweets
-    const byCell = new Map<number, Set<number>>();
-    const byServing = new Map<string, Set<number>>();
-    for (let i = 0; i < 25 * LINGER_SECONDS.length * 42; i++) {
-      const sip = sipAt(codec, i);
-      for (const [map, key] of [[byCell, i % 25], [byServing, `${sip.teaId}/${sip.scoops}/${sip.sweets}`]] as const) {
-        const seen = (map as Map<unknown, Set<number>>).get(key) ?? new Set<number>();
-        seen.add(lingerSeconds(i));
-        (map as Map<unknown, Set<number>>).set(key, seen);
-      }
-    }
-    for (const seen of [...byCell.values(), ...byServing.values()]) expect(seen.size).toBe(LINGER_SECONDS.length);
-  });
 });

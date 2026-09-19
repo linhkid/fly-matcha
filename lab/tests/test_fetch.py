@@ -101,3 +101,135 @@ def test_sources_json_merges_stages_and_stays_sorted(tmp_path):
     fetch.merge_sources(path, [a])
     assert path.read_text() == first
     assert [p.name for p in tmp_path.iterdir()] == ["sources.json"]
+
+
+# --- a download that stalls or is cut must not start from zero ---------------------------------------------------
+
+import threading
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
+
+class Flaky(BaseHTTPRequestHandler):
+    """Serves PAYLOAD. `plan` is a list of behaviours, one per request: 'cut' stops half way, 'whole' ignores ranges."""
+
+    plan: list[str] = []
+    seen: list[dict] = []
+
+    def do_GET(self):
+        behaviour = Flaky.plan.pop(0) if Flaky.plan else "range"
+        Flaky.seen.append({"range": self.headers.get("Range"), "generation": self.headers.get("x-goog-if-generation-match")})
+        if behaviour in ("changed", "unavailable"):
+            self.send_response(412 if behaviour == "changed" else 503)
+            self.end_headers()
+            return
+        start = 0
+        if behaviour != "whole" and self.headers.get("Range"):
+            start = int(self.headers["Range"].split("=")[1].rstrip("-"))
+        body = PAYLOAD[start:]
+        self.send_response(206 if start else 200)
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        if behaviour != "silent":                       # "silent": the headers arrive and then the connection closes
+            self.wfile.write(body[: len(body) // 2] if behaviour == "cut" else body)
+
+    def log_message(self, *args):
+        pass
+
+
+@pytest.fixture
+def flaky():
+    Flaky.plan, Flaky.seen = [], []
+    server = HTTPServer(("127.0.0.1", 0), Flaky)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    yield f"http://127.0.0.1:{server.server_port}/x"
+    server.shutdown()
+
+
+def http_request(url: str) -> fetch.SourceRequest:
+    size, md5 = declared(PAYLOAD)
+    return fetch.SourceRequest("x.feather", url, size, md5, "g7")
+
+
+def test_a_cut_connection_is_resumed_from_where_it_stopped_with_the_generation_pinned(tmp_path, flaky):
+    Flaky.plan = ["cut", "cut", "range"]
+    seen = []
+    sha = fetch._download(http_request(flaky), tmp_path / "x.feather", progress=lambda name, have, total: seen.append(have), pause=0)
+    assert (tmp_path / "x.feather").read_bytes() == PAYLOAD and sha == hashlib.sha256(PAYLOAD).hexdigest()
+    half = len(PAYLOAD) // 2
+    assert [r["range"] for r in Flaky.seen] == [None, f"bytes={half}-", f"bytes={half + (len(PAYLOAD) - half) // 2}-"]
+    assert {r["generation"] for r in Flaky.seen} == {"g7"}
+    assert seen[-1] == len(PAYLOAD) and not fetch._partial(tmp_path / "x.feather", http_request("http://x")).exists()
+
+
+def test_a_partial_file_from_an_earlier_run_is_continued_not_restarted(tmp_path, flaky):
+    fetch._partial(tmp_path / "x.feather", http_request("http://x")).write_bytes(PAYLOAD[:4000])
+    fetch._download(http_request(flaky), tmp_path / "x.feather", pause=0)
+    assert [r["range"] for r in Flaky.seen] == ["bytes=4000-"]
+    assert (tmp_path / "x.feather").read_bytes() == PAYLOAD
+
+
+def test_a_server_that_ignores_the_range_gives_the_whole_file_again_and_that_is_fine(tmp_path, flaky):
+    fetch._partial(tmp_path / "x.feather", http_request("http://x")).write_bytes(PAYLOAD[:4000])
+    Flaky.plan = ["whole"]
+    fetch._download(http_request(flaky), tmp_path / "x.feather", pause=0)
+    assert (tmp_path / "x.feather").read_bytes() == PAYLOAD
+
+
+def test_a_wrong_partial_file_is_caught_by_the_checksum_and_thrown_away(tmp_path, flaky):
+    fetch._partial(tmp_path / "x.feather", http_request("http://x")).write_bytes(b"?" * 4000)
+    with pytest.raises(fetch.CorruptDownload, match="md5"):
+        fetch._download(http_request(flaky), tmp_path / "x.feather", pause=0)
+    assert list(tmp_path.iterdir()) == []
+
+
+def test_an_object_that_changed_on_the_server_is_refused_and_its_partial_file_dropped(tmp_path, flaky):
+    fetch._partial(tmp_path / "x.feather", http_request("http://x")).write_bytes(PAYLOAD[:4000])
+    Flaky.plan = ["changed"]
+    with pytest.raises(fetch.CorruptDownload, match="changed"):
+        fetch._download(http_request(flaky), tmp_path / "x.feather", pause=0)
+    assert list(tmp_path.iterdir()) == []
+
+
+def test_a_server_that_never_answers_keeps_the_partial_file_for_the_next_run(tmp_path):
+    fetch._partial(tmp_path / "x.feather", http_request("http://x")).write_bytes(PAYLOAD[:4000])
+    size, md5 = declared(PAYLOAD)
+    with pytest.raises(OSError):
+        fetch._download(fetch.SourceRequest("x.feather", "http://127.0.0.1:9/x", size, md5, "g7"), tmp_path / "x.feather", attempts=2, pause=0)
+    assert fetch._partial(tmp_path / "x.feather", http_request("http://x")).read_bytes() == PAYLOAD[:4000]
+
+
+def test_running_out_of_attempts_keeps_what_arrived_and_the_next_run_continues_from_it(tmp_path, flaky):
+    Flaky.plan = ["cut"] * 3
+    with pytest.raises(fetch.CorruptDownload, match="gave up"):
+        fetch._download(http_request(flaky), tmp_path / "x.feather", attempts=3, pause=0)
+    kept = fetch._partial(tmp_path / "x.feather", http_request(flaky)).read_bytes()
+    assert kept == PAYLOAD[:len(kept)] and len(kept) == 8750
+    fetch._download(http_request(flaky), tmp_path / "x.feather", pause=0)
+    assert Flaky.seen[-1]["range"] == "bytes=8750-" and (tmp_path / "x.feather").read_bytes() == PAYLOAD
+
+
+def test_a_connection_that_closes_before_any_byte_is_a_dropped_one_not_a_short_source(tmp_path, flaky):
+    fetch._partial(tmp_path / "x.feather", http_request(flaky)).write_bytes(PAYLOAD[:4000])
+    Flaky.plan = ["silent", "range"]
+    fetch._download(http_request(flaky), tmp_path / "x.feather", pause=0)
+    assert [r["range"] for r in Flaky.seen] == ["bytes=4000-", "bytes=4000-"] and (tmp_path / "x.feather").read_bytes() == PAYLOAD
+
+
+def test_a_server_that_is_briefly_unavailable_is_asked_again_and_a_refusal_is_not(tmp_path, flaky):
+    fetch._partial(tmp_path / "x.feather", http_request(flaky)).write_bytes(PAYLOAD[:4000])
+    Flaky.plan = ["unavailable", "range"]
+    fetch._download(http_request(flaky), tmp_path / "x.feather", pause=0)
+    assert [r["range"] for r in Flaky.seen] == ["bytes=4000-", "bytes=4000-"]
+    (tmp_path / "x.feather").unlink()
+    Flaky.plan = ["unavailable", "unavailable"]
+    with pytest.raises(OSError):
+        fetch._download(http_request(flaky), tmp_path / "x.feather", attempts=2, pause=0)
+
+
+def test_a_partial_file_of_another_object_is_not_continued(tmp_path, flaky):
+    size, md5 = declared(PAYLOAD)
+    older = fetch.SourceRequest("x.feather", flaky, size, md5, "g6")
+    fetch._partial(tmp_path / "x.feather", older).write_bytes(b"?" * 4000)
+    fetch._download(http_request(flaky), tmp_path / "x.feather", pause=0)
+    assert [r["range"] for r in Flaky.seen] == [None]
+    assert (tmp_path / "x.feather").read_bytes() == PAYLOAD and list(tmp_path.glob("*.part")) == []

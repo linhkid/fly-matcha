@@ -36,7 +36,7 @@ describe("import boundaries", () => {
   });
 
   it("keeps three.js out of everything that must stay pure", () => {
-    const pure = ["view/light.ts", "view/live.ts", "view/loop.ts", "view/rotation.ts", "view/reaction.ts", "view/cloud.ts", "view/hud.ts", "view/puppet.ts", "view/lips.ts", "view/palette.ts", "codec/codec.ts", "honesty/honesty.ts"];
+    const pure = ["view/light.ts", "view/replay.ts", "view/loop.ts", "view/rotation.ts", "view/reaction.ts", "view/cloud.ts", "view/hud.ts", "view/puppet.ts", "view/lips.ts", "view/palette.ts", "codec/codec.ts", "honesty/honesty.ts"];
     for (const name of pure) expect(imports(join(src, name)).filter((s) => s === "three" || s.startsWith("three/"))).toEqual([]);
   });
 });
@@ -56,7 +56,7 @@ describe("banned calls", () => {
   });
 
   it("keeps clocks and randomness out of everything between spikes and what the page says about them", () => {
-    for (const name of ["view/light.ts", "view/live.ts", "view/reaction.ts", "view/cloud.ts", "view/hud.ts", "view/puppet.ts", "view/loop.ts", "view/rotation.ts", "view/lips.ts", "codec/codec.ts", "honesty/honesty.ts"]) {
+    for (const name of ["view/light.ts", "view/replay.ts", "view/reaction.ts", "view/cloud.ts", "view/hud.ts", "view/puppet.ts", "view/loop.ts", "view/rotation.ts", "view/lips.ts", "codec/codec.ts", "honesty/honesty.ts"]) {
       const source = code(join(src, name));
       expect(source, name).not.toMatch(/\bMath\s*\.\s*random\b|\bMath\s*\[/);
       expect(source, name).not.toMatch(NEVER_IN_PURE);

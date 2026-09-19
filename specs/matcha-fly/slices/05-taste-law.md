@@ -55,6 +55,8 @@ Slice V1 already created the codec's writer and file, with the levels and the te
 
 On a pass the living view gains its verdicts (V1 and V2 held them back): the proboscis comes out and the cup drains only while MN9 fires in the replayed recording, and his words about the tea follow the decoder's outcome and nothing else. How long he stays with the cup is already the recording's from V2. On a fail the view stays as V2 left it, with the failure explained beside it.
 
+**Timing, from V2's pilot (2026-09-19):** 300 ms of his time takes about 3 s on one core of this machine, so a one-second trial is about 10 s. A thousand one-second trials are under three hours on one core and well under half an hour on ten. V2's pilot grid (`assets/evidence/v2/README.md`) already shows the shape this slice is about, from one seed and with no control. Write the pre-registration before looking at it again, and do not tune anything because of it. Two things in it to test and not to explain away: a weaker sweet sip recruited more neurons than a stronger one, and some sips recruit thousands of neurons where their neighbours recruit hundreds.
+
 ## What the human sees
 
 `report.html`: the sweet-by-bitter grid as a heatmap, the shuffle histogram with the real brain marked, the random-population controls, the predicted-sign table, the rival rule's held-out accuracy and its disagreements, and a line stating how many neurons took part out of how many the graph holds, both read from the run.

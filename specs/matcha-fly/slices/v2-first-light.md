@@ -4,6 +4,8 @@
 
 Needs V1 and slice 03. This is the moment the project stops being documents and tests.
 
+**Built 2026-09-19.** Three things differ from the text below, and choices under "Slice V2" says why: a recording is 300 ms of his time, not a second, because that is what a stay of up to twenty seconds can show at fifty-fold slowdown; the scrubber is left for the slice that gives the player tools; and the neurons that fire in a recording are drawn as a layer of their own over the painted cloud, with MN9 larger, because rewriting 138,556 colours a frame is not needed to light a few thousand.
+
 ## Contract
 
 Delivers real spikes in the living view: whole-brain recordings of every sip on the grid, replayed in slow motion in the endless loop. Pilot recordings, labelled as such, because the taste law has not been tested yet.
