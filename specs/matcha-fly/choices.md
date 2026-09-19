@@ -51,6 +51,54 @@ This changes N4's emphasis, not its substance: play is still made of one-second 
 - **Reach:** the loop is a fixed rotation, not random, so a build always shows the same sequence; while only recordings exist, it replays them. Bets, silencing and composing a sip happen while paused.
 - **Confidence:** the decision is the user's.
 
+### N10. A pause is a break with a book, not a freeze
+**User decision, 2026-09-19.** "When hit pause, it should not stop but the fly can take a break and read a Dostoevsky book." Pausing holds the ceremony's clock and nothing else. He puts down what he holds, goes to his cushion and reads, and the cloud keeps turning. Six titles, one per sip in turn, printed on the cover; the card says what he reads and his words are about the book.
+
+- **Reach:** `onBreak()` in `web/src/view/puppet.ts` may only put things down, and a test holds it to that: no tea appears, is drunk or is spilled by a break. Only titles are used. No line of any book, or of any translation, is quoted. The break is puppetry and is tagged `staged` like the rest of his words.
+- **Confidence:** the decision is the user's. Which titles, and what he says about them, are mine and easy to change.
+
+### N11. Tasting is deliberate, and how long he stays varies
+**User decision, 2026-09-19.** "make it quite deliberately when at the stage of sipping/drinking. I want him to fully enjoy, so the time he spends on tasting/drinking can vary." Tasting became the long phase: he looks, lowers his head slowly, stays with his lips on the tea, comes up slowly. The stay is 8 to 14 seconds and never the same twice running.
+
+How I read it, and where I stopped: a fly that visibly enjoys one tea more than another is a verdict, and rules 1 and 2 give verdicts to the model. So the variation is built now and its cause is handed over in two steps. In V1 the time comes from a fixed list that ignores the tea on purpose (seven times against a cycle of twenty-five sips, so every sip meets every time), the card says so, and he touches the tea without drinking it. From V2 the time is set by the recording: he stays while his brain keeps MN9 firing. From slice 05, if the taste law passes, the proboscis comes out and the cup drains while it does. Then "he enjoys it" means something that was computed.
+
+- **Reach:** `Loop` takes how long each phase of each sip lasts; `pose()` stretches the stay and never the coming and going. V2 and 05 carry the hand-over.
+- **Reversal:** if the user wants him to drink and savour right now, before any recording exists, that is staged drinking. It can be done and tagged `staged`, but it would be the first thing on screen that looks like a decision and is not one. I would rather get slice 03's 508 MB approved and make it real.
+- **Confidence:** high that this is the honest version; medium that it is what the user pictured. Ask.
+
+### N12. Fold the text away, stage as little as possible, and make the fly lifelike
+**User decision, 2026-09-19.** "Make the HUD/text screen collapsible: it's obscuring the scene. Try your best to not STAGED things, make it as real as possible for the fly. I want to see real interactions. Make the fly more beautiful and detailed, more real with movements."
+
+What was done at once: every panel folds, and `H` hides all text; the fly was rebuilt with joints, a gait and idle movements; and the one layer of his nervous system that needs no wiring went live, the spikes a sip forces in his taste neurons (choices K9).
+
+What "real" still needs, said plainly to the user: everything behind his lips needs the 508 MB of connection weights (slice 03). With them, V2 replays what his whole brain does with each sip, his stay at the cup follows MN9, and slice 05 decides whether the proboscis may come out. Brewing tea can never be his: no fly brain does that, and the ceremony stays staged and says so, more quietly than before.
+
+- **Reach:** the STAGED pill left the control bar; the card leads with what his brain did. The tags themselves stay, because rule 3 is the project's spine.
+- **Confidence:** the decision is the user's. That a live input layer is the right first "real interaction" is mine.
+
+### N13. No label on his lips, the magnified lips open, and crockery that looks like crockery
+**User decision, 2026-09-19.** "Remove the dot dot dot taste neurons, on his lips. Make the his lips, magnified HUD to be displayed by default. Make the matcha cup and matcha bowl more real."
+
+The pinned name under his mouth and the dotted leader from the panel to his mouth are gone. They had been added the same day on a reviewer's advice that the taste neurons could not be found (K10); the user prefers the scene clean, and the panel, now open by default, does that job. The thread from his head to the cloud stays until the user says otherwise. The bowl is a chawan thrown on a lathe: a cut foot ring of bare clay, a dark iron glaze that runs thin and rusty from the lip, a little out of round, with whisked matcha and its foam inside, a small serving as thin tea is. The cup stays glass on purpose, because his lips at the tea and the level of the tea must stay visible, but it is now a real glass: a thick base, a polished lip, a room mirrored in it. The camera stands higher, because a tea bowl is looked into.
+
+- **Reach:** `web/src/view/crockery.ts`. The storage key for folded panels moved to `fly-matcha.folds.2` so the new default reaches a browser that remembered the old one.
+- **Confidence:** the decision is the user's. Glass over ceramic for the cup is mine; say the word and it becomes a yunomi, at the price of hiding his lips.
+
+### N15. "If he brews and goes on continuously, does he feel tired? I need to know that."
+**User question, 2026-09-19, answered on the page.** No, and that is a limit of the model, not a trait of his. The model has no fatigue, no hunger, no memory and no learning (rule 7). It has no state that outlasts a trial: every bowl starts with every neuron at rest, and the same seed gives the same spikes, on the first bowl and on the thousandth. It lacks even the fast kinds of tiring that real neurons have: no spike-frequency adaptation, no synaptic depression, and nothing that stands in for energy or for neuromodulators. A real fly would tire in at least four ways: his taste neurons adapt within seconds, he habituates to a repeated stimulus, he fills up (stretch receptors and satiety signals turn sweet taste down), and sleep pressure builds. The connectome holds the wiring of the systems that do this. A wiring diagram holds no state, so none of it happens here. The title panel says so in plain words.
+
+- **What it would take:** state variables that are ours, not the fly's: an adaptation current in the neuron model (a new model version, with its own fixtures), depression at synapses, a sleep or satiety variable. Each is a modelling decision that needs an experiment before it may change what he does. "A hunger or thirst knob" stays parked for the same reason: omitted rather than invented.
+- **Confidence:** high.
+
+### N14. Move him through his own neurons, and let his brain react to it
+**User decision, 2026-09-19.** "We know fly cannot brew matcha, but can we force it to use his legs to lift and motions? so that it can show at the 'on the cloud' and in the brain image as well", and "if he moves, the neuron in his brain has to react to that too. clean, sift etc too."
+
+Yes, in two honest ways, written up as slice V3. His 373 leg motor neurons sit in the cloud and are named for their muscles, so the puppet can be moved *through* them, labelled as driven by us, which shows at once in the nerve cord. And his own movement is a real stimulus to the 392 movement sensors of his legs, exactly as the tea is to his taste neurons; what his cord and brain make of that is the model's to compute, and it needs the wiring. The census of the leg pools was run the same day (`circuits/legs.circuit.json`), and the muscle-to-movement table was checked against papers before anything was built on a name.
+
+- **What it cannot be:** his brain deciding to brew. A forced motor neuron is the experimenter's hand. The page will say "driven by us".
+- **Blocked on:** the user's yes for 508 MB, for everything except the strings.
+- **Confidence:** the decision is the user's; the two-route design is mine.
+
 ## Needs the user
 
 ### N2. It is a browser toy plus a Python lab, one fly, flat art
@@ -269,3 +317,67 @@ The planning workflow asks for a second family. It was skipped, because that wou
 **User decision, 2026-09-19.** When slice 02 began, the folder held a partial draft written minutes earlier by something other than this session. The user chose to set it aside. It is in `git stash` and was not used, apart from the observation that its three frozen constants were identical to the ones computed here. It had at least one contract bug, a refractory period of 21 steps.
 
 - **Reversal:** `git stash show -p` to read it, `git stash drop` to discard it. The user's call.
+
+### Slice V1, 2026-09-19. Least confident first.
+
+#### K1. The brain stands upright, seen from below or above, and the axes were found by looking at the data
+**Implementation decision, delegated by the slice.** The annotation table's positions have the long axis of the whole nervous system on `z`: the brain occupies the low third and the nerve cord the rest. Within the brain, low `y` is dorsal (the Kenyon cells sit at `y = -0.21`, the proboscis motor neurons near 0). I found this from the group positions, not from documentation. The cloud is drawn with `-z` up, so the brain is on top and the cord hangs below, the way whole-CNS figures are usually shown. Nothing but centring and one uniform scale is applied to the numbers in the file; the turn happens in the scene.
+
+- **Reversal:** one line in `scene.ts`. If a published figure of MaleCNS shows another convention, follow it.
+- **Confidence:** high in the axes, medium in the convention.
+
+#### K2. The audit now refuses any bare number in the page's words
+**Implementation decision.** The slice asked that the DOM audit find every quantity tagged. Checking that tagged spans carry the right tag does not find an untagged one. `audit()` now also fails on any number in the text outside a `data-q` span, with two ways out: `ref()` for a pointer that is not a claim about the fly (a year in a citation, a version, a slice number), and a digit inside a name such as `MN9`. It runs over every piece of HUD markup in the tests, for every phase of every sip and on a break, and over the live page in development, where a failure puts a red box on screen.
+
+- **Reach:** every later slice that prints a number meets this test.
+- **Confidence:** high. Known hole: it reads text, so a number inside a canvas or a tooltip attribute is not seen. The book cover is the only canvas and holds no number.
+
+#### K3. Stills from the page's address, shot by the Chrome already installed
+**Implementation decision.** The browser pane throttles a hidden tab, so an endless animation cannot be inspected through it reliably, and Playwright is a download nobody approved. `?sip=3&phase=taste&at=0.5` opens the page as a still of that moment (`&break=1`, `&staged=1`), everyone already in place. The evidence shots were taken by `/Applications/Google Chrome.app` run headless with a throwaway profile in the session's scratch folder. Nothing was downloaded or installed, and the user's own Chrome profile was not touched.
+
+- **Reach:** the first slice that needs a browser *test*, not a shot, still needs Playwright and a yes.
+- **Confidence:** high.
+
+#### K4. Poses are data, in one pure file
+**Implementation decision.** Everything a prop does is a number returned by `pose()`; `scene.ts` only places what it is told. The reason is honesty, not tidiness: the first draft drained the cup and removed the sweets while he tasted, which is a verdict nobody computed. Now the proboscis field has the type `0`, and tests hold the cup full and the sweets in place for every moment of tasting, check that no level jumps, and check that a break only puts things down.
+
+- **Confidence:** high.
+
+#### K5. Taste neurons sit on two lobes under his head, and once more, magnified, in a panel
+**Implementation decision, delegated by the slice.** None of the 72 has a position, so they are drawn on the fly, left and right from the dataset, sweet above bitter, the six with no transmitter label as rings. Where a dot sits inside its lobe is ours and the panel says so. On the fly the dots are a few pixels, so the panel repeats them large. V2 must light both from `light()`.
+
+#### K6. No UI framework; `@types/three` and `@types/node` came with the approved packages
+**Implementation decision.** The page is one canvas and six small panels of markup built by pure functions, which is what lets the audit read them. The user approved vite, typescript, three and vitest; the two type packages were installed with them and are named here because they were not in the list I read out.
+
+#### K7. The codec's writer was created here, without a decoder
+**Implementation decision, from the slice.** `lab/flylab/codec/build.py` writes `contracts/codec/taste.codec.json` with the two channels, their five levels and the tea menu. Decoder thresholds are `null` until slice 05 has evidence for them. A fixture of all 140 sips binds the Python and the TypeScript reading of the menu.
+
+#### K8. Group colours are flat and matte
+**Implementation decision, delegated.** Brightness and bloom are kept for spikes. The named groups are drawn in mid-tone colours with plain blending, and the legend says that colour is membership, not activity.
+
+#### K9. The browser engine began here, with the input layer
+**Implementation decision.** `web/src/engine/prng.ts` and `input.ts` were written in V1, not slice 08, so that something real could happen on screen before slice 03's download. Rule 4 is kept: they are the browser engine's files, there is no second owner, and they are bound to the oracle by the published test vectors, every lane of the fixture, and all 21 driven fixtures. They matched on the first run. The seed of a bowl's trial is the bowl's number.
+
+- **Reach:** slice 08 inherits two tested files. V2 must make sure a recording's taste-neuron spikes and this layer's agree for the same seed, or say why not (a taste neuron that receives synapses may fire more than it is forced to).
+- **Confidence:** high.
+
+#### K10. A fresh pair of eyes changed the page
+**Implementation decision.** A reviewer who had not seen the work judged the accepted shots against the slice's one visual variable and found it half failed: the taste neurons could not be found, the cloud was never called a brain, group colours read as sparks, the card spoke of rates in the present tense while nothing touched his lips, "sip" implied he sips, a cup that emptied by itself implied he drank, and "the decision is not [puppetry]" implied a decision existed. All of it was fixed: pinned names on his brain, his nerve cord and his lips, a thread from his head to the cloud, a leader from the magnified lips to his mouth, round matte points, a glass cup, tenses, "bowl" for "sip", a cup visibly tipped out and sweets visibly carried off, and a footnote that says no decision has been computed. The second reviewer, for the code, could not run: the account's spending limit was reached. That review is still owed.
+
+#### K11. The fly is a male, and he does not groom
+**Implementation decision, delegated by the slice.** Tan thorax with its long bristles, red faceted eyes, three ocelli, antennae with aristae, a folded proboscis ending in the labellum where his lips are drawn, veined wings folded flat, halteres, six three-part legs, and the banded abdomen with the dark round tip of a male, because this connectome is a male's. He walks on an alternating tripod, turns before he walks, and idles the way flies do: head saccades, antennal twitches, wing flicks, breathing. Grooming was left out on purpose. It has a circuit of its own, and branch B2 wants that movement to be his brain's, not the puppeteer's.
+
+#### K12. The code review that was owed, done by a workflow, and what it changed
+**Implementation decision, 2026-09-19.** Three reviewers (honesty, correctness, engine and tests) and one adversarial verifier per finding. Twenty-two findings, fifteen verified, fourteen confirmed, one refuted. The important ones:
+
+- **"Lips on the tea" had two owners.** The live layer went by the ceremony's clock, the puppet by its break blend, and for about 1.5 s after every break his taste neurons fired while he was still walking back. Now a break is the viewer's wish, the clock stays held until the stage reports him back at his work, and he shuts his book, walks, and only then picks things up. The live layer moved out of `main.ts` into `web/src/view/live.ts`, pure and tested; five one-token mutants of it had survived the old tests.
+- **Staged time leaked into a number tagged `model`.** How long a trial runs is set by his staged stay, so `model.time` is now `staged`, derived from the stay and the slowdown, and the card says so. The list of stays grew from seven to eleven so that every *named serving*, not only every cell of the grid, meets every time.
+- A line's tags are now read off its content instead of typed beside it. The legend printed points drawn under the name of a census count. The lips panel said "fires" where it meant "is forced to fire".
+- A negative time step on the first frame turned him by a random angle. A missing cloud file was answered with the page itself. Space could not activate a focused button. A throwing frame died silently. `&open=` overwrote the viewer's saved panels.
+- Tests that restated the code under test were pinned to literals; the engine refuses malformed and repeated body IDs; the browser's cloud reader is held to a five-point fixture written by the lab; the purity guard became an allow-list.
+
+#### K13. The six "unlabelled" neurons are labelled: "unclear", and probably acetylcholine
+**Implementation decision, from the user's question.** See RESEARCH.md. The page now says "the type LB1b, whose transmitter the dataset calls unclear". The base model is unchanged, because a sign is a version (rule 5): slice 05 gains a narrow arm, taste neurons called unclear take +1.
+
+#### K14. He comes to the cup at an angle, and the tea stands a little over half way up the glass
+**Implementation decision, on the second critic's advice.** Head-on, his face hid the glass and his lips. At 40 degrees the contact shows in profile. Matcha is a suspension, so the glass holds a solid green body, not a green skin on clear water, and above it the glass is clear so that his lips stay in sight. The whisk gained tines.

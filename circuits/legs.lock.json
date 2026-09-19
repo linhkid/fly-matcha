@@ -1,0 +1,1356 @@
+{
+  "annotationsSha256": "2177e246113e4cfbf1e7772ec37c6da1955ff22e8063d0b1f833101f99a9a3b2",
+  "circuit": "legs",
+  "graphSha256": null,
+  "groups": [
+    {
+      "bodyIds": [
+        "806599",
+        "815246",
+        "816215",
+        "816404",
+        "817283",
+        "817509",
+        "819869",
+        "825516",
+        "833140",
+        "837745",
+        "867630",
+        "903298",
+        "909713",
+        "1050005026",
+        "1050091581",
+        "1050115387",
+        "1050126678",
+        "1050156705",
+        "1050268065"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.fl.acc-ti-flexor",
+      "ntHistogram": {
+        "glutamate": 19
+      },
+      "perSide": {
+        "L": 10,
+        "R": 9,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "807873",
+        "821291",
+        "909618",
+        "911134",
+        "1050306082",
+        "1050349786"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.fl.acc-tr-flexor",
+      "ntHistogram": {
+        "unknown": 6
+      },
+      "perSide": {
+        "L": 3,
+        "R": 3,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "803830",
+        "804941",
+        "805598",
+        "806898",
+        "811652",
+        "812111",
+        "813566",
+        "814163",
+        "817595",
+        "835074"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.fl.fe-reductor",
+      "ntHistogram": {
+        "glutamate": 10
+      },
+      "perSide": {
+        "L": 4,
+        "R": 6,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "802509",
+        "803314",
+        "803803",
+        "805313"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.fl.pleural-remotor-abductor",
+      "ntHistogram": {
+        "unknown": 4
+      },
+      "perSide": {
+        "L": 2,
+        "R": 2,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "813480",
+        "815854"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.fl.sternal-adductor",
+      "ntHistogram": {
+        "acetylcholine": 2
+      },
+      "perSide": {
+        "L": 1,
+        "R": 1,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "801469",
+        "801918",
+        "806923",
+        "919509"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.fl.sternal-anterior-rotator",
+      "ntHistogram": {
+        "unknown": 4
+      },
+      "perSide": {
+        "L": 2,
+        "R": 2,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "801915",
+        "804851",
+        "805410",
+        "808011",
+        "808640",
+        "1050335829"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.fl.sternal-posterior-rotator",
+      "ntHistogram": {
+        "unknown": 6
+      },
+      "perSide": {
+        "L": 4,
+        "R": 2,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "801079",
+        "801685",
+        "802361",
+        "803698"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.fl.sternotrochanter",
+      "ntHistogram": {
+        "unknown": 4
+      },
+      "perSide": {
+        "L": 2,
+        "R": 2,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "817655",
+        "819278",
+        "825721",
+        "1050248133",
+        "1050380236",
+        "1050403926",
+        "1050660827",
+        "1050815462",
+        "1051062549"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.fl.ta-depressor",
+      "ntHistogram": {
+        "glutamate": 9
+      },
+      "perSide": {
+        "L": 5,
+        "R": 4,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "810541",
+        "817210",
+        "820110",
+        "820896",
+        "1050111955"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.fl.ta-levator",
+      "ntHistogram": {
+        "glutamate": 5
+      },
+      "perSide": {
+        "L": 2,
+        "R": 3,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "800061",
+        "801173",
+        "801824",
+        "802072",
+        "805745",
+        "807281",
+        "810535",
+        "934091"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.fl.tergopleural-pleural-promotor",
+      "ntHistogram": {
+        "glutamate": 8
+      },
+      "perSide": {
+        "L": 4,
+        "R": 4,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "802552",
+        "803237",
+        "804465",
+        "804866",
+        "805741",
+        "817347",
+        "909521",
+        "924716"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.fl.tergotr",
+      "ntHistogram": {
+        "unknown": 8
+      },
+      "perSide": {
+        "L": 4,
+        "R": 4,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "800636",
+        "804257",
+        "815344",
+        "815678"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.fl.ti-extensor",
+      "ntHistogram": {
+        "unknown": 4
+      },
+      "perSide": {
+        "L": 2,
+        "R": 2,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "807165",
+        "809912",
+        "810098",
+        "818057",
+        "819384",
+        "821635",
+        "827188",
+        "909831",
+        "1050031705",
+        "1050189039"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.fl.ti-flexor",
+      "ntHistogram": {
+        "glutamate": 10
+      },
+      "perSide": {
+        "L": 5,
+        "R": 5,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "803412",
+        "807906",
+        "818842",
+        "838321"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.fl.tr-extensor",
+      "ntHistogram": {
+        "unknown": 4
+      },
+      "perSide": {
+        "L": 2,
+        "R": 2,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "810639",
+        "814489",
+        "816648",
+        "817640",
+        "818389",
+        "818719",
+        "820130",
+        "820668",
+        "823168",
+        "823281",
+        "828939",
+        "903010",
+        "914655",
+        "1051367796",
+        "1051670893"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.fl.tr-flexor",
+      "ntHistogram": {
+        "glutamate": 15
+      },
+      "perSide": {
+        "L": 8,
+        "R": 7,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "822092",
+        "822274",
+        "860084",
+        "910334",
+        "911453",
+        "924189",
+        "1050013851",
+        "1050015101"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.fl.ltm",
+      "ntHistogram": {
+        "glutamate": 8
+      },
+      "perSide": {
+        "L": 4,
+        "R": 4,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "818553",
+        "822047",
+        "1057471940"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.fl.ltm1-tibia",
+      "ntHistogram": {
+        "glutamate": 3
+      },
+      "perSide": {
+        "L": 2,
+        "R": 1,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "805309",
+        "830039",
+        "1050251718",
+        "1050615112"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.fl.ltm2-femur",
+      "ntHistogram": {
+        "glutamate": 4
+      },
+      "perSide": {
+        "L": 2,
+        "R": 2,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "805568",
+        "809670",
+        "812531",
+        "819674",
+        "825485",
+        "830480",
+        "905235",
+        "907848",
+        "908094",
+        "909255",
+        "1051356801",
+        "1052521030"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.ml.acc-ti-flexor",
+      "ntHistogram": {
+        "glutamate": 12
+      },
+      "perSide": {
+        "L": 6,
+        "R": 6,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "810720",
+        "821375",
+        "867926",
+        "927828"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.ml.acc-tr-flexor",
+      "ntHistogram": {
+        "unknown": 4
+      },
+      "perSide": {
+        "L": 2,
+        "R": 2,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "804025",
+        "820764",
+        "821769",
+        "823132",
+        "905145",
+        "1050607195"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.ml.fe-reductor",
+      "ntHistogram": {
+        "glutamate": 6
+      },
+      "perSide": {
+        "L": 3,
+        "R": 3,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "800541",
+        "800776",
+        "803499",
+        "902492",
+        "902719",
+        "905421"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.ml.pleural-remotor-abductor",
+      "ntHistogram": {
+        "unknown": 6
+      },
+      "perSide": {
+        "L": 3,
+        "R": 3,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "816018",
+        "909371"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.ml.sternal-adductor",
+      "ntHistogram": {
+        "acetylcholine": 2
+      },
+      "perSide": {
+        "L": 1,
+        "R": 1,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "801813",
+        "801946",
+        "832490",
+        "903689"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.ml.sternal-anterior-rotator",
+      "ntHistogram": {
+        "unknown": 4
+      },
+      "perSide": {
+        "L": 2,
+        "R": 2,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "800962",
+        "801761",
+        "801768",
+        "802521",
+        "803226",
+        "803704",
+        "818996",
+        "1051054875"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.ml.sternal-posterior-rotator",
+      "ntHistogram": {
+        "unknown": 8
+      },
+      "perSide": {
+        "L": 4,
+        "R": 4,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "802407",
+        "802864",
+        "856359",
+        "904657"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.ml.sternotrochanter",
+      "ntHistogram": {
+        "unknown": 4
+      },
+      "perSide": {
+        "L": 2,
+        "R": 2,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "806204",
+        "813755"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.ml.tergotr",
+      "ntHistogram": {
+        "unknown": 2
+      },
+      "perSide": {
+        "L": 1,
+        "R": 1,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "800911",
+        "801234",
+        "830514",
+        "928579"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.ml.ti-extensor",
+      "ntHistogram": {
+        "unknown": 4
+      },
+      "perSide": {
+        "L": 2,
+        "R": 2,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "802295",
+        "804405",
+        "805010",
+        "816222",
+        "818295",
+        "822013",
+        "823739",
+        "824041",
+        "903363",
+        "927808"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.ml.ti-flexor",
+      "ntHistogram": {
+        "glutamate": 10
+      },
+      "perSide": {
+        "L": 5,
+        "R": 5,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "805477",
+        "814942",
+        "840530",
+        "909078"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.ml.tr-extensor",
+      "ntHistogram": {
+        "unknown": 4
+      },
+      "perSide": {
+        "L": 2,
+        "R": 2,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "800589",
+        "801057",
+        "801058",
+        "802232",
+        "803829",
+        "817681",
+        "819203",
+        "824315",
+        "903158",
+        "903159",
+        "903579",
+        "910095",
+        "924142",
+        "1050669248"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.ml.tr-flexor",
+      "ntHistogram": {
+        "glutamate": 14
+      },
+      "perSide": {
+        "L": 7,
+        "R": 7,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "812872",
+        "813603",
+        "824689",
+        "824997",
+        "825681",
+        "905487"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.ml.ltm",
+      "ntHistogram": {
+        "glutamate": 6
+      },
+      "perSide": {
+        "L": 3,
+        "R": 3,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "803523",
+        "907443"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.ml.ltm1-tibia",
+      "ntHistogram": {
+        "glutamate": 2
+      },
+      "perSide": {
+        "L": 1,
+        "R": 1,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "807972",
+        "826996",
+        "852673",
+        "908673"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.ml.ltm2-femur",
+      "ntHistogram": {
+        "glutamate": 4
+      },
+      "perSide": {
+        "L": 2,
+        "R": 2,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "800230",
+        "801477",
+        "803086",
+        "803480",
+        "807395",
+        "814983",
+        "817990",
+        "820574",
+        "820632",
+        "821494",
+        "822185",
+        "822742",
+        "895449",
+        "903508",
+        "903844",
+        "905236",
+        "905559",
+        "907387",
+        "907422",
+        "1050046221",
+        "1050119039",
+        "1050151215",
+        "1050160593",
+        "1050673969"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.ml.unnamed",
+      "ntHistogram": {
+        "glutamate": 22,
+        "unknown": 2
+      },
+      "perSide": {
+        "L": 12,
+        "R": 12,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "801637",
+        "813629",
+        "817374",
+        "829873",
+        "843389",
+        "910296",
+        "934519",
+        "1050003192",
+        "1050032839",
+        "1050123559",
+        "1050160514",
+        "1050202461",
+        "1050233038",
+        "1050263576",
+        "1050460102",
+        "1059707690"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.hl.acc-ti-flexor",
+      "ntHistogram": {
+        "glutamate": 16
+      },
+      "perSide": {
+        "L": 8,
+        "R": 8,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "809604",
+        "815958",
+        "821154",
+        "896719",
+        "905586",
+        "914852",
+        "1050038433",
+        "1050102118",
+        "1050139141",
+        "1050239701",
+        "1050730563",
+        "1051236875"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.hl.acc-tr-flexor",
+      "ntHistogram": {
+        "unknown": 12
+      },
+      "perSide": {
+        "L": 8,
+        "R": 4,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "800578",
+        "801693",
+        "820350",
+        "902962"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.hl.fe-reductor",
+      "ntHistogram": {
+        "glutamate": 4
+      },
+      "perSide": {
+        "L": 2,
+        "R": 2,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "800175",
+        "800290",
+        "800553",
+        "902310"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.hl.pleural-remotor-abductor",
+      "ntHistogram": {
+        "unknown": 4
+      },
+      "perSide": {
+        "L": 2,
+        "R": 2,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "807854",
+        "904184"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.hl.sternal-adductor",
+      "ntHistogram": {
+        "acetylcholine": 2
+      },
+      "perSide": {
+        "L": 1,
+        "R": 1,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "800316",
+        "801548",
+        "802215",
+        "906235"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.hl.sternal-anterior-rotator",
+      "ntHistogram": {
+        "unknown": 4
+      },
+      "perSide": {
+        "L": 2,
+        "R": 2,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "801492",
+        "801715",
+        "802964",
+        "818399",
+        "903642",
+        "903643",
+        "907256",
+        "1050493413"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.hl.sternal-posterior-rotator",
+      "ntHistogram": {
+        "unknown": 8
+      },
+      "perSide": {
+        "L": 4,
+        "R": 4,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "800504",
+        "800851",
+        "801090",
+        "801148",
+        "801375",
+        "828978"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.hl.sternotrochanter",
+      "ntHistogram": {
+        "unknown": 6
+      },
+      "perSide": {
+        "L": 3,
+        "R": 3,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "804514",
+        "905849"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.hl.tergotr",
+      "ntHistogram": {
+        "unknown": 2
+      },
+      "perSide": {
+        "L": 1,
+        "R": 1,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "800158",
+        "800621",
+        "809935",
+        "812953"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.hl.ti-extensor",
+      "ntHistogram": {
+        "unknown": 4
+      },
+      "perSide": {
+        "L": 2,
+        "R": 2,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "803072",
+        "803147",
+        "804919",
+        "808685",
+        "819112",
+        "822945",
+        "823665",
+        "827968",
+        "840740",
+        "908762",
+        "910178",
+        "929376",
+        "1050013311",
+        "1050088257",
+        "1050100010",
+        "1050166426",
+        "1050303231"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.hl.ti-flexor",
+      "ntHistogram": {
+        "glutamate": 17
+      },
+      "perSide": {
+        "L": 9,
+        "R": 8,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "808453",
+        "840981",
+        "905661"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.hl.tr-extensor",
+      "ntHistogram": {
+        "unknown": 3
+      },
+      "perSide": {
+        "L": 1,
+        "R": 2,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "801721",
+        "807640",
+        "905928",
+        "1050098047",
+        "1050194310",
+        "1050938258"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.hl.tr-flexor",
+      "ntHistogram": {
+        "glutamate": 6
+      },
+      "perSide": {
+        "L": 1,
+        "R": 5,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "815097",
+        "823405",
+        "824104",
+        "890541",
+        "1050080384",
+        "1050091102",
+        "1050203465"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.hl.ltm",
+      "ntHistogram": {
+        "glutamate": 7
+      },
+      "perSide": {
+        "L": 4,
+        "R": 3,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "804741",
+        "858248",
+        "912694",
+        "914837"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.hl.ltm1-tibia",
+      "ntHistogram": {
+        "glutamate": 4
+      },
+      "perSide": {
+        "L": 2,
+        "R": 2,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "815498",
+        "821449",
+        "857751",
+        "1050174251"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.hl.ltm2-femur",
+      "ntHistogram": {
+        "glutamate": 4
+      },
+      "perSide": {
+        "L": 2,
+        "R": 2,
+        "unknown": 0
+      }
+    },
+    {
+      "bodyIds": [
+        "800358",
+        "801267",
+        "801335",
+        "801736",
+        "802731",
+        "804078",
+        "804847",
+        "807160",
+        "809055",
+        "811137",
+        "812899",
+        "816022",
+        "816501",
+        "822252",
+        "869369",
+        "903090",
+        "905792",
+        "936696",
+        "939950",
+        "1050202259",
+        "1050274189"
+      ],
+      "evidenceKind": "annotation",
+      "id": "mn.hl.unnamed",
+      "ntHistogram": {
+        "glutamate": 5,
+        "unknown": 16
+      },
+      "perSide": {
+        "L": 11,
+        "R": 10,
+        "unknown": 0
+      }
+    }
+  ],
+  "transmittersSha256": "95c9289220663abeb3409f3ad9e5a7f8a53f8093f5139d15502cd08da8879621",
+  "types": [
+    {
+      "hopDepth": null,
+      "nNeurons": 47,
+      "nt": "glutamate",
+      "type": "Acc. ti flexor MN"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 22,
+      "nt": "unknown",
+      "type": "Acc. tr flexor MN"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 20,
+      "nt": "glutamate",
+      "type": "Fe reductor MN"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 2,
+      "nt": "unknown",
+      "type": "MNhl01"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 2,
+      "nt": "unknown",
+      "type": "MNhl02"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 2,
+      "nt": "glutamate",
+      "type": "MNhl29"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 2,
+      "nt": "unknown",
+      "type": "MNhl59"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 2,
+      "nt": "unknown",
+      "type": "MNhl60"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 2,
+      "nt": "unknown",
+      "type": "MNhl62"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 2,
+      "nt": "unknown",
+      "type": "MNhl64"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 3,
+      "nt": "glutamate",
+      "type": "MNhl65"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 2,
+      "nt": "unknown",
+      "type": "MNhl87"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 2,
+      "nt": "unknown",
+      "type": "MNhl88"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 2,
+      "nt": "glutamate",
+      "type": "MNml29"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 1,
+      "nt": "glutamate",
+      "type": "MNml76"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 2,
+      "nt": "glutamate",
+      "type": "MNml77"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 6,
+      "nt": "glutamate",
+      "type": "MNml78"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 2,
+      "nt": "glutamate",
+      "type": "MNml79"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 6,
+      "nt": "glutamate",
+      "type": "MNml80"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 2,
+      "nt": "unknown",
+      "type": "MNml81"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 2,
+      "nt": "glutamate",
+      "type": "MNml82"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 1,
+      "nt": "glutamate",
+      "type": "MNml83"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 14,
+      "nt": "unknown",
+      "type": "Pleural remotor/abductor MN"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 6,
+      "nt": "acetylcholine",
+      "type": "Sternal adductor MN"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 12,
+      "nt": "unknown",
+      "type": "Sternal anterior rotator MN"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 22,
+      "nt": "unknown",
+      "type": "Sternal posterior rotator MN"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 14,
+      "nt": "unknown",
+      "type": "Sternotrochanter MN"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 9,
+      "nt": "glutamate",
+      "type": "Ta depressor MN"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 5,
+      "nt": "glutamate",
+      "type": "Ta levator MN"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 8,
+      "nt": "glutamate",
+      "type": "Tergopleural/Pleural promotor MN"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 12,
+      "nt": "unknown",
+      "type": "Tergotr. MN"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 12,
+      "nt": "unknown",
+      "type": "Ti extensor MN"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 37,
+      "nt": "glutamate",
+      "type": "Ti flexor MN"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 11,
+      "nt": "unknown",
+      "type": "Tr extensor MN"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 35,
+      "nt": "glutamate",
+      "type": "Tr flexor MN"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 21,
+      "nt": "glutamate",
+      "type": "ltm MN"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 9,
+      "nt": "glutamate",
+      "type": "ltm1-tibia MN"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 12,
+      "nt": "glutamate",
+      "type": "ltm2-femur MN"
+    }
+  ],
+  "version": 1
+}

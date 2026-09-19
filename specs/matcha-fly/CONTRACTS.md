@@ -43,6 +43,13 @@ One `web/` package, not a workspace of packages. Seams inside it are enforced by
 | Which mechanics may ship | `contracts/mechanics.json`, checked by `make check`. One chain, one gate: a puzzle or a route requires mechanics, a mechanic requires an experiment's `pass` |
 | The `web/` package scaffold | Slice V1, step 1. Specified in one place |
 | The brain cloud | `lab/flylab/web/cloud.py` writes `data/built/web/brain.cloud`; `web/src/view/cloud.ts` reads it. Format in slice V1 |
+| The ceremony: its phases, how long each lasts, pause, stills | `web/src/view/loop.ts` |
+| Where every prop is at a moment, and what a break may move | `web/src/view/puppet.ts`. The proboscis is held at zero there until a recording carries an outcome |
+| The browser's neuron model | `web/src/engine/`, begun in V1 with `prng.ts` and `input.ts`, continued by slice 08. Held to `contracts/fixtures/` |
+| The live trial of a bowl: which neurons the tea drives, with which seed, how far it has run, and whether his lips are on the tea | `web/src/view/live.ts`. The page holds the ceremony's clock until the stage reports him back at his work, so this has no second owner |
+| The motor pools of his legs | `circuits/legs.circuit.json` and its lock: facts only. What each muscle does is in slice V3, from papers |
+| What turns spikes into light | `web/src/view/light.ts`, and nothing else. `scene.ts` only adds what it returns |
+| The words on the page | `web/src/view/hud.ts` and `reaction.ts` build markup from data; every number through `Registry.q()`, every citation through `ref()`; `audit()` refuses the rest |
 | Honesty tags | `contracts/schemas/provenance.json` + `web/src/honesty/` |
 
 There are two implementations of the model, the oracle and the engine, and never a third. No backend abstraction is built for a future Rust engine. If one is ever needed it is a hard cutover that passes the same fixtures and deletes the TypeScript engine.

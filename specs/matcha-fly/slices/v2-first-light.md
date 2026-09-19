@@ -25,6 +25,16 @@ A spike of a neuron with no position and no place on the mouthparts cannot be dr
 
 The loop now tastes. He is offered the sip; the taste neurons on his lips flicker at the rate the sip sets; eighteen steps later light enters the brain, spreads through the relays, and reaches, or fails to reach, the two MN9 points, which are drawn larger. The second is replayed at one fiftieth of real speed, with the speed on screen and a scrubber when paused. A line under the scene: "pilot recording from the whole-brain run, seed 1. The taste law has not been tested yet."
 
+## How long he stays with the cup
+
+The user asked, while V1 was built, that tasting be deliberate and that "the time he spends on tasting/drinking can vary", because he should enjoy it. V1 staged that time from a list that ignores the tea, and said so. From this slice the tea stops being ignored:
+
+- He keeps his lips on the tea while the replay of the sip's recording runs, and the replay runs to the last MN9 spike of the recording plus a short tail, within 8 to 20 seconds of wall time. A sip that keeps MN9 firing to the end of the trial keeps him at the cup longest; a sip that never reaches MN9 gets the shortest stay.
+- The seconds are a staged mapping of a model quantity, so by the join rule they are tagged `staged`, and the MN9 numbers they come from stand beside them as `model`, `recorded`. `linger.seconds` gains `derivedFrom` in the registry. `LINGER_SECONDS` in `web/src/view/loop.ts` is deleted, not kept as a fallback.
+- The cup still does not drain and the proboscis still does not move. Drinking is a verdict and slice 05 licenses it. From 05 on the proboscis is out, and the cup drains, only while MN9 fires in the replay.
+- A pause during a replay holds the scrub position. He still takes his break and reads; the scrubber belongs to the player.
+- The dots on his lips and the magnified lips in the panel are lit from the same `light()` output as the cloud. V1 wired `applyLipLight()` with zeros; the panel has no light path yet.
+
 ## Verification
 
 - Every recording's `spikeHash` is reproduced by rerunning its spec in the lab.
@@ -32,6 +42,7 @@ The loop now tastes. He is offered the sip; the taste neurons on his lips flicke
 - The count of undrawable spikes plus the drawn ones equals the recording's length.
 - Size: the recordings bundle stays under 30 MB, or fewer seeds ship.
 - A pilot trial is timed here and the number is written into slice 05's file, because slice 05's budget depends on it.
+- The stay: for three recordings with hand-counted MN9 spikes, the seconds he stays are the ones the mapping gives; a recording with no MN9 spike gives the shortest stay; the cup level is 1 at every moment of every taste phase.
 - **Visual variable: can a newcomer see the order in which things fired?** Crop: the scene during the taste phase, three frames. Then `screenshot-critique`, and `compare-screenshots` against V1's accepted shot, to judge whether light made the scene clearer or muddier.
 - **Human checkpoint, non-blocking.**
 

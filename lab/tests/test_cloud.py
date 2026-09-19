@@ -17,10 +17,11 @@ needs_data = pytest.mark.skipif(not (RAW_DIR / ANNOTATIONS).exists(), reason="st
 
 def tiny():
     frame = pd.DataFrame({
-        "bodyId": [30, 10, 20, 40, 50],
-        "type": ["MN9", "GNG1", "LB3c", "MN9", "KCx"],
-        "somaLocation": [np.array([10, 0, 0]), np.array([0, 0, 0]), None, np.array([20, 40, 0]), np.array([10, 20, 10])],
-        "side": ["L", "L", "R", "R", "L"], "nt": ["acetylcholine", "gaba", "unknown", "acetylcholine", "acetylcholine"],
+        "bodyId": [30, 10, 20, 40, 50, 60],
+        "type": ["MN9", "GNG1", "LB3c", "MN9", "KCx", "Other"],
+        # five placed neurons, an odd number on purpose: 12 * 5 is not a multiple of 8, so the padding after the positions is real
+        "somaLocation": [np.array([10, 0, 0]), np.array([0, 0, 0]), None, np.array([20, 40, 0]), np.array([10, 20, 10]), np.array([20, 0, 10])],
+        "side": ["L", "L", "R", "R", "L", "R"], "nt": ["acetylcholine", "gaba", "unknown", "acetylcholine", "acetylcholine", "gaba"],
     })
     groups = {name: [] for name in (*cloud.CLOUD_GROUPS, *cloud.MOUTHPART_GROUPS)}
     groups.update({"mn9": ["30", "40"], "relay.shiu2022": ["10", "30"], "mb.kc": ["50"], "grn.sweet": ["20"]})
@@ -39,10 +40,22 @@ def parse(data: bytes):
 def test_the_cloud_holds_only_neurons_with_a_position_ascending_and_the_first_group_wins():
     data, companion = cloud.build_cloud(*tiny())
     magic, version, body, xyz, group = parse(data)
-    assert (magic, version, body.tolist()) == (b"FSKCLOUD", 1, [10, 30, 40, 50])
+    assert (magic, version, body.tolist()) == (b"FSKCLOUD", 1, [10, 30, 40, 50, 60])
     names = ["none", *cloud.CLOUD_GROUPS]
-    assert [names[g] for g in group] == ["relay.shiu2022", "mn9", "mn9", "mb.kc"]      # body 30 is in two groups: mn9 comes first
-    assert len(data) % 8 == 0 and companion["points"] == 4 and companion["typedNeurons"] == 5
+    assert [names[g] for g in group] == ["relay.shiu2022", "mn9", "mn9", "mb.kc", "none"]  # body 30 is in two groups: mn9 comes first
+    assert len(data) % 8 == 0 and companion["points"] == 5 and companion["typedNeurons"] == 6
+
+
+FIXTURE = cloud.REPO_ROOT / "contracts" / "fixtures" / "cloud"
+
+
+def test_the_tiny_cloud_is_the_fixture_the_browser_reads():
+    """One file, two readers: the bytes written here are the bytes web/tests/view.test.ts holds readCloud to."""
+    data, _ = cloud.build_cloud(*tiny())
+    assert data == (FIXTURE / "tiny.cloud").read_bytes()
+    _, _, body, xyz, group = parse(data)
+    expected = json.loads((FIXTURE / "tiny.cloud.expected.json").read_text())
+    assert expected == {"bodyId": [str(b) for b in body], "xyz": [float(v) for v in xyz.ravel()], "group": [int(g) for g in group]}
 
 
 def test_positions_are_centred_and_share_one_scale():

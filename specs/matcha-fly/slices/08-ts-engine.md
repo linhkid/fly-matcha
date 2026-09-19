@@ -4,6 +4,9 @@
 
 The fixture half needs only slice 02 and no connectome data. The real-graph half needs slice 07. The `web/` package is specified by slice 06, step 1. If this slice runs first, execute that step exactly as written, without choosing a UI framework, and note in `choices.md` that it is done. Installing npm packages and Playwright's browser are downloads and need the user's yes.
 
+
+**Started early, 2026-09-19.** Slice V1 pulled two files of this engine forward, because the user asked for real interactions before the wiring could be loaded: `web/src/engine/prng.ts` (threefry2x32, `lane16`) and `web/src/engine/input.ts` (the spikes a drive forces). Both are held to the oracle's fixtures in `web/tests/engine.test.ts`. They are this slice's to keep, extend or replace; the folder rules (no imports from outside it, no clock, no other randomness) already apply to them.
+
 ## Contract
 
 Delivers a pure engine, its Worker wrapper, and a page that proves parity. Does not deliver any game interface.

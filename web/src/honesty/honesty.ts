@@ -60,6 +60,12 @@ export function escapeHtml(text: string): string {
   return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
+/** The provenances of the quantities a piece of markup holds, best first. A line's tags are read off its content, never typed beside it. */
+export function provenancesIn(html: string): Provenance[] {
+  const found = new Set([...html.matchAll(/\bdata-prov="([^"]*)"/g)].map((match) => match[1]));
+  return (Object.keys(RANK) as Provenance[]).filter((p) => found.has(p));
+}
+
 /** A number that is a pointer, not a claim about the fly: a year in a citation, a version, a slice of the plan. */
 export function ref(text: string): string {
   return `<span data-ref>${escapeHtml(text)}</span>`;

@@ -7,19 +7,40 @@
   </head>
   <body>
     <canvas id="stage"></canvas>
+    <!-- labels pinned to things in the scene: they move with the camera -->
+    <div id="pins">
+      <span id="pin-brain" class="pin">his brain</span>
+      <span id="pin-cord" class="pin">his nerve cord</span>
+    </div>
     <main id="hud">
-      <header id="title" class="panel"></header>
+      <details id="title" class="panel fold">
+        <summary><h1>Fly brews matcha</h1></summary>
+        <div id="title-body"></div>
+      </details>
       <nav id="controls" class="panel">
         <div id="track"></div>
-        <button id="pause" type="button" aria-pressed="false">Pause</button>
+        <button id="pause" type="button" aria-pressed="false" title="Space bar">Take a break</button>
+        <button id="bare" type="button" aria-pressed="false" title="H">Hide text</button>
       </nav>
-      <aside id="card" class="panel" aria-live="polite"></aside>
-      <aside id="lips" class="panel"></aside>
-      <aside id="legend" class="panel"></aside>
+      <div id="shelf">
+        <details id="legend" class="panel fold">
+          <summary>In the cloud <span class="tag tag-connectome">from the fly</span></summary>
+          <div id="legend-body"></div>
+        </details>
+        <details id="lips" class="panel fold" open>
+          <summary>His lips, magnified <span class="tag tag-connectome">from the fly</span> <span class="tag tag-model">our model, live</span></summary>
+          <div id="lips-body"></div>
+        </details>
+      </div>
+      <details id="card" class="panel fold" open aria-live="polite">
+        <summary id="card-head"></summary>
+        <div id="card-body"></div>
+      </details>
       <aside id="staged" class="panel" hidden></aside>
       <footer id="foot"><span id="credits"></span> <button id="what" type="button" aria-pressed="false">What is staged here?</button></footer>
-      <p id="problem" class="panel" hidden></p>
     </main>
+    <!-- outside the HUD on purpose: an error message is not a claim about the fly, and the audit reads the HUD -->
+    <p id="problem" class="panel" hidden></p>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

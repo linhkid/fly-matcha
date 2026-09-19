@@ -1,0 +1,1509 @@
+{
+ "circuit": "legs",
+ "version": 1,
+ "description": "The motor neurons of his six legs, pool by pool, as the dataset names them. Facts only: which neurons, which leg, which side. What each muscle does to a leg comes from papers and lives in the movement mapping, not here. Front-leg pools gate the census because the ceremony's handling is done with the front legs.",
+ "roles": [
+  {
+   "id": "mn.fl.acc-ti-flexor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Acc. ti flexor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "fl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 19,
+    "basis": "observed"
+   },
+   "required": true,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Acc. ti flexor MN, with superclass vnc_motor and subclass fl (front leg, soma in neuromere T1). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the front leg that the dataset names for the accessory tibia flexor muscle."
+  },
+  {
+   "id": "mn.fl.acc-tr-flexor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Acc. tr flexor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "fl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 6,
+    "basis": "observed"
+   },
+   "required": true,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Acc. tr flexor MN, with superclass vnc_motor and subclass fl (front leg, soma in neuromere T1). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the front leg that the dataset names for the accessory trochanter flexor muscle."
+  },
+  {
+   "id": "mn.fl.fe-reductor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Fe reductor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "fl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 10,
+    "basis": "observed"
+   },
+   "required": true,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Fe reductor MN, with superclass vnc_motor and subclass fl (front leg, soma in neuromere T1). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the front leg that the dataset names for the femur reductor muscle."
+  },
+  {
+   "id": "mn.fl.pleural-remotor-abductor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Pleural remotor/abductor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "fl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 4,
+    "basis": "observed"
+   },
+   "required": true,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Pleural remotor/abductor MN, with superclass vnc_motor and subclass fl (front leg, soma in neuromere T1). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the front leg that the dataset names for the pleural remotor and abductor muscle."
+  },
+  {
+   "id": "mn.fl.sternal-adductor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Sternal adductor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "fl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 2,
+    "basis": "observed"
+   },
+   "required": true,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Sternal adductor MN, with superclass vnc_motor and subclass fl (front leg, soma in neuromere T1). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the front leg that the dataset names for the sternal adductor muscle."
+  },
+  {
+   "id": "mn.fl.sternal-anterior-rotator",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Sternal anterior rotator MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "fl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 4,
+    "basis": "observed"
+   },
+   "required": true,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Sternal anterior rotator MN, with superclass vnc_motor and subclass fl (front leg, soma in neuromere T1). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the front leg that the dataset names for the sternal anterior rotator muscle."
+  },
+  {
+   "id": "mn.fl.sternal-posterior-rotator",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Sternal posterior rotator MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "fl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 6,
+    "basis": "observed"
+   },
+   "required": true,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Sternal posterior rotator MN, with superclass vnc_motor and subclass fl (front leg, soma in neuromere T1). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the front leg that the dataset names for the sternal posterior rotator muscle."
+  },
+  {
+   "id": "mn.fl.sternotrochanter",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Sternotrochanter MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "fl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 4,
+    "basis": "observed"
+   },
+   "required": true,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Sternotrochanter MN, with superclass vnc_motor and subclass fl (front leg, soma in neuromere T1). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the front leg that the dataset names for the sternotrochanter muscle."
+  },
+  {
+   "id": "mn.fl.ta-depressor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Ta depressor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "fl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 9,
+    "basis": "observed"
+   },
+   "required": true,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Ta depressor MN, with superclass vnc_motor and subclass fl (front leg, soma in neuromere T1). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the front leg that the dataset names for the tarsus depressor muscle."
+  },
+  {
+   "id": "mn.fl.ta-levator",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Ta levator MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "fl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 5,
+    "basis": "observed"
+   },
+   "required": true,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Ta levator MN, with superclass vnc_motor and subclass fl (front leg, soma in neuromere T1). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the front leg that the dataset names for the tarsus levator muscle."
+  },
+  {
+   "id": "mn.fl.tergopleural-pleural-promotor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Tergopleural/Pleural promotor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "fl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 8,
+    "basis": "observed"
+   },
+   "required": true,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Tergopleural/Pleural promotor MN, with superclass vnc_motor and subclass fl (front leg, soma in neuromere T1). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the front leg that the dataset names for the tergopleural and pleural promotor muscle."
+  },
+  {
+   "id": "mn.fl.tergotr",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Tergotr. MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "fl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 8,
+    "basis": "observed"
+   },
+   "required": true,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Tergotr. MN, with superclass vnc_motor and subclass fl (front leg, soma in neuromere T1). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the front leg that the dataset names for the tergotrochanter muscle."
+  },
+  {
+   "id": "mn.fl.ti-extensor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Ti extensor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "fl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 4,
+    "basis": "observed"
+   },
+   "required": true,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Ti extensor MN, with superclass vnc_motor and subclass fl (front leg, soma in neuromere T1). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the front leg that the dataset names for the tibia extensor muscle."
+  },
+  {
+   "id": "mn.fl.ti-flexor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Ti flexor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "fl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 10,
+    "basis": "observed"
+   },
+   "required": true,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Ti flexor MN, with superclass vnc_motor and subclass fl (front leg, soma in neuromere T1). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the front leg that the dataset names for the tibia flexor muscle."
+  },
+  {
+   "id": "mn.fl.tr-extensor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Tr extensor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "fl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 4,
+    "basis": "observed"
+   },
+   "required": true,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Tr extensor MN, with superclass vnc_motor and subclass fl (front leg, soma in neuromere T1). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the front leg that the dataset names for the trochanter extensor muscle."
+  },
+  {
+   "id": "mn.fl.tr-flexor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Tr flexor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "fl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 15,
+    "basis": "observed"
+   },
+   "required": true,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Tr flexor MN, with superclass vnc_motor and subclass fl (front leg, soma in neuromere T1). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the front leg that the dataset names for the trochanter flexor muscle."
+  },
+  {
+   "id": "mn.fl.ltm",
+   "role": "motor",
+   "select": {
+    "type": [
+     "ltm MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "fl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 8,
+    "basis": "observed"
+   },
+   "required": true,
+   "evidence": {
+    "claim": "Bound by its annotated type name, ltm MN, with superclass vnc_motor and subclass fl (front leg, soma in neuromere T1). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the front leg that the dataset names for the long tendon muscle muscle."
+  },
+  {
+   "id": "mn.fl.ltm1-tibia",
+   "role": "motor",
+   "select": {
+    "type": [
+     "ltm1-tibia MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "fl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 3,
+    "basis": "observed"
+   },
+   "required": true,
+   "evidence": {
+    "claim": "Bound by its annotated type name, ltm1-tibia MN, with superclass vnc_motor and subclass fl (front leg, soma in neuromere T1). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the front leg that the dataset names for the long tendon muscle 1, in the tibia muscle."
+  },
+  {
+   "id": "mn.fl.ltm2-femur",
+   "role": "motor",
+   "select": {
+    "type": [
+     "ltm2-femur MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "fl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 4,
+    "basis": "observed"
+   },
+   "required": true,
+   "evidence": {
+    "claim": "Bound by its annotated type name, ltm2-femur MN, with superclass vnc_motor and subclass fl (front leg, soma in neuromere T1). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the front leg that the dataset names for the long tendon muscle 2, in the femur muscle."
+  },
+  {
+   "id": "mn.ml.acc-ti-flexor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Acc. ti flexor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "ml"
+     ]
+    }
+   },
+   "expect": {
+    "count": 12,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Acc. ti flexor MN, with superclass vnc_motor and subclass ml (middle leg, soma in neuromere T2). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the middle leg that the dataset names for the accessory tibia flexor muscle."
+  },
+  {
+   "id": "mn.ml.acc-tr-flexor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Acc. tr flexor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "ml"
+     ]
+    }
+   },
+   "expect": {
+    "count": 4,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Acc. tr flexor MN, with superclass vnc_motor and subclass ml (middle leg, soma in neuromere T2). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the middle leg that the dataset names for the accessory trochanter flexor muscle."
+  },
+  {
+   "id": "mn.ml.fe-reductor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Fe reductor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "ml"
+     ]
+    }
+   },
+   "expect": {
+    "count": 6,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Fe reductor MN, with superclass vnc_motor and subclass ml (middle leg, soma in neuromere T2). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the middle leg that the dataset names for the femur reductor muscle."
+  },
+  {
+   "id": "mn.ml.pleural-remotor-abductor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Pleural remotor/abductor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "ml"
+     ]
+    }
+   },
+   "expect": {
+    "count": 6,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Pleural remotor/abductor MN, with superclass vnc_motor and subclass ml (middle leg, soma in neuromere T2). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the middle leg that the dataset names for the pleural remotor and abductor muscle."
+  },
+  {
+   "id": "mn.ml.sternal-adductor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Sternal adductor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "ml"
+     ]
+    }
+   },
+   "expect": {
+    "count": 2,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Sternal adductor MN, with superclass vnc_motor and subclass ml (middle leg, soma in neuromere T2). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the middle leg that the dataset names for the sternal adductor muscle."
+  },
+  {
+   "id": "mn.ml.sternal-anterior-rotator",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Sternal anterior rotator MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "ml"
+     ]
+    }
+   },
+   "expect": {
+    "count": 4,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Sternal anterior rotator MN, with superclass vnc_motor and subclass ml (middle leg, soma in neuromere T2). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the middle leg that the dataset names for the sternal anterior rotator muscle."
+  },
+  {
+   "id": "mn.ml.sternal-posterior-rotator",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Sternal posterior rotator MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "ml"
+     ]
+    }
+   },
+   "expect": {
+    "count": 8,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Sternal posterior rotator MN, with superclass vnc_motor and subclass ml (middle leg, soma in neuromere T2). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the middle leg that the dataset names for the sternal posterior rotator muscle."
+  },
+  {
+   "id": "mn.ml.sternotrochanter",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Sternotrochanter MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "ml"
+     ]
+    }
+   },
+   "expect": {
+    "count": 4,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Sternotrochanter MN, with superclass vnc_motor and subclass ml (middle leg, soma in neuromere T2). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the middle leg that the dataset names for the sternotrochanter muscle."
+  },
+  {
+   "id": "mn.ml.tergotr",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Tergotr. MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "ml"
+     ]
+    }
+   },
+   "expect": {
+    "count": 2,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Tergotr. MN, with superclass vnc_motor and subclass ml (middle leg, soma in neuromere T2). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the middle leg that the dataset names for the tergotrochanter muscle."
+  },
+  {
+   "id": "mn.ml.ti-extensor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Ti extensor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "ml"
+     ]
+    }
+   },
+   "expect": {
+    "count": 4,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Ti extensor MN, with superclass vnc_motor and subclass ml (middle leg, soma in neuromere T2). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the middle leg that the dataset names for the tibia extensor muscle."
+  },
+  {
+   "id": "mn.ml.ti-flexor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Ti flexor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "ml"
+     ]
+    }
+   },
+   "expect": {
+    "count": 10,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Ti flexor MN, with superclass vnc_motor and subclass ml (middle leg, soma in neuromere T2). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the middle leg that the dataset names for the tibia flexor muscle."
+  },
+  {
+   "id": "mn.ml.tr-extensor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Tr extensor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "ml"
+     ]
+    }
+   },
+   "expect": {
+    "count": 4,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Tr extensor MN, with superclass vnc_motor and subclass ml (middle leg, soma in neuromere T2). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the middle leg that the dataset names for the trochanter extensor muscle."
+  },
+  {
+   "id": "mn.ml.tr-flexor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Tr flexor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "ml"
+     ]
+    }
+   },
+   "expect": {
+    "count": 14,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Tr flexor MN, with superclass vnc_motor and subclass ml (middle leg, soma in neuromere T2). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the middle leg that the dataset names for the trochanter flexor muscle."
+  },
+  {
+   "id": "mn.ml.ltm",
+   "role": "motor",
+   "select": {
+    "type": [
+     "ltm MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "ml"
+     ]
+    }
+   },
+   "expect": {
+    "count": 6,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, ltm MN, with superclass vnc_motor and subclass ml (middle leg, soma in neuromere T2). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the middle leg that the dataset names for the long tendon muscle muscle."
+  },
+  {
+   "id": "mn.ml.ltm1-tibia",
+   "role": "motor",
+   "select": {
+    "type": [
+     "ltm1-tibia MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "ml"
+     ]
+    }
+   },
+   "expect": {
+    "count": 2,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, ltm1-tibia MN, with superclass vnc_motor and subclass ml (middle leg, soma in neuromere T2). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the middle leg that the dataset names for the long tendon muscle 1, in the tibia muscle."
+  },
+  {
+   "id": "mn.ml.ltm2-femur",
+   "role": "motor",
+   "select": {
+    "type": [
+     "ltm2-femur MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "ml"
+     ]
+    }
+   },
+   "expect": {
+    "count": 4,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, ltm2-femur MN, with superclass vnc_motor and subclass ml (middle leg, soma in neuromere T2). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the middle leg that the dataset names for the long tendon muscle 2, in the femur muscle."
+  },
+  {
+   "id": "mn.ml.unnamed",
+   "role": "motor",
+   "select": {
+    "typeRegex": "^MNml\\d+$",
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "ml"
+     ]
+    }
+   },
+   "expect": {
+    "count": 24,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Middle-leg motor neurons that carry only a serial type name (MNmlNN): the dataset does not say which muscle they drive.",
+    "source": "MaleCNS v1.0 body annotations",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the middle leg with no muscle in their name. They are counted so that nobody thinks the named pools are the whole leg.",
+   "flag": "no muscle named"
+  },
+  {
+   "id": "mn.hl.acc-ti-flexor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Acc. ti flexor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "hl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 16,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Acc. ti flexor MN, with superclass vnc_motor and subclass hl (hind leg, soma in neuromere T3). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the hind leg that the dataset names for the accessory tibia flexor muscle."
+  },
+  {
+   "id": "mn.hl.acc-tr-flexor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Acc. tr flexor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "hl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 12,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Acc. tr flexor MN, with superclass vnc_motor and subclass hl (hind leg, soma in neuromere T3). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the hind leg that the dataset names for the accessory trochanter flexor muscle."
+  },
+  {
+   "id": "mn.hl.fe-reductor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Fe reductor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "hl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 4,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Fe reductor MN, with superclass vnc_motor and subclass hl (hind leg, soma in neuromere T3). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the hind leg that the dataset names for the femur reductor muscle."
+  },
+  {
+   "id": "mn.hl.pleural-remotor-abductor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Pleural remotor/abductor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "hl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 4,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Pleural remotor/abductor MN, with superclass vnc_motor and subclass hl (hind leg, soma in neuromere T3). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the hind leg that the dataset names for the pleural remotor and abductor muscle."
+  },
+  {
+   "id": "mn.hl.sternal-adductor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Sternal adductor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "hl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 2,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Sternal adductor MN, with superclass vnc_motor and subclass hl (hind leg, soma in neuromere T3). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the hind leg that the dataset names for the sternal adductor muscle."
+  },
+  {
+   "id": "mn.hl.sternal-anterior-rotator",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Sternal anterior rotator MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "hl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 4,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Sternal anterior rotator MN, with superclass vnc_motor and subclass hl (hind leg, soma in neuromere T3). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the hind leg that the dataset names for the sternal anterior rotator muscle."
+  },
+  {
+   "id": "mn.hl.sternal-posterior-rotator",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Sternal posterior rotator MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "hl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 8,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Sternal posterior rotator MN, with superclass vnc_motor and subclass hl (hind leg, soma in neuromere T3). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the hind leg that the dataset names for the sternal posterior rotator muscle."
+  },
+  {
+   "id": "mn.hl.sternotrochanter",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Sternotrochanter MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "hl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 6,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Sternotrochanter MN, with superclass vnc_motor and subclass hl (hind leg, soma in neuromere T3). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the hind leg that the dataset names for the sternotrochanter muscle."
+  },
+  {
+   "id": "mn.hl.tergotr",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Tergotr. MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "hl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 2,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Tergotr. MN, with superclass vnc_motor and subclass hl (hind leg, soma in neuromere T3). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the hind leg that the dataset names for the tergotrochanter muscle."
+  },
+  {
+   "id": "mn.hl.ti-extensor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Ti extensor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "hl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 4,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Ti extensor MN, with superclass vnc_motor and subclass hl (hind leg, soma in neuromere T3). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the hind leg that the dataset names for the tibia extensor muscle."
+  },
+  {
+   "id": "mn.hl.ti-flexor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Ti flexor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "hl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 17,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Ti flexor MN, with superclass vnc_motor and subclass hl (hind leg, soma in neuromere T3). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the hind leg that the dataset names for the tibia flexor muscle."
+  },
+  {
+   "id": "mn.hl.tr-extensor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Tr extensor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "hl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 3,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Tr extensor MN, with superclass vnc_motor and subclass hl (hind leg, soma in neuromere T3). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the hind leg that the dataset names for the trochanter extensor muscle."
+  },
+  {
+   "id": "mn.hl.tr-flexor",
+   "role": "motor",
+   "select": {
+    "type": [
+     "Tr flexor MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "hl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 6,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, Tr flexor MN, with superclass vnc_motor and subclass hl (hind leg, soma in neuromere T3). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the hind leg that the dataset names for the trochanter flexor muscle."
+  },
+  {
+   "id": "mn.hl.ltm",
+   "role": "motor",
+   "select": {
+    "type": [
+     "ltm MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "hl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 7,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, ltm MN, with superclass vnc_motor and subclass hl (hind leg, soma in neuromere T3). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the hind leg that the dataset names for the long tendon muscle muscle."
+  },
+  {
+   "id": "mn.hl.ltm1-tibia",
+   "role": "motor",
+   "select": {
+    "type": [
+     "ltm1-tibia MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "hl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 4,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, ltm1-tibia MN, with superclass vnc_motor and subclass hl (hind leg, soma in neuromere T3). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the hind leg that the dataset names for the long tendon muscle 1, in the tibia muscle."
+  },
+  {
+   "id": "mn.hl.ltm2-femur",
+   "role": "motor",
+   "select": {
+    "type": [
+     "ltm2-femur MN"
+    ],
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "hl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 4,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by its annotated type name, ltm2-femur MN, with superclass vnc_motor and subclass hl (hind leg, soma in neuromere T3). The name states the muscle the dataset's annotators assigned it to. What that muscle does to the leg is not claimed here.",
+    "source": "MaleCNS v1.0 body annotations (columns type, superclass, subclass, somaNeuromere, exitNerve)",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the hind leg that the dataset names for the long tendon muscle 2, in the femur muscle."
+  },
+  {
+   "id": "mn.hl.unnamed",
+   "role": "motor",
+   "select": {
+    "typeRegex": "^MNhl\\d+$",
+    "where": {
+     "superclass": [
+      "vnc_motor"
+     ],
+     "subclass": [
+      "hl"
+     ]
+    }
+   },
+   "expect": {
+    "count": 21,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Hind-leg motor neurons that carry only a serial type name (MNhlNN): the dataset does not say which muscle they drive.",
+    "source": "MaleCNS v1.0 body annotations",
+    "kind": "annotation"
+   },
+   "explain": "Motor neurons of the hind leg with no muscle in their name. They are counted so that nobody thinks the named pools are the whole leg.",
+   "flag": "no muscle named"
+  }
+ ],
+ "aliases": [],
+ "anchors": [],
+ "notes": [
+  {
+   "title": "Named only in the front leg",
+   "text": "Tarsus levator and depressor and the tergopleural promotor carry a muscle name only in the front leg. In the middle and hind legs the corresponding neurons, if traced, are among the serially named ones."
+  },
+  {
+   "title": "Their transmitter hardly matters here",
+   "text": "Fly motor neurons release glutamate at the muscle. Their transmitter label matters only for the few synapses they make inside the cord."
+  }
+ ],
+ "inventory": {
+  "where": {
+   "superclass": [
+    "vnc_motor"
+   ]
+  },
+  "caption": "Every neuron of superclass vnc_motor, by subclass and type. fl, ml and hl are the legs; the rest drive the wings, halteres, neck and abdomen."
+ }
+}

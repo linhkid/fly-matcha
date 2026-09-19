@@ -12,68 +12,94 @@
 * { box-sizing: border-box; }
 html, body { height: 100%; margin: 0; background: var(--ground); color: var(--ink); font: 14px/1.45 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; overflow: hidden; }
 #stage { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
-#hud { position: fixed; inset: 0; pointer-events: none; }
-.panel { position: absolute; pointer-events: auto; background: rgba(18, 21, 15, 0.78); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; backdrop-filter: blur(6px); }
-h1 { font-size: 20px; margin: 0 0 4px; letter-spacing: 0.01em; }
-h2 { font-size: 15px; margin: 0 0 8px; }
+#hud, #pins { position: fixed; inset: 0; pointer-events: none; }
+.panel { position: absolute; pointer-events: auto; background: rgba(18, 21, 15, 0.8); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; backdrop-filter: blur(6px); }
+h1 { font-size: 18px; margin: 0; letter-spacing: 0.01em; display: inline; }
+h2 { font-size: 15px; margin: 0; display: inline; }
 h3 { font-size: 12px; margin: 0 0 6px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--dim); font-weight: 600; }
 p { margin: 0; }
 .small { font-size: 12px; color: var(--dim); margin-top: 6px; }
 
-#title { top: 16px; left: 16px; width: min(400px, 40vw); }
-#title p { color: var(--dim); font-size: 13px; }
+/* every panel folds to its first line */
+.fold > summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; user-select: none; }
+.fold > summary::-webkit-details-marker { display: none; }
+.fold > summary::before { content: "▸"; color: var(--dim); font-size: 11px; width: 10px; flex: none; }
+.fold[open] > summary::before { content: "▾"; }
+.fold > summary:hover::before { color: var(--ink); }
+.fold[open] > summary { margin-bottom: 8px; }
+#legend > summary, #lips > summary { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--dim); font-weight: 600; }
 
-#controls { top: 16px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; padding: 8px 10px 8px 14px; white-space: nowrap; }
-#track { display: flex; align-items: center; gap: 12px; }
+#title { top: 16px; left: 16px; max-width: min(380px, 36vw); }
+#title p { color: var(--dim); font-size: 13px; }
+#title p + p { margin-top: 6px; }
+
+#controls { top: 16px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; padding: 8px 10px 8px 14px; white-space: nowrap; }
+#track { display: flex; align-items: center; gap: 10px; }
 #track ol { list-style: none; display: flex; gap: 4px; margin: 0; padding: 0; }
 #track li { padding: 3px 9px; border-radius: 999px; color: var(--dim); border: 1px solid transparent; }
 #track li.done { color: var(--ink); opacity: 0.55; }
 #track li.now { color: var(--ground); background: var(--ink); font-weight: 600; }
-.sip { color: var(--dim); }
+#track ol.held li.now { background: transparent; color: var(--ink); border-color: var(--ink); }
+.bowl { color: var(--dim); }
 button { font: inherit; color: var(--ink); background: rgba(233, 230, 216, 0.08); border: 1px solid var(--line); border-radius: 8px; padding: 5px 12px; cursor: pointer; }
 button:hover { background: rgba(233, 230, 216, 0.16); }
 button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
 
-#card { right: 16px; bottom: 44px; width: min(440px, 42vw); }
+#card { right: 16px; bottom: 44px; width: min(430px, 42vw); }
 #card dl { margin: 0; display: grid; gap: 8px; }
 #card dt { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--dim); display: flex; gap: 6px; align-items: center; }
 #card dd { margin: 2px 0 0; }
-#card .line:last-child dd { font: italic 17px/1.35 "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+#card-body > dl .line:last-child dd { font: italic 17px/1.35 "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+#card-body > dl .line:last-child .q { border-bottom: none; }
+.more { margin-top: 10px; }
+.more > summary { cursor: pointer; font-size: 12px; color: var(--dim); }
+.more > summary:hover { color: var(--ink); }
+.more[open] > summary { margin-bottom: 8px; }
 .footnote { margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line); font-size: 12px; color: var(--dim); }
 
-#lips { left: 16px; bottom: 44px; width: 430px; display: flex; gap: 12px; align-items: center; }
+/* the low shelf at the bottom left: folded by default, each panel opens upwards */
+#shelf { position: absolute; left: 16px; bottom: 44px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start; pointer-events: none; }
+#shelf .panel { position: static; max-width: 440px; }
+#lips-body { display: flex; gap: 12px; align-items: center; }
+#lips-body .more { margin-top: 6px; }
 #lips svg { width: 150px; flex: none; display: block; }
+#lips circle { transition: fill-opacity 0.12s, stroke-opacity 0.12s; fill-opacity: 0.4; stroke-opacity: 0.45; }
+#lips circle.lit { fill-opacity: 1; stroke-opacity: 1; filter: brightness(1.9) drop-shadow(0 0 3px #fff6d0); }
 #lips p .swatch:not(:first-child) { margin-left: 8px; }
-#legend { left: 458px; bottom: 44px; width: 470px; }
 #legend ul { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 16px; }
 #legend li { font-size: 12.5px; break-inside: avoid; margin-bottom: 3px; padding-left: 15px; text-indent: -15px; }
 #staged ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; }
 .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin: 0 6px 0 0; vertical-align: baseline; text-indent: 0; }
 
-#staged { top: 112px; left: 16px; width: min(400px, 40vw); max-height: calc(100vh - 330px); overflow: auto; }
+#staged { top: 64px; left: 16px; width: min(400px, 40vw); max-height: calc(100vh - 64px - 140px); overflow: auto; z-index: 1; }
 #staged p { font-size: 13px; margin-bottom: 8px; }
 #staged li { font-size: 12.5px; margin-bottom: 6px; color: var(--dim); }
 #staged li b { color: var(--ink); font-weight: 600; }
 
 #foot { position: absolute; left: 16px; right: 16px; bottom: 10px; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 12px; color: var(--dim); pointer-events: auto; }
-#problem { top: 50%; left: 50%; transform: translate(-50%, -50%); border-color: #d46a6a; max-width: 560px; }
+#problem { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); border-color: #d46a6a; max-width: 560px; cursor: pointer; z-index: 2; }
+
+/* names pinned to the scene */
+.pin { position: absolute; transform: translate(-50%, -50%); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); white-space: nowrap; text-shadow: 0 0 6px var(--ground), 0 0 2px var(--ground); }
 
 /* quantities and their tags */
 .q { border-bottom: 1px dotted currentColor; cursor: help; }
 .q-connectome { color: var(--connectome); }
 .q-model { color: var(--model); }
 .q-staged { color: var(--staged); }
-#card .line:last-child .q { border-bottom: none; }
-.tag { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; padding: 1px 6px; border-radius: 999px; border: 1px solid currentColor; font-weight: 600; }
+.tag { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; padding: 1px 6px; border-radius: 999px; border: 1px solid currentColor; font-weight: 600; white-space: nowrap; }
 .tag-connectome { color: var(--connectome); }
 .tag-model { color: var(--model); }
 .tag-staged { color: var(--staged); }
 body.show-staged .q-staged, body.show-staged .tag-staged { background: rgba(196, 160, 220, 0.2); }
 
-@media (max-width: 1400px) {
-  #legend { display: none; }
-}
+/* "Hide text": the scene alone, with the controls faint in their corner */
+body.bare #title, body.bare #shelf, body.bare #card, body.bare #staged, body.bare #credits, body.bare #what, body.bare #pins { display: none; }
+body.bare #controls { opacity: 0.35; }
+body.bare #controls:hover { opacity: 1; }
+
 @media (max-width: 960px), (max-height: 640px) {
-  #lips, #title p { display: none; }
-  #card { width: min(440px, calc(100vw - 32px)); font-size: 13px; }
+  #shelf, #pins { display: none; }
+  #card { width: min(430px, calc(100vw - 32px)); font-size: 13px; }
+  #track ol li:not(.now) { display: none; }
 }

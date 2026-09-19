@@ -14,10 +14,21 @@ make venv                                        # installs pinned packages from
 make check
 ```
 
+## Watch him brew
+
+```sh
+make web     # installs the page's packages from npm: ask before downloading
+make dev     # then open http://localhost:5173
+```
+
+He selects a tea, sifts, brews, pours, tastes and cleans up, forever, beside the cloud of his 138,556 placed neurons. When the tea touches his lips, his 72 taste neurons fire: real spikes of the model, computed in your browser as you watch, slowed fifty times. The cloud behind them stays dark until his wiring is loaded (slice 03, a 508 MB download). **Take a break** (or the space bar) holds the ceremony: he goes to his cushion and reads Dostoevsky until you send him back. Every panel folds, and **H** hides all text. **What is staged here?** tints everything that is puppetry. `?sip=3&phase=taste&at=0.5` opens the page as a still of one moment.
+
 ## Layout
 
 - `lab/flylab/` the Python lab: data with provenance, the census, later the graph, the reference model and the experiments.
-- `circuits/` which neurons play which role, as data, with the evidence for each binding.
+- `web/` the page: a three.js scene, the endless ceremony, and the honesty tags. Pure modules with tests; `scene.ts` is the only file that knows three.js.
+- `contracts/` what both languages must agree on: the neuron model, trials, the codec and the fixtures that bind them.
+- `circuits/` which neurons play which role, as data, with the evidence for each binding: the taste circuit, and the motor pools of his six legs.
 - `data/raw/` source files. Never committed.
 - `specs/matcha-fly/` the plan, its contracts and the evidence each slice was accepted on.
 

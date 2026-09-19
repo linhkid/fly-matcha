@@ -16,6 +16,8 @@ The whole five-by-five grid of the codec's levels: sweet at level 0 to 4 against
 
 Sweeps: `wSynMv` at 0.19, 0.275 and 0.36, the ±30% range the original paper reports as robust; and the sign of neurons with no transmitter label, 0 and +1, because the two reference projects silently disagree on it.
 
+**A third, narrower arm, from the look at the six on 2026-09-19** (choices K13): *taste neurons the dataset calls unclear take sign +1*, and every other unknown stays at 0. All six `LB1b` bitter neurons are "unclear", and not for lack of data: each has 306 to 417 predictions, split between acetylcholine and serotonin, and the type-level call falls just under the 0.5 cut. The classifier is documented to mistake sensory neurons for serotonin ones, taste neurons are cholinergic wherever it has been measured, and the published model this one follows would have made them excitatory. The arm flips 259 gustatory neurons: `LB1b` 6, `LB2b` 3, `LB2d` 5, `LB3` 1, `LgLG1b` 134, `LgLG8` 14, `WG3` 96. Report the leg and wing types apart from the labellar ones, because they carry many glutamate calls and the arm is weakest there. It is a new entry in `contracts/model/variants.json`, which needs the sign policy to be able to name a class of neurons; that is a change to `contracts/MODEL.md` and its fixtures, made here, not before.
+
 "MN9 count" below is the codec's measure: summed spikes of both MN9 neurons in steps 2000 to 9999. Thirty-two spikes is 20 Hz per neuron.
 
 ## Pre-written criteria
@@ -50,6 +52,8 @@ Verdict `pass` needs all seven.
 `lab/experiments/E01-taste-law/`. On a pass, `lab/flylab/codec/build.py` writes `contracts/codec/taste.codec.json` with the two channels, their five levels, and the decoder thresholds with an `evidence` pointer into the verdict. The slice creates the Python codec interpreter and its fixtures under `contracts/fixtures/codec/`. It enables `taste.drink`, `taste.brake`, `taste.shuffle`, `taste.gluflip` and `taste.rival` in `contracts/mechanics.json`.
 
 Slice V1 already created the codec's writer and file, with the levels and the tea menu; this slice adds the decoder thresholds through the same writer. The `menu` block holds the teas and tiers of [assets/content/tea-menu.md](../assets/content/tea-menu.md), and the table that turns a tier and a number of scoops into one of the five bitter levels. A test checks that every cell of that table is an existing level, so the menu can never ask for a trial outside the grid this slice measured. Tier assignments carry the tag `staged`; levels carry `model`.
+
+On a pass the living view gains its verdicts (V1 and V2 held them back): the proboscis comes out and the cup drains only while MN9 fires in the replayed recording, and his words about the tea follow the decoder's outcome and nothing else. How long he stays with the cup is already the recording's from V2. On a fail the view stays as V2 left it, with the failure explained beside it.
 
 ## What the human sees
 

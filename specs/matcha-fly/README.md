@@ -6,9 +6,13 @@ A fly cannot brew tea or knit. It can taste, refuse bitterness, and clean dust o
 
 ## Next Agent Prompt
 
-**Status, 2026-09-19:** slices 01 and 02 are done. The census gate passed, and the reference neuron model exists with 58 fixtures that will bind the browser engine. The user chose the theme, matcha (choices N1), renamed the folder to `fly-matcha` (N6), asked for a tea menu (N7, in `assets/content/tea-menu.md`), and has approved exactly two downloads so far: the Python packages and the 58 MB stage A files. The repository is on GitHub as `linhkid/fly-matcha`. The user makes the commits and pushes: finish a pass, say what changed, offer the command. The user sometimes edits files on GitHub, so fetch before you start.
+**Status, 2026-09-19:** slices 01, 02 and V1 are done. The census gate passed, the reference neuron model exists with 58 fixtures that will bind the browser engine, and the living view runs: `make dev`, then `http://localhost:5173`. The fly goes through select, sift, brew, pour, taste and clean forever, beside the cloud of his 138,556 placed neurons. The cloud is dark, because his wiring is not loaded; one layer is live: while the tea is on his lips, the browser computes the spikes the sip forces in his 72 taste neurons, bit for bit the oracle's (`web/src/engine/`, the first two files of slice 08). The user chose the theme, matcha (choices N1), renamed the folder to `fly-matcha` (N6), asked for a tea menu (N7), the living view (N8), the endless loop (N9), a pause that is a reading break with Dostoevsky (N10), an unhurried tasting whose length varies (N11), and then folding text, as little staging as possible and a lifelike fly (N12). **N12 is the one to remember: the user wants real interactions.** Everything real that is left needs slice 03. Approved downloads so far, each for its own session: the Python packages, the 58 MB stage A files, and the npm packages in `web/package.json`. The repository is on GitHub as `linhkid/fly-matcha`. The user makes the commits and pushes: finish a pass, say what changed, offer the command. The user sometimes edits files on GitHub, so fetch before you start.
 
-**You are picking up at V1, the living view,** which the user asked for on 2026-09-19 and which needs only their yes for npm packages: [slices/v1-living-view.md](slices/v1-living-view.md). After it, slice 03, then V2, first light. Slice 03 downloads 508 MB and needs the user's yes first; read [slices/03-full-graph.md](slices/03-full-graph.md), which now carries one task over from slice 02. Slice 04 needs no data: [slices/04-experiment-harness.md](slices/04-experiment-harness.md). The model's authority is `contracts/MODEL.md` and `contracts/TRIAL.md` in the repository. Read [choices.md](choices.md) before you make any decision the slices leave open, and append to it when you do.
+**You are picking up at slice 03, the full graph:** [slices/03-full-graph.md](slices/03-full-graph.md). It downloads 508 MB and needs the user's yes first. Ask; do not start without it. It also carries one task over from slice 02. After it comes V2, first light: [slices/v2-first-light.md](slices/v2-first-light.md), which puts real spikes into the view and hands the length of his stay at the cup from a staged list to the recording (N11 explains why that matters to the user). If the user is not there to approve the download, slice 04 needs no data: [slices/04-experiment-harness.md](slices/04-experiment-harness.md). The model's authority is `contracts/MODEL.md` and `contracts/TRIAL.md` in the repository. Read [choices.md](choices.md) before you make any decision the slices leave open, and append to it when you do.
+
+**What the user asked for last, 2026-09-19 (choices N13 to N15):** the label on his lips removed and the magnified lips open by default; a bowl and a cup that look real (`web/src/view/crockery.ts`); then two questions that became slice **V3, he moves and his nerves show it** ([slices/v3-he-moves.md](slices/v3-he-moves.md)): move his legs through his own motor neurons, and make his brain react to his movement. The leg pools are already bound (`circuits/legs.circuit.json`) and the muscle-to-movement table is checked against papers. V3's stage A needs no download and is the next thing to build if the user has not yet approved the 508 MB; stage B needs slice 03. The user also asked whether he tires: no, and the page says so (N15). The code review owed from V1 is done (K12).
+
+**How to look at the page without a person.** The browser pane throttles a hidden tab, so do not judge the animation through it. Open a still from the address, `?sip=3&phase=taste&at=0.5`, with `&break=1` or `&staged=1`, and shoot it with the Chrome already on the machine, headless, with a throwaway profile (choices K3). V1's accepted shots are in `assets/evidence/v1/`.
 
 A `git stash` holds another tool's abandoned draft of slice 02. It is not part of the project. Leave it for the user to drop.
 
@@ -16,15 +20,16 @@ What slice 01 established is in [RESEARCH.md](RESEARCH.md) under "Name census" a
 
 **Warnings.**
 1. The plan was written while the user was away. The user has since decided N1: the theme is matcha. Entries N2–N5 in `choices.md` are still planner decisions standing in for the user's answers. If the user is present, confirm N4 (how play feels) before slice 06 and N3 (engine language) before slice 08. Slices 01–05 depend on neither. The user's choice of theme was not an instruction to start building or to download anything.
-2. Slice 03 downloads 508 MB of connection weights. Any new Python package, npm packages, and Playwright's browser in the first web slice are downloads too. Show names, source and sizes and get the user's yes in your session before each. The Python packages in `lab/requirements.txt` are installed and approved, so slices 02 and 04 can run now; the fixture half of 08 needs npm packages and therefore a yes.
+2. Slice 03 downloads 508 MB of connection weights. Any new Python package, any new npm package, and Playwright's browser are downloads too. Show names, source and sizes and get the user's yes in your session before each. The Python packages in `lab/requirements.txt` are installed and approved, so slice 04 can run now. The npm packages in `web/package.json` are installed and approved; `make web` on a fresh clone downloads them again and needs a yes.
 3. The gates named in the slices (`screenshot-critique`, `compare-screenshots`, `preview-shots`) are skills that live in `../fly-escape/.agents/skills`. They load only when that directory is attached to your session. Without them, do the gate by hand with a fresh subagent that has not seen your work.
 4. Do not tune anything until an experiment passes. A failed experiment is a result. Write it down, follow the slice's fallback, move on.
 
 **Trunk checklist**
 - [x] 01 ground and census → [slices/01](slices/01-ground-and-census.md). Gate passed 2026-09-19; evidence in `assets/evidence/01/`
 - [x] 02 model and oracle → [slices/02](slices/02-model-oracle.md). Accepted 2026-09-19; evidence in `assets/evidence/02/`
-- [ ] V1 the living view, unlit → [slices/v1](slices/v1-living-view.md). Needs the user's yes for npm packages
-- [ ] 03 full graph → [slices/03](slices/03-full-graph.md)
+- [x] V1 the living view, unlit → [slices/v1](slices/v1-living-view.md). Accepted 2026-09-19; evidence in `assets/evidence/v1/`
+- [ ] 03 full graph → [slices/03](slices/03-full-graph.md). Needs the user's yes for a 508 MB download
+- [ ] V3 he moves, and his nerves show it → [slices/v3](slices/v3-he-moves.md). Stage A needs V1 only; stage B needs 03. Leg census done 2026-09-19
 - [ ] V2 first light → [slices/v2](slices/v2-first-light.md). Needs V1 and 03
 - [ ] 04 experiment harness → [slices/04](slices/04-experiment-harness.md)
 - [ ] 05 taste law, the concept gate → [slices/05](slices/05-taste-law.md)
@@ -90,7 +95,7 @@ These hold across every slice. They are why the project is worth doing.
 
 **Kill points.** After 01, names. After 05, the concept. After 06, the product. After 07, the architecture. Each slice file states its fallback. Nothing after a kill point starts until its verdict is written.
 
-**Work that needs no connectome data**, for when consent is pending: 02, then 04, then the fixture half of 08.
+**Work that needs no connectome data**, for when consent is pending: 04, then the fixture half of 08. (02 and V1 are done.)
 
 ## Standing gates
 
@@ -120,7 +125,7 @@ A validated digital fly. The whole brain live in a browser (measured elsewhere a
 Things that were considered and are deliberately not slices. Promote one only by displacing another.
 
 - Continuous pouring with live dials and a real-time pacer. Trials with slow replay teach more and cost less. The endless loop of V1 is a loop of trials, not this.
-- A rigged, anatomically faithful fly. V1's fly is a puppet of placeholder shapes.
+- ~~A rigged, anatomically faithful fly.~~ Displaced on 2026-09-19 by slice V3 at the user's request: the fly is jointed now, and V3 moves those joints through his named motor pools. What stays parked is a physical body: muscles, forces, contact with the ground.
 - A hunger or thirst knob. Omitted rather than labelled.
 - Sound. If it ever arrives, it is sonified spikes and nothing else.
 - Water, low-salt and heavy-metal taste as extra ingredients. Cheap once 05 has passed; held back to keep the first game small.

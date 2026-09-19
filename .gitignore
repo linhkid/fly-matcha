@@ -14,3 +14,5 @@ lab/experiments/*/runs/
 lab/reports/
 choices.md
 
+# the page's build output
+web/dist/

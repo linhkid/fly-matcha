@@ -4,7 +4,7 @@ import { bitterLevel, CodecError, sipLevels, type Codec } from "../src/codec/cod
 import { audit, join, Registry } from "../src/honesty/honesty";
 import { readCloud, type CloudInfo } from "../src/view/cloud";
 import { light } from "../src/view/light";
-import { Loop, PHASES, PHASE_SECONDS } from "../src/view/loop";
+import { lingerSeconds, Loop, PHASES, PHASE_SECONDS } from "../src/view/loop";
 import { quantities, reactionCard } from "../src/view/reaction";
 import { sipAt } from "../src/view/rotation";
 
@@ -70,10 +70,42 @@ describe("the endless loop", () => {
     const loop = new Loop();
     loop.tick(1);
     loop.pause();
-    expect(loop.tick(100)).toEqual({ sipIndex: 0, phase: "select", progress: 1 / PHASE_SECONDS.select, paused: true });
+    expect(loop.tick(100)).toEqual({ sipIndex: 0, phase: "select", progress: 1 / PHASE_SECONDS.select, phaseSeconds: PHASE_SECONDS.select, paused: true });
     loop.resume();
     expect(loop.tick(0.5).progress).toBeCloseTo(1.5 / PHASE_SECONDS.select);
     expect(loop.toggle()).toBe(true);
+  });
+});
+
+describe("a loop whose tasting takes its time", () => {
+  it("asks how long each phase of each sip lasts, and reports it", () => {
+    const loop = new Loop((sipIndex, phase) => (phase === "taste" ? lingerSeconds(sipIndex) : PHASE_SECONDS[phase]));
+    const lengths: number[] = [];
+    for (let sip = 0; sip < 3; sip++) {
+      for (const phase of PHASES) {
+        const state = loop.state();
+        expect(state).toMatchObject({ sipIndex: sip, phase });
+        if (phase === "taste") lengths.push(state.phaseSeconds);
+        loop.tick(state.phaseSeconds);
+      }
+    }
+    expect(lengths).toEqual([9, 12, 8]); // literals: calling lingerSeconds on both sides would hold for any list
+    expect(() => new Loop(() => 0).state()).toThrow("must take time");
+  });
+});
+
+describe("holding one moment", () => {
+  it("jumps to a sip, a phase and a point in it, and refuses a moment that does not exist", () => {
+    const loop = new Loop();
+    loop.seek(11, "taste", 0.5);
+    loop.pause();
+    expect(loop.tick(3)).toEqual({ sipIndex: 11, phase: "taste", progress: 0.5, phaseSeconds: PHASE_SECONDS.taste, paused: true });
+    loop.resume();
+    expect(loop.tick(PHASE_SECONDS.taste / 2 + PHASE_SECONDS.clean).phase).toBe("select");
+    expect(loop.state().sipIndex).toBe(12);
+    for (const bad of [[-1, "taste", 0], [0, "nap", 0], [0, "taste", 1], [0.5, "taste", 0], [0, "taste", Number.NaN]] as const) {
+      expect(() => loop.seek(bad[0], bad[1] as never, bad[2])).toThrow("no such moment");
+    }
   });
 });
 
@@ -123,7 +155,7 @@ describe("the reaction card with no recording", () => {
   it("claims no outcome and no feeling about taste, in any phase, for any sip of a cycle", () => {
     for (let i = 0; i < 25; i++) {
       for (const phase of PHASES) {
-        const card = reactionCard(reg, codec, info, sipAt(codec, i), phase, null);
+        const card = reactionCard(reg, codec, info, { sip: sipAt(codec, i), phase, phaseSeconds: 10, recording: null, away: null, live: null });
         const text = card.lines.map((l) => l.html).join(" ").replace(/title="[^"]*"/g, "");
         expect(text).not.toMatch(/drink|refus|extend|reach|bitter!|yum|delicious|disgust|likes|hates/i);
         expect(card.lines.map((l) => l.title)).toEqual(["Served", "Heard by", "Did", "In his words"]);
@@ -134,17 +166,17 @@ describe("the reaction card with no recording", () => {
   });
 
   it("says why nothing is shown while he tastes, and stays silent in his own voice", () => {
-    const card = reactionCard(reg, codec, info, sipAt(codec, 3), "taste", null);
-    expect(card.lines[2].html).toMatch(/No recording yet/);
-    expect(card.lines[3].html).toContain("…");
-    expect(card.footnote).toBe("The words are puppetry. The decision is not.");
+    const card = reactionCard(reg, codec, info, { sip: sipAt(codec, 3), phase: "taste", phaseSeconds: 12, recording: null, away: null, live: null });
+    expect(card.lines[2].html.replace(/<[^>]*>/g, "")).toMatch(/^His lips are not on the tea yet\. He stays 12 s, a time that ignores the tea/);
+    expect(card.lines[3].html).toContain("(he says nothing)");
+    expect(card.footnote).toBe("The words are puppetry. The spikes on his lips are the model's. No decision has been computed yet.");
   });
 
   it("counts the taste neurons from the dataset: 34 sweet, 38 bitter, 6 of them unlabelled", () => {
-    const heard = reactionCard(reg, codec, info, sipAt(codec, 3), "taste", null).lines[1].html.replace(/<[^>]*>/g, "");
-    expect(heard).toMatch(/^34 sweet taste neurons/);
+    const heard = reactionCard(reg, codec, info, { sip: sipAt(codec, 3), phase: "taste", phaseSeconds: 12, recording: null, away: null, live: null }).lines[1].html.replace(/<[^>]*>/g, "");
+    expect(heard).toMatch(/^Will be driven once the tea is on his lips: 34 sweet taste neurons/);
     expect(heard).toMatch(/38 bitter/);
-    expect(heard).toMatch(/6 of them with no transmitter label/);
+    expect(heard).toMatch(/6 of them, the whole type LB1b, with a transmitter the dataset calls unclear/);
   });
 });
 
@@ -154,6 +186,26 @@ describe("the brain cloud file", () => {
     const real = read("data/built/web/brain.cloud");
     const copy = real.buffer.slice(real.byteOffset, real.byteOffset + real.byteLength - 8) as ArrayBuffer;
     expect(() => readCloud(copy)).toThrow("truncated");
+  });
+
+  it("reads the lab's tiny cloud exactly: five points, so the positions end off an eight-byte boundary", () => {
+    const tiny = read("contracts/fixtures/cloud/tiny.cloud");
+    const expected = JSON.parse(read("contracts/fixtures/cloud/tiny.cloud.expected.json").toString());
+    const bytes = tiny.buffer.slice(tiny.byteOffset, tiny.byteOffset + tiny.byteLength) as ArrayBuffer;
+    const cloud = readCloud(bytes);
+    expect(cloud.n).toBe(5);
+    expect(Array.from(cloud.bodyId, String)).toEqual(expected.bodyId);
+    expect(Array.from(cloud.xyz)).toEqual(expected.xyz);
+    expect(Array.from(cloud.group)).toEqual(expected.group);
+    for (const version of [0, 2]) {
+      const other = bytes.slice(0);
+      new DataView(other).setUint32(8, version, true);
+      expect(() => readCloud(other)).toThrow("not supported");
+    }
+    expect(() => readCloud(bytes.slice(0, bytes.byteLength - 8))).toThrow("truncated");
+    const longer = new Uint8Array(bytes.byteLength + 8);
+    longer.set(new Uint8Array(bytes));
+    expect(() => readCloud(longer.buffer)).toThrow("trailing");
   });
 
   it.runIf(existsSync(new URL("data/built/web/brain.cloud", root)))("holds one point per neuron with a position, body IDs ascending, groups the companion names", () => {
