@@ -1,4 +1,4 @@
-# fly-sim-k
+# Fly brews Matcha?
 
 **Matcha Fly.** Host a tea ceremony for one simulated male fruit fly. Each sip is tasted by a spiking model running on his real wiring, the MaleCNS v1.0 connectome, and you can open the brain, bet on what a cell type does, silence it and find out. A Python lab runs the same model on the whole connectome, with controls, and is the only place where a game mechanic can earn the right to ship.
 
