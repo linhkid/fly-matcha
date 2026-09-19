@@ -8,6 +8,10 @@ Needs slice 11. This is where v1 ships.
 
 Delivers the framing the user asked for: a small, calm place where you serve a fly and he answers. Everything neural was built by earlier slices. This one adds sequence, staging and an about page.
 
+## Since the living view
+
+The room, the fly and the endless ceremony exist from V1 on. What is left for this slice is what makes it a finished place: the puppet's poses, the pacing, the copy, the seal overlay, the about page, and the static build.
+
 ## Seam
 
 ```ts
@@ -18,7 +22,7 @@ scene.json   { steps[], puppetPoses[], copy[] }              every entry tagged 
 
 Deleting `web/src/routes/tearoom/` must leave `/bench/taste`, `/atlas` and `/journal` working. That is the test that no simulation concept leaked in.
 
-What is staged, and tagged so: the walk to the bowl, whisking, the order of sweet before tea, the fly's posture, any sound. What is not: whether he drinks. A button, "what is staged here?", lights every staged element at once. The line under it: the legs are puppetry; the decision to move them was not.
+What is staged, and tagged so: the walk to the bowl, whisking, the order of sweet before tea, the fly's posture, any sound, and which tier each tea on the menu belongs to. What is not: whether he drinks. A button, "what is staged here?", lights every staged element at once. The line under it: the legs are puppetry; the decision to move them was not.
 
 A ceremony may end in refusal. There is no forced happy ending.
 

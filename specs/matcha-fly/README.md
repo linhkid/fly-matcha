@@ -6,9 +6,11 @@ A fly cannot brew tea or knit. It can taste, refuse bitterness, and clean dust o
 
 ## Next Agent Prompt
 
-**Status, 2026-09-19:** slice 01 is done and its census gate passed. The user chose the theme, matcha (choices N1), and approved two downloads: the Python packages and the 58 MB stage A files. Nothing else is approved. The user committed slice 01 themselves as `fcb42f6`. Commits are the user's call: finish a pass, say what changed, and offer the command rather than committing unasked.
+**Status, 2026-09-19:** slices 01 and 02 are done. The census gate passed, and the reference neuron model exists with 58 fixtures that will bind the browser engine. The user chose the theme, matcha (choices N1), renamed the folder to `fly-matcha` (N6), asked for a tea menu (N7, in `assets/content/tea-menu.md`), and has approved exactly two downloads so far: the Python packages and the 58 MB stage A files. The repository is on GitHub as `linhkid/fly-matcha`. The user makes the commits and pushes: finish a pass, say what changed, offer the command. The user sometimes edits files on GitHub, so fetch before you start.
 
-**You are picking up at slice 02**, which needs no data: read [CONTRACTS.md](CONTRACTS.md), then [slices/02-model-oracle.md](slices/02-model-oracle.md). Slice 03 is also unblocked by slice 01 but downloads 508 MB and needs the user's yes first. Read [choices.md](choices.md) before you make any decision the slices leave open, and append to it when you do.
+**You are picking up at V1, the living view,** which the user asked for on 2026-09-19 and which needs only their yes for npm packages: [slices/v1-living-view.md](slices/v1-living-view.md). After it, slice 03, then V2, first light. Slice 03 downloads 508 MB and needs the user's yes first; read [slices/03-full-graph.md](slices/03-full-graph.md), which now carries one task over from slice 02. Slice 04 needs no data: [slices/04-experiment-harness.md](slices/04-experiment-harness.md). The model's authority is `contracts/MODEL.md` and `contracts/TRIAL.md` in the repository. Read [choices.md](choices.md) before you make any decision the slices leave open, and append to it when you do.
+
+A `git stash` holds another tool's abandoned draft of slice 02. It is not part of the project. Leave it for the user to drop.
 
 What slice 01 established is in [RESEARCH.md](RESEARCH.md) under "Name census" and in `circuits/taste.census.html`. The short version: bitter is `LB1a–d` (38 neurons, six of them mute in the base model), sweet is `LB3b` and `LB3c` (34), `MN9` is one per side, and the published relay nicknames resolve through the annotation file's `synonyms` column.
 
@@ -20,8 +22,10 @@ What slice 01 established is in [RESEARCH.md](RESEARCH.md) under "Name census" a
 
 **Trunk checklist**
 - [x] 01 ground and census → [slices/01](slices/01-ground-and-census.md). Gate passed 2026-09-19; evidence in `assets/evidence/01/`
-- [ ] 02 model and oracle → [slices/02](slices/02-model-oracle.md)
+- [x] 02 model and oracle → [slices/02](slices/02-model-oracle.md). Accepted 2026-09-19; evidence in `assets/evidence/02/`
+- [ ] V1 the living view, unlit → [slices/v1](slices/v1-living-view.md). Needs the user's yes for npm packages
 - [ ] 03 full graph → [slices/03](slices/03-full-graph.md)
+- [ ] V2 first light → [slices/v2](slices/v2-first-light.md). Needs V1 and 03
 - [ ] 04 experiment harness → [slices/04](slices/04-experiment-harness.md)
 - [ ] 05 taste law, the concept gate → [slices/05](slices/05-taste-law.md)
 - [ ] 06 lesion atlas, the product gate and first playable → [slices/06](slices/06-lesion-atlas.md)
@@ -71,7 +75,9 @@ These hold across every slice. They are why the project is worth doing.
 |---|---|---|---|
 | 01 | Do the cast members exist under names we can bind with evidence? | `circuits/taste.census.html`: every role found, missing or colliding | S |
 | 02 | Is our neuron the published one, defined once, reproducible bit for bit? | Model check report: PSP, rate curve, refractory freeze | M |
+| V1 | Can the fly, the tea and the whole brain be on screen, alive and honest, before a spike exists? | The living view: the fly brewing in an endless loop with a pause, the cloud of 138,556 neurons, dark | M |
 | 03 | Does the whole graph load into a facts-only format with the expected anchors? | `flylab graph info`: counts, sign coverage, top inputs to MN9 | S |
+| V2 | What does the whole brain do in the second after a sip? | The same view, lit by pilot recordings in slow motion | M |
 | 04 | Can an experiment fail honestly? | A synthetic experiment that passes one claim and fails another | S |
 | 05 | Does sweet drive MN9 and bitter suppress it, specifically, on a plateau? | The taste law report, with shuffles, random controls and the rival rule | L |
 | 06 | Is predict-then-lesion deep enough to be a game? | `/atlas`: a quiz over recorded whole-brain runs | M |
@@ -113,8 +119,8 @@ A validated digital fly. The whole brain live in a browser (measured elsewhere a
 
 Things that were considered and are deliberately not slices. Promote one only by displacing another.
 
-- Continuous pouring with live dials and a real-time pacer. Trials with slow replay teach more and cost less.
-- A 3D room, a rigged fly, a soma point cloud of all 166,000 neurons replaying a lab run.
+- Continuous pouring with live dials and a real-time pacer. Trials with slow replay teach more and cost less. The endless loop of V1 is a loop of trials, not this.
+- A rigged, anatomically faithful fly. V1's fly is a puppet of placeholder shapes.
 - A hunger or thirst knob. Omitted rather than labelled.
 - Sound. If it ever arrives, it is sonified spikes and nothing else.
 - Water, low-salt and heavy-metal taste as extra ingredients. Cheap once 05 has passed; held back to keep the first game small.
@@ -122,7 +128,7 @@ Things that were considered and are deliberately not slices. Promote one only by
 
 ## Where things are
 
-- [CONTRACTS.md](CONTRACTS.md): owners, formats, the normative model step.
+- [CONTRACTS.md](CONTRACTS.md): owners and formats. The normative model step and the trial format now live in the repository, in `contracts/MODEL.md` and `contracts/TRIAL.md`.
 - [RESEARCH.md](RESEARCH.md): sources, findings and what each one forces.
 - [choices.md](choices.md): every decision made on the user's behalf, least confident first.
 - [visualizations/roadmap.html](visualizations/roadmap.html): the concept and the ladder as pictures.

@@ -10,3 +10,5 @@ __pycache__/
 .DS_Store
 # bulky experiment run output
 lab/experiments/*/runs/
+# generated reports; accepted copies live under specs/matcha-fly/assets/evidence
+lab/reports/

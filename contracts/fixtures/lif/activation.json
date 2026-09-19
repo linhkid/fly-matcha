@@ -1,0 +1,198 @@
+{
+ "about": "Activating a cell type is the same mechanism as sensory drive: the middle neuron is forced at step 5 and the end follows at 23.",
+ "fixture": "activation",
+ "graph": {
+  "bodyId": [
+   "10",
+   "20",
+   "30"
+  ],
+  "flags": [
+   0,
+   0,
+   0
+  ],
+  "nt": [
+   1,
+   1,
+   1
+  ],
+  "outOffset": [
+   0,
+   1,
+   2,
+   2
+  ],
+  "synCount": [
+   6000,
+   6000
+  ],
+  "target": [
+   1,
+   2
+  ]
+ },
+ "groups": {
+  "end": {
+   "indices": [
+    2
+   ],
+   "sides": "U"
+  },
+  "in": {
+   "indices": [
+    0
+   ],
+   "sides": "U"
+  },
+  "middle": {
+   "indices": [
+    1
+   ],
+   "sides": "U"
+  }
+ },
+ "model": {
+  "A": "0.99501247919268232",
+  "B": "0.98019867330675525",
+  "C": "0.0049379352953090221",
+  "delaySteps": 18,
+  "dtMs": 0.1,
+  "id": "lif-shiu-v1",
+  "prng": "threefry2x32-20/lane16",
+  "refracSteps": 22,
+  "signPolicy": {
+   "acetylcholine": 1,
+   "dopamine": 0,
+   "gaba": -1,
+   "glutamate": -1,
+   "histamine": -1,
+   "octopamine": 0,
+   "serotonin": 0,
+   "unknown": 0
+  },
+  "snapEpsMv": 1e-09,
+  "vThMv": 7.0,
+  "wSynMv": 0.275
+ },
+ "recording": {
+  "engine": {
+   "name": "flylab-oracle",
+   "version": "1"
+  },
+  "sentinelBreaches": [],
+  "spec": {
+   "activated": [
+    {
+     "offStep": 6,
+     "onStep": 5,
+     "thr16": 65535,
+     "typeOrGroup": "middle"
+    }
+   ],
+   "codecSha256": "",
+   "drives": [],
+   "durationSteps": 60,
+   "graphSha256": "",
+   "modelId": "lif-shiu-v1",
+   "seed": 1,
+   "silenced": [],
+   "variant": "base"
+  },
+  "specSha256": "88200fe5ed59eb3195f045aef174987bdbec912c3019b108291da90604bf04b4",
+  "spikeBodyId": [
+   "20",
+   "30"
+  ],
+  "spikeHash": "eca0040b14d166d6916cad19b2cc1b2827914dd9d53ac8f1a5aac9cb367ce7ce",
+  "spikeStep": [
+   5,
+   23
+  ]
+ },
+ "spec": {
+  "activated": [
+   {
+    "offStep": 6,
+    "onStep": 5,
+    "thr16": 65535,
+    "typeOrGroup": "middle"
+   }
+  ],
+  "codecSha256": "",
+  "drives": [],
+  "durationSteps": 60,
+  "graphSha256": "",
+  "modelId": "lif-shiu-v1",
+  "seed": 1,
+  "silenced": [],
+  "variant": "base"
+ },
+ "trace": [
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ],
+   "refr": [
+    0,
+    0,
+    0
+   ],
+   "spikes": [
+    1
+   ],
+   "stateHash": "0570c3632fe27d1fee2663ac5cdbf042befe773d7cbe82da39bb772f6dedc096",
+   "t": 5,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ],
+   "refr": [
+    0,
+    0,
+    22
+   ],
+   "spikes": [
+    2
+   ],
+   "stateHash": "0a6cffc5387c02b1729df090b0587bed65a58dafa9e3de11d56679ae994fc3e6",
+   "t": 23,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ],
+   "refr": [
+    0,
+    0,
+    0
+   ],
+   "spikes": [],
+   "stateHash": "ad9552044b144e62ed59c24d1b1ba5ff65deaa336454403d4a74be9fe93c4983",
+   "t": 59,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ]
+  }
+ ],
+ "variant": "base"
+}

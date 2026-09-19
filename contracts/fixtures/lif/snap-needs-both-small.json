@@ -1,0 +1,184 @@
+{
+ "about": "With snapEps raised to 0.05 mV, the first potential of a one-synapse input is under it but g is not. The neuron must not be snapped, and its potential grows.",
+ "fixture": "snap-needs-both-small",
+ "graph": {
+  "bodyId": [
+   "10",
+   "20"
+  ],
+  "flags": [
+   0,
+   0
+  ],
+  "nt": [
+   1,
+   1
+  ],
+  "outOffset": [
+   0,
+   1,
+   1
+  ],
+  "synCount": [
+   1
+  ],
+  "target": [
+   1
+  ]
+ },
+ "groups": {
+  "in": {
+   "indices": [
+    0
+   ],
+   "sides": "U"
+  }
+ },
+ "model": {
+  "A": "0.99501247919268232",
+  "B": "0.98019867330675525",
+  "C": "0.0049379352953090221",
+  "delaySteps": 18,
+  "dtMs": 0.1,
+  "id": "lif-shiu-v1",
+  "prng": "threefry2x32-20/lane16",
+  "refracSteps": 22,
+  "signPolicy": {
+   "acetylcholine": 1,
+   "dopamine": 0,
+   "gaba": -1,
+   "glutamate": -1,
+   "histamine": -1,
+   "octopamine": 0,
+   "serotonin": 0,
+   "unknown": 0
+  },
+  "snapEpsMv": 0.05,
+  "vThMv": 7.0,
+  "wSynMv": 0.275
+ },
+ "recording": {
+  "engine": {
+   "name": "flylab-oracle",
+   "version": "1"
+  },
+  "sentinelBreaches": [],
+  "spec": {
+   "activated": [],
+   "codecSha256": "",
+   "drives": [
+    {
+     "group": "in",
+     "offStep": 1,
+     "onStep": 0,
+     "side": "both",
+     "thr16": 65535
+    }
+   ],
+   "durationSteps": 80,
+   "graphSha256": "",
+   "modelId": "lif-shiu-v1",
+   "seed": 1,
+   "silenced": [],
+   "variant": "base"
+  },
+  "specSha256": "def11163bc14122f00cc3b4f79283866d8b152639d5b03686c3c3f4acd3f0a08",
+  "spikeBodyId": [
+   "10"
+  ],
+  "spikeHash": "1140b47a8d998cd6a7c9b94e54211e3c4e32e64e7b1047b2a60e896563c27b28",
+  "spikeStep": [
+   0
+  ]
+ },
+ "spec": {
+  "activated": [],
+  "codecSha256": "",
+  "drives": [
+   {
+    "group": "in",
+    "offStep": 1,
+    "onStep": 0,
+    "side": "both",
+    "thr16": 65535
+   }
+  ],
+  "durationSteps": 80,
+  "graphSha256": "",
+  "modelId": "lif-shiu-v1",
+  "seed": 1,
+  "silenced": [],
+  "variant": "base"
+ },
+ "trace": [
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x3fd14062159fa866"
+   ],
+   "refr": [
+    0,
+    0
+   ],
+   "spikes": [],
+   "stateHash": "e75e24aef1f0e994096bd8c8f8e8c44babe89b11356c361269ec6e976c3bfb6e",
+   "t": 18,
+   "v": [
+    "0x0000000000000000",
+    "0x3f563f949a9d66ab"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x3fd0e8eed257398e"
+   ],
+   "refr": [
+    0,
+    0
+   ],
+   "spikes": [],
+   "stateHash": "0f9012ad8e8c671a1bae2c0f9d79e287a0d0571a7934f6d1765451ceb2e8bd20",
+   "t": 19,
+   "v": [
+    "0x0000000000000000",
+    "0x3f65f8fcaf0f772e"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x3fc6389f8924b4fb"
+   ],
+   "refr": [
+    0,
+    0
+   ],
+   "spikes": [],
+   "stateHash": "28f4e6944f90cd390b6e28eda4578f99c729fbe2891ebb36f8170cbdff90b8bf",
+   "t": 40,
+   "v": [
+    "0x0000000000000000",
+    "0x3f9869bf6d204d0c"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x3fb45f65ebceaf00"
+   ],
+   "refr": [
+    0,
+    0
+   ],
+   "spikes": [],
+   "stateHash": "eb81eb1b3a187d11aaf55eade8b1377a98959aff83bc982ab1a2dce1420e9e36",
+   "t": 79,
+   "v": [
+    "0x0000000000000000",
+    "0x3fa4d7625ab08e7a"
+   ]
+  }
+ ],
+ "variant": "base"
+}

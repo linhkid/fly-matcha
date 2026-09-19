@@ -1,0 +1,23 @@
+{
+  "id": "lif-shiu-v1",
+  "dtMs": 0.1,
+  "delaySteps": 18,
+  "refracSteps": 22,
+  "vThMv": 7.0,
+  "A": "0.99501247919268232",
+  "B": "0.98019867330675525",
+  "C": "0.0049379352953090221",
+  "wSynMv": 0.275,
+  "snapEpsMv": 1e-9,
+  "signPolicy": {
+    "unknown": 0,
+    "acetylcholine": 1,
+    "gaba": -1,
+    "glutamate": -1,
+    "histamine": -1,
+    "dopamine": 0,
+    "octopamine": 0,
+    "serotonin": 0
+  },
+  "prng": "threefry2x32-20/lane16"
+}

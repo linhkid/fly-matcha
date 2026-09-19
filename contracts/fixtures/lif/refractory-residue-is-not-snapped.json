@@ -1,0 +1,386 @@
+{
+ "about": "While neuron 20 is frozen, arrivals of +20, -12 and -8 synapses on three different steps leave a residue near -4e-16 mV in g. A frozen neuron is not visited by the snap rule, so the residue stays until the neuron is free at step 41, and only then is it snapped.",
+ "fixture": "refractory-residue-is-not-snapped",
+ "graph": {
+  "bodyId": [
+   "10",
+   "11",
+   "12",
+   "13",
+   "20"
+  ],
+  "flags": [
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "nt": [
+   1,
+   1,
+   2,
+   2,
+   1
+  ],
+  "outOffset": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ],
+  "synCount": [
+   6000,
+   20,
+   12,
+   8
+  ],
+  "target": [
+   4,
+   4,
+   4,
+   4
+  ]
+ },
+ "groups": {
+  "fire": {
+   "indices": [
+    0
+   ],
+   "sides": "U"
+  },
+  "minus12": {
+   "indices": [
+    2
+   ],
+   "sides": "U"
+  },
+  "minus8": {
+   "indices": [
+    3
+   ],
+   "sides": "U"
+  },
+  "plus": {
+   "indices": [
+    1
+   ],
+   "sides": "U"
+  }
+ },
+ "model": {
+  "A": "0.99501247919268232",
+  "B": "0.98019867330675525",
+  "C": "0.0049379352953090221",
+  "delaySteps": 18,
+  "dtMs": 0.1,
+  "id": "lif-shiu-v1",
+  "prng": "threefry2x32-20/lane16",
+  "refracSteps": 22,
+  "signPolicy": {
+   "acetylcholine": 1,
+   "dopamine": 0,
+   "gaba": -1,
+   "glutamate": -1,
+   "histamine": -1,
+   "octopamine": 0,
+   "serotonin": 0,
+   "unknown": 0
+  },
+  "snapEpsMv": 1e-09,
+  "vThMv": 7.0,
+  "wSynMv": 0.275
+ },
+ "recording": {
+  "engine": {
+   "name": "flylab-oracle",
+   "version": "1"
+  },
+  "sentinelBreaches": [],
+  "spec": {
+   "activated": [],
+   "codecSha256": "",
+   "drives": [
+    {
+     "group": "fire",
+     "offStep": 1,
+     "onStep": 0,
+     "side": "both",
+     "thr16": 65535
+    },
+    {
+     "group": "plus",
+     "offStep": 5,
+     "onStep": 4,
+     "side": "both",
+     "thr16": 65535
+    },
+    {
+     "group": "minus12",
+     "offStep": 7,
+     "onStep": 6,
+     "side": "both",
+     "thr16": 65535
+    },
+    {
+     "group": "minus8",
+     "offStep": 9,
+     "onStep": 8,
+     "side": "both",
+     "thr16": 65535
+    }
+   ],
+   "durationSteps": 60,
+   "graphSha256": "",
+   "modelId": "lif-shiu-v1",
+   "seed": 1,
+   "silenced": [],
+   "variant": "base"
+  },
+  "specSha256": "5de64f0c312b9ea2aa83f00b5faff897a70b98c0680dd475231b1162adf30a40",
+  "spikeBodyId": [
+   "10",
+   "11",
+   "12",
+   "13",
+   "20"
+  ],
+  "spikeHash": "6e598a7b12780554b8898b4b0357093f6d47f2ece3f054018b92cc1c79de85aa",
+  "spikeStep": [
+   0,
+   4,
+   6,
+   8,
+   18
+  ]
+ },
+ "spec": {
+  "activated": [],
+  "codecSha256": "",
+  "drives": [
+   {
+    "group": "fire",
+    "offStep": 1,
+    "onStep": 0,
+    "side": "both",
+    "thr16": 65535
+   },
+   {
+    "group": "plus",
+    "offStep": 5,
+    "onStep": 4,
+    "side": "both",
+    "thr16": 65535
+   },
+   {
+    "group": "minus12",
+    "offStep": 7,
+    "onStep": 6,
+    "side": "both",
+    "thr16": 65535
+   },
+   {
+    "group": "minus8",
+    "offStep": 9,
+    "onStep": 8,
+    "side": "both",
+    "thr16": 65535
+   }
+  ],
+  "durationSteps": 60,
+  "graphSha256": "",
+  "modelId": "lif-shiu-v1",
+  "seed": 1,
+  "silenced": [],
+  "variant": "base"
+ },
+ "trace": [
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ],
+   "refr": [
+    0,
+    0,
+    0,
+    0,
+    22
+   ],
+   "spikes": [
+    4
+   ],
+   "stateHash": "0c17d6511404404d84a48e77d2d658545dbc0c03fa5ca0ec8ad78ceedc639a67",
+   "t": 18,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x4016000000000000"
+   ],
+   "refr": [
+    0,
+    0,
+    0,
+    0,
+    18
+   ],
+   "spikes": [],
+   "stateHash": "a3716bb7c872704336c1b3c3ccd9047937eb96f002b8effcff0aeed23b974710",
+   "t": 22,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x4001999999999999"
+   ],
+   "refr": [
+    0,
+    0,
+    0,
+    0,
+    16
+   ],
+   "spikes": [],
+   "stateHash": "df0eb15d726c0c72bffe05a920526b122e5d5bf326b58b0e10756dbaa36db376",
+   "t": 24,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0xbcc0000000000000"
+   ],
+   "refr": [
+    0,
+    0,
+    0,
+    0,
+    14
+   ],
+   "spikes": [],
+   "stateHash": "ef6b6f8c2a108768ab5d218ade2b2a6a7def64f37cbd8a95d2f4ed6b81cf66be",
+   "t": 26,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0xbcc0000000000000"
+   ],
+   "refr": [
+    0,
+    0,
+    0,
+    0,
+    13
+   ],
+   "spikes": [],
+   "stateHash": "80f1e9d1e42c5c0e3667c85e9b501d68c6f553584d6d08ce92750c976d3d162e",
+   "t": 27,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0xbcc0000000000000"
+   ],
+   "refr": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "spikes": [],
+   "stateHash": "0f2f075881f81102aa51c3107b7b0b9bc8713c1927f35e19807d62aa9fbbdba9",
+   "t": 40,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ],
+   "refr": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "spikes": [],
+   "stateHash": "9ddccef0f1256e8be9346847c449e1404c4bf17136a583389680903085a5b14c",
+   "t": 41,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ]
+  }
+ ],
+ "variant": "base"
+}

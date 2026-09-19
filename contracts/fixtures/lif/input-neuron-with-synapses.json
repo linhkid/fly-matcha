@@ -1,0 +1,340 @@
+{
+ "about": "Neuron 20 is an input neuron that also receives synapses. Strong arrivals fire it at steps 18 and 19, back to back, because an input neuron is never refractory. A weak arrival at step 38 then charges it, and its forced spike at step 45 empties v and g.",
+ "fixture": "input-neuron-with-synapses",
+ "graph": {
+  "bodyId": [
+   "10",
+   "11",
+   "20"
+  ],
+  "flags": [
+   0,
+   0,
+   0
+  ],
+  "nt": [
+   1,
+   1,
+   1
+  ],
+  "outOffset": [
+   0,
+   1,
+   2,
+   2
+  ],
+  "synCount": [
+   6000,
+   8
+  ],
+  "target": [
+   2,
+   2
+  ]
+ },
+ "groups": {
+  "target": {
+   "indices": [
+    2
+   ],
+   "sides": "U"
+  },
+  "twice": {
+   "indices": [
+    0
+   ],
+   "sides": "U"
+  },
+  "weak": {
+   "indices": [
+    1
+   ],
+   "sides": "U"
+  }
+ },
+ "model": {
+  "A": "0.99501247919268232",
+  "B": "0.98019867330675525",
+  "C": "0.0049379352953090221",
+  "delaySteps": 18,
+  "dtMs": 0.1,
+  "id": "lif-shiu-v1",
+  "prng": "threefry2x32-20/lane16",
+  "refracSteps": 22,
+  "signPolicy": {
+   "acetylcholine": 1,
+   "dopamine": 0,
+   "gaba": -1,
+   "glutamate": -1,
+   "histamine": -1,
+   "octopamine": 0,
+   "serotonin": 0,
+   "unknown": 0
+  },
+  "snapEpsMv": 1e-09,
+  "vThMv": 7.0,
+  "wSynMv": 0.275
+ },
+ "recording": {
+  "engine": {
+   "name": "flylab-oracle",
+   "version": "1"
+  },
+  "sentinelBreaches": [],
+  "spec": {
+   "activated": [
+    {
+     "offStep": 46,
+     "onStep": 45,
+     "thr16": 65535,
+     "typeOrGroup": "target"
+    }
+   ],
+   "codecSha256": "",
+   "drives": [
+    {
+     "group": "twice",
+     "offStep": 2,
+     "onStep": 0,
+     "side": "both",
+     "thr16": 65535
+    },
+    {
+     "group": "weak",
+     "offStep": 21,
+     "onStep": 20,
+     "side": "both",
+     "thr16": 65535
+    }
+   ],
+   "durationSteps": 60,
+   "graphSha256": "",
+   "modelId": "lif-shiu-v1",
+   "seed": 1,
+   "silenced": [],
+   "variant": "base"
+  },
+  "specSha256": "f6b72b6a48935bb68367f78a9ae4948fc70331245d13e735f7e373bfcc8b8c8c",
+  "spikeBodyId": [
+   "10",
+   "10",
+   "20",
+   "20",
+   "11",
+   "20"
+  ],
+  "spikeHash": "b091866ee04bbd7f61f562145f1cb9f3a1634182f8af2f6de461b9f64ed0c0dd",
+  "spikeStep": [
+   0,
+   1,
+   18,
+   19,
+   20,
+   45
+  ]
+ },
+ "spec": {
+  "activated": [
+   {
+    "offStep": 46,
+    "onStep": 45,
+    "thr16": 65535,
+    "typeOrGroup": "target"
+   }
+  ],
+  "codecSha256": "",
+  "drives": [
+   {
+    "group": "twice",
+    "offStep": 2,
+    "onStep": 0,
+    "side": "both",
+    "thr16": 65535
+   },
+   {
+    "group": "weak",
+    "offStep": 21,
+    "onStep": 20,
+    "side": "both",
+    "thr16": 65535
+   }
+  ],
+  "durationSteps": 60,
+  "graphSha256": "",
+  "modelId": "lif-shiu-v1",
+  "seed": 1,
+  "silenced": [],
+  "variant": "base"
+ },
+ "trace": [
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ],
+   "refr": [
+    0,
+    0,
+    0
+   ],
+   "spikes": [],
+   "stateHash": "3d1f427b6ae20b299834cf9fb4e8b557263fbbd26cc5de6185598633841b9672",
+   "t": 17,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ],
+   "refr": [
+    0,
+    0,
+    0
+   ],
+   "spikes": [
+    2
+   ],
+   "stateHash": "f2e172bf7320a5f915228d48bc544b3d520e7dc5ca85f3c890478a41dc462df5",
+   "t": 18,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ],
+   "refr": [
+    0,
+    0,
+    0
+   ],
+   "spikes": [
+    2
+   ],
+   "stateHash": "aea6b2bef15750303319ebb7dace358b4d06aea332e6695d1ab0ab3a89b78a91",
+   "t": 19,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ],
+   "refr": [
+    0,
+    0,
+    0
+   ],
+   "spikes": [
+    1
+   ],
+   "stateHash": "061e0434dca7e63d2ad660480c9205f0f127e41ed54036938dbc7dbf49576392",
+   "t": 20,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x40014062159fa866"
+   ],
+   "refr": [
+    0,
+    0,
+    0
+   ],
+   "spikes": [],
+   "stateHash": "9720acf32c8692dfa28f59983b5bc8ece205ac8dafe2130030a336d27c18c0ad",
+   "t": 38,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x3f863f949a9d66ab"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x3ffe99f5ff90062c"
+   ],
+   "refr": [
+    0,
+    0,
+    0
+   ],
+   "spikes": [],
+   "stateHash": "f74c5f8726728d55abf666256a01c9c71c6aa37b26aaa566e5d114e092610fa6",
+   "t": 44,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x3fb2119d250591c6"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ],
+   "refr": [
+    0,
+    0,
+    0
+   ],
+   "spikes": [
+    2
+   ],
+   "stateHash": "160b258d2006c667aea1ee9c7d084922daf77549c5be47838d6721e7567033fb",
+   "t": 45,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ],
+   "refr": [
+    0,
+    0,
+    0
+   ],
+   "spikes": [],
+   "stateHash": "920411e94cfe05fefbd4969dbac3ba24f9844174dd033d1d8ac8e7b8668b1760",
+   "t": 46,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ]
+  }
+ ],
+ "variant": "base"
+}

@@ -33,6 +33,29 @@ def _data(args: argparse.Namespace) -> int:
     return 1
 
 
+def _model(args: argparse.Namespace) -> int:
+    if args.command == "check":
+        from flylab import REPORTS_DIR
+        from flylab.model.check import write_report
+
+        print("report:", write_report(REPORTS_DIR))
+    elif args.command == "fixtures":
+        from flylab.model.fixtures import write_all
+
+        print(f"{len(write_all())} fixtures written under contracts/fixtures")
+    elif args.command == "probe":
+        from flylab.model.probe import run
+
+        regimes = (("quiet: 30 inputs, nothing propagates", dict(inputs=30)),
+                   ("busy inputs: 400 inputs, nothing propagates", dict(inputs=400)),
+                   ("propagating: 400 inputs, synapses strong enough to spread", dict(inputs=400, mean_synapses=60.0, steps=2_000)))
+        for label, options in regimes:
+            print(label)
+            for key, value in run(**options).items():
+                print(f"  {key:<26} {value}")
+    return 0
+
+
 def _census(args: argparse.Namespace) -> int:
     from flylab.census.cli import run_census
 
@@ -48,6 +71,10 @@ def main(argv: list[str] | None = None) -> int:
     data.add_argument("--stage", choices=["A", "B"], default="A")
     data.add_argument("--yes", action="store_true", help="the user has said yes to this download in this session")
     data.set_defaults(handler=_data)
+
+    model = areas.add_parser("model", help="the reference neuron model")
+    model.add_argument("command", choices=["check", "fixtures", "probe"])
+    model.set_defaults(handler=_model)
 
     census = areas.add_parser("census", help="bind a circuit's roles to body IDs")
     census.add_argument("circuit", help="circuit name, e.g. taste")

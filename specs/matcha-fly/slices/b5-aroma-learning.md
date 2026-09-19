@@ -8,7 +8,7 @@ Needs slice 05. Time box: three days, lab only. **Expected to be weak.** Blocks 
 
 FlyBrain built this on the same dataset. It found 4,064 Kenyon cells, 97 output neurons and 16 PPL1 dopamine neurons. Kenyon cells were active 49% of the time until a hand-set bias of −3.0 was added; in a fly an odour lights 5–10%. Paired conditioning moved the output balance from +4.9 to +80.8. Then the control killed it: in actual play the fly without plasticity behaved the same. Punishment had no lever at all: "it only knows how to embolden."
 
-Learning also needs a rule for changing synapses, which the model in CONTRACTS.md does not have, and dopamine carries no sign in the graph. Anything here is an addition to the model and must be versioned as one.
+Learning also needs a rule for changing synapses, which the model in `contracts/MODEL.md` does not have, and dopamine carries no sign in the graph. Anything here is an addition to the model and must be versioned as one.
 
 ## Contract
 

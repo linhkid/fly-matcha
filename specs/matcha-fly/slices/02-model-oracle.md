@@ -57,3 +57,15 @@ Vectorisation, the active-set data structure, plot styling. Not delegated: the s
 ## Feedback that would change this slice
 
 The user wants the noisy FlyBrain formulation instead: noise is a parameter defaulting to zero, so that is a later model version and not a rewrite. The oracle is too slow for slice 05's budget: optimise the active set, never the arithmetic.
+
+## Outcome
+
+**Accepted 2026-09-19.** `contracts/MODEL.md` and `contracts/TRIAL.md` are now the authority, and the spec's CONTRACTS.md points at them. Evidence is in `../assets/evidence/02/`; decisions made where this slice was silent are in `../choices.md` under slice 02.
+
+What changed against the slice as written:
+- **No JSON schemas.** Fixtures of invalid trials, one per refusal and one per neighbouring pair of checks, bind both validators instead.
+- **The Brian2 cross-check was not run.** It needs a download nobody approved. One detail stays unchecked because of it, and MODEL.md names it.
+- **"Constant input against the analytic rate" does not exist in this model.** The report shows Poisson input beside a textbook curve as a landmark, and says so.
+- **The probe reports three regimes, not one,** because the honest answer to "how long is a simulated second" is 1.3 s to 75 s depending on how far activity spreads, and the real graph is not built yet.
+- **The lock needs each neuron's side.** Carried into slice 03.
+- A partial draft of this slice by another tool was found in the folder and set aside in `git stash` at the user's instruction.

@@ -1,0 +1,109 @@
+{
+ "about": "Two defects at once; the earlier check in the table wins.",
+ "error": "UNKNOWN_GROUP",
+ "fixture": "invalid-order-group-before-driven-twice",
+ "graph": {
+  "bodyId": [
+   "10",
+   "11",
+   "20"
+  ],
+  "flags": [
+   0,
+   0,
+   0
+  ],
+  "nt": [
+   1,
+   1,
+   1
+  ],
+  "outOffset": [
+   0,
+   1,
+   2,
+   2
+  ],
+  "synCount": [
+   8,
+   8
+  ],
+  "target": [
+   2,
+   2
+  ]
+ },
+ "groups": {
+  "a": {
+   "indices": [
+    0,
+    1
+   ],
+   "sides": "LR"
+  },
+  "left-only": {
+   "indices": [
+    0
+   ],
+   "sides": "L"
+  },
+  "out": {
+   "indices": [
+    2
+   ],
+   "sides": "U"
+  }
+ },
+ "model": {
+  "A": "0.99501247919268232",
+  "B": "0.98019867330675525",
+  "C": "0.0049379352953090221",
+  "delaySteps": 18,
+  "dtMs": 0.1,
+  "id": "lif-shiu-v1",
+  "prng": "threefry2x32-20/lane16",
+  "refracSteps": 22,
+  "signPolicy": {
+   "acetylcholine": 1,
+   "dopamine": 0,
+   "gaba": -1,
+   "glutamate": -1,
+   "histamine": -1,
+   "octopamine": 0,
+   "serotonin": 0,
+   "unknown": 0
+  },
+  "snapEpsMv": 1e-09,
+  "vThMv": 7.0,
+  "wSynMv": 0.275
+ },
+ "spec": {
+  "activated": [],
+  "codecSha256": "",
+  "drives": [
+   {
+    "group": "a",
+    "offStep": 10,
+    "onStep": 0,
+    "side": "both",
+    "thr16": 100
+   },
+   {
+    "group": "left-only",
+    "offStep": 30,
+    "onStep": 20,
+    "side": "both",
+    "thr16": 100
+   }
+  ],
+  "durationSteps": 30,
+  "graphSha256": "",
+  "modelId": "lif-shiu-v1",
+  "seed": 1,
+  "silenced": [
+   "nope"
+  ],
+  "variant": "base"
+ },
+ "variant": "base"
+}

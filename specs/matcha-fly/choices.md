@@ -25,6 +25,32 @@ Matcha has one step, tasting, that rests on the best-validated computation in fl
 - **Reach:** the lab package is now put on the path by a relative entry, so a further rename or move cannot break the import.
 - The README's title, "Fly brews Matcha?", is the user's own, written on GitHub the same day. It stands as written.
 
+### N7. A tea menu
+**User decision, 2026-09-19.** The user asked for a menu of real matcha blends and supplied the list and tasting notes, kept in `assets/content/tea-menu.md`.
+
+What the plan added around it is a planner decision: each tea is filed under one of three tiers, smooth, balanced or robust, guessed from the user's notes, and a tier with a number of scoops resolves to one of the five bitter levels the codec already has. The menu therefore adds content and no new trial, circuit or slice. Tier assignments are tagged `staged`, and the interface says plainly that a fly tastes only the bitterness: aroma, umami and nuttiness are not in the circuit.
+
+- **Reach:** the codec gains a `menu` block in slice 05; the bench, a puzzle and the tea room use it.
+- **Reversal:** move a tea to another tier, or change the table, in one file. No experiment depends on it.
+- **Confidence:** high in the mechanism; low in any individual tier, which the user is better placed to judge.
+
+### N8. A living view, with the neurons, from early on
+**User decision, 2026-09-19.** "I want to visualize the fly brews matcha and also the neurons like in the Fly Brain or fly escape... not just taking a look at static html or terminal." The plan had parked a 3D scene and a brain cloud and put the first page at slice 06. Two slices were added instead of appended silently: V1, the scene with the whole brain drawn and dark, and V2, the same scene lit by pilot recordings once slice 03 has built the graph. They displace the parked "3D room and soma cloud", which is now the plan.
+
+This overrides the "flat art" part of N2. The rest of N2 stands: a browser toy plus a Python lab, one fly.
+
+- **Reach:** the `web/` package arrives before the taste law is tested, so V2 shows recordings and draws no conclusions. Slices 06, 09 and 12 become layers on one page instead of separate pages.
+- **Cost:** npm packages, about 200 MB on disk, which need the user's yes; and, for light, the 508 MB of slice 03.
+- **Confidence:** the decision is the user's. Medium that V1 and V2 are the right cut of it.
+
+### N9. By default he brews and tastes forever, and there is a pause
+**User decision, 2026-09-19.** "make a pause brewing, by default it will brew and taste infinitely." The default state of the app is an endless loop over the sips of the grid. Pausing opens the player's tools.
+
+This changes N4's emphasis, not its substance: play is still made of one-second trials replayed slowly, and doses are still whole pieces and scoops. What changes is who chooses the next sip when nobody is touching anything.
+
+- **Reach:** the loop is a fixed rotation, not random, so a build always shows the same sequence; while only recordings exist, it replays them. Bets, silencing and composing a sip happen while paused.
+- **Confidence:** the decision is the user's.
+
 ## Needs the user
 
 ### N2. It is a browser toy plus a Python lab, one fly, flat art
@@ -196,3 +222,50 @@ The planning workflow asks for a second family. It was skipped, because that wou
 **Implementation decision, from review.** The link between the MaleCNS `DNg12_*` types and the grooming neuron of the papers rests on the shared name, so its evidence kind is `crosswalk` with a flag. `^mAL` swept in 61 neurons with no fruitless mark; `^mAL_m` selects the 98 the annotations call `fru_high` and male-specific. Neither role gates anything.
 
 - **Confidence:** high.
+
+### Slice 02, 2026-09-19. Least confident first.
+
+#### J1. No JSON Schema files; fixtures of invalid trials are the contract instead
+**Implementation decision.** The slice asked for JSON schemas of `TrialSpec` and `TrialRecording`. Nothing installed can validate against a schema, and a schema that nothing checks would be a second owner of what a valid trial is. `contracts/TRIAL.md` defines the format and an ordered table of refusal codes. `contracts/fixtures/trial/` holds one invalid spec for every way of being refused and one with two defects for every neighbouring pair of checks, which pins their order. Both validators, Python now and TypeScript later, are held to those. One rule came out of review: a number whose value is integral is an integer however it was written, because `JSON.parse` cannot tell `1.0` from `1`.
+
+- **Reach:** the browser engine gets a hand-written validator, not a schema library.
+- **Reversal:** slice 04 needs schemas for pre-registrations anyway. If the user approves a validator package then, trial schemas can be added and the fixtures kept.
+- **Confidence:** medium-high.
+
+#### J2. The cross-check against Brian2 was not run
+**Process decision.** It is advisory in the slice, and installing Brian2 is a download nobody approved. One question stays open because of it: whether the published code frees a neuron on the 22nd or the 23rd step after a spike. Here a neuron that spikes at step s integrates again at s + 23. `contracts/MODEL.md` says so under "Not checked".
+
+- **Reversal:** the user approves `brian2` in a separate environment; the check is a few small graphs with fixed input.
+- **Confidence:** high that asking first is right; medium that the step count matches.
+
+#### J3. The lock must learn each neuron's side
+**Implementation decision, with a consequence for slice 03.** A drive can target the left or right members of a group, so an engine needs a side letter per neuron. The lock from slice 01 stores only counts per side. Trials and fixtures already use `{indices, sides}`; slice 03, which resolves the lock against the graph, must add per-body sides to the lock. The slice 03 file says so.
+
+- **Confidence:** high.
+
+#### J4. Sentinel spikes appear only as breach steps
+**Implementation decision.** CONTRACTS.md said the spike hash covers non-sentinel neurons and was silent on the spike lists. A recording now leaves sentinel spikes out of the lists too and reports the steps at which any sentinel fired. A sentinel is a guard, not part of the brain being shown, and nothing on screen should glow for one.
+
+- **Confidence:** medium-high.
+
+#### J5. Fixtures carry their whole model, and three of them bend a constant
+**Implementation decision.** A fixture embeds the model JSON it ran under, so an engine needs nothing else to check itself. To pin the strict comparison `v > vTh`, one fixture sets the threshold to the exact crest of a potential, which then never spikes, and its twin sets it one bit lower, which spikes at the crest and nowhere else. A third raises `snapEps` to show that snapping needs both variables small. These overrides exist only inside those fixtures.
+
+- **Confidence:** high.
+
+#### J6. Small things the contract now pins
+**Implementation decisions.** The state hash covers the number of steps completed, not the index of the last step. Drives and silencing are refused once a simulation has taken a step, because an input neuron is one for the whole trial. A strong synapse in the fixtures is 6,000 contacts, the smallest round number that crosses threshold in the very step it arrives, so that a hop in a chain is exactly 18 steps.
+
+- **Confidence:** high.
+
+#### J7. Speed, and what is still unknown about it
+**Implementation decision, delegated by the slice.** Which neurons a step must visit is collected in a boolean mask, which also yields them in ascending order; this replaced a per-step sort and made the oracle four times faster with identical results. One simulated second of a random graph with 160,000 neurons and 4 million edges takes 1.3 s when 1% of neurons carry state, 4.5 s at 13%, and about 75 s in a runaway regime where nine in ten neurons are active and thousands spike per step. The published model under taste input has a few hundred active neurons, which is the middle figure, but how many neurons carry subthreshold state in the real graph is not known until slice 03 builds it.
+
+- **Reach:** slice 05 runs a few thousand whole-brain trials. At the middle figure that is about three hours on one core, and trials are independent, so they spread across ten. Slice 05 must time a pilot trial before it fixes its plan.
+- **Levers if it is too slow, in order:** run trials in parallel; vectorise spike delivery, which only matters when hundreds of neurons spike per step; and only then a larger `snapEps`, which shortens how long a touched neuron stays restless but is a new model version.
+- **Confidence:** high in the measurements; low in any budget until the real graph exists.
+
+#### J8. Another tool's draft of this slice was set aside
+**User decision, 2026-09-19.** When slice 02 began, the folder held a partial draft written minutes earlier by something other than this session. The user chose to set it aside. It is in `git stash` and was not used, apart from the observation that its three frozen constants were identical to the ones computed here. It had at least one contract bug, a refractory period of 21 steps.
+
+- **Reversal:** `git stash show -p` to read it, `git stash drop` to discard it. The user's call.

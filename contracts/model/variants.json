@@ -1,0 +1,6 @@
+{
+  "base": {},
+  "gluExcitatory": {
+    "signPolicy.glutamate": 1
+  }
+}

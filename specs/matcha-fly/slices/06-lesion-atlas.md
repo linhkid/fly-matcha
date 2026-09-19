@@ -35,7 +35,11 @@ web/src/routes/atlas/       consumes atlas.json only
 
 A handful of full `TrialRecording` files ship for showcase panels. The rest is the table.
 
-## Step 1: the web scaffold
+## Since the living view
+
+The `web/` package, the honesty module and the scene now come from slices V1 and V2. This slice adds to that page: the quiz is what the player can do while the endless loop is paused, and its reveal replays the recorded trial in the brain cloud beside the paired bars. The step below is kept for the record and is superseded by V1's step 1.
+
+## Step 1: the web scaffold (superseded by V1)
 
 This step is the one specification of the `web/` package. Slice 08's fixture half may execute it early; nobody else defines it.
 

@@ -1,0 +1,220 @@
+{
+ "about": "With the middle neuron silenced it stays at rest and emits nothing, so the end never hears the spike.",
+ "fixture": "chain-middle-silenced",
+ "graph": {
+  "bodyId": [
+   "10",
+   "20",
+   "30"
+  ],
+  "flags": [
+   0,
+   0,
+   0
+  ],
+  "nt": [
+   1,
+   1,
+   1
+  ],
+  "outOffset": [
+   0,
+   1,
+   2,
+   2
+  ],
+  "synCount": [
+   6000,
+   6000
+  ],
+  "target": [
+   1,
+   2
+  ]
+ },
+ "groups": {
+  "end": {
+   "indices": [
+    2
+   ],
+   "sides": "U"
+  },
+  "in": {
+   "indices": [
+    0
+   ],
+   "sides": "U"
+  },
+  "middle": {
+   "indices": [
+    1
+   ],
+   "sides": "U"
+  }
+ },
+ "model": {
+  "A": "0.99501247919268232",
+  "B": "0.98019867330675525",
+  "C": "0.0049379352953090221",
+  "delaySteps": 18,
+  "dtMs": 0.1,
+  "id": "lif-shiu-v1",
+  "prng": "threefry2x32-20/lane16",
+  "refracSteps": 22,
+  "signPolicy": {
+   "acetylcholine": 1,
+   "dopamine": 0,
+   "gaba": -1,
+   "glutamate": -1,
+   "histamine": -1,
+   "octopamine": 0,
+   "serotonin": 0,
+   "unknown": 0
+  },
+  "snapEpsMv": 1e-09,
+  "vThMv": 7.0,
+  "wSynMv": 0.275
+ },
+ "recording": {
+  "engine": {
+   "name": "flylab-oracle",
+   "version": "1"
+  },
+  "sentinelBreaches": [],
+  "spec": {
+   "activated": [],
+   "codecSha256": "",
+   "drives": [
+    {
+     "group": "in",
+     "offStep": 1,
+     "onStep": 0,
+     "side": "both",
+     "thr16": 65535
+    }
+   ],
+   "durationSteps": 60,
+   "graphSha256": "",
+   "modelId": "lif-shiu-v1",
+   "seed": 1,
+   "silenced": [
+    "middle"
+   ],
+   "variant": "base"
+  },
+  "specSha256": "a68521e0976ea76edce9a2fb23126e60faa1c0398b73dfc110dd0aac13e324a9",
+  "spikeBodyId": [
+   "10"
+  ],
+  "spikeHash": "1140b47a8d998cd6a7c9b94e54211e3c4e32e64e7b1047b2a60e896563c27b28",
+  "spikeStep": [
+   0
+  ]
+ },
+ "spec": {
+  "activated": [],
+  "codecSha256": "",
+  "drives": [
+   {
+    "group": "in",
+    "offStep": 1,
+    "onStep": 0,
+    "side": "both",
+    "thr16": 65535
+   }
+  ],
+  "durationSteps": 60,
+  "graphSha256": "",
+  "modelId": "lif-shiu-v1",
+  "seed": 1,
+  "silenced": [
+   "middle"
+  ],
+  "variant": "base"
+ },
+ "trace": [
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ],
+   "refr": [
+    0,
+    0,
+    0
+   ],
+   "spikes": [
+    0
+   ],
+   "stateHash": "16abab341fb7f370e27e4dadcf81766dd0dfd0ae64469477bb2cf6614938b2af",
+   "t": 0,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ],
+   "refr": [
+    0,
+    0,
+    0
+   ],
+   "spikes": [],
+   "stateHash": "f2e172bf7320a5f915228d48bc544b3d520e7dc5ca85f3c890478a41dc462df5",
+   "t": 18,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ],
+   "refr": [
+    0,
+    0,
+    0
+   ],
+   "spikes": [],
+   "stateHash": "bf93f83905cc3200728a5716bd141bd1c2090a8e33605a9f0ce5e2ebbba0c7a6",
+   "t": 36,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ],
+   "refr": [
+    0,
+    0,
+    0
+   ],
+   "spikes": [],
+   "stateHash": "ad9552044b144e62ed59c24d1b1ba5ff65deaa336454403d4a74be9fe93c4983",
+   "t": 59,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ]
+  }
+ ],
+ "variant": "base"
+}

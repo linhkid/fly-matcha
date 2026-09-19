@@ -16,6 +16,10 @@ Does not deliver the browser reader (08) or any subgraph (07).
 2. **Build** by the rules in the graph section of CONTRACTS.md: typed bodies, duplicate pairs summed, the 5-synapse threshold, self-edges dropped and counted, transmitter codes from `consensus_nt`. Report whether the file had duplicate pairs at all. Ignore the weights file's `type_pre` and `type_post` columns. Type names have one owner, the annotation file.
 3. **Bind by connectivity.** The census module gains a second evidence kind, `connectivity`, and adds to `taste.lock.json`: `hub.mn9.in` (the 20 types with most synapses onto MN9), and `hub.grn.out.<population>` (the 10 types receiving most synapses from each taste population). These are found by counting synapses, never by literature nickname. It also writes `hopDepth` for every type it binds: the shortest path in synapses from any bound taste neuron. The lock is the only owner of that number; the atlas and the circuit scope read it.
 
+## Carried over from slice 02
+
+The lock stores counts per side, but a trial can drive the left or the right members of a group, so `resolve` must return a side letter for every neuron: `{groupId: {indices, sides}}`, as `contracts/TRIAL.md` defines. Extend the lock with each body's side, written by the census, and rebuild `circuits/taste.lock.json`. The graph type already exists: `flylab.graph.Graph`, with `from_edges` for tests. This slice adds the file format around it and must return that same type.
+
 ## Seam
 
 ```

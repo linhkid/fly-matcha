@@ -16,6 +16,7 @@ web/         one Vite + TypeScript package
              src/engine/   pure: the model and the graph reader, nothing else
              src/worker/   the Worker entry; imports src/engine only
              src/client/   the only module that talks to the Worker: loadEngine, runTrial, pairedRun
+             src/view/     the 3D scene: fly, table, brain cloud, the endless loop; light() is pure
              src/codec/    src/honesty/    src/scope/ (pure drawing from a recording)    src/swatch/ (branch B1)
              src/routes/{atlas,lab-engine,bench-taste,journal,tearoom,about}/   plus swatch and bench-groom if their branches land
 data/        raw/ and built/full/ ignored     built/web/ small and committed
@@ -34,13 +35,14 @@ One `web/` package, not a workspace of packages. Seams inside it are enforced by
 | Graph artifact format | `contracts/GRAPH.md`. Sole writer `lab/flylab/graph/format.py`. Sole browser reader `web/src/engine/graph.ts` |
 | Circuit definitions and census | `circuits/*.circuit.json` + `lab/flylab/census/` → `*.lock.json`. The lock also owns each type's `hopDepth` |
 | Neuron model and its variants | `contracts/MODEL.md` + `contracts/model/lif-shiu-v1.json` + `contracts/model/variants.json` |
-| Trial spec and recording | `contracts/TRIAL.md` + schema |
+| Trial spec and recording | `contracts/TRIAL.md` + the fixtures under `contracts/fixtures/trial/` |
 | Python oracle | `lab/flylab/model/oracle.py`. Only the oracle writes fixtures |
 | Browser engine | `web/src/engine/`. Reads fixtures, never writes them |
 | Dose → spikes, spikes → behaviour, envelope | The file `contracts/codec/taste.codec.json`, written only by `lab/flylab/codec/build.py`. Slices 05, 07 and B2 each add to it through that one writer. One small interpreter per language, both pinned by fixtures |
 | Experiments and verdicts | `lab/experiments/<id>/`. `verdict.json` is the artifact; HTML is a rendering of it |
 | Which mechanics may ship | `contracts/mechanics.json`, checked by `make check`. One chain, one gate: a puzzle or a route requires mechanics, a mechanic requires an experiment's `pass` |
-| The `web/` package scaffold | Slice 06, step 1. It may be executed early by slice 08's fixture half, but it is specified in one place |
+| The `web/` package scaffold | Slice V1, step 1. Specified in one place |
+| The brain cloud | `lab/flylab/web/cloud.py` writes `data/built/web/brain.cloud`; `web/src/view/cloud.ts` reads it. Format in slice V1 |
 | Honesty tags | `contracts/schemas/provenance.json` + `web/src/honesty/` |
 
 There are two implementations of the model, the oracle and the engine, and never a third. No backend abstraction is built for a future Rust engine. If one is ever needed it is a hard cutover that passes the same fixtures and deletes the TypeScript engine.
@@ -88,65 +90,13 @@ A circuit file lists roles. Each role selects neurons by type name, type pattern
 - `hopDepth` is the smallest number of edges on a directed path from any neuron of any bound `grn.*` group to any neuron of the type, over the full graph, ignoring sign. Taste neurons are 0. Unreachable is `null`. `bind_connectivity` recomputes it for every type whenever the lock changes; nothing else computes it.
 - Ranking by synapse count breaks ties by type name, ascending.
 
-## Neuron model: `lif-shiu-v1`
+## Neuron model
 
-The published Shiu et al. model, discretised so two languages cannot disagree. Read from `model.py` in the authors' repo: exact (`linear`) integration, `(unless refractory)` on both `v` and `g`, reset clears `g`, driven neurons have no refractory period, a Poisson event forces a spike.
+Materialised by slice 02. The authority is `contracts/MODEL.md` in the repository, with its numbers in `contracts/model/lif-shiu-v1.json` and `contracts/model/variants.json`.
 
-State per neuron: `v` and `g` as float64 in mV above rest, `refr` as int32 steps, `acc` as int32. At `t = 0` everything is zero and no spikes are in flight.
+## Trials, recordings and fixtures
 
-```json
-{ "id": "lif-shiu-v1", "dtMs": 0.1, "delaySteps": 18, "refracSteps": 22, "vThMv": 7.0,
-  "A": "<17 digits>", "B": "<17 digits>", "C": "<17 digits>", "wSynMv": 0.275, "snapEpsMv": 1e-9,
-  "signPolicy": {"acetylcholine":1,"gaba":-1,"glutamate":-1,"histamine":-1,
-                 "dopamine":0,"octopamine":0,"serotonin":0,"unknown":0},
-  "prng": "threefry2x32-20/lane16" }
-```
-
-`A = exp(-dt/tau_m)`, `B = exp(-dt/tau_s)`, `C = (A - B) * tau_s / (tau_m - tau_s)` evaluated left to right in float64, with `tau_m = 20 ms`, `tau_s = 5 ms`. The oracle computes them once and freezes them as 17-significant-digit decimal strings. Only the frozen strings are normative. **Engines never call `exp`**, because transcendental functions differ between platforms (FlyBrain's `CLAUDE.md` records what that cost them).
-
-**Input neurons.** A neuron named by any drive or activation in the `TrialSpec` is an input neuron for the whole trial. Input neurons have no refractory period, as in the published code. A spec that names the same neuron in two drives or activations, or that both silences and drives a neuron, is invalid, and both implementations reject it with the same error code.
-
-Step `t`, for `t = 0 … durationSteps - 1`, normative:
-
-1. **Deliver.** For each neuron `j` that spiked at step `t - 18` (none when `t < 18`), ascending, for each out-edge `(j → i, count)`: `acc[i] += sign(nt[j]) * count`. Integer sums are order-free, so there is no summation-order contract.
-2. **Update**, for each neuron `i` ascending:
-   1. If silenced: `v = g = 0`, `acc = 0`, skip. A silenced neuron emits nothing. (Shiu zeroes its outgoing weights instead; downstream effects are identical.)
-   2. `g += wSyn * acc; acc = 0`. This happens even while refractory: arrivals are kept.
-   3. If `refr > 0`: `refr -= 1`, skip. `v` and `g` stay frozen. This never happens to an input neuron.
-   4. `v = v*A + g*C` using the old `g`, then `g = g*B`.
-   5. `forced` is true iff `i` is an input neuron, `onStep <= t < offStep` for its drive, and `lane16(seed, bodyId[i], t) < thr16` (strict, so `thr16 = 0` never fires).
-   6. Spike iff `forced` or `v > vTh` (strict). On a spike: record `(t, i)`, `v = g = 0`, and `refr = 22` unless `i` is an input neuron.
-   7. If `|v| < snapEps` and `|g| < snapEps`: `v = g = 0`. This gives an exact rest state, which makes active-set updates legal and keeps denormals out.
-3. Spikes recorded at `t` are delivered at `t + 18`.
-
-No fused multiply-add anywhere. The oracle uses plain NumPy ufuncs.
-
-**Random input.** Counter-based, so a neuron's Poisson train depends only on `(seed, bodyId, step)`. It is identical in the full graph, in any subgraph and under any lesion, which is what makes paired comparisons and the envelope test exact. `threefry2x32` with 20 rounds, as `threefry2x32_20(counter, key)` in Random123: `seed` is a u32; key is `(seed, floor(t/4))`; counter is `(bodyId & 0xFFFFFFFF, bodyId >> 32)`; the outputs are `w0 = X[0]`, `w1 = X[1]`. Step `t` uses 16-bit lane `t mod 4`: `w0 & 0xFFFF`, `w0 >>> 16`, `w1 & 0xFFFF`, `w1 >>> 16`, with `>>>` a logical shift. Thresholds are integers, `thr16 = floor(rateHz * dtMs * 65.536)`, stored in the codec. No float takes part in deciding a spike. Known answers for the core, which slice 02 confirms against Random123's `kat_vectors` before relying on them: key `0,0` counter `0,0` → `6b200159 99ba4efe`; all ones → `1cb996fc bb002be7`; key `13198a2e 03707344` counter `243f6a88 85a308d3` → `c4923a9c 483df7a0`.
-
-**Activation** of a cell type, the player's red light, is the same mechanism as sensory drive. An activated neuron therefore fires at the drive rate whatever its own inputs say, exactly as in the published activation experiments. A sufficiency test asks what the circuit downstream of the activated type does. It never asks whether the activated type "responded".
-
-**Variants.** `contracts/model/variants.json` registers named override sets, for example `gluExcitatory: {"signPolicy.glutamate": 1}`. A `TrialSpec` names the base `modelId` and one `variant`, `base` by default. The browser computes only `base`; other variants reach it as recordings.
-
-**Versions.** The shipped model is one point: the JSON above. An experiment may sweep overrides of it, declared in its prereg, and those overrides exist only inside that experiment's runs. Changing what ships (`dt`, the synapse threshold, a sign, `wSyn`, `snapEps`) makes a new model or artifact version and re-runs every experiment that depends on it. It is never a browser-only tweak.
-
-`stateHash` at step `t`: SHA-256 over `t` as u32, then for each neuron ascending `v` as f64, `g` as f64, `refr` as i32.
-
-## Trials
-
-Play and experiments share one unit: a trial. The engine computes it in full, then the interface replays it in slow motion. A taste decision is over in tens of milliseconds, so slow replay is where it can be seen.
-
-```
-TrialSpec      { modelId, variant, graphSha256, codecSha256, seed, durationSteps,
-                 drives:    [{group, side: both|left|right, thr16, onStep, offStep}],
-                 silenced:  [typeOrGroup],
-                 activated: [{typeOrGroup, thr16, onStep, offStep}] }
-TrialRecording { spec, specSha256, spikeStep[], spikeBodyId[] (decimal strings), spikeHash, sentinelBreaches: [step], engine: {name, version} }
-```
-
-- A `TrialSpec` contains only strings and integers, by design. `specSha256` is the hash of its canonical JSON: UTF-8, keys sorted, no insignificant whitespace.
-- `spikeHash` is the hash of the concatenation, over spikes of non-sentinel neurons sorted by step and then by body ID, of `step` as u32 and `bodyId` as u64. Two runs are the same run iff their hashes match. When a whole-brain run is compared with a subgraph run, the whole-brain hash is taken over the subgraph's member body IDs, and any whole-brain spike outside that set is itself a breach.
-- On disk a recording is one JSON file with body IDs, not indices, so it means the same thing against the whole brain and against a subgraph. In memory engines use typed arrays of indices.
-- The knit swatch, the journal and the atlas all consume `TrialRecording`. Nothing may invent a second recording format.
+Materialised by slice 02. The authority is `contracts/TRIAL.md`: groups, the trial spec and its refusal codes, recordings, hashes and the fixture format.
 
 ## Codec
 
@@ -206,17 +156,6 @@ No timestamps: a rerun of a finished experiment reproduces `verdict.json` byte f
 A criterion that passes at a single parameter value is rejected. FlyBrain measured a 25.6× effect "on the slope of the cliff".
 
 `contracts/mechanics.json` is `[{id, requires: experimentId, enabled}]`. `make check` fails if a mechanic is enabled without a `pass`. A failed experiment keeps its report and becomes a page in the journal's "Didn't work" chapter.
-
-## Fixtures
-
-JSON, written only by the oracle. Every float64 appears as its 16-hex-digit IEEE-754 bit pattern, for example `"0x3fefd70a3d70a3d7"`, so no parser can round it. Integers are JSON numbers. Body IDs are decimal strings.
-
-```
-{ fixture, modelId, variant, graph: {bodyId[], nt[], flags[], outOffset[], target[], synCount[]},
-  spec: TrialSpec, trace: [{t, v[], g[], refr[], spikes[]}], spikeHash, stateHashAt: {"<t>": hash} }
-```
-
-`trace` holds the state after step `t` completes. A fixture passes when every listed value matches exactly.
 
 ## Honesty
 

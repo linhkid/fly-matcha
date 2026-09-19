@@ -1,0 +1,152 @@
+{
+ "about": "The group is called 甘味. The spec hash is taken over UTF-8 bytes with the name unescaped.",
+ "fixture": "group-name-outside-ascii",
+ "graph": {
+  "bodyId": [
+   "10",
+   "20"
+  ],
+  "flags": [
+   0,
+   0
+  ],
+  "nt": [
+   1,
+   1
+  ],
+  "outOffset": [
+   0,
+   1,
+   1
+  ],
+  "synCount": [
+   8
+  ],
+  "target": [
+   1
+  ]
+ },
+ "groups": {
+  "甘味": {
+   "indices": [
+    0
+   ],
+   "sides": "U"
+  }
+ },
+ "model": {
+  "A": "0.99501247919268232",
+  "B": "0.98019867330675525",
+  "C": "0.0049379352953090221",
+  "delaySteps": 18,
+  "dtMs": 0.1,
+  "id": "lif-shiu-v1",
+  "prng": "threefry2x32-20/lane16",
+  "refracSteps": 22,
+  "signPolicy": {
+   "acetylcholine": 1,
+   "dopamine": 0,
+   "gaba": -1,
+   "glutamate": -1,
+   "histamine": -1,
+   "octopamine": 0,
+   "serotonin": 0,
+   "unknown": 0
+  },
+  "snapEpsMv": 1e-09,
+  "vThMv": 7.0,
+  "wSynMv": 0.275
+ },
+ "recording": {
+  "engine": {
+   "name": "flylab-oracle",
+   "version": "1"
+  },
+  "sentinelBreaches": [],
+  "spec": {
+   "activated": [],
+   "codecSha256": "",
+   "drives": [
+    {
+     "group": "甘味",
+     "offStep": 1,
+     "onStep": 0,
+     "side": "both",
+     "thr16": 65535
+    }
+   ],
+   "durationSteps": 20,
+   "graphSha256": "",
+   "modelId": "lif-shiu-v1",
+   "seed": 1,
+   "silenced": [],
+   "variant": "base"
+  },
+  "specSha256": "ea282575358467c358685cfcdbc056bad214566f3fdaac6d8f43ccdd06f8d9bd",
+  "spikeBodyId": [
+   "10"
+  ],
+  "spikeHash": "1140b47a8d998cd6a7c9b94e54211e3c4e32e64e7b1047b2a60e896563c27b28",
+  "spikeStep": [
+   0
+  ]
+ },
+ "spec": {
+  "activated": [],
+  "codecSha256": "",
+  "drives": [
+   {
+    "group": "甘味",
+    "offStep": 1,
+    "onStep": 0,
+    "side": "both",
+    "thr16": 65535
+   }
+  ],
+  "durationSteps": 20,
+  "graphSha256": "",
+  "modelId": "lif-shiu-v1",
+  "seed": 1,
+  "silenced": [],
+  "variant": "base"
+ },
+ "trace": [
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ],
+   "refr": [
+    0,
+    0
+   ],
+   "spikes": [
+    0
+   ],
+   "stateHash": "8c63f77e4a89707a17ed42972517700bc8913315f36c72fcfe833910a506cd8f",
+   "t": 0,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x40014062159fa866"
+   ],
+   "refr": [
+    0,
+    0
+   ],
+   "spikes": [],
+   "stateHash": "b3595272b9091724621b2a4005fcc3aa922d9657bcf5e7bb4eaeb3080a57185e",
+   "t": 18,
+   "v": [
+    "0x0000000000000000",
+    "0x3f863f949a9d66ab"
+   ]
+  }
+ ],
+ "variant": "base"
+}

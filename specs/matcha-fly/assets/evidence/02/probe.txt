@@ -1,0 +1,36 @@
+quiet: 30 inputs, nothing propagates
+  neurons                    160000
+  edges                      3999694
+  buildSeconds               0.1
+  steps                      10000
+  simulatedSeconds           1.0
+  wallSeconds                1.3
+  spikes                     3428
+  ofWhichForcedRoughly       3000
+  spikesPerStep              0.3
+  restlessNeuronsMean        1863
+  restlessShare              0.0116
+busy inputs: 400 inputs, nothing propagates
+  neurons                    160000
+  edges                      3999694
+  buildSeconds               0.1
+  steps                      10000
+  simulatedSeconds           1.0
+  wallSeconds                4.5
+  spikes                     43165
+  ofWhichForcedRoughly       40000
+  spikesPerStep              4.3
+  restlessNeuronsMean        20184
+  restlessShare              0.1262
+propagating: 400 inputs, synapses strong enough to spread
+  neurons                    160000
+  edges                      3999694
+  buildSeconds               0.1
+  steps                      2000
+  simulatedSeconds           0.2
+  wallSeconds                15.1
+  spikes                     6392902
+  ofWhichForcedRoughly       8000
+  spikesPerStep              3196.5
+  restlessNeuronsMean        145457
+  restlessShare              0.9091

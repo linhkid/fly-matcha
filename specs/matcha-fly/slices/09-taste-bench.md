@@ -8,9 +8,13 @@ Needs slices 07 and 08. This is the first live playable.
 
 Delivers one route where the player composes a sip, bets, runs a one-second trial on the live engine and watches it back slowly. Does not deliver the circuit view (10), lesions (10e), puzzles (11) or any ceremony (12).
 
+## Since the living view
+
+The bench is not a separate page any more. It is what pausing the endless loop of V1 opens: the player composes the next sip instead of the rotation choosing it, and the live engine runs it instead of a recording being replayed. Resume hands control back to the rotation.
+
 ## The loop
 
-Compose: pieces of sweet, level 0 to 4; scoops of matcha, level 0 to 4; left side, right side or both. These are the codec's levels and no others. Bet: will he drink? Run: the Worker computes the trial. Replay: a scrubber over the second, at one fiftieth of real speed by default, with the speed shown. Outcome: `extend`, `hesitate` or `refuse`, from the codec's decoder.
+Compose: pieces of sweet, level 0 to 4; a tea from the menu and one to three scoops of it, which the codec's menu turns into a bitter level 0 to 4; left side, right side or both. These are the codec's levels and no others. The bitter level a choice resolves to is shown beside it, and a line under the menu says what a fly cannot taste: two teas of the same tier are the same tea to him. Bet: will he drink? Run: the Worker computes the trial. Replay: a scrubber over the second, at one fiftieth of real speed by default, with the speed shown. Outcome: `extend`, `hesitate` or `refuse`, from the codec's decoder.
 
 ## Seam
 

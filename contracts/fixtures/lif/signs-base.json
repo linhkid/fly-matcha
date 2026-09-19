@@ -1,0 +1,253 @@
+{
+ "about": "Acetylcholine adds 20 synapses, GABA removes 12, glutamate removes 6, and 500 dopamine synapses count for nothing: net input 2.",
+ "fixture": "signs-base",
+ "graph": {
+  "bodyId": [
+   "10",
+   "11",
+   "12",
+   "13",
+   "20"
+  ],
+  "flags": [
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "nt": [
+   1,
+   2,
+   5,
+   3,
+   1
+  ],
+  "outOffset": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ],
+  "synCount": [
+   20,
+   12,
+   500,
+   6
+  ],
+  "target": [
+   4,
+   4,
+   4,
+   4
+  ]
+ },
+ "groups": {
+  "all": {
+   "indices": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sides": "UUUU"
+  },
+  "out": {
+   "indices": [
+    4
+   ],
+   "sides": "U"
+  }
+ },
+ "model": {
+  "A": "0.99501247919268232",
+  "B": "0.98019867330675525",
+  "C": "0.0049379352953090221",
+  "delaySteps": 18,
+  "dtMs": 0.1,
+  "id": "lif-shiu-v1",
+  "prng": "threefry2x32-20/lane16",
+  "refracSteps": 22,
+  "signPolicy": {
+   "acetylcholine": 1,
+   "dopamine": 0,
+   "gaba": -1,
+   "glutamate": -1,
+   "histamine": -1,
+   "octopamine": 0,
+   "serotonin": 0,
+   "unknown": 0
+  },
+  "snapEpsMv": 1e-09,
+  "vThMv": 7.0,
+  "wSynMv": 0.275
+ },
+ "recording": {
+  "engine": {
+   "name": "flylab-oracle",
+   "version": "1"
+  },
+  "sentinelBreaches": [],
+  "spec": {
+   "activated": [],
+   "codecSha256": "",
+   "drives": [
+    {
+     "group": "all",
+     "offStep": 1,
+     "onStep": 0,
+     "side": "both",
+     "thr16": 65535
+    }
+   ],
+   "durationSteps": 60,
+   "graphSha256": "",
+   "modelId": "lif-shiu-v1",
+   "seed": 1,
+   "silenced": [],
+   "variant": "base"
+  },
+  "specSha256": "4ff71f7ee5097a9aee97045d4abcbf5c0bcedbac0bb14e82b3fa10bcf9afdac7",
+  "spikeBodyId": [
+   "10",
+   "11",
+   "12",
+   "13"
+  ],
+  "spikeHash": "cff0af5688aed64c1cf8706b97bc69a9e69e040af5c3adea5ee3b8d6f056d608",
+  "spikeStep": [
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ "spec": {
+  "activated": [],
+  "codecSha256": "",
+  "drives": [
+   {
+    "group": "all",
+    "offStep": 1,
+    "onStep": 0,
+    "side": "both",
+    "thr16": 65535
+   }
+  ],
+  "durationSteps": 60,
+  "graphSha256": "",
+  "modelId": "lif-shiu-v1",
+  "seed": 1,
+  "silenced": [],
+  "variant": "base"
+ },
+ "trace": [
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ],
+   "refr": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "spikes": [],
+   "stateHash": "6fb2048ad9d2f554802b801dc032f6943ee86fa4bbb9da9f20c4164d2b5ff7ed",
+   "t": 17,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x3fe14062159fa866"
+   ],
+   "refr": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "spikes": [],
+   "stateHash": "835e842989f2b1447c154762f08407a1dc17a97547c114e88a90e4165028967a",
+   "t": 18,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x3f663f949a9d66ab"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x3fe0e8eed257398e"
+   ],
+   "refr": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "spikes": [],
+   "stateHash": "14a209c903b17695634ae73c489253c8cc45f3d78ba7af10daa16e93d04ec26b",
+   "t": 19,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x3f75f8fcaf0f772e"
+   ]
+  },
+  {
+   "g": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x3fce6475b15a78e7"
+   ],
+   "refr": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "spikes": [],
+   "stateHash": "4f0321356cbf509a3c34145bf4165b06d73a3fb1abcc8faa1708c4dcce19fc38",
+   "t": 59,
+   "v": [
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x0000000000000000",
+    "0x3fb1c8247c10aaa6"
+   ]
+  }
+ ],
+ "variant": "base"
+}
