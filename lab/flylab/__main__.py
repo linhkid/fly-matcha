@@ -66,7 +66,7 @@ def _model(args: argparse.Namespace) -> int:
 
 
 def _codec(args: argparse.Namespace) -> int:
-    from flylab.codec.build import CodecError, write_codec, write_decoder, write_fixture
+    from flylab.codec.build import CodecError, write_codec, write_decoder, write_fixture, write_legs_codec
 
     if args.command == "decoder":   # only a passed experiment can write it
         from flylab.experiments.harness import EXPERIMENTS_DIR
@@ -79,6 +79,7 @@ def _codec(args: argparse.Namespace) -> int:
         return 0
     print("codec:  ", write_codec())
     print("fixture:", write_fixture())
+    print("legs:   ", write_legs_codec())
     return 0
 
 

@@ -477,3 +477,41 @@ The planning workflow asks for a second family. It was skipped, because that wou
 
 #### T5. Deferred, and said so in the pre-registrations
 The narrow arm in which taste neurons called unclear take sign +1, the rival rule, the glutamate variant and one-sided drives were left out of E01 and E01b to keep a full run near two hours. None of them gates anything.
+
+### Slice V3, 2026-09-20. Least confident first.
+
+#### N17. "It has to be real not staged": his movement shows through his sensors, not through forced motor neurons
+**The user's decision, 2026-09-20.** Asked again that his movement neurons be active whenever he moves, "(if any)", and "real not staged". Stage A of the slice, forcing his motor pools to match the puppet, is dropped: a forced spike is ours. What a moving knee does to its own sensors is a genuine stimulus, as tea is to a taste neuron, and everything downstream is his wiring, his leg motor neurons included. The same day the user said of E01 that the word "drink" was theirs and that what matters is "as long as the neurons get activated for real": nothing was switched on because of it, and the three options of slice 05 stay open.
+
+#### M6. Shown as V2 shows tasting: pilot recordings and no claim, before E-move-1 has run
+**Implementation decision.** The slice wanted pre-registered experiments before any replay. V2's honesty clause covers this case exactly: a recording may be shown before an experiment when nothing on the page claims an outcome. The line about his legs counts what fired and says where; it does not say he walks, that the motor neurons would move him, or that the answer is specific to these sensors (no random-sensor control has run). The footnote of every card says that we move his legs and that his motor neurons firing moves nothing.
+- **Considered:** waiting for E-move-1 (an evening, and the user has asked for this three times); forcing motor pools (rejected by N17).
+- **Confidence:** medium-high. The risk is a reader taking the lit motor neurons for the cause of the puppet's steps. The footnote and the registry entry `move.motor` are there against it.
+
+#### M7. Hook and claw both, 100 Hz, constant for as long as the legs move
+**Implementation decision.** The slice said both before any data was seen, so both it is; club neurons sense vibration and a cartoon makes none. Exploration runs (not recordings, kept in the evidence note) showed hook alone gives the front pair almost nothing, 11 neurons driving 23: choosing by that would have been choosing by looks, so it was not used to choose. The rate is ours, the codec's "three pieces" level: what these neurons do is known from calcium imaging, walking flies included, and nobody has published their spike rates. One drive per neuron per trial is all `contracts/TRIAL.md` allows, so a movement is one constant drive, not a stride-by-stride one, and the contract is unchanged.
+- **Known to differ from a fly:** a real fly turns its hook neurons down while it moves itself (Dallmann et al. 2025), and a real claw neuron keeps reporting a held angle, while here a still leg drives nothing. Both are said in the codec's note and in `legs.hz`. Neither may be called an over- or an understatement: driving 154 sensors gave a smaller answer than driving 151 (evidence note), so the answer does not grow with the drive.
+
+#### M8. "Which legs are moving" has one owner, and a test holds it to the puppet's knees
+**Implementation decision.** `gait.ts` poses the legs and says which pairs move: all six, the front pair, or none. The sensors are of the knee, so the promise is about knees: the puppet was changed so that every knee works through stance (front flexes, hind extends) and the front knees work at the sifter, whisk, cloth and whatever he lifts. Below a twentieth of full movement nothing is claimed.
+
+#### M9. A movement's recording starts when the movement starts
+**Implementation decision.** Each walk or stretch of work replays its recording from step 0 at the tasting's slowdown; a stop shorter than a quarter of a second (a turn mid-walk) does not restart it. A short walk therefore shows only the first few milliseconds of his time, which is little. That is what a short stimulus is. Same seed every time, as with the sips.
+
+#### M10. The card moved under the table
+**Implementation decision, delegated.** His nerve cord is where his legs show, and the card covered it. The card is now low and wide between the shelf and his nervous system, with tasting and legs side by side; what cannot be drawn, the slowdown and the pilot note fold away with what he was served. A window under 1200 px gets the old place.
+
+#### M11. His front legs now go up with what he lifts, and shake the sifter
+**Implementation decision.** The user asked twice that lifting and sifting be his. Tin, kettle, bowl and cup still float, but his front legs rise and sink with them and only while they are on their way, so "his front legs are at work" is true of the picture in select, sift, brew, pour and clean.
+
+#### M12. After review: the sensors are the rows the dataset itself calls chordotonal, and SNpp51 stays, with its thin evidence in plain sight
+**Implementation decision, after a fresh-eyes review on 2026-09-20.** The first binding selected by type, class and nerve and swept in three rows subclassed only "leg"; the selectors now require subclass chordotonal organ (151 neurons, not 154), and the recordings were made again. The evidence text had pooled synonym counts across types; it now gives them per type: SNpp39 2 of 39, SNpp41 3 of 22, SNpp50 12 of 62, SNpp51 1 of 32, every labelled one in a hind leg. The slice's pre-data text named only SNpp50 for claw ("mostly"). SNpp51 is kept under the one rule that treats all four types alike: a type is bound to a part of the organ if the dataset labels at least one member so and none otherwise. Dropping it would leave the front legs one claw neuron.
+- **Considered:** a majority rule (no type would pass: the best is 19%); SNpp50 alone for claw (a line between two labelled neurons and one, drawn by nothing).
+- **Confidence:** medium. Four of the five front-leg "claw" neurons rest on one labelled hind-leg neuron. `lab/tests/test_legs_circuit.py` recounts the text from the table and holds the lock to the circuit file.
+
+#### M13. After review: his leg motor neurons are not the only ones, and the page says so
+**Implementation decision, after the same review.** The first card said the spikes were "most of them in" the busiest pool: untrue, it holds about a fifth. It now says "the busiest pool so far, with N of them". It also counted only leg motor neurons, while in the walk 162 other motor neurons fire 1,125 spikes against the legs' 463, the wing's power muscles busiest of all: showing only the legs read as a tidy, specific answer that the model does not give. The index lists every other motor neuron the dataset names, the card counts them ("They are not alone"), and the tooltip says what the busiest are and why: nothing in the model says he is standing on the ground. Only his leg motor neurons are drawn larger, and the legend says that.
+
+#### M14. After review: his body is a pure module, and the promise about his knees is tested where it is decided
+**Implementation decision.** The first tests of "which legs move" set the flag they then asserted; the code that decides it lived in the three.js scene, where no test reached. `web/src/view/body.ts` now owns where he is and what his body does (walking, sitting down to read, putting work down and picking it up, lifting), and `web/tests/body.test.ts` steps it frame by frame through whole bowls and breaks. Whether he is lifting is read off what his front legs did in the frame, not off the ceremony's clock, so a break's put-down and pick-up count. His gait fades in and out over a few frames, because a snap to standing is a knee movement nobody claimed. A still, which has time in its frames and a ceremony that stands, is told whether he is lifting; once the viewer sends him on a break the still lets go of his legs' clock.
+

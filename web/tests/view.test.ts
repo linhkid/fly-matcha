@@ -13,6 +13,8 @@ const read = (path: string) => readFileSync(new URL(path, root));
 const codec: Codec = JSON.parse(read("contracts/codec/taste.codec.json").toString());
 const info: CloudInfo = JSON.parse(read("data/built/web/brain.cloud.json").toString());
 
+const STILL = { state: "still" } as const;
+
 describe("the codec, read in the browser", () => {
   const fixture = JSON.parse(read("contracts/fixtures/codec/taste-codec-lookups.json").toString());
 
@@ -43,6 +45,7 @@ describe("the dark stage", () => {
     expect(Array.from(light(3, index, recording, 5, 5))).toEqual([1, 1, 0]);    // (0, 5]: the spike at 0 has left the window
     expect(Array.from(light(3, index, recording, 5, 6))).toEqual([2, 1, 0]);    // (-1, 5]
     expect(Array.from(light(3, index, recording, 18, 10))).toEqual([0, 1, 1]);  // (8, 18]; body 99 has no point and lights nothing
+    expect(() => light(3, index, recording, NaN, 10)).toThrow(/no such moment/);   // not a number passes every comparison: it would light the whole recording
     expect(Array.from(light(3, index, recording, 4, 100))).toEqual([1, 0, 0]);  // the future is dark
   });
 });
@@ -156,10 +159,10 @@ describe("the reaction card with no recording", () => {
   it("claims no outcome and no feeling about taste, in any phase, for any sip of a cycle", () => {
     for (let i = 0; i < 25; i++) {
       for (const phase of PHASES) {
-        const card = reactionCard(reg, codec, info, { sip: sipAt(codec, i), phase, phaseSeconds: 10, stay: { seconds: 10, why: "never", lastStep: null }, away: null, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0 });
+        const card = reactionCard(reg, codec, info, { sip: sipAt(codec, i), phase, phaseSeconds: 10, stay: { seconds: 10, why: "never", lastStep: null }, away: null, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0, legs: STILL });
         const text = card.lines.map((l) => l.html).join(" ").replace(/title="[^"]*"/g, "");
         expect(text).not.toMatch(/drink|refus|extend|reach|bitter!|yum|delicious|disgust|likes|hates/i);
-        expect(card.lines.map((l) => l.title)).toEqual(["Served", "Heard by", "Did", "In his words"]);
+        expect(card.lines.map((l) => l.title)).toEqual(["Served", "Heard by", "Did", "In his words", "His legs", "The recordings"]);
         expect(card.lines.every((l) => l.tags.length > 0)).toBe(true);
         expect(audit(card.lines.map((l) => l.html).join(""), reg)).toEqual([]);
       }
@@ -167,14 +170,14 @@ describe("the reaction card with no recording", () => {
   });
 
   it("says why nothing is shown while he tastes, and stays silent in his own voice", () => {
-    const card = reactionCard(reg, codec, info, { sip: sipAt(codec, 3), phase: "taste", phaseSeconds: 12, stay: { seconds: 12, why: "never", lastStep: null }, away: null, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0 });
+    const card = reactionCard(reg, codec, info, { sip: sipAt(codec, 3), phase: "taste", phaseSeconds: 12, stay: { seconds: 12, why: "never", lastStep: null }, away: null, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0, legs: STILL });
     expect(card.lines[2].html.replace(/<[^>]*>/g, "")).toMatch(/^His lips are not on the tea yet\. He stays 12 s, the least he ever does: in this recording MN9 never fires\./);
     expect(card.lines[3].html).toContain("(he says nothing)");
-    expect(card.footnote).toBe("The words are puppetry. The spikes are the model's, recorded from a run of his whole brain. No verdict has been licensed yet.");
+    expect(card.footnote).toBe("The words are puppetry, and so is every movement: we move his legs, his knee sensors report it, and the rest is his wiring. His motor neurons firing moves nothing here. The spikes are the model's, recorded from runs of his whole nervous system. No verdict has been licensed yet.");
   });
 
   it("counts the taste neurons from the dataset: 34 sweet, 38 bitter, 6 of them unlabelled", () => {
-    const heard = reactionCard(reg, codec, info, { sip: sipAt(codec, 3), phase: "taste", phaseSeconds: 12, stay: { seconds: 12, why: "never", lastStep: null }, away: null, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0 }).lines[1].html.replace(/<[^>]*>/g, "");
+    const heard = reactionCard(reg, codec, info, { sip: sipAt(codec, 3), phase: "taste", phaseSeconds: 12, stay: { seconds: 12, why: "never", lastStep: null }, away: null, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0, legs: STILL }).lines[1].html.replace(/<[^>]*>/g, "");
     expect(heard).toMatch(/^Once the tea is on his lips: 34 sweet taste neurons/);
     expect(heard).toMatch(/38 bitter/);
     expect(heard).toMatch(/6 of them, the whole type LB1b, with a transmitter the dataset calls unclear/);

@@ -6,30 +6,19 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
-import type { Cloud, CloudInfo } from "./cloud";
+import { inCord, type Cloud, type CloudInfo } from "./cloud";
 import { chawan, fill, glassCup, type Vessel } from "./crockery";
+import { AT, Body, FRONT_Z, TASTE_STEP, TASTE_YAW, WALK_Z } from "./body";
 import { FlyPuppet } from "./fly";
+import { movementOf, type FlyMotion, type Movement } from "./gait";
 import type { LipDot } from "./lips";
 import type { LoopState } from "./loop";
 import { GROUP_COLOUR, hex } from "./palette";
-import { ease, onBreak, pose, type Pose, type SipLook } from "./puppet";
+import { carrying, ease, pose, type Pose, type SipLook } from "./puppet";
 
 const TABLE_Y = 1.0;
-// He walks along the back of the table; everything he uses stands in front of him, so that nothing hides behind his body.
-const AT = { tins: -4.45, kettle: -1.85, sifter: -1.15, bowl: -0.3, cup: 1.15, cloth: 1.95, cushion: 2.1 };
-const WALK_Z = -0.75;
-const FRONT_Z = 0.45;  // the bowl, the kettle when it pours, the cup
-// He comes to the cup at an angle, so that his lips at the tea can be seen from the room and are not hidden behind his face.
-const TASTE_YAW = 0.7;
-const REACH = 0.46; // from the middle of his thorax to his lips, along the way he faces, with his head down
-const TASTE_STEP = (FRONT_Z - WALK_Z) / Math.cos(TASTE_YAW) - REACH;       // how far he steps up: his lips end above the middle of the cup
-const CUP_STAND = AT.cup - Math.sin(TASTE_YAW) * (REACH + TASTE_STEP);     // where on his walking line he turns towards it
-const WALK_SPEED = 1.7;  // table units a second
-const TURN_SPEED = 7;    // radians a second
-const STRIDE = 11;       // radians of gait for every unit walked
 const TIER_COLOUR: Record<string, number> = { smooth: 0xb9d48a, balanced: 0x7fa24e, robust: 0x4f6b2a };
 const CLOUD_SCALE = 5.0;
-const CORD_FROM = -0.12; // along the dataset's long axis: in front of this is brain, behind it nerve cord
 const WATER = new THREE.Color(0xcfd8c0);
 const MATCHA = new THREE.Color(0x3f7a1a);
 const POWDER = new THREE.Color(0x86a84a);
@@ -67,18 +56,13 @@ export class Stage {
   private readonly cover = document.createElement("canvas");
   private readonly coverTexture = new THREE.CanvasTexture(this.cover);
   private readonly brain = new THREE.Group();
-  private readonly tether: THREE.Line;
   private readonly dot: THREE.CanvasTexture;
   private cloud: Cloud | null = null;
   private active: { points: THREE.Points; count: number; readout: THREE.Points; places: number[] } | null = null; // the neurons that fire in the recording being replayed
   private lipPoints: Lit | null = null;
-  private flyX = AT.tins;
-  private yaw = 0;
-  private stride = 0;
+  private readonly body = new Body();   // where he is and what his body is doing: pure, and tested over whole bowls and breaks
+  private motion: FlyMotion | null = null;
   private time = 0;
-  private rest = 0;      // 0 at work, 1 with everything put down
-  private resting = false;  // the viewer's wish: he is on a break, or on his way to one
-  private atStation = true; // he stands where his work is, facing it
   private touchedAt = 0;
   private drink: Drink = DRY;
   private title = "";
@@ -191,18 +175,13 @@ export class Stage {
     this.mesh(new THREE.CylinderGeometry(0.62, 0.64, 0.08, 28), 0x7a2f35).position.set(AT.cushion, TABLE_Y + 0.04, WALK_Z);
 
     this.puppet = new FlyPuppet((geometry, colour, parent) => this.mesh(geometry, colour, parent));
-    this.puppet.group.position.set(this.flyX, TABLE_Y, WALK_Z);
+    this.puppet.group.position.set(this.body.x, TABLE_Y, WALK_Z);
     this.scene.add(this.puppet.group);
     this.buildBook();
 
-    this.brain.position.set(5.0, 2.45, -0.4);
+    // His nervous system floats apart from him, behind and beside the table. Nothing ties it to his body on screen: the card's words do that.
+    this.brain.position.set(6.4, 2.6, -3.2);
     this.scene.add(this.brain);
-    // a thread from his head to the cloud: that is his, in there
-    this.tether = new THREE.Line(
-      new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]),
-      new THREE.LineDashedMaterial({ color: 0xa7a791, dashSize: 0.07, gapSize: 0.09, transparent: true, opacity: 0.45 }),
-    );
-    this.scene.add(this.tether);
   }
 
   private mesh(geometry: THREE.BufferGeometry, colour: number, parent: THREE.Object3D = this.scene): THREE.Mesh {
@@ -282,7 +261,7 @@ export class Stage {
     for (const group of info.groups) {
       for (const cord of [false, true]) {
         const members: number[] = [];
-        for (let i = 0; i < cloud.n; i++) if (cloud.group[i] === group.code && (cloud.xyz[3 * i + 2] > CORD_FROM) === cord) members.push(i);
+        for (let i = 0; i < cloud.n; i++) if (cloud.group[i] === group.code && inCord(cloud, i) === cord) members.push(i);
         if (!members.length) continue;
         const position = new Float32Array(members.length * 3);
         const colour = new Float32Array(members.length * 3);
@@ -326,7 +305,7 @@ export class Stage {
    * points whose light changes every frame, where rewriting all the cloud's colours would not do. They add light, and the
    * painted cloud under them does not change. `indices` are points of the cloud; with none, the layer goes.
    */
-  setActive(indices: number[], readoutPlaces: number[] = []): void {
+  setActive(indices: number[], readoutPlaces: number[] = [], readoutSize = 0.5): void {
     if (this.active) {
       for (const points of [this.active.points, this.active.readout]) {
         this.brain.remove(points);
@@ -348,7 +327,7 @@ export class Stage {
       return made;
     };
     // MN9 is two neurons among thousands: when one of them fires it has to be seen, so they get a larger point of their own
-    this.active = { points: layer(indices, 0.13), count: indices.length, readout: layer(readoutPlaces.map((k) => indices[k]), 0.5), places: readoutPlaces };
+    this.active = { points: layer(indices, 0.13), count: indices.length, readout: layer(readoutPlaces.map((k) => indices[k]), readoutSize), places: readoutPlaces };
   }
 
   /** `glow` comes from light(): one number per active neuron, or null for none. No spikes in the window, no light. */
@@ -391,7 +370,7 @@ export class Stage {
 
   /** He is back: at his station, facing his work, with it picked up again. Only then may the ceremony's clock run. */
   get atWork(): boolean {
-    return !this.resting && this.atStation && this.rest === 0;
+    return this.body.atWork;
   }
 
   resize(width: number, height: number): void {
@@ -399,6 +378,11 @@ export class Stage {
     this.renderer.setSize(width, height, false);
     this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
+  }
+
+  /** Which of his legs the puppet is moving in the frame just drawn. His knee sensors are driven by this and by nothing else. */
+  get movement(): Movement | null {
+    return this.motion ? movementOf(this.motion) : null;
   }
 
   /** Where the names go, in CSS pixels: over his brain and beside his nerve cord. */
@@ -423,10 +407,11 @@ export class Stage {
   draw(state: LoopState, sip: SipLook, book: string, dt: number, resting: boolean, still = false, drink: Drink = DRY): void {
     this.drink = drink;
     if (!still) this.time += dt;
-    this.resting = resting;
-    this.rest = Math.min(1, Math.max(0, this.rest + (resting ? dt : this.atStation ? -dt : 0) / 0.8));
     if (resting) this.printCover(book);
-    this.place(onBreak(pose(state.phase, state.progress, sip, state.phaseSeconds, drink.drunk), this.rest), sip, dt);
+    // A still has time in its frames and a ceremony that stands, so whether he is lifting is read off the ceremony.
+    // A viewer's pause has no time in its frames, and holds whatever his body was doing.
+    const hint = still && dt > 0 ? { lifting: this.lifts(state, sip) } : null;
+    this.place(this.body.step(this.wish(state, sip, resting, hint), dt), sip);
     if (!still) this.brain.rotation.y += dt * 0.12;
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
@@ -434,58 +419,36 @@ export class Stage {
 
   /** Put everyone where a moment has them, with no walking there and no turning of the cloud. For stills. */
   settle(state: LoopState, sip: SipLook, book: string, resting: boolean): void {
-    this.resting = resting;
-    this.rest = resting ? 1 : 0;
-    this.reading = 0; // so that nothing keeps him sitting
     if (resting) this.printCover(book);
-    const at = onBreak(pose(state.phase, state.progress, sip, state.phaseSeconds, this.drink.drunk), this.rest);
-    this.place(at, sip, 10); // he turns and walks all the way
-    this.place(at, sip, 10); // and turns to face his work, or sits down and opens his book
-    this.reading = resting ? 1 : 0;
-    this.place(at, sip, 0);
+    this.place(this.body.settle(this.wish(state, sip, resting, { lifting: this.lifts(state, sip) })), sip);
   }
 
-  private place(at: Pose, sip: SipLook, step: number): void {
-    if (!(step >= 0)) throw new Error(`time runs forwards here: ${step}`); // a negative step would turn him by a rate times a negative time
+  private wish(state: LoopState, sip: SipLook, resting: boolean, still: { lifting: boolean } | null) {
+    const tin = sip.teaIndex === null ? null : this.tins[sip.teaIndex];
+    return { work: pose(state.phase, state.progress, sip, state.phaseSeconds, this.drink.drunk), tinX: tin ? (tin.userData.home as THREE.Vector3).x : AT.tins,
+      resting, t: this.time, proboscis: this.drink.extension, still };
+  }
+
+  /** Is what he holds on its way up or down at this moment of the ceremony? Read off the pose a moment later, so that a still can answer. */
+  private lifts(state: LoopState, sip: SipLook): boolean {
+    const at = (progress: number): number => carrying(pose(state.phase, progress, sip, state.phaseSeconds, this.drink.drunk));
+    return Math.abs(at(Math.min(1, state.progress + 0.01)) - at(state.progress)) > 1e-4;
+  }
+
+  private place({ at, motion }: { at: Pose; motion: FlyMotion }, sip: SipLook): void {
     const t = this.time;
     const tin = sip.teaIndex === null ? null : this.tins[sip.teaIndex];
-    const station = { tin: tin ? (tin.userData.home as THREE.Vector3).x : AT.tins, kettle: AT.kettle, sifter: AT.sifter, bowl: AT.bowl, cup: CUP_STAND }[at.walkTo];
-    const walkTo = this.resting ? AT.cushion : station;
-    const stand = !this.resting && at.walkTo === "cup" ? TASTE_YAW : 0; // the way he faces once he is there
-
-    // he turns to where he is going, walks there on an alternating tripod, and turns back to face his work
-    const away = walkTo - this.flyX;
-    const seated = this.reading > 0.05 && !this.resting; // he shuts his book before he gets up
-    const facing = seated ? this.yaw : Math.abs(away) > 0.03 ? Math.sign(away) * (Math.PI / 2) : stand;
-    const turn = Math.max(-TURN_SPEED * step, Math.min(TURN_SPEED * step, facing - this.yaw));
-    this.yaw += turn;
-    const aligned = Math.abs(facing - this.yaw) < 0.3;
-    const move = aligned && !seated ? Math.sign(away) * Math.min(Math.abs(away), WALK_SPEED * step) : 0;
-    this.flyX += move;
-    this.atStation = Math.abs(station - this.flyX) < 0.02 && Math.abs(stand - this.yaw) < 0.05;
-    this.stride += (Math.abs(move) + Math.abs(turn) * 0.12) * STRIDE;
-    const walking = step > 0 ? Math.min(1, (Math.abs(move) + Math.abs(turn) * 0.12) / (WALK_SPEED * step) * 1.2) : 0;
-    // the book opens once he has sat down, and closes before he gets up
-    const reading = this.resting && this.rest === 1 && Math.abs(AT.cushion - this.flyX) < 0.02 && Math.abs(this.yaw) < 0.05 ? 1 : 0;
-    this.reading += (reading - this.reading) * Math.min(1, step * 5);
 
     // To taste he steps up to the cup and lowers his head until his lips touch the tea. Touching is the stimulus; it is not drinking.
-    this.puppet.group.position.set(this.flyX + Math.sin(TASTE_YAW) * TASTE_STEP * at.lean, TABLE_Y, WALK_Z + Math.cos(TASTE_YAW) * TASTE_STEP * at.lean);
-    this.puppet.group.rotation.y = this.yaw;
-    this.puppet.update({ t, stride: this.stride, walking: Math.max(walking, at.lean > 0.02 && at.lean < 0.98 ? 0.6 : 0), lean: at.lean, calm: at.touching ? 1 : 0, reading: this.reading, whisking: at.whisking, wiping: at.wipe, proboscis: at.touching ? this.drink.extension : 0 });
-    if (at.lean > 0.02 && at.lean < 0.98) this.stride += step * 9; // stepping up to the cup, and back
-    this.book.visible = this.reading > 0.02;
-    this.book.scale.setScalar(Math.max(0.001, this.reading));
+    this.puppet.group.position.set(this.body.x + Math.sin(TASTE_YAW) * TASTE_STEP * at.lean, TABLE_Y, WALK_Z + Math.cos(TASTE_YAW) * TASTE_STEP * at.lean);
+    this.puppet.group.rotation.y = this.body.yaw;
+    this.motion = motion;
+    this.puppet.update(motion);
+    this.book.visible = this.body.reading > 0.02;
+    this.book.scale.setScalar(Math.max(0.001, this.body.reading));
     const leaf = (t % 5.5) / 0.9; // a page every few seconds
     this.page.rotation.y = -0.38 - (Math.PI - 0.76) * (leaf < 1 ? ease(leaf) : 0);
     this.page.visible = leaf < 1;
-
-    const head = this.puppet.head.getWorldPosition(new THREE.Vector3());
-    const line = this.tether.geometry.getAttribute("position") as THREE.BufferAttribute;
-    line.setXYZ(0, head.x, head.y + 0.2, head.z);
-    line.setXYZ(1, this.brain.position.x - 0.4, this.brain.position.y + CLOUD_SCALE * 0.27, this.brain.position.z);
-    line.needsUpdate = true;
-    this.tether.computeLineDistances();
 
     this.tins.forEach((each) => {
       const home = each.userData.home as THREE.Vector3;
@@ -540,5 +503,4 @@ export class Stage {
     });
   }
 
-  private reading = 0;
 }

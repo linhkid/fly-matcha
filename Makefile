@@ -35,3 +35,4 @@ mechanics-gate:  ## no mechanic is switched on without a passed experiment that 
 
 census:          ## needs the stage A files: python -m flylab data fetch --stage A --yes
 	$(PY) -m flylab census taste
+	$(PY) -m flylab census legs

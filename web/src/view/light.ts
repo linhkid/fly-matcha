@@ -14,6 +14,8 @@ export interface Recording {
 export function light(points: number, index: Map<string, number>, recording: Recording | null, tStep: number, windowSteps: number): Float32Array {
   const out = new Float32Array(points);
   if (!recording) return out;
+  // a moment that is not a number passes both comparisons below, and every spike of the recording would be lit at once
+  if (!Number.isFinite(tStep) || !Number.isFinite(windowSteps)) throw new Error(`no such moment to light: step ${tStep}, window ${windowSteps}`);
   for (let i = 0; i < recording.spikeStep.length; i++) {
     const step = recording.spikeStep[i];
     if (step > tStep) break; // recordings are sorted by step

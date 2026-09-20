@@ -4,6 +4,17 @@
 
 Asked for by the user on 2026-09-19: "we know fly cannot brew matcha, but can we force it to use his legs to lift and motions? so that it can show at the 'on the cloud' and in the brain image as well", and then: "if he moves, the neuron in his brain has to react to that too. clean, sift etc too." Stage A needs V1 only. Stage B needs slice 03, and so the user's yes for 508 MB.
 
+**Built 2026-09-20, as a pilot, and not as the text below first planned it.** The user said: "everytime he moves, i need his movement neurons gets activated (if any) too - but it has to be real not staged." That rules out Stage A, in which we would have forced his motor neurons to match the puppet: those spikes would have been ours. What was built is route 2, his sensing, shown the way V2 shows tasting: pilot recordings, no claim.
+
+- The legs census gained six groups, the hook and claw neurons of each pair of legs' knee sensors (`sens.hook.fl` … `sens.claw.hl`, 151 neurons, every one a row the dataset itself calls chordotonal organ; `circuits/legs.circuit.json` version 2). The front leg nerve is thinly traced here: 15 neurons against 67 and 69. The link from type to "hook" or "claw" is a handful of labelled hind-leg neurons per type, and the census says so type by type.
+- `contracts/codec/legs.codec.json` says what a moving leg does to them: both kinds, both sides, 100 Hz, for as long as the pair moves. Two movements exist, because the puppet makes two: `walk` (all six legs) and `front` (the front pair: lifting, sifting, whisking, wiping).
+- `python -m flylab web recordings` records his whole nervous system under each, 300 ms, seed 1, base model: **walk** 3,490 neurons beyond the sensors, 79 of his 373 leg motor neurons firing 463 times, and 162 motor neurons of other parts of him firing 1,125 times, the wing's power muscles busiest among them; **front** 109 neurons, all in the cord, 16 leg motor neurons, 26 spikes. Nothing drives a motor neuron in these trials.
+- `web/src/view/body.ts` makes his body's motion out of the ceremony's pose, his walk and his breaks, and `web/src/view/gait.ts` answers "which knees are moving now?" from it. Tests hold both to the kinematics, frame by frame through whole bowls and breaks: a pair said to move has knees whose angle changes, a pair not said to has no joint that changes. For that to be true of walking, the puppet's knees now work through stance as well as swing, and his front legs go up and down with what he lifts and shake the sifter.
+- While a pair moves, `web/src/view/movement.ts` replays that movement's recording from its start, at the view's slowdown, in the same layer of light as tasting, with his leg motor neurons drawn larger. Still legs: nothing driven, nothing lit. The card has a line, "His legs", with every number tagged; it names the busiest leg pool as the busiest, not as most, and counts the motor neurons that are not of his legs beside his legs'.
+- **No experiment has run, so nothing is claimed**: not that this is walking, not that these motor neurons would move him, not that the response is specific to these sensors. E-move-1 to 3 below still stand, and any sentence beyond "this fired" waits for them. The puppet is moved by us, and the page says so on every card.
+
+Evidence: `assets/evidence/v3/`.
+
 ## The honest shape of it
 
 No fly brain brews tea, so the ceremony stays a puppet show. Two things about a moving fly are real in this dataset, and both can be shown:

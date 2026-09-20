@@ -1,0 +1,45 @@
+{
+  "id": "legs/1",
+  "tag": "model",
+  "note": "While the puppet moves a pair of legs, the hook and claw neurons of that pair's knee sensors are driven, on both sides, at one rate. What these neurons do is known from calcium imaging; nobody has published their spike rates, so the rate is our choice, the same as three pieces of sugar. A real fly turns its hook neurons down while it moves itself (Dallmann et al. 2025); a wiring diagram cannot, so the hook drive here is not gated as a real fly's is. A still leg drives nothing, although a real claw neuron keeps reporting the angle it is held at.",
+  "sensors": [
+    {
+      "id": "hook",
+      "groups": {
+        "fl": "sens.hook.fl",
+        "ml": "sens.hook.ml",
+        "hl": "sens.hook.hl"
+      }
+    },
+    {
+      "id": "claw",
+      "groups": {
+        "fl": "sens.claw.fl",
+        "ml": "sens.claw.ml",
+        "hl": "sens.claw.hl"
+      }
+    }
+  ],
+  "moving": {
+    "hz": 100,
+    "thr16": 655
+  },
+  "movements": [
+    {
+      "id": "walk",
+      "label": "all six legs",
+      "pairs": [
+        "fl",
+        "ml",
+        "hl"
+      ]
+    },
+    {
+      "id": "front",
+      "label": "his front legs",
+      "pairs": [
+        "fl"
+      ]
+    }
+  ]
+}

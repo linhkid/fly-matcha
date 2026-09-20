@@ -31,11 +31,11 @@ describe("a replay", () => {
   });
 
   it("counts what has happened so far, and the spikes it cannot draw", () => {
-    expect(replay().countsAt(-1)).toEqual({ tasteSpikes: 0, otherNeurons: 0, readoutSpikes: 0, undrawable: 0 });
-    expect(replay().countsAt(18)).toEqual({ tasteSpikes: 3, otherNeurons: 2, readoutSpikes: 0, undrawable: 1 });
-    expect(replay().countsAt(3000)).toEqual({ tasteSpikes: 4, otherNeurons: 4, readoutSpikes: 2, undrawable: 1 });
-    const { tasteSpikes, readoutSpikes, undrawable } = replay().countsAt(3000);
-    expect(tasteSpikes + undrawable + 5).toBe(recording.spikeStep.length);   // lips + nowhere + the five that land in the cloud
+    expect(replay().countsAt(-1)).toEqual({ inputSpikes: 0, otherNeurons: 0, readoutSpikes: 0, undrawable: 0 });
+    expect(replay().countsAt(18)).toEqual({ inputSpikes: 3, otherNeurons: 2, readoutSpikes: 0, undrawable: 1 });
+    expect(replay().countsAt(3000)).toEqual({ inputSpikes: 4, otherNeurons: 4, readoutSpikes: 2, undrawable: 1 });
+    const { inputSpikes, readoutSpikes, undrawable } = replay().countsAt(3000);
+    expect(inputSpikes + undrawable + 5).toBe(recording.spikeStep.length);   // lips + nowhere + the five that land in the cloud
     expect(readoutSpikes).toBe(2);
   });
 
@@ -65,7 +65,7 @@ describe("what is replayed at a moment of the ceremony", () => {
 
   it("runs with the ceremony's clock, and only while his lips are on the tea", () => {
     const at = replayAt(moment(12, from + 0.1575), false, replay(), 2, true, options);  // 31 and a half steps in
-    expect(at.replayed).toEqual({ seed: 1, steps: 31, slowdown: 50, touching: true, pilot: true, tasteSpikes: 4, otherNeurons: 3, readoutSpikes: 0, undrawable: 1, extension: 0, drunk: 0 });
+    expect(at.replayed).toEqual({ seed: 1, steps: 31, slowdown: 50, touching: true, pilot: true, inputSpikes: 4, otherNeurons: 3, readoutSpikes: 0, undrawable: 1, extension: 0, drunk: 0 });
     expect(Array.from(at.cloud!)).toEqual([1, 1, 0]);
     // a pause holds the moment as it is, light and all, so that it can be read
     const paused = replayAt(moment(12, from + 0.1575, { paused: true }), false, replay(), 2, true, options);

@@ -133,6 +133,47 @@ def sip_spec(model_id: str, graph_sha: str, codec: dict, codec_sha: str, sweet: 
             "durationSteps": steps, "drives": drives, "activated": [], "silenced": []}
 
 
+# --------------------------------------------------------------------------- his legs (slice V3)
+
+LEGS_CODEC_PATH = CODEC_PATH.with_name("legs.codec.json")
+MOVING_HZ = 100
+LEG_PAIRS = ("fl", "ml", "hl")
+
+
+def build_legs_codec(dt_ms: float = 0.1) -> dict:
+    """What a moving leg does to its own sensors. The groups are the census's (circuits/legs.circuit.json); the rate is ours."""
+    return {
+        "id": "legs/1",
+        "tag": "model",
+        "note": "While the puppet moves a pair of legs, the hook and claw neurons of that pair's knee sensors are driven, on both sides, at one rate. "
+                "What these neurons do is known from calcium imaging; nobody has published their spike rates, so the rate is our choice, the same as three pieces of sugar. "
+                "A real fly turns its hook neurons down while it moves itself (Dallmann et al. 2025); a wiring diagram cannot, so the hook drive here is not gated as a real fly's is. "
+                "A still leg drives nothing, although a real claw neuron keeps reporting the angle it is held at.",
+        "sensors": [{"id": kind, "groups": {pair: f"sens.{kind}.{pair}" for pair in LEG_PAIRS}} for kind in ("hook", "claw")],
+        "moving": {"hz": MOVING_HZ, "thr16": thr16(MOVING_HZ, dt_ms)},
+        "movements": [
+            {"id": "walk", "label": "all six legs", "pairs": list(LEG_PAIRS)},
+            {"id": "front", "label": "his front legs", "pairs": ["fl"]},
+        ],
+    }
+
+
+def write_legs_codec(path: Path = LEGS_CODEC_PATH) -> Path:
+    path.write_text(dump(build_legs_codec()), encoding="utf-8")
+    return path
+
+
+def movement_spec(model_id: str, graph_sha: str, codec: dict, codec_sha: str, movement: str, seed: int, steps: int) -> dict:
+    """The trial a movement is: the knee sensors of every moving pair of legs driven for the whole trial. Nothing else is touched."""
+    entry = next((m for m in codec["movements"] if m["id"] == movement), None)
+    if entry is None:
+        raise CodecError(f"no such movement: {movement}")
+    drives = [{"group": sensor["groups"][pair], "side": "both", "thr16": codec["moving"]["thr16"], "onStep": 0, "offStep": steps}
+              for sensor in codec["sensors"] for pair in entry["pairs"]]
+    return {"modelId": model_id, "variant": "base", "graphSha256": graph_sha, "codecSha256": codec_sha, "seed": seed,
+            "durationSteps": steps, "drives": drives, "activated": [], "silenced": []}
+
+
 DECODER_PATH = CODEC_PATH.with_name("taste.decoder.json")
 
 

@@ -45,12 +45,15 @@ button { font: inherit; color: var(--ink); background: rgba(233, 230, 216, 0.08)
 button:hover { background: rgba(233, 230, 216, 0.16); }
 button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
 
-#card { right: 16px; bottom: 44px; width: min(430px, 42vw); }
+/* under the table, between the shelf and his nervous system: the cord is where his moving legs show, so nothing may cover it */
+/* The scene scales with the window's height and words do not, so the card's height is tied to the window's: it scrolls before it covers him. */
+#card { left: 472px; right: 16px; bottom: 44px; max-height: calc(42vh - 44px); overflow-y: auto; }
+#card-body > .pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px 20px; }
 #card dl { margin: 0; display: grid; gap: 8px; }
-#card dt { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--dim); display: flex; gap: 6px; align-items: center; }
+#card dt { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--dim); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 #card dd { margin: 2px 0 0; }
-#card-body > dl .line:last-child dd { font: italic 17px/1.35 "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
-#card-body > dl .line:last-child .q { border-bottom: none; }
+#card-body .line.voice dd { font: italic 17px/1.35 "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+#card-body .line.voice .q { border-bottom: none; }
 .more { margin-top: 10px; }
 .more > summary { cursor: pointer; font-size: 12px; color: var(--dim); }
 .more > summary:hover { color: var(--ink); }
@@ -63,8 +66,10 @@ button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
 #lips-body { display: flex; gap: 12px; align-items: center; }
 #lips-body .more { margin-top: 6px; }
 #lips svg { width: 150px; flex: none; display: block; }
-#lips circle { transition: fill-opacity 0.12s, stroke-opacity 0.12s; fill-opacity: 0.4; stroke-opacity: 0.45; }
-#lips circle.lit { fill-opacity: 1; stroke-opacity: 1; filter: brightness(1.9) drop-shadow(0 0 3px #fff6d0); }
+/* A dot flashes at once when its neuron fires, and fades over a second and a half: a single spike lasts a third of a second on screen, too short to see. */
+#lips circle { transition: fill-opacity 1.5s ease-out, stroke-opacity 1.5s ease-out, filter 1.5s ease-out; fill-opacity: 0.32; stroke-opacity: 0.4; filter: brightness(1) drop-shadow(0 0 0 rgba(255, 246, 208, 0)); }
+#lips circle.lit { transition: none; fill-opacity: 1; stroke-opacity: 1; filter: brightness(2.3) drop-shadow(0 0 5px #fff6d0); }
+#lips-now { margin-top: 6px; }
 #lips p .swatch:not(:first-child) { margin-left: 8px; }
 #legend ul { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 16px; }
 #legend li { font-size: 12.5px; break-inside: avoid; margin-bottom: 3px; padding-left: 15px; text-indent: -15px; }
@@ -98,8 +103,14 @@ body.bare #title, body.bare #shelf, body.bare #card, body.bare #staged, body.bar
 body.bare #controls { opacity: 0.35; }
 body.bare #controls:hover { opacity: 1; }
 
+/* a narrower window has no room under the table for two columns: the card goes back to the right, one line under the other */
+@media (max-width: 1200px), (max-height: 640px) {
+  #card { left: auto; right: 16px; width: min(430px, 42vw); max-height: 34vh; }
+  #card-body > .pair { grid-template-columns: minmax(0, 1fr); }
+}
+
 @media (max-width: 960px), (max-height: 640px) {
   #shelf, #pins { display: none; }
-  #card { width: min(430px, calc(100vw - 32px)); font-size: 13px; }
+  #card { left: auto; right: 16px; width: min(430px, calc(100vw - 32px)); font-size: 13px; }
   #track ol li:not(.now) { display: none; }
 }

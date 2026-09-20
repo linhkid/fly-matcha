@@ -1,7 +1,7 @@
 {
  "circuit": "legs",
- "version": 1,
- "description": "The motor neurons of his six legs, pool by pool, as the dataset names them. Facts only: which neurons, which leg, which side. What each muscle does to a leg comes from papers and lives in the movement mapping, not here. Front-leg pools gate the census because the ceremony's handling is done with the front legs.",
+ "version": 2,
+ "description": "The motor neurons of his six legs, pool by pool, and the knee sensors of each pair of legs, as the dataset names them. Facts only: which neurons, which leg, which side. What each muscle does to a leg, and how hard a moving knee drives its sensors, come from papers and from us, and live in the movement codec, not here. Front-leg groups gate the census because the ceremony's handling is done with the front legs.",
  "roles": [
   {
    "id": "mn.fl.acc-ti-flexor",
@@ -1484,6 +1484,204 @@
    },
    "explain": "Motor neurons of the hind leg with no muscle in their name. They are counted so that nobody thinks the named pools are the whole leg.",
    "flag": "no muscle named"
+  },
+  {
+   "id": "sens.hook.fl",
+   "role": "sensory input",
+   "select": {
+    "type": [
+     "SNpp39",
+     "SNpp41"
+    ],
+    "where": {
+     "class": [
+      "mechanosensory_proprioceptive"
+     ],
+     "subclass": [
+      "chordotonal organ"
+     ],
+     "entryNerve": [
+      "ProLN"
+     ]
+    }
+   },
+   "expect": {
+    "count": 10,
+    "basis": "observed"
+   },
+   "required": true,
+   "evidence": {
+    "claim": "Bound by annotated type (SNpp39, SNpp41), class mechanosensory_proprioceptive, subclass chordotonal organ, entering by the front leg nerve ProLN: 8 SNpp39, 2 SNpp41. SNpp39: 2 of 39 neurons carry the dataset's synonym 'FeCO hook', all of them in the hind leg nerve, and none carries another organ's name; SNpp41: 3 of 22 neurons carry the dataset's synonym 'FeCO hook', all of them in the hind leg nerve, and none carries another organ's name. Members without the synonym, which is every front and middle-leg one, are taken to be the same kind because the dataset gives them the same type name.",
+    "source": "MaleCNS v1.0 body annotations (columns type, class, entryNerve, synonyms, rootSide)",
+    "kind": "annotation"
+   },
+   "explain": "Sensory neurons of the front legs' femoral chordotonal organ, the stretch sensor of the knee, of the kind the dataset calls hook: they fire while the knee moves.",
+   "caveat": "The link from type to 'hook' or 'claw' is thin: a handful of labelled hind-leg neurons per type, for SNpp51 a single one. What hook and claw neurons respond to was measured in the front leg of female flies by calcium imaging (Mamiya, Gurung and Tuthill 2018), not in these cells. A neuron here has no cell body in the volume, so its side is the side its axon enters on."
+  },
+  {
+   "id": "sens.hook.ml",
+   "role": "sensory input",
+   "select": {
+    "type": [
+     "SNpp39",
+     "SNpp41"
+    ],
+    "where": {
+     "class": [
+      "mechanosensory_proprioceptive"
+     ],
+     "subclass": [
+      "chordotonal organ"
+     ],
+     "entryNerve": [
+      "MesoLN"
+     ]
+    }
+   },
+   "expect": {
+    "count": 28,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by annotated type (SNpp39, SNpp41), class mechanosensory_proprioceptive, subclass chordotonal organ, entering by the middle leg nerve MesoLN: 17 SNpp39, 11 SNpp41. SNpp39: 2 of 39 neurons carry the dataset's synonym 'FeCO hook', all of them in the hind leg nerve, and none carries another organ's name; SNpp41: 3 of 22 neurons carry the dataset's synonym 'FeCO hook', all of them in the hind leg nerve, and none carries another organ's name. Members without the synonym, which is every front and middle-leg one, are taken to be the same kind because the dataset gives them the same type name.",
+    "source": "MaleCNS v1.0 body annotations (columns type, class, entryNerve, synonyms, rootSide)",
+    "kind": "annotation"
+   },
+   "explain": "Sensory neurons of the middle legs' femoral chordotonal organ, the stretch sensor of the knee, of the kind the dataset calls hook: they fire while the knee moves.",
+   "caveat": "The link from type to 'hook' or 'claw' is thin: a handful of labelled hind-leg neurons per type, for SNpp51 a single one. What hook and claw neurons respond to was measured in the front leg of female flies by calcium imaging (Mamiya, Gurung and Tuthill 2018), not in these cells. A neuron here has no cell body in the volume, so its side is the side its axon enters on."
+  },
+  {
+   "id": "sens.hook.hl",
+   "role": "sensory input",
+   "select": {
+    "type": [
+     "SNpp39",
+     "SNpp41"
+    ],
+    "where": {
+     "class": [
+      "mechanosensory_proprioceptive"
+     ],
+     "subclass": [
+      "chordotonal organ"
+     ],
+     "entryNerve": [
+      "MetaLN"
+     ]
+    }
+   },
+   "expect": {
+    "count": 22,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by annotated type (SNpp39, SNpp41), class mechanosensory_proprioceptive, subclass chordotonal organ, entering by the hind leg nerve MetaLN: 14 SNpp39, 8 SNpp41. SNpp39: 2 of 39 neurons carry the dataset's synonym 'FeCO hook', all of them in the hind leg nerve, and none carries another organ's name; SNpp41: 3 of 22 neurons carry the dataset's synonym 'FeCO hook', all of them in the hind leg nerve, and none carries another organ's name. Members without the synonym, which is every front and middle-leg one, are taken to be the same kind because the dataset gives them the same type name.",
+    "source": "MaleCNS v1.0 body annotations (columns type, class, entryNerve, synonyms, rootSide)",
+    "kind": "annotation"
+   },
+   "explain": "Sensory neurons of the hind legs' femoral chordotonal organ, the stretch sensor of the knee, of the kind the dataset calls hook: they fire while the knee moves.",
+   "caveat": "The link from type to 'hook' or 'claw' is thin: a handful of labelled hind-leg neurons per type, for SNpp51 a single one. What hook and claw neurons respond to was measured in the front leg of female flies by calcium imaging (Mamiya, Gurung and Tuthill 2018), not in these cells. A neuron here has no cell body in the volume, so its side is the side its axon enters on."
+  },
+  {
+   "id": "sens.claw.fl",
+   "role": "sensory input",
+   "select": {
+    "type": [
+     "SNpp50",
+     "SNpp51"
+    ],
+    "where": {
+     "class": [
+      "mechanosensory_proprioceptive"
+     ],
+     "subclass": [
+      "chordotonal organ"
+     ],
+     "entryNerve": [
+      "ProLN"
+     ]
+    }
+   },
+   "expect": {
+    "count": 5,
+    "basis": "observed"
+   },
+   "required": true,
+   "evidence": {
+    "claim": "Bound by annotated type (SNpp50, SNpp51), class mechanosensory_proprioceptive, subclass chordotonal organ, entering by the front leg nerve ProLN: 1 SNpp50, 4 SNpp51. SNpp50: 12 of 62 neurons carry the dataset's synonym 'FeCO claw', all of them in the hind leg nerve, and none carries another organ's name; SNpp51: 1 of 32 neurons carry the dataset's synonym 'FeCO claw', all of them in the hind leg nerve, and none carries another organ's name. Members without the synonym, which is every front and middle-leg one, are taken to be the same kind because the dataset gives them the same type name.",
+    "source": "MaleCNS v1.0 body annotations (columns type, class, entryNerve, synonyms, rootSide)",
+    "kind": "annotation"
+   },
+   "explain": "Sensory neurons of the front legs' femoral chordotonal organ, the stretch sensor of the knee, of the kind the dataset calls claw: they report the angle the knee is held at.",
+   "caveat": "The link from type to 'hook' or 'claw' is thin: a handful of labelled hind-leg neurons per type, for SNpp51 a single one. What hook and claw neurons respond to was measured in the front leg of female flies by calcium imaging (Mamiya, Gurung and Tuthill 2018), not in these cells. A neuron here has no cell body in the volume, so its side is the side its axon enters on."
+  },
+  {
+   "id": "sens.claw.ml",
+   "role": "sensory input",
+   "select": {
+    "type": [
+     "SNpp50",
+     "SNpp51"
+    ],
+    "where": {
+     "class": [
+      "mechanosensory_proprioceptive"
+     ],
+     "subclass": [
+      "chordotonal organ"
+     ],
+     "entryNerve": [
+      "MesoLN"
+     ]
+    }
+   },
+   "expect": {
+    "count": 39,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by annotated type (SNpp50, SNpp51), class mechanosensory_proprioceptive, subclass chordotonal organ, entering by the middle leg nerve MesoLN: 25 SNpp50, 14 SNpp51. SNpp50: 12 of 62 neurons carry the dataset's synonym 'FeCO claw', all of them in the hind leg nerve, and none carries another organ's name; SNpp51: 1 of 32 neurons carry the dataset's synonym 'FeCO claw', all of them in the hind leg nerve, and none carries another organ's name. Members without the synonym, which is every front and middle-leg one, are taken to be the same kind because the dataset gives them the same type name.",
+    "source": "MaleCNS v1.0 body annotations (columns type, class, entryNerve, synonyms, rootSide)",
+    "kind": "annotation"
+   },
+   "explain": "Sensory neurons of the middle legs' femoral chordotonal organ, the stretch sensor of the knee, of the kind the dataset calls claw: they report the angle the knee is held at.",
+   "caveat": "The link from type to 'hook' or 'claw' is thin: a handful of labelled hind-leg neurons per type, for SNpp51 a single one. What hook and claw neurons respond to was measured in the front leg of female flies by calcium imaging (Mamiya, Gurung and Tuthill 2018), not in these cells. A neuron here has no cell body in the volume, so its side is the side its axon enters on."
+  },
+  {
+   "id": "sens.claw.hl",
+   "role": "sensory input",
+   "select": {
+    "type": [
+     "SNpp50",
+     "SNpp51"
+    ],
+    "where": {
+     "class": [
+      "mechanosensory_proprioceptive"
+     ],
+     "subclass": [
+      "chordotonal organ"
+     ],
+     "entryNerve": [
+      "MetaLN"
+     ]
+    }
+   },
+   "expect": {
+    "count": 47,
+    "basis": "observed"
+   },
+   "required": false,
+   "evidence": {
+    "claim": "Bound by annotated type (SNpp50, SNpp51), class mechanosensory_proprioceptive, subclass chordotonal organ, entering by the hind leg nerve MetaLN: 35 SNpp50, 12 SNpp51. SNpp50: 12 of 62 neurons carry the dataset's synonym 'FeCO claw', all of them in the hind leg nerve, and none carries another organ's name; SNpp51: 1 of 32 neurons carry the dataset's synonym 'FeCO claw', all of them in the hind leg nerve, and none carries another organ's name. Members without the synonym, which is every front and middle-leg one, are taken to be the same kind because the dataset gives them the same type name.",
+    "source": "MaleCNS v1.0 body annotations (columns type, class, entryNerve, synonyms, rootSide)",
+    "kind": "annotation"
+   },
+   "explain": "Sensory neurons of the hind legs' femoral chordotonal organ, the stretch sensor of the knee, of the kind the dataset calls claw: they report the angle the knee is held at.",
+   "caveat": "The link from type to 'hook' or 'claw' is thin: a handful of labelled hind-leg neurons per type, for SNpp51 a single one. What hook and claw neurons respond to was measured in the front leg of female flies by calcium imaging (Mamiya, Gurung and Tuthill 2018), not in these cells. A neuron here has no cell body in the volume, so its side is the side its axon enters on."
   }
  ],
  "aliases": [],
@@ -1496,6 +1694,14 @@
   {
    "title": "Their transmitter hardly matters here",
    "text": "Fly motor neurons release glutamate at the muscle. Their transmitter label matters only for the few synapses they make inside the cord."
+  },
+  {
+   "title": "The front leg's sensors are thin here",
+   "text": "The front leg nerve holds far fewer typed chordotonal neurons in this dataset than the middle and hind leg nerves. That is a fact about the reconstruction, not about the fly, and the page says so where it counts them."
+  },
+  {
+   "title": "Not bound: club neurons and the unnamed types",
+   "text": "Club neurons (SNpp40, 47, 56, 57, 60) sense vibration, and a cartoon leg makes none. Chordotonal types with no synonym anywhere (SNpp42, 43, 44, 46, 48, 49, 58, 59) are left alone: a name is not a function."
   }
  ],
  "inventory": {

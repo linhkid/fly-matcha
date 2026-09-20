@@ -22,6 +22,8 @@ const DECODER = { window: [2000, 10000] as [number, number], extendAtLeast: 41, 
 const LICENSED = { outcome: "extend" as const, windowCount: 63, decoder: DECODER };
 const cardHtml = (card: Card): string => cardHeadHtml(card) + cardBodyHtml(card, true);
 
+const STILL = { state: "still" } as const;
+
 describe("the audit", () => {
   it("finds a number that stands in the text with no tag, and lets a reference be", () => {
     expect(audit("<p>He has 34 sweet neurons.</p>", reg)).toEqual(["34: a number with no tag"]);
@@ -39,7 +41,7 @@ describe("the words around the stage", () => {
     for (let sipIndex = 0; sipIndex < 25; sipIndex++) {
       for (const phase of PHASES) {
         const html = trackHtml(reg, { sipIndex, phase, progress: 0.5, phaseSeconds: 10, paused: false })
-          + cardHtml(reactionCard(reg, codec, info, { sip: sipAt(codec, sipIndex), phase, phaseSeconds: 10, stay: NEVER, away: null, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0 }));
+          + cardHtml(reactionCard(reg, codec, info, { sip: sipAt(codec, sipIndex), phase, phaseSeconds: 10, stay: NEVER, away: null, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0, legs: STILL }));
         expect(audit(html, reg), `sip ${sipIndex}, ${phase}`).toEqual([]);
       }
     }
@@ -49,8 +51,8 @@ describe("the words around the stage", () => {
     for (let sipIndex = 0; sipIndex < 25; sipIndex++) {
       for (const phase of PHASES) {
         const book = bookAt(sipIndex);
-        const card = reactionCard(reg, codec, info, { sip: sipAt(codec, sipIndex), phase, phaseSeconds: 10, stay: NEVER, away: { book, returning: false }, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0 });
-        const working = reactionCard(reg, codec, info, { sip: sipAt(codec, sipIndex), phase, phaseSeconds: 10, stay: NEVER, away: null, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0 });
+        const card = reactionCard(reg, codec, info, { sip: sipAt(codec, sipIndex), phase, phaseSeconds: 10, stay: NEVER, away: { book, returning: false }, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0, legs: STILL });
+        const working = reactionCard(reg, codec, info, { sip: sipAt(codec, sipIndex), phase, phaseSeconds: 10, stay: NEVER, away: null, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0, legs: STILL });
         expect(card.heading).toBe(`On a break · reading ${book}`);
         expect(card.lines.slice(0, 2)).toEqual(working.lines.slice(0, 2));
         expect(card.lines[2].html).toMatch(/^The break is yours, not his\. He is not tired/); // the viewer's question, answered where it arises
@@ -63,23 +65,26 @@ describe("the words around the stage", () => {
   });
 
   it("reports what the recording holds, tagged as recorded, in the right tense, and gives no verdict", () => {
-    const moment = { sip: sipAt(codec, 3), phase: "taste" as const, phaseSeconds: 12.4, stay: { seconds: 12.4, why: "silent", lastStep: 1150 } as Stay, away: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0 };
-    const counts = { seed: 1, slowdown: 50, pilot: true, tasteSpikes: 1204, otherNeurons: 1987, readoutSpikes: 9, undrawable: 412, extension: 0, drunk: 0 };
+    const moment = { sip: sipAt(codec, 3), phase: "taste" as const, phaseSeconds: 12.4, stay: { seconds: 12.4, why: "silent", lastStep: 1150 } as Stay, away: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0, legs: STILL };
+    const counts = { seed: 1, slowdown: 50, pilot: true, inputSpikes: 1204, otherNeurons: 1987, readoutSpikes: 9, undrawable: 412, extension: 0, drunk: 0 };
     const before = reactionCard(reg, codec, info, { ...moment, replayed: null });
     const during = reactionCard(reg, codec, info, { ...moment, replayed: { ...counts, steps: 412, touching: true } });
     const after = reactionCard(reg, codec, info, { ...moment, replayed: { ...counts, steps: 1900, touching: false } });
-    const late = reactionCard(reg, codec, info, { ...moment, replayed: null, waiting: true, frozen: false, summary: null, verdict: null, bowl: 0 });
+    const late = reactionCard(reg, codec, info, { ...moment, replayed: null, waiting: true, frozen: false, summary: null, verdict: null, bowl: 0, legs: STILL });
     const text = (card: Card, line: number): string => card.lines[line].html.replace(/<[^>]*>/g, "");
     expect(text(before, 1)).toMatch(/^Once the tea is on his lips:/);
     expect(text(before, 2)).toMatch(/^His lips are not on the tea yet\. He stays 12\.4 s: MN9 last fires at 115\.0 ms of his time, and his lips stay on the tea until then and a breath longer\./);
     expect(before.lines[2].html).toContain('data-q="rec.readoutLast" data-prov="model" data-src="recorded"');   // the number his stay is made from stands beside it
     expect(text(during, 1)).toMatch(/^Now:/);
-    expect(text(during, 2)).toMatch(/^The tea is on his lips\. In 41\.2 ms of his time his taste neurons fired 1,204 times, 1,987 other neurons joined in across his brain and nerve cord, and MN9, the pair that lifts his proboscis, fired 9 times\. 412 of the spikes came from neurons with no position to draw\. Shown 50 times slower\./);
-    expect(text(during, 2)).toMatch(/A pilot recording of his whole brain, seed 1: the taste law has not been tested yet, so this is what was measured, not a verdict\./);
+    expect(text(during, 2)).toMatch(/^The tea is on his lips\. In 41\.2 ms of his time his taste neurons fired 1,204 times, 1,987 other neurons joined in across his brain and nerve cord, and MN9, the pair that lifts his proboscis, fired 9 times\. A pilot recording, not a verdict\. He stays /);
+    // what cannot be drawn, the slowdown and the seed are folded away with what he was served, and are still said
+    expect(text(during, 5)).toBe("Tasting: 412 of the spikes so far came from neurons with no position to draw. A pilot recording of his whole brain, seed 1: the taste law has not been tested yet, so this is what was measured, not a verdict. Shown 50 times slower than his time.");
+    expect(text(before, 5)).toBe("Nothing is being replayed: he tastes nothing and his legs are still.");
     expect(text(after, 1)).toMatch(/^While the tea was on his lips:/);
     expect(text(after, 2)).toMatch(/^The tea was on his lips\./);
     expect(text(late, 2)).toMatch(/^The recording of this bowl has not arrived yet, so nothing is shown\./);
-    for (const id of ["rec.taste", "rec.neurons", "rec.readout", "rec.undrawable"]) expect(during.lines[2].html).toContain(`data-q="${id}" data-prov="model" data-src="recorded"`);
+    expect(during.lines[5].html).toContain('data-q="rec.undrawable" data-prov="model" data-src="recorded"');
+    for (const id of ["rec.taste", "rec.neurons", "rec.readout"]) expect(during.lines[2].html).toContain(`data-q="${id}" data-prov="model" data-src="recorded"`);
     expect(during.lines[2].html).toContain('data-q="linger.seconds" data-prov="staged"');   // his brain sets when MN9 falls silent; turning that into seconds is ours
     expect(during.lines[2].html).toContain('data-q="model.time" data-prov="staged"');
     expect(during.lines[2].tags).toEqual(["model", "staged"]);
@@ -94,7 +99,7 @@ describe("the words around the stage", () => {
   });
 
   it("gives the true reason for the length of his stay, which is not always that MN9 fell silent", () => {
-    const at = (stay: Stay): string => reactionCard(reg, codec, info, { sip: sipAt(codec, 3), phase: "taste", phaseSeconds: stay.seconds, stay, away: null, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0 }).lines[2].html.replace(/<[^>]*>/g, "");
+    const at = (stay: Stay): string => reactionCard(reg, codec, info, { sip: sipAt(codec, 3), phase: "taste", phaseSeconds: stay.seconds, stay, away: null, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0, legs: STILL }).lines[2].html.replace(/<[^>]*>/g, "");
     expect(at({ seconds: 8, why: "never", lastStep: null })).toMatch(/He stays 8 s, the least he ever does: in this recording MN9 never fires\./);
     expect(at({ seconds: 8, why: "early", lastStep: 40 })).toMatch(/the least he ever does: MN9 last fires at 4\.0 ms of his time, and he is never rushed\./);
     expect(at({ seconds: 20, why: "longest", lastStep: 2990 })).toMatch(/He stays 20 s, the most he ever does: MN9 is still firing at 299\.0 ms of his time, later than the longest stay can show\./);
@@ -102,7 +107,7 @@ describe("the words around the stage", () => {
   });
 
   it("does not call a taste that is absent a drive at zero", () => {
-    const water = reactionCard(reg, codec, info, { sip: { teaId: null, scoops: 0, sweets: 0 }, phase: "taste", phaseSeconds: 8, stay: NEVER, away: null, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0 });
+    const water = reactionCard(reg, codec, info, { sip: { teaId: null, scoops: 0, sweets: 0 }, phase: "taste", phaseSeconds: 8, stay: NEVER, away: null, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0, legs: STILL });
     const heard = water.lines[1].html.replace(/<[^>]*>/g, "");
     expect(heard).toMatch(/34 sweet taste neurons not driven · 38 bitter not driven/);
     expect(heard).not.toMatch(/0 Hz/);
@@ -111,11 +116,11 @@ describe("the words around the stage", () => {
   it("never says sip: nothing has licensed the claim that he sips", () => {
     const dots = lipLayout(info.mouthparts);
     let seen = titleHtml(reg, info) + lipsHtml(reg, dots, 50) + legendHtml(reg, info) + stagedHtml(reg, reg.ids()) + footHtml();
-    const replayed = { seed: 1, steps: 400, slowdown: 50, touching: true, pilot: true, tasteSpikes: 9, otherNeurons: 9, readoutSpikes: 1, undrawable: 1, extension: 0, drunk: 0 };
+    const replayed = { seed: 1, steps: 400, slowdown: 50, touching: true, pilot: true, inputSpikes: 9, otherNeurons: 9, readoutSpikes: 1, undrawable: 1, extension: 0, drunk: 0 };
     for (let sipIndex = 0; sipIndex < 25; sipIndex++) {
       for (const phase of PHASES) {
         for (const more of [{ replayed: null, waiting: false, away: null }, { replayed: null, waiting: true, away: null }, { replayed, waiting: false, away: null }, { replayed: null, waiting: false, away: { book: bookAt(sipIndex), returning: false } }]) {
-          const card = reactionCard(reg, codec, info, { sip: sipAt(codec, sipIndex), phase, phaseSeconds: 9, stay: { seconds: 9, why: "silent", lastStep: 500 }, frozen: sipIndex % 2 === 0, summary: phase === "clean" ? replayed : null, verdict: sipIndex % 3 ? LICENSED : null, bowl: sipIndex, ...more });
+          const card = reactionCard(reg, codec, info, { sip: sipAt(codec, sipIndex), phase, phaseSeconds: 9, stay: { seconds: 9, why: "silent", lastStep: 500 }, frozen: sipIndex % 2 === 0, summary: phase === "clean" ? replayed : null, verdict: sipIndex % 3 ? LICENSED : null, bowl: sipIndex, legs: STILL, ...more });
           seen += trackHtml(reg, { sipIndex, phase, progress: 0.4, phaseSeconds: 9, paused: false }) + cardHtml(card);
         }
       }
@@ -125,19 +130,19 @@ describe("the words around the stage", () => {
   });
 
   it("holds a moment for reading, and keeps what his brain did on the card while he cleans up", () => {
-    const base = { sip: sipAt(codec, 3), phaseSeconds: 12, stay: NEVER, away: null, replayed: null, waiting: false, verdict: null, bowl: 3 };
-    const summary = { seed: 1, steps: 1500, slowdown: 50, touching: false, pilot: true, tasteSpikes: 900, otherNeurons: 2100, readoutSpikes: 7, undrawable: 50, extension: 0, drunk: 0 };
+    const base = { sip: sipAt(codec, 3), phaseSeconds: 12, stay: NEVER, away: null, replayed: null, waiting: false, verdict: null, bowl: 3, legs: STILL };
+    const summary = { seed: 1, steps: 1500, slowdown: 50, touching: false, pilot: true, inputSpikes: 900, otherNeurons: 2100, readoutSpikes: 7, undrawable: 50, extension: 0, drunk: 0 };
     expect(reactionCard(reg, codec, info, { ...base, phase: "taste", frozen: true, summary: null }).heading).toMatch(/^Paused · Tasting · /);
-    expect(reactionCard(reg, codec, info, { ...base, phase: "taste", frozen: false, summary: null, verdict: null, bowl: 0 }).heading).toMatch(/^Tasting · /);
+    expect(reactionCard(reg, codec, info, { ...base, phase: "taste", frozen: false, summary: null, verdict: null, bowl: 0, legs: STILL }).heading).toMatch(/^Tasting · /);
     const cleaning = reactionCard(reg, codec, info, { ...base, phase: "clean", frozen: false, summary });
     expect(cleaning.lines[2].html.replace(/<[^>]*>/g, "")).toMatch(/^With the bowl he has just tasted, in 150\.0 ms of his time, his taste neurons fired 900 times, 2,100 other neurons joined in across his brain and nerve cord, and MN9, the pair that lifts his proboscis, fired 7 times\. Nothing of it is left in him/);
     expect(audit(cardHtml(cleaning), reg)).toEqual([]);
-    expect(reactionCard(reg, codec, info, { ...base, phase: "clean", frozen: false, summary: null, verdict: null, bowl: 0 }).lines[2].html).toMatch(/^Tasting is over\./);
+    expect(reactionCard(reg, codec, info, { ...base, phase: "clean", frozen: false, summary: null, verdict: null, bowl: 0, legs: STILL }).lines[2].html).toMatch(/^Tasting is over\./);
   });
 
   it("gives a verdict only when one is licensed, from the decoder's numbers, once he has lifted his head", () => {
-    const base = { sip: sipAt(codec, 3), phase: "taste" as const, phaseSeconds: 20, stay: { seconds: 20, why: "longest", lastStep: 9990 } as Stay, away: null, waiting: false, frozen: false, summary: null, bowl: 4 };
-    const counts = { seed: 1, steps: 1200, slowdown: 50, pilot: false, tasteSpikes: 800, otherNeurons: 2000, readoutSpikes: 14, undrawable: 30 };
+    const base = { sip: sipAt(codec, 3), phase: "taste" as const, phaseSeconds: 20, stay: { seconds: 20, why: "longest", lastStep: 9990 } as Stay, away: null, waiting: false, frozen: false, summary: null, bowl: 4, legs: STILL };
+    const counts = { seed: 1, steps: 1200, slowdown: 50, pilot: false, inputSpikes: 800, otherNeurons: 2000, readoutSpikes: 14, undrawable: 30 };
     const text = (card: Card, line: number): string => card.lines[line].html.replace(/<[^>]*>/g, "");
     const unlicensed = reactionCard(reg, codec, info, { ...base, verdict: null, replayed: { ...counts, touching: false, extension: 0, drunk: 0 } });
     expect(text(unlicensed, 2)).not.toMatch(/decoder|drinks|refuses|drunk/);
@@ -165,7 +170,7 @@ describe("the words around the stage", () => {
   });
 
   it("says he is on his way back, and nothing about tea, between the end of a break and the clock starting again", () => {
-    const card = reactionCard(reg, codec, info, { sip: sipAt(codec, 3), phase: "taste", phaseSeconds: 12, stay: NEVER, away: { book: bookAt(3), returning: true }, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0 });
+    const card = reactionCard(reg, codec, info, { sip: sipAt(codec, 3), phase: "taste", phaseSeconds: 12, stay: NEVER, away: { book: bookAt(3), returning: true }, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0, legs: STILL });
     expect(card.heading).toBe("Back to the tea");
     expect(card.lines[3].html).toContain("Now, where was I?");
     expect(audit(cardHtml(card), reg)).toEqual([]);

@@ -7,27 +7,15 @@
 // recording, and which is zero unless the experiment that licenses drinking has passed.
 
 import * as THREE from "three";
+import { DROP, FLAT, legAngles, RAISE, type FlyMotion, type LegPlan } from "./gait";
 
 export type Make = (geometry: THREE.BufferGeometry, colour: number, parent: THREE.Object3D) => THREE.Mesh;
 
-export interface FlyMotion {
-  t: number;         // seconds, for everything that idles
-  stride: number;    // radians of gait, advanced by the distance he has walked
-  walking: number;   // 0..1
-  lean: number;      // 0..1, head down to the cup
-  calm: number;      // 0..1, stillness while his lips are on the tea
-  reading: number;   // 0..1, sitting up with his book
-  whisking: number;  // 0..1, front legs at the whisk
-  wiping: number;    // 0..1, front legs at the cloth
-  proboscis: number; // 0..1, how far out. From MN9's recorded spikes, never from the staging.
-}
-
 const TAN = 0xa9854a, TAN_DARK = 0x7a5e30, BAND = 0x2e2216, LEG = 0x5e4826, EYE = 0xb3342a;
 const FEMUR = 0.3, TIBIA = 0.36, TARSUS = 0.24;
-const RAISE = 0.7, DROP = 1.22, FLAT = 0.26; // femur above the horizontal, tibia and tarsus below it, in radians: feet meet the ground
 const HIP_Y = FEMUR * Math.sin(RAISE) * -1 + TIBIA * Math.sin(DROP) + TARSUS * Math.sin(FLAT);
 
-interface Leg { hip: THREE.Group; knee: THREE.Group; ankle: THREE.Group; pair: number; tripod: number; restYaw: number }
+interface Leg extends LegPlan { hip: THREE.Group; knee: THREE.Group; ankle: THREE.Group }
 
 function canvasTexture(width: number, height: number, draw: (pen: CanvasRenderingContext2D) => void): THREE.CanvasTexture {
   const canvas = document.createElement("canvas");
@@ -251,23 +239,9 @@ export class FlyPuppet {
       const side = i ? -1 : 1;
       hinge.rotation.set(-0.06, side * (0.1 + 0.5 * flick), side * -(0.1 + 0.12 * flick));
     });
-    // legs: an alternating tripod when he walks; the front pair has work to do at the whisk, the cloth and the book
+    // legs: an alternating tripod when he walks; the front pair has work to do. How they are posed is gait.ts's to say.
     for (const leg of this.legs) {
-      const phase = m.stride + leg.tripod * Math.PI;
-      const swing = Math.max(0, Math.sin(phase)) * m.walking;
-      let yaw = leg.restYaw + 0.34 * Math.cos(phase) * m.walking;
-      let raise = RAISE + 0.3 * swing;
-      let bend = -(RAISE + DROP) + 0.25 * swing;
-      let flat = DROP - FLAT;
-      if (leg.pair === 0) {
-        const hold = Math.max(m.reading, m.whisking, m.wiping);
-        const work = m.whisking * Math.sin(t * 19) * 0.12 + m.wiping * Math.sin(t * 9) * 0.2;
-        yaw += (-1.32 - yaw) * hold + work;
-        raise += (1.05 - RAISE) * hold + 0.1 * m.lean;
-        bend += (-(1.05 + 0.35) - bend) * hold;
-        flat += (0.5 - flat) * hold;
-        yaw += 0.25 * m.lean; // at the cup his front feet stand either side of it
-      }
+      const { yaw, raise, bend, flat } = legAngles(m, leg);
       leg.hip.rotation.set(0, yaw, raise);
       leg.knee.rotation.z = bend;
       leg.ankle.rotation.z = flat;

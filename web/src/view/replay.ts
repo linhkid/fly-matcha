@@ -1,4 +1,5 @@
 // Replaying a whole-brain recording of a sip (slice V2). Pure: no DOM, no three.js, no clock of its own.
+// The Replay class itself knows nothing about tea: movement.ts replays his moving legs with it (slice V3).
 // Every spike comes from a TrialRecording written by the lab's run_trial. A spike lands on a point of the cloud, on a
 // dot of his lips, or, for a neuron with no position anywhere, nowhere: those are counted and the page says so.
 // How far the replay has run is a function of the ceremony's clock alone, so a held clock holds it and a still repeats it.
@@ -28,7 +29,7 @@ export interface TrialRecording { spikeStep: number[]; spikeBodyId: string[]; sp
 /** What the card says about a replay at one moment. */
 export interface Replayed {
   seed: number; steps: number; slowdown: number; touching: boolean; pilot: boolean;
-  tasteSpikes: number;      // spikes of his taste neurons so far
+  inputSpikes: number;      // spikes so far of the sensory neurons the trial drives: his taste neurons, for a sip
   otherNeurons: number;     // neurons beyond them that have fired at least once so far
   readoutSpikes: number;    // spikes of MN9 so far
   undrawable: number;       // spikes so far of neurons that have no position: they happened, and cannot be shown
@@ -76,7 +77,7 @@ export function stayFor(entry: RecordingEntry, stepsPerSecond: number): Stay {
 // three times in the last 30 ms of his time, and a quarter of a second of full extension empties the cup.
 export const DRINK = { windowSteps: 300, fullAt: 3, drainSteps: 2500 };
 
-const upTo = (sorted: ArrayLike<number>, value: number): number => { // how many entries are <= value
+export const upTo = (sorted: ArrayLike<number>, value: number): number => { // how many entries are <= value
   let [low, high] = [0, sorted.length];
   while (low < high) { const middle = (low + high) >> 1; if (sorted[middle] <= value) low = middle + 1; else high = middle; }
   return low;
@@ -133,9 +134,9 @@ export class Replay {
   }
 
   /** Counts of everything that has happened up to and including step `tStep`. */
-  countsAt(tStep: number): Pick<Replayed, "tasteSpikes" | "otherNeurons" | "readoutSpikes" | "undrawable"> {
+  countsAt(tStep: number): Pick<Replayed, "inputSpikes" | "otherNeurons" | "readoutSpikes" | "undrawable"> {
     const seen = upTo(this.recording.spikeStep, tStep);
-    return { tasteSpikes: this.tasteUpTo[seen], readoutSpikes: this.readoutUpTo[seen], undrawable: this.nowhereUpTo[seen], otherNeurons: upTo(this.firstSteps, tStep) };
+    return { inputSpikes: this.tasteUpTo[seen], readoutSpikes: this.readoutUpTo[seen], undrawable: this.nowhereUpTo[seen], otherNeurons: upTo(this.firstSteps, tStep) };
   }
 
   /** Light for the participants and for his lips: spikes in the window that ends at `tStep`, through light() and nothing else. */

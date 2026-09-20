@@ -1,24 +1,30 @@
 // The page: load the cloud, start the endless ceremony, keep the words beside it up to date.
 // While the tea is on his lips the page replays a recording of his whole brain tasting that sip: real spikes of the
 // model on his real wiring, written by the lab. light() turns them into light, on his lips and in the cloud, and
-// nothing else does. Between sips the cloud is dark, because the model has no activity of its own.
+// nothing else does. Whenever the puppet's legs move, the page replays a recording of his whole nervous system with the
+// sensors of those knees driven: his cord, his brain and his leg motor neurons answer on his own wiring.
+// When he stands still and tastes nothing the cloud is dark, because the model has no activity of its own.
 
 import "./view/style.css";
+import legsCodecFile from "../../contracts/codec/legs.codec.json";
 import codecFile from "../../contracts/codec/taste.codec.json";
 import mechanics from "../../contracts/mechanics.json";
 import { bitterLevel, type Codec } from "./codec/codec";
 import { audit } from "./honesty/honesty";
-import { readCloud, type CloudInfo } from "./view/cloud";
-import { cardBodyHtml, cardHeadHtml, footHtml, legendHtml, lipsHtml, stagedHtml, titleHtml, trackHtml } from "./view/hud";
+import { inCord, readCloud, type CloudInfo } from "./view/cloud";
+import { cardBodyHtml, cardHeadHtml, footHtml, legendHtml, lipsHtml, lipsNowHtml, stagedHtml, titleHtml, trackHtml } from "./view/hud";
 import { lipLayout } from "./view/lips";
+import type { Movement } from "./view/gait";
 import { Loop, PHASE_SECONDS, type Phase } from "./view/loop";
+import { movedAt, MovementClock, MovementReplay, type LegsCodec, type MovementIndex } from "./view/movement";
 import { bookAt, type SipLook } from "./view/puppet";
-import { quantities, reactionCard } from "./view/reaction";
+import { quantities, reactionCard, type Legs } from "./view/reaction";
 import { entryFor, Replay, replayAt, stayFor, type RecordingEntry, type RecordingIndex, type Replayed } from "./view/replay";
 import { sipAt, type Sip } from "./view/rotation";
 import { Stage } from "./view/scene";
 
 const codec: Codec = codecFile;
+const legsCodec: LegsCodec = legsCodecFile;
 const SLOWDOWN = 50;                        // his time is shown this many times slower than it runs
 const LIGHT_WINDOW_STEPS = 60;              // a spike stays lit for 6 ms of his time, which is 0.3 s on screen
 const RETRY_SECONDS = 15;                   // how long a recording that failed to arrive is left alone before it is asked for again
@@ -37,7 +43,8 @@ function problem(message: string): void {
  * `?sip=12&phase=taste&at=0.5` opens the page as a still of that moment, so that a shot of it can be taken twice and be the same.
  * The ceremony's clock and the idle clock stand, and he stays at work. Add `&break=1` for the same moment with him on his break,
  * `&staged=1` to open with "What is staged here?" switched on, `&open=lips,legend,title` to unfold panels, `&bare=1` to hide
- * the text, and `&from=x,y,z&at3=x,y,z` to stand somewhere else.
+ * the text, and `&from=x,y,z&at3=x,y,z` to stand somewhere else. If his legs move in that moment, `&moved=2.5` says for how
+ * many seconds they have been moving; left out, it is two.
  */
 function stillFromAddress(loop: Loop, query: URLSearchParams): { still: boolean; onBreak: boolean; showStaged: boolean } {
   const phase = query.get("phase");
@@ -79,7 +86,9 @@ async function start(): Promise<void> {
   if (!infoResponse.ok || !cloudResponse.ok) throw new Error("The brain cloud is missing. Build it with: python -m flylab web cloud");
   if (!indexResponse.ok) throw new Error("The recordings are missing. Build them with: python -m flylab web recordings");
   const info: CloudInfo = await infoResponse.json();
-  const recordings: RecordingIndex = await indexResponse.json();
+  const recordings: RecordingIndex & { movements: MovementIndex | null } = await indexResponse.json();
+  if (!recordings.movements) throw new Error("The recordings of his moving legs are missing. Build them with: python -m flylab web recordings");
+  const movements = recordings.movements;
   const cloud = readCloud(await cloudResponse.arrayBuffer());
   const query = new URLSearchParams(location.search);
 
@@ -124,6 +133,28 @@ async function start(): Promise<void> {
     return held instanceof Replay ? held : null;
   };
 
+  // The recordings of his moving legs are two and small: both are fetched at once, and said once if they fail.
+  const moves = new Map<Movement, MovementReplay | "failed">();
+  const otherMotor = new Set(movements.otherMotorBodyIds);
+  for (const entry of movements.recordings) {
+    fetch(`/recordings/${entry.file}`)
+      .then((response) => { if (!response.ok) throw new Error(`${entry.file}: ${response.status}`); return response.json(); })
+      .then((recording) => {
+        if (recording.spikeHash !== entry.spikeHash) throw new Error(`${entry.file} is not the recording the index names`);
+        moves.set(entry.id, new MovementReplay(recording, entry, movements.pools, otherMotor, cloudIndex, (point) => inCord(cloud, point)));
+      })
+      .catch((error: unknown) => {
+        moves.set(entry.id, "failed");
+        problem(`${error instanceof Error ? error.message : String(error)}. His legs move without his nervous system's answer until the page is loaded again. Click to dismiss.`);
+      });
+  }
+  const movementClock = new MovementClock();
+  let movedFor = Number(query.get("moved") ?? "2");   // in a still: for how long his legs have been moving
+  if (!(movedFor >= 0)) {
+    problem(`moved=${query.get("moved")} is not a number of seconds, so two seconds are shown. Click to dismiss.`);
+    movedFor = 2;
+  }
+
   element("title-body").innerHTML = titleHtml(reg, info);
   element("lips-body").innerHTML = lipsHtml(reg, dots, SLOWDOWN);
   element("legend-body").innerHTML = legendHtml(reg, info);
@@ -159,7 +190,9 @@ async function start(): Promise<void> {
     pauseButton.setAttribute("aria-pressed", String(wish));
   };
   if (address.onBreak) setResting(true);
-  pauseButton.addEventListener("click", () => setResting(!resting));
+  // A still pins the moment, his legs' too. Once the viewer sends him on a break the still is theirs no longer, and his movements run on their own clock.
+  let pinned = address.still;
+  pauseButton.addEventListener("click", () => { pinned = false; setResting(!resting); });
 
   const bareButton = element<HTMLButtonElement>("bare");
   const setBare = (bare: boolean): void => {
@@ -187,7 +220,7 @@ async function start(): Promise<void> {
       if (event.target instanceof Element && event.target.closest("button, summary, a[href], input, select, textarea")) return;
       event.preventDefault();
       setFrozen(!frozen);
-    } else if (event.key === "b" || event.key === "B") setResting(!resting);
+    } else if (event.key === "b" || event.key === "B") { pinned = false; setResting(!resting); }
     else if (event.key === "h" || event.key === "H") setBare(!document.body.classList.contains("bare"));
   });
   document.addEventListener("click", (event) => {
@@ -221,7 +254,7 @@ async function start(): Promise<void> {
   if (address.still) stage.settle(loop.state(), lookOf(sipAt(codec, loop.state().sipIndex)), bookAt(loop.state().sipIndex), resting);
 
   const pins = { brain: element("pin-brain"), cord: element("pin-cord") };
-  let shownReplay: Replay | null = null;
+  let shownReplay: Replay | null = null;       // whose neurons the light layer holds: a bowl's recording, or a movement's
   let lastReplayed: Replayed | null = null;   // what his brain did with the bowl he has just tasted, for the card while he cleans up
   let shownMoment = "";
   let shownCount = "";
@@ -235,19 +268,27 @@ async function start(): Promise<void> {
     const book = bookAt(state.sipIndex);
     const replay = replayOf(entryOf(sip));
     replayOf(entryOf(sipAt(codec, state.sipIndex + 1)));   // the next bowl's recording, ahead of time
-    if (replay !== shownReplay) { stage.setActive(replay ? replay.participants : [], replay ? replay.readoutPlaces : []); shownReplay = replay; }
     const gone = resting || (state.paused && !frozen) || (frozen && !stage.atWork);   // on a break, on his way back, or paused while away
     const { replayed, cloud: cloudGlow, lips: glow } = replayAt(state, gone, replay, dots.length, recordings.pilot, options, licensed);
     if (state.phase === "select") lastReplayed = null;
     if (replayed) lastReplayed = replayed;
-    stage.applyActiveLight(cloudGlow);
+    // His legs: what the puppet did in the frame before this one decides which knee sensors are driven now.
+    const moving = pinned ? (stage.movement ? { id: stage.movement, seconds: movedFor } : null) : movementClock.tick(stage.movement, frozen ? 0 : dt);
+    const held = moving ? moves.get(moving.id) : undefined;
+    const moveReplay = held instanceof MovementReplay ? held : null;
+    const { moved, cloud: moveGlow } = movedAt(moving, moveReplay, movements.pilot, legsCodec.moving.hz, options);
+    const legs: Legs = moved ? { state: "moving", moved } : moving ? { state: held === "failed" ? "failed" : "waiting", id: moving.id } : { state: "still" };
+    // One layer of light, one recording at a time. His lips touch the tea only while he stands still, so the two never compete.
+    const [lit, litGlow, readoutSize] = cloudGlow && replay ? [replay, cloudGlow, 0.5] as const : moveGlow && moveReplay ? [moveReplay.replay, moveGlow, 0.3] as const : [shownReplay, null, 0.5] as const;
+    if (lit !== shownReplay) { stage.setActive(lit ? lit.participants : [], lit ? lit.readoutPlaces : [], readoutSize); shownReplay = lit; }
+    stage.applyActiveLight(litGlow);
     stage.applyLipLight(glow);
     glow.forEach((value, i) => {
       const lit = value > 0 ? 1 : 0;
       if (lit !== lipLit[i]) { lipLit[i] = lit; lipCircles[i].classList.toggle("lit", lit === 1); }
     });
     const drink = { extension: replayed ? replayed.extension : 0, drunk: replayed ? replayed.drunk : state.phase === "clean" && lastReplayed ? lastReplayed.drunk : 0 };
-    stage.draw(state, lookOf(sip), book, frozen ? 0 : dt, resting, address.still || frozen, drink);
+    stage.draw(state, lookOf(sip), book, frozen ? 0 : dt, resting, pinned || frozen, drink);
 
     const at = stage.pins();
     for (const name of ["brain", "cord"] as const) {
@@ -259,19 +300,23 @@ async function start(): Promise<void> {
     // The card is rewritten when the moment changes. While spikes are being counted only the line that counts them is.
     const away = resting ? "break" : state.paused && !(frozen && stage.atWork) ? "returning" : "work";
     const waiting = state.phase === "taste" && !replay;
-    const moment = `${state.sipIndex}/${state.phase}/${away}/${replayed ? replayed.touching : "-"}/${waiting}/${frozen}`;
-    const count = replayed ? `${Math.floor(replayed.steps / 40)}` : "";
+    const moment = `${state.sipIndex}/${state.phase}/${away}/${replayed ? replayed.touching : "-"}/${waiting}/${frozen}/${legs.state}/${moving ? moving.id : "-"}`;
+    const count = `${replayed ? Math.floor(replayed.steps / 40) : ""}/${moved ? Math.floor(moved.steps / 40) : ""}`;
     const entry = entryOf(sip);
     const verdict = licensed && recordings.decoder && entry.outcome !== undefined && entry.windowCount !== undefined
       ? { outcome: entry.outcome, windowCount: entry.windowCount, decoder: recordings.decoder } : null;
     if (moment !== shownMoment || count !== shownCount) {
-      const card = reactionCard(reg, codec, info, { sip, phase: state.phase, phaseSeconds: state.phaseSeconds, stay: stayFor(entryOf(sip), stepsPerSecond), away: away === "work" ? null : { book, returning: away === "returning" }, replayed, waiting, frozen, verdict, bowl: state.sipIndex, summary: state.phase === "clean" ? lastReplayed : null });
+      const card = reactionCard(reg, codec, info, { sip, phase: state.phase, phaseSeconds: state.phaseSeconds, stay: stayFor(entryOf(sip), stepsPerSecond), away: away === "work" ? null : { book, returning: away === "returning" }, replayed, waiting, frozen, verdict, bowl: state.sipIndex, summary: state.phase === "clean" ? lastReplayed : null, legs });
       if (moment !== shownMoment) {
+        const look = lookOf(sip);
+        element("lips-now").innerHTML = lipsNowHtml(reg, codec, { sweet: look.sweets, bitter: look.bitterLevel }, replayed?.touching ?? false);
         element("track").innerHTML = trackHtml(reg, state);
         element("card-head").innerHTML = cardHeadHtml(card);
         element("card-body").innerHTML = cardBodyHtml(card, moreOpen);
       } else {
         element("card-did").innerHTML = card.lines[2].html;
+        element("card-legs").innerHTML = card.lines[4].html;
+        element("card-recordings").innerHTML = card.lines[5].html;
       }
       shownMoment = moment;
       shownCount = count;

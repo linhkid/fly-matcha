@@ -5,7 +5,9 @@
 import { levelHz, sipLevels, type Codec } from "../codec/codec";
 import { provenancesIn, ref, Registry, type Provenance } from "../honesty/honesty";
 import type { CloudInfo } from "./cloud";
+import type { Movement } from "./gait";
 import type { Phase } from "./loop";
+import type { LegPair, Moved } from "./movement";
 import type { Decoder, Outcome, Replayed, Stay } from "./replay";
 import type { Sip } from "./rotation";
 
@@ -37,6 +39,15 @@ export function quantities(): Registry {
     .define({ id: "linger.seconds", label: "how long he stays with the cup", provenance: "staged", derivedFrom: ["rec.readoutLast", "replay.slowdown"], explain: "His brain's part: the moment MN9 fires for the last time in the recording. Ours: that his lips stay on the tea until then and one breath longer, at this slowdown, never under eight seconds and never over twenty. A bowl that never reaches MN9 gets the shortest stay." })
     .define({ id: "model.time", label: "how far the recording has been replayed, in his time", provenance: "staged", derivedFrom: ["linger.seconds", "replay.slowdown"], explain: "Counted in the model's steps of a tenth of a millisecond. How far a replay gets is set by how long he stays, so a longer stay shows more of the same recording." })
     .define({ id: "trial.seed", label: "seed", provenance: "model", derivedFrom: [], explain: "The seed of the random input of the recorded trial. The same seed gives the same spikes, here and in the lab." })
+    .define({ id: "legs.sensors", label: "knee sensor neurons of the moving legs", provenance: "connectome", derivedFrom: [], explain: "Counted in the MaleCNS v1.0 annotations: neurons of the femoral chordotonal organ, the stretch sensor of the knee, in the legs that are moving, of the types whose labelled members the dataset calls hook or claw. It labels only a few of them so, all in the hind legs; the rest are taken to be the same kind by their type name. Hook neurons fire while a knee moves, claw neurons report its angle. The dataset holds few of them for the front legs: that is how far the front leg nerve has been traced, not how a fly is built." })
+    .define({ id: "legs.motorTotal", label: "leg motor neurons", provenance: "connectome", derivedFrom: [], explain: "Every motor neuron of his six legs in the legs census, counted in the MaleCNS v1.0 annotations. All of them have a place in the cloud." })
+    .define({ id: "legs.hz", label: "rate of a moving knee's sensors", provenance: "model", derivedFrom: [], explain: "Our choice of how hard a moving knee drives its sensors: the same rate as three pieces of sugar. What these neurons do is known from calcium imaging; nobody has published their spike rates. A real fly turns its hook neurons down while it moves itself, and a wiring diagram cannot, so the hook drive here is not gated as a real fly's is. A still leg drives nothing here, although a real claw neuron keeps reporting the angle it is held at." })
+    .define({ id: "move.sensors", label: "spikes of his knee sensors", provenance: "model", derivedFrom: ["legs.hz"], explain: "The spikes the movement forces in the knee sensors of his moving legs, counted in the recording." })
+    .define({ id: "move.neurons", label: "neurons that have answered his moving legs", provenance: "model", derivedFrom: ["cloud.points"], explain: "Neurons beyond the driven sensors that have fired at least once since this movement began, counted in the recording. Brain or nerve cord is read from where the cell body lies. Where the line between the two runs is ours." })
+    .define({ id: "move.motor", label: "leg motor neurons that have fired", provenance: "model", derivedFrom: [], explain: "Nothing drives his motor neurons in the recorded trial. His knee sensors are driven, and a motor neuron fires only if his wiring carries the signal to it. Their firing moves nothing on this page: the puppet is moved by us." })
+    .define({ id: "move.otherMotor", label: "motor neurons that are not of his legs, and fired too", provenance: "model", derivedFrom: [], explain: "His legs' motor neurons are not the only ones that answer. In the recording of a walk the busiest of the others drive the power muscles of his wings: the model has nothing in it that says he is standing on the ground. They are counted here so that the answer does not look tidier than it is. Only his leg motor neurons are drawn larger." })
+    .define({ id: "move.pool", label: "the busiest pool of leg motor neurons", provenance: "model", derivedFrom: [], explain: "The pool with the most spikes so far. The name is the dataset's, for the muscle the pool drives. What pulling that muscle would do to his leg is not claimed here." })
+    .define({ id: "move.time", label: "how far the movement's recording has been replayed, in his time", provenance: "staged", derivedFrom: ["replay.slowdown"], explain: "The recording starts when his legs start to move and runs while they do, stretched by the same slowdown as the tasting. How long a movement lasts is the puppet's." })
     .define({ id: "loop.sip", label: "which bowl this is", provenance: "staged", derivedFrom: [], explain: "The ceremony, its six steps and their order are staged. The model has no memory, so no bowl knows about the one before." });
 }
 
@@ -83,7 +94,11 @@ export interface Moment {
   bowl: number;                // which bowl this is, so that his words vary without depending on anything about the tea
   frozen: boolean;             // the viewer has stopped the clock to read
   summary: Replayed | null;    // while he cleans up: what his brain did with the bowl he has just tasted, kept so it can be read
+  legs: Legs;                  // what his legs are doing, and what his nervous system makes of it
 }
+
+/** His legs at one moment: still, moving with the recording on its way, or moving with his wiring's answer counted. */
+export type Legs = { state: "still" } | { state: "waiting" | "failed"; id: Movement } | { state: "moving"; moved: Moved };
 
 /** The decoded outcome of a bowl's recording, with the numbers it was decoded from. */
 export interface Verdict { outcome: Outcome; windowCount: number; decoder: Decoder }
@@ -121,11 +136,46 @@ export function reactionCard(reg: Registry, codec: Codec, info: CloudInfo, momen
       line("Heard by", heard),
       line("Did", did(reg, moment), ["model"]), // even with no number in it, this line speaks about the model
       line("In his words", reg.q("voice.line", voice(moment, tea !== null))),
+      line("His legs", legsLine(reg, moment.legs), ["model"]),
+      line("The recordings", recordingsLine(reg, moment), ["model"]),
     ],
     footnote: moment.verdict
-      ? `The words are puppetry and follow the verdict. The verdict is not puppetry: it is decoded from MN9's recorded spikes by thresholds that experiment ${ref(moment.verdict.decoder.evidence.experiment)} fixed before its held-out seeds were looked at.`
-      : "The words are puppetry. The spikes are the model's, recorded from a run of his whole brain. No verdict has been licensed yet.",
+      ? `The words are puppetry and follow the verdict. So is every movement of his legs: his motor neurons firing moves nothing here. The verdict is not puppetry: it is decoded from MN9's recorded spikes by thresholds that experiment ${ref(moment.verdict.decoder.evidence.experiment)} fixed before its held-out seeds were looked at.`
+      : "The words are puppetry, and so is every movement: we move his legs, his knee sensors report it, and the rest is his wiring. His motor neurons firing moves nothing here. The spikes are the model's, recorded from runs of his whole nervous system. No verdict has been licensed yet.",
   };
+}
+
+const PAIR_WORDS: Record<LegPair, string> = { fl: "front", ml: "middle", hl: "hind" };
+
+// His legs are moved by us. What is his: the sensors that a moving knee drives, and everything his wiring does with their spikes.
+function legsLine(reg: Registry, legs: Legs): string {
+  if (legs.state === "still") return "His legs are still, so nothing drives their sensors, and nothing fires on their account.";
+  const which = { walk: "All six legs are moving", front: "His front legs are at work" }[legs.state === "moving" ? legs.moved.id : legs.id];
+  if (legs.state !== "moving") return `${which}. The recording of his nervous system for it ${legs.state === "failed" ? "could not be loaded" : "has not arrived yet"}, so nothing is shown.`;
+  const m = legs.moved;
+  const n = (value: number): string => value.toLocaleString("en-US");
+  const busiest = m.busiest === null ? "" : ` The busiest pool so far, with ${reg.q("move.motor", n(m.busiest.spikes), "recorded")} of them, is `
+    + (m.busiest.label === "no muscle named" ? `one of his ${PAIR_WORDS[m.busiest.leg]} legs that the dataset names no muscle for.` : `${reg.q("move.pool", m.busiest.label, "recorded")} of his ${PAIR_WORDS[m.busiest.leg]} legs.`);
+  const others = m.otherMotorNeurons === 0 ? "" : ` They are not alone: ${reg.q("move.otherMotor", n(m.otherMotorNeurons), "recorded")} motor ${m.otherMotorNeurons === 1 ? "neuron of another part of him has" : "neurons of other parts of him have"} fired too.`;
+  const unplaced = m.unplaced === 0 ? "" : `, ${reg.q("move.neurons", n(m.unplaced), "recorded")} with no cell body position`;
+  return `${which}, so their knee sensors are driven: ${reg.q("legs.sensors", n(m.sensors))} neurons at ${reg.q("legs.hz", `${m.hz} Hz`)}.`
+    + ` In ${reg.q("move.time", `${(m.steps / 10).toFixed(1)} ms`)} of his time ${reg.q("move.neurons", n(m.cord), "recorded")} neurons of his nerve cord${unplaced} and ${reg.q("move.neurons", n(m.brain), "recorded")} of his brain have answered.`
+    + ` ${reg.q("move.motor", n(m.motorNeurons), "recorded")} of his ${reg.q("legs.motorTotal", n(m.motorTotal))} leg motor neurons have fired, ${reg.q("move.motor", n(m.motorSpikes), "recorded")} spikes in all.${busiest}${others}`
+;
+}
+
+// What is folded away under the card: what cannot be drawn, how much slower it is shown, and that these are pilot recordings.
+function recordingsLine(reg: Registry, { replayed, summary, phase, legs }: Moment): string {
+  const tasted = replayed ?? (phase === "clean" ? summary : null);
+  const moved = legs.state === "moving" ? legs.moved : null;
+  if (!tasted && !moved) return legs.state === "still" ? "Nothing is being replayed: he tastes nothing and his legs are still." : "Nothing is being replayed: the recording for his moving legs is not here.";
+  const n = (value: number): string => value.toLocaleString("en-US");
+  const tasting = !tasted ? "" : `Tasting: ${reg.q("rec.undrawable", n(tasted.undrawable), "recorded")} of the spikes so far came from neurons with no position to draw.`
+    + (tasted.pilot ? ` A pilot recording of his whole brain, seed ${reg.q("trial.seed", tasted.seed)}: the taste law has not been tested yet, so this is what was measured, not a verdict.` : "");
+  const moving = !moved ? "" : ` His legs: his knee sensors have no cell body in the imaged volume, so their ${reg.q("move.sensors", n(moved.sensorSpikes), "recorded")} spikes so far are counted and cannot be drawn,`
+    + ` and neither can ${reg.q("rec.undrawable", n(moved.undrawable), "recorded")} ${moved.undrawable === 1 ? "spike" : "spikes"} of other neurons without a position.`
+    + (moved.pilot ? ` A pilot recording of his whole nervous system, seed ${reg.q("trial.seed", moved.seed)}: what was measured, not a claim about walking.` : "");
+  return `${tasting}${moving} Shown ${reg.q("replay.slowdown", `${(tasted ?? moved!).slowdown} times`)} slower than his time.`.trim();
 }
 
 function voice({ phase, away, verdict, replayed, summary, bowl }: Moment, tea: boolean): string {
@@ -139,7 +189,7 @@ function voice({ phase, away, verdict, replayed, summary, bowl }: Moment, tea: b
 
 // What his brain did, read from the recording and from nothing else. A count is a measurement. Slice 05 decides what it means.
 function counted(reg: Registry, r: Replayed): string {
-  return `his taste neurons fired ${reg.q("rec.taste", r.tasteSpikes.toLocaleString("en-US"), "recorded")} times,`
+  return `his taste neurons fired ${reg.q("rec.taste", r.inputSpikes.toLocaleString("en-US"), "recorded")} times,`
     + ` ${reg.q("rec.neurons", r.otherNeurons.toLocaleString("en-US"), "recorded")} other neurons joined in across his brain and nerve cord,`
     + ` and MN9, the pair that lifts his proboscis, fired ${reg.q("rec.readout", r.readoutSpikes, "recorded")} times.`;
 }
@@ -174,8 +224,7 @@ function did(reg: Registry, { phase, stay: length, replayed, away, waiting, summ
   if (!replayed) return `His lips are not on the tea yet. ${stay}`;
   const ms = (replayed.steps / 10).toFixed(1);
   const drinking = verdict ? ` His proboscis is out while MN9 fires, and he has drunk ${reg.q("drink.cup", `${Math.round(replayed.drunk * 100)}%`)} of the cup.${replayed.touching ? "" : decoded(reg, verdict)}` : "";
-  const pilot = replayed.pilot ? ` A pilot recording of his whole brain, seed ${reg.q("trial.seed", replayed.seed)}: the taste law has not been tested yet, so this is what was measured, not a verdict.` : "";
+  const pilot = replayed.pilot ? " A pilot recording, not a verdict." : "";
   return `${replayed.touching ? "The tea is on his lips. In" : "The tea was on his lips. In"} ${reg.q("model.time", `${ms} ms`)} of his time ${counted(reg, replayed)}`
-    + ` ${reg.q("rec.undrawable", replayed.undrawable.toLocaleString("en-US"), "recorded")} of the spikes came from neurons with no position to draw. Shown ${reg.q("replay.slowdown", `${replayed.slowdown} times`)} slower.`
     + `${drinking}${pilot} ${away ? rested : stay}`;
 }

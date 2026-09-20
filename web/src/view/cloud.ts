@@ -20,6 +20,10 @@ export interface CloudInfo {
   note: string;
 }
 
+// Along the dataset's long axis: in front of this is brain, behind it nerve cord. The cut is ours, made by eye on the cloud.
+const CORD_FROM = -0.12;
+export const inCord = (cloud: Cloud, point: number): boolean => cloud.xyz[3 * point + 2] > CORD_FROM;
+
 const pad8 = (bytes: number): number => Math.ceil(bytes / 8) * 8;
 
 export function readCloud(buffer: ArrayBuffer): Cloud {

@@ -89,3 +89,91 @@ def test_a_recording_is_reproduced_by_running_its_spec_again():
         committed = json.loads((R.OUT_DIR / name).read_text())
         again = oracle.run_trial(graph, load_model(), committed["spec"], groups, variant_names())
         assert again["spikeHash"] == committed["spikeHash"] and again["spikeBodyId"] == committed["spikeBodyId"]
+
+
+# --------------------------------------------------------------------------- his moving legs (slice V3)
+
+
+def test_a_movement_is_a_trial_that_drives_the_knee_sensors_of_the_moving_legs_and_nothing_else():
+    from flylab.codec.build import CodecError, build_legs_codec, movement_spec
+
+    codec = build_legs_codec()
+    walk = movement_spec("m", "g", codec, "c", "walk", 1, 3000)
+    front = movement_spec("m", "g", codec, "c", "front", 1, 3000)
+    assert sorted(d["group"] for d in walk["drives"]) == sorted(f"sens.{kind}.{pair}" for kind in ("hook", "claw") for pair in ("fl", "ml", "hl"))
+    assert sorted(d["group"] for d in front["drives"]) == ["sens.claw.fl", "sens.hook.fl"]
+    for spec in (walk, front):
+        assert all(d == {"group": d["group"], "side": "both", "thr16": 655, "onStep": 0, "offStep": 3000} for d in spec["drives"])
+        assert spec["activated"] == [] and spec["silenced"] == []          # no motor neuron is forced: whatever they do is his wiring's
+        assert not any(d["group"].startswith("mn.") for d in spec["drives"])
+    with pytest.raises(CodecError):
+        movement_spec("m", "g", codec, "c", "moonwalk", 1, 3000)
+
+
+def test_the_legs_codec_on_disk_is_the_one_the_builder_writes_and_names_only_groups_the_legs_census_bound():
+    from flylab.codec.build import LEGS_CODEC_PATH, build_legs_codec, dump
+
+    assert LEGS_CODEC_PATH.read_text() == dump(build_legs_codec())
+    bound = {g["id"] for g in json.loads((CIRCUITS_DIR / "legs.lock.json").read_text())["groups"]}
+    named = {group for sensor in build_legs_codec()["sensors"] for group in sensor["groups"].values()}
+    assert named <= bound and len(named) == 6
+
+
+def test_the_summary_of_a_movement_counts_what_the_recording_holds():
+    recording = {"spikeBodyId": ["1", "2", "1", "50", "60", "60", "70"], "spikeStep": [0, 1, 2, 3, 4, 5, 6]}
+    assert R.summarise_movement(recording, readout={"60", "61"}, driven={"1", "2"}, other_motor={"70", "71"}) == {
+        "spikes": 7, "neurons": 5, "neuronsBeyondSensors": 3, "readoutSpikes": 2, "readoutNeurons": 1, "otherMotorSpikes": 1, "otherMotorNeurons": 1}
+
+
+def test_the_recordings_of_his_moving_legs_are_of_this_codec_and_this_lock_and_hold_what_they_say():
+    """Needs no graph. Stale recordings are caught here, as the sips' are (rule 5)."""
+    from flylab.codec.build import LEGS_CODEC_PATH, load_codec, movement_spec
+
+    index = json.loads((R.OUT_DIR / "index.json").read_text())
+    movements = index["movements"]
+    lock_bytes = (CIRCUITS_DIR / "legs.lock.json").read_bytes()
+    groups = {g["id"]: g["bodyIds"] for g in json.loads(lock_bytes)["groups"]}
+    codec, codec_sha = load_codec(LEGS_CODEC_PATH), hashlib.sha256(LEGS_CODEC_PATH.read_bytes()).hexdigest()
+    assert movements["pilot"] is True and movements["codecSha256"] == codec_sha and movements["lockSha256"] == hashlib.sha256(lock_bytes).hexdigest()
+    assert movements["durationSteps"] == R.PILOT_STEPS
+    assert {m["id"]: m["pairs"] for m in movements["recordings"]} == {m["id"]: m["pairs"] for m in codec["movements"]}     # the index's pairs are the codec's, not just its own
+    assert [m["id"] for m in movements["recordings"]] == [m["id"] for m in codec["movements"]]
+    pools = {pool["id"]: pool["bodyIds"] for pool in movements["pools"]}
+    assert pools == {name: sorted(bodies, key=int) for name, bodies in groups.items() if name.startswith("mn.")}     # the readout is every leg motor neuron of the census
+    readout = {body for bodies in pools.values() for body in bodies}
+    other_motor = set(movements["otherMotorBodyIds"])
+    assert not other_motor & readout
+    for entry in movements["recordings"]:
+        recording = json.loads((R.OUT_DIR / entry["file"]).read_text())
+        assert recording["specSha256"] == entry["specSha256"] and recording["spikeHash"] == entry["spikeHash"]
+        assert recording["spec"] == movement_spec(index["modelId"], index["graphSha256"], codec, codec_sha, entry["id"], entry["seed"], movements["durationSteps"])
+        steps, bodies = np.array(recording["spikeStep"], dtype=np.int64), np.array([int(b) for b in recording["spikeBodyId"]], dtype=np.uint64)
+        assert oracle.spike_hash(steps, bodies) == recording["spikeHash"]
+        for sensor in codec["sensors"]:
+            assert entry["sensors"][sensor["id"]] == sorted((b for pair in entry["pairs"] for b in groups[sensor["groups"][pair]]), key=int)
+        driven = {body for bodies in entry["sensors"].values() for body in bodies}
+        assert not driven & readout
+        keys = ("spikes", "neurons", "neuronsBeyondSensors", "readoutSpikes", "readoutNeurons", "otherMotorSpikes", "otherMotorNeurons")
+        assert R.summarise_movement(recording, readout, driven, other_motor) == {k: entry[k] for k in keys}
+        assert recording["spikeStep"] == sorted(recording["spikeStep"]) and recording["sentinelBreaches"] == []
+
+
+@needs_graph
+def test_a_movements_recording_is_reproduced_by_running_its_spec_again():
+    from flylab.census import connectivity
+    from flylab.graph.format import read_graph
+    from flylab.model.spec import variant_names
+
+    graph = read_graph(R.GRAPH_PATH)
+    groups = connectivity.resolve(json.loads((CIRCUITS_DIR / "legs.lock.json").read_text()), graph)
+    for name in ("move-front-seed1.json", "move-walk-seed1.json"):
+        committed = json.loads((R.OUT_DIR / name).read_text())
+        again = oracle.run_trial(graph, load_model(), committed["spec"], groups, variant_names())
+        assert again["spikeHash"] == committed["spikeHash"] and again["spikeBodyId"] == committed["spikeBodyId"]
+
+
+def test_the_other_motor_neurons_are_every_motor_neuron_the_dataset_names_that_is_not_of_his_legs():
+    import pandas as pd
+
+    frame = pd.DataFrame({"bodyId": [1, 2, 3, 4], "type": ["a", "b", None, "d"], "superclass": ["vnc_motor", "cb_motor", "vnc_motor", "vnc_intrinsic"]})
+    assert R.motor_neurons(frame) == {"1", "2"}                      # typed, and called motor by the dataset: nothing else

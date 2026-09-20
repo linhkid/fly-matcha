@@ -98,6 +98,9 @@ export function pose(phase: Phase, p: number, sip: SipLook, phaseSeconds: number
  * A break. Pausing does not freeze the room: he puts down whatever is in the air and goes to read.
  * `b` runs from 0, at work, to 1, reading. Only what was being held moves; no tea appears, is drunk or is spilled by a break.
  */
+/** How far he has something off the table: the tin, the kettle, the bowl or the cup. His front legs go up and come down with it. */
+export const carrying = (at: Pose): number => Math.max(at.tinLift, at.kettleOver, at.bowlTilt, at.cupTip);
+
 export function onBreak(at: Pose, b: number): Pose {
   const work = 1 - ease(b);
   return {

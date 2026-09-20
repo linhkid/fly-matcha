@@ -1172,6 +1172,247 @@
         "unknown": 0
       },
       "sides": "RRRLLLLLRLRRLLRRRLRLL"
+    },
+    {
+      "bodyIds": [
+        "815569",
+        "816782",
+        "817154",
+        "817245",
+        "817298",
+        "833439",
+        "903843",
+        "905668",
+        "933556",
+        "935541"
+      ],
+      "evidenceKind": "annotation",
+      "id": "sens.hook.fl",
+      "ntHistogram": {
+        "acetylcholine": 10
+      },
+      "perSide": {
+        "L": 4,
+        "R": 6,
+        "unknown": 0
+      },
+      "sides": "LRRRLRLRRL"
+    },
+    {
+      "bodyIds": [
+        "804542",
+        "807900",
+        "807970",
+        "808576",
+        "808757",
+        "809027",
+        "809102",
+        "809250",
+        "809353",
+        "809398",
+        "810041",
+        "810445",
+        "811313",
+        "814905",
+        "816362",
+        "820887",
+        "822285",
+        "826386",
+        "905218",
+        "909477",
+        "909478",
+        "909548",
+        "909549",
+        "910836",
+        "911942",
+        "913882",
+        "913886",
+        "936031"
+      ],
+      "evidenceKind": "annotation",
+      "id": "sens.hook.ml",
+      "ntHistogram": {
+        "acetylcholine": 28
+      },
+      "perSide": {
+        "L": 11,
+        "R": 17,
+        "unknown": 0
+      },
+      "sides": "RRLRLRLLRLRRRLRRRRLLLRRLLRRR"
+    },
+    {
+      "bodyIds": [
+        "809278",
+        "809932",
+        "810187",
+        "810526",
+        "812228",
+        "812422",
+        "812848",
+        "813147",
+        "813644",
+        "813911",
+        "814628",
+        "814881",
+        "816388",
+        "816580",
+        "819524",
+        "819559",
+        "823347",
+        "824107",
+        "903209",
+        "907742",
+        "907744",
+        "910413"
+      ],
+      "evidenceKind": "annotation",
+      "id": "sens.hook.hl",
+      "ntHistogram": {
+        "acetylcholine": 22
+      },
+      "perSide": {
+        "L": 10,
+        "R": 12,
+        "unknown": 0
+      },
+      "sides": "RLRLRLRRLLLRLLRRRRLRRL"
+    },
+    {
+      "bodyIds": [
+        "815843",
+        "817680",
+        "912317",
+        "913052",
+        "935383"
+      ],
+      "evidenceKind": "annotation",
+      "id": "sens.claw.fl",
+      "ntHistogram": {
+        "acetylcholine": 5
+      },
+      "perSide": {
+        "L": 4,
+        "R": 1,
+        "unknown": 0
+      },
+      "sides": "LLLRL"
+    },
+    {
+      "bodyIds": [
+        "807785",
+        "807931",
+        "808077",
+        "808491",
+        "808826",
+        "809230",
+        "809476",
+        "811112",
+        "811348",
+        "811608",
+        "811919",
+        "813516",
+        "814108",
+        "814742",
+        "814949",
+        "816304",
+        "817150",
+        "817992",
+        "819655",
+        "819822",
+        "823935",
+        "824431",
+        "824940",
+        "828811",
+        "832162",
+        "875542",
+        "902316",
+        "903831",
+        "905219",
+        "906018",
+        "908603",
+        "908702",
+        "908773",
+        "908774",
+        "911307",
+        "933121",
+        "936028",
+        "1053563856",
+        "1061501467"
+      ],
+      "evidenceKind": "annotation",
+      "id": "sens.claw.ml",
+      "ntHistogram": {
+        "acetylcholine": 39
+      },
+      "perSide": {
+        "L": 22,
+        "R": 17,
+        "unknown": 0
+      },
+      "sides": "LLLLLLLLLLRRRRLRLLRLRLRLRRLRLRRLRRRRLLL"
+    },
+    {
+      "bodyIds": [
+        "802350",
+        "804010",
+        "805712",
+        "806491",
+        "806859",
+        "808592",
+        "808818",
+        "809595",
+        "810643",
+        "810683",
+        "810800",
+        "811124",
+        "812527",
+        "812610",
+        "812869",
+        "812928",
+        "813011",
+        "813286",
+        "813450",
+        "814484",
+        "818478",
+        "818930",
+        "819219",
+        "819500",
+        "819633",
+        "820328",
+        "821363",
+        "821947",
+        "822523",
+        "822975",
+        "826324",
+        "828434",
+        "847034",
+        "903377",
+        "903471",
+        "908277",
+        "908278",
+        "908723",
+        "909035",
+        "909036",
+        "909240",
+        "910406",
+        "910408",
+        "912444",
+        "914543",
+        "939462",
+        "1058841949"
+      ],
+      "evidenceKind": "annotation",
+      "id": "sens.claw.hl",
+      "ntHistogram": {
+        "acetylcholine": 47
+      },
+      "perSide": {
+        "L": 22,
+        "R": 25,
+        "unknown": 0
+      },
+      "sides": "LLRRRRLRRRRLRLRRRRLLRRLLLLRLRRLRRLRRRLLLLLLRRLL"
     }
   ],
   "transmittersSha256": "95c9289220663abeb3409f3ad9e5a7f8a53f8093f5139d15502cd08da8879621",
@@ -1313,6 +1554,30 @@
       "nNeurons": 14,
       "nt": "unknown",
       "type": "Pleural remotor/abductor MN"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 39,
+      "nt": "acetylcholine",
+      "type": "SNpp39"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 22,
+      "nt": "acetylcholine",
+      "type": "SNpp41"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 62,
+      "nt": "acetylcholine",
+      "type": "SNpp50"
+    },
+    {
+      "hopDepth": null,
+      "nNeurons": 32,
+      "nt": "acetylcholine",
+      "type": "SNpp51"
     },
     {
       "hopDepth": null,

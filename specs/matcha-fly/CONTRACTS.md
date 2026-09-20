@@ -38,6 +38,8 @@ One `web/` package, not a workspace of packages. Seams inside it are enforced by
 | Trial spec and recording | `contracts/TRIAL.md` + the fixtures under `contracts/fixtures/trial/` |
 | Python oracle | `lab/flylab/model/oracle.py`. Only the oracle writes fixtures |
 | Browser engine | `web/src/engine/`. Reads fixtures, never writes them |
+| A moving leg → spikes of its knee sensors | The file `contracts/codec/legs.codec.json`, written only by `lab/flylab/codec/build.py` (`build_legs_codec`, `movement_spec`). The groups it names are the legs census's. Recordings of each movement sit beside the sips' and are listed under `movements` in the recordings index |
+| Which of the puppet's legs are moving | `web/src/view/gait.ts`, which also poses them, so that the answer cannot drift from the picture, from the `FlyMotion` that `web/src/view/body.ts` makes of the ceremony's pose, his walk and his breaks. `web/src/view/movement.ts` owns how long they have been moving and the replay of that movement's recording |
 | Dose → spikes, spikes → behaviour, envelope | The file `contracts/codec/taste.codec.json`, written only by `lab/flylab/codec/build.py`. Slices 05, 07 and B2 each add to it through that one writer. One small interpreter per language, both pinned by fixtures |
 | Experiments and verdicts | `lab/experiments/<id>/`. `verdict.json` is the artifact; HTML is a rendering of it |
 | Which mechanics may ship | `contracts/mechanics.json`, checked by `make check`. One chain, one gate: a puzzle or a route requires mechanics, a mechanic requires an experiment's `pass` |
