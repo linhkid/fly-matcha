@@ -14,6 +14,10 @@ import { levelHz } from "../codec/codec";
 const count = (n: number): string => n.toLocaleString("en-US");
 const tag = (p: Provenance): string => `<span class="tag tag-${p}">${PROVENANCE_WORDS[p]}</span>`;
 
+/** What the three colours mean. The user asked that the chip that says STAGED go and the purple stay, so the purple has to explain itself somewhere. */
+export const colourKeyHtml = (): string =>
+  `<span class="key"><span class="q-connectome">from the fly</span> · <span class="q-model">our model</span> · <span class="q-staged">purple is staged</span></span>`;
+
 export function titleHtml(reg: Registry, info: CloudInfo): string {
   return `<p>Beside him floats his own nervous system: ${reg.q("cloud.points", count(info.points))} of his ${reg.q("neurons.count", count(info.typedNeurons))} typed neurons `
     + `have a cell body position, and each one is a point. When the tea touches his lips, and whenever his legs move, light runs through it: every flash is a spike from a recording of his whole nervous system, `
@@ -49,11 +53,10 @@ export function lipsHtml(reg: Registry, dots: LipDot[], slowdown: number): strin
   }).join("");
   const of = (group: string, mute = false): number => dots.filter((d) => d.group === group && (!mute || !d.speaks)).length;
   return `<svg viewBox="0 0 240 150" role="img" aria-label="one dot per taste neuron, on the left and the right lobe of his lips">${circles}</svg>`
-    + `<div><p><span class="swatch" style="background:${GROUP_COLOUR["grn.sweet"]}"></span>${reg.q("neurons.count", of("grn.sweet"))} sweet taste neurons `
-    + `<span class="swatch" style="background:${GROUP_COLOUR["grn.bitter"]}"></span>${reg.q("neurons.count", of("grn.bitter"))} bitter, `
-    + `${reg.q("neurons.unlabelled", of("grn.bitter", true))} of them rings: the type LB1b, whose transmitter the dataset calls unclear.</p>`
+    + `<div><p class="counts"><span class="swatch" style="background:${GROUP_COLOUR["grn.sweet"]}"></span>${reg.q("neurons.count", of("grn.sweet"))} sweet `
+    + `<span class="swatch" style="background:${GROUP_COLOUR["grn.bitter"]}"></span>${reg.q("neurons.count", of("grn.bitter"))} bitter</p>`
     + `<p id="lips-now" class="small"></p>`
-    + `<details class="more"><summary>What the dots show</summary><p class="small">A dot flashes each time that neuron fires in the recording of his whole brain for this bowl, ${reg.q("replay.slowdown", `${slowdown} times`)} slower than his time, and then fades: the afterglow is ours, so that one spike can be seen. They fire only while the tea is on his lips. `
+    + `<details class="more"><summary>What the dots show</summary><p class="small">One dot for each taste neuron of his lips. ${reg.q("neurons.unlabelled", of("grn.bitter", true))} of the bitter ones are rings: the type LB1b, whose transmitter the dataset calls unclear. A dot flashes each time that neuron fires in the recording of his whole brain for this bowl, ${reg.q("replay.slowdown", `${slowdown} times`)} slower than his time, and then fades: the afterglow is ours, so that one spike can be seen. They fire only while the tea is on his lips. `
     + `They have no cell body inside the imaged volume, so they are not in the cloud. Left and right are from the fly. Where a dot sits within its lobe is ours.</p></details></div>`;
 }
 
@@ -82,5 +85,5 @@ export function stagedHtml(reg: Registry, ids: string[]): string {
 }
 
 export function footHtml(): string {
-  return `Connectome: ${ref("MaleCNS v1.0")}, Janelia FlyEM, Cambridge and Google, ${ref("CC-BY 4.0")}. Neuron model after ${ref("Shiu et al. 2024")}. Drag to look around, scroll to come closer.`;
+  return `${colourKeyHtml()} Connectome: ${ref("MaleCNS v1.0")}, Janelia FlyEM, Cambridge and Google, ${ref("CC-BY 4.0")}. Neuron model after ${ref("Shiu et al. 2024")}. Drag to look around, scroll to come closer.`;
 }

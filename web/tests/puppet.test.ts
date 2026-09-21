@@ -95,9 +95,14 @@ describe("a break", () => {
     }
   });
 
-  it("gives him a different book as the sips go by, and comes back round to the first", () => {
+  it("gives him a different book as the sips go by and with every break, and comes back round to the first", () => {
+    expect(BOOKS.length).toBe(12);
     expect(new Set(BOOKS.map((_, i) => bookAt(i))).size).toBe(BOOKS.length);
     expect(bookAt(BOOKS.length)).toBe(bookAt(0));
+    for (let bowl = 0; bowl < 30; bowl++) {
+      expect(new Set(BOOKS.map((_, visit) => bookAt(bowl, visit))).size).toBe(BOOKS.length);   // twelve breaks in one bowl: twelve books
+      expect(bookAt(bowl, 4)).not.toBe(bookAt(bowl, 5));                                       // two breaks running are never the same book
+    }
   });
 });
 

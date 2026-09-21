@@ -183,7 +183,11 @@ async function start(): Promise<void> {
   };
   freezeButton.addEventListener("click", () => setFrozen(!frozen));
   if (query.get("paused") === "1") setFrozen(true);
+  // How many breaks he has been sent on. It picks his book and his words, so that they vary; a visit begins somewhere new, a still where its address says.
+  const asked = Number(query.get("visit") ?? "0");
+  let visits = address.still ? (Number.isInteger(asked) && asked >= 0 ? asked : 0) : Math.floor(Math.random() * 96);
   const setResting = (wish: boolean): void => {
+    if (wish && !resting) visits += 1;
     resting = wish;
     if (wish) { setFrozen(false); loop.pause(); }
     pauseButton.textContent = wish ? "Back to the tea" : "Take a break";
@@ -251,7 +255,7 @@ async function start(): Promise<void> {
   if (from && lookAt) stage.lookFrom(from, lookAt);
 
   // a still opens with everyone already in place, not on the way there
-  if (address.still) stage.settle(loop.state(), lookOf(sipAt(codec, loop.state().sipIndex)), bookAt(loop.state().sipIndex), resting);
+  if (address.still) stage.settle(loop.state(), lookOf(sipAt(codec, loop.state().sipIndex)), bookAt(loop.state().sipIndex, visits), resting);
 
   const pins = { brain: element("pin-brain"), cord: element("pin-cord") };
   let shownReplay: Replay | null = null;       // whose neurons the light layer holds: a bowl's recording, or a movement's
@@ -265,7 +269,7 @@ async function start(): Promise<void> {
     if (!resting && !frozen && loop.state().paused && stage.atWork) loop.resume();
     const state = address.still ? loop.state() : loop.tick(dt);
     const sip = sipAt(codec, state.sipIndex);
-    const book = bookAt(state.sipIndex);
+    const book = bookAt(state.sipIndex, visits);
     const replay = replayOf(entryOf(sip));
     replayOf(entryOf(sipAt(codec, state.sipIndex + 1)));   // the next bowl's recording, ahead of time
     const gone = resting || (state.paused && !frozen) || (frozen && !stage.atWork);   // on a break, on his way back, or paused while away
@@ -300,13 +304,13 @@ async function start(): Promise<void> {
     // The card is rewritten when the moment changes. While spikes are being counted only the line that counts them is.
     const away = resting ? "break" : state.paused && !(frozen && stage.atWork) ? "returning" : "work";
     const waiting = state.phase === "taste" && !replay;
-    const moment = `${state.sipIndex}/${state.phase}/${away}/${replayed ? replayed.touching : "-"}/${waiting}/${frozen}/${legs.state}/${moving ? moving.id : "-"}`;
+    const moment = `${visits}/${state.sipIndex}/${state.phase}/${away}/${replayed ? replayed.touching : "-"}/${waiting}/${frozen}/${legs.state}/${moving ? moving.id : "-"}`;
     const count = `${replayed ? Math.floor(replayed.steps / 40) : ""}/${moved ? Math.floor(moved.steps / 40) : ""}`;
     const entry = entryOf(sip);
     const verdict = licensed && recordings.decoder && entry.outcome !== undefined && entry.windowCount !== undefined
       ? { outcome: entry.outcome, windowCount: entry.windowCount, decoder: recordings.decoder } : null;
     if (moment !== shownMoment || count !== shownCount) {
-      const card = reactionCard(reg, codec, info, { sip, phase: state.phase, phaseSeconds: state.phaseSeconds, stay: stayFor(entryOf(sip), stepsPerSecond), away: away === "work" ? null : { book, returning: away === "returning" }, replayed, waiting, frozen, verdict, bowl: state.sipIndex, summary: state.phase === "clean" ? lastReplayed : null, legs });
+      const card = reactionCard(reg, codec, info, { sip, phase: state.phase, phaseSeconds: state.phaseSeconds, stay: stayFor(entryOf(sip), stepsPerSecond), away: away === "work" ? null : { book, returning: away === "returning", visit: visits }, replayed, waiting, frozen, verdict, bowl: state.sipIndex, summary: state.phase === "clean" ? lastReplayed : null, legs });
       if (moment !== shownMoment) {
         const look = lookOf(sip);
         element("lips-now").innerHTML = lipsNowHtml(reg, codec, { sweet: look.sweets, bitter: look.bitterLevel }, replayed?.touching ?? false);

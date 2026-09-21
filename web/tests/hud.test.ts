@@ -51,7 +51,7 @@ describe("the words around the stage", () => {
     for (let sipIndex = 0; sipIndex < 25; sipIndex++) {
       for (const phase of PHASES) {
         const book = bookAt(sipIndex);
-        const card = reactionCard(reg, codec, info, { sip: sipAt(codec, sipIndex), phase, phaseSeconds: 10, stay: NEVER, away: { book, returning: false }, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0, legs: STILL });
+        const card = reactionCard(reg, codec, info, { sip: sipAt(codec, sipIndex), phase, phaseSeconds: 10, stay: NEVER, away: { book, returning: false, visit: sipIndex }, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0, legs: STILL });
         const working = reactionCard(reg, codec, info, { sip: sipAt(codec, sipIndex), phase, phaseSeconds: 10, stay: NEVER, away: null, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0, legs: STILL });
         expect(card.heading).toBe(`On a break · reading ${book}`);
         expect(card.lines.slice(0, 2)).toEqual(working.lines.slice(0, 2));
@@ -119,7 +119,7 @@ describe("the words around the stage", () => {
     const replayed = { seed: 1, steps: 400, slowdown: 50, touching: true, pilot: true, inputSpikes: 9, otherNeurons: 9, readoutSpikes: 1, undrawable: 1, extension: 0, drunk: 0 };
     for (let sipIndex = 0; sipIndex < 25; sipIndex++) {
       for (const phase of PHASES) {
-        for (const more of [{ replayed: null, waiting: false, away: null }, { replayed: null, waiting: true, away: null }, { replayed, waiting: false, away: null }, { replayed: null, waiting: false, away: { book: bookAt(sipIndex), returning: false } }]) {
+        for (const more of [{ replayed: null, waiting: false, away: null }, { replayed: null, waiting: true, away: null }, { replayed, waiting: false, away: null }, { replayed: null, waiting: false, away: { book: bookAt(sipIndex), returning: false, visit: 1 } }]) {
           const card = reactionCard(reg, codec, info, { sip: sipAt(codec, sipIndex), phase, phaseSeconds: 9, stay: { seconds: 9, why: "silent", lastStep: 500 }, frozen: sipIndex % 2 === 0, summary: phase === "clean" ? replayed : null, verdict: sipIndex % 3 ? LICENSED : null, bowl: sipIndex, legs: STILL, ...more });
           seen += trackHtml(reg, { sipIndex, phase, progress: 0.4, phaseSeconds: 9, paused: false }) + cardHtml(card);
         }
@@ -170,7 +170,7 @@ describe("the words around the stage", () => {
   });
 
   it("says he is on his way back, and nothing about tea, between the end of a break and the clock starting again", () => {
-    const card = reactionCard(reg, codec, info, { sip: sipAt(codec, 3), phase: "taste", phaseSeconds: 12, stay: NEVER, away: { book: bookAt(3), returning: true }, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0, legs: STILL });
+    const card = reactionCard(reg, codec, info, { sip: sipAt(codec, 3), phase: "taste", phaseSeconds: 12, stay: NEVER, away: { book: bookAt(3), returning: true, visit: 1 }, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0, legs: STILL });
     expect(card.heading).toBe("Back to the tea");
     expect(card.lines[3].html).toContain("Now, where was I?");
     expect(audit(cardHtml(card), reg)).toEqual([]);
@@ -218,5 +218,35 @@ describe("the taste neurons on his lips", () => {
     const html = lipsHtml(reg, dots, 50);
     expect(html.match(/<circle /g)?.length).toBe(72);
     expect(html.match(/fill="none"/g)?.length).toBe(info.mouthparts.filter((m) => !m.speaks).length);
+  });
+});
+
+describe("what he says about his books", () => {
+  it("has several lines for every book, none of them about the taste of anything, none with a bare number, a quotation or his being worn out", async () => {
+    const { BREAK_LINES, breakLine } = await import("../src/view/reaction");
+    const { BOOKS } = await import("../src/view/puppet");
+    expect(Object.keys(BREAK_LINES).sort()).toEqual([...BOOKS].sort());
+    const all = Object.values(BREAK_LINES).flat();
+    expect(new Set(all).size).toBe(all.length);                       // no line under two titles, none twice
+    for (const [book, lines] of Object.entries(BREAK_LINES)) {
+      expect(lines.length, book).toBeGreaterThanOrEqual(8);
+      for (const line of lines) {
+        expect(line.length, line).toBeLessThanOrEqual(110);
+        // the words on a break may say nothing about tea as a taste, and the model has no fatigue, hunger or memory for him to speak of
+        expect(line, book).not.toMatch(/drink|refus|extend|reach|bitter|sweet|yum|delicious|disgust|likes|hates|tastes|tired|hungry|sleepy|remember|memory|forgot/i);
+        expect(line, book).not.toMatch(/\d|["“”]/);
+      }
+      // every line of a book is heard before one is heard twice, whether the bowls go by or the breaks do
+      expect(new Set(lines.map((_, visit) => breakLine(book, 3, visit))).size).toBe(lines.length);
+      expect(new Set(lines.map((_, bowl) => breakLine(book, bowl, 2))).size).toBe(lines.length);
+    }
+    expect(breakLine("a book he does not own", 0, 0)).toBe("One more chapter.");
+  });
+
+  it("puts the line for this book, this bowl and this break on the card, tagged as staged", () => {
+    const at = (visit: number): string => reactionCard(reg, codec, info, { sip: sipAt(codec, 3), phase: "brew", phaseSeconds: 4.5, stay: NEVER, away: { book: "Demons", returning: false, visit }, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0, legs: STILL }).lines[3].html;
+    expect(at(1)).not.toBe(at(2));
+    expect(at(1)).toContain('data-prov="staged"');
+    expect(at(1).replace(/<[^>]*>/g, "")).toBe("Everyone follows someone who follows no one. I follow the lamp. At least it is honest.");
   });
 });

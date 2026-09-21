@@ -173,7 +173,7 @@ describe("the reaction card with no recording", () => {
     const card = reactionCard(reg, codec, info, { sip: sipAt(codec, 3), phase: "taste", phaseSeconds: 12, stay: { seconds: 12, why: "never", lastStep: null }, away: null, replayed: null, waiting: false, frozen: false, summary: null, verdict: null, bowl: 0, legs: STILL });
     expect(card.lines[2].html.replace(/<[^>]*>/g, "")).toMatch(/^His lips are not on the tea yet\. He stays 12 s, the least he ever does: in this recording MN9 never fires\./);
     expect(card.lines[3].html).toContain("(he says nothing)");
-    expect(card.footnote).toBe("The words are puppetry, and so is every movement: we move his legs, his knee sensors report it, and the rest is his wiring. His motor neurons firing moves nothing here. The spikes are the model's, recorded from runs of his whole nervous system. No verdict has been licensed yet.");
+    expect(card.footnote).toBe("His words and his movements are puppetry: we move his legs. His motor neurons firing moves nothing here. The spikes are the model's, from recorded runs of his whole nervous system. No verdict has been licensed yet.");
   });
 
   it("counts the taste neurons from the dataset: 34 sweet, 38 bitter, 6 of them unlabelled", () => {

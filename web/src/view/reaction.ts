@@ -12,7 +12,7 @@ import type { Decoder, Outcome, Replayed, Stay } from "./replay";
 import type { Sip } from "./rotation";
 
 /** Set while the ceremony's clock is held: he is reading `book`, or has shut it and is on his way back to his work. */
-export interface Away { book: string; returning: boolean }
+export interface Away { book: string; returning: boolean; visit: number }   // visit: how many breaks he has been sent on, this one included
 
 export interface CardLine { title: string; html: string; tags: Provenance[] }
 export interface Card { heading: string; lines: CardLine[]; footnote: string }
@@ -69,15 +69,137 @@ const VOICE_AFTER_TASTING: Record<Outcome, string[]> = {
   neither: ["Hm.", "I cannot say.", "Hm. Let me think."],
 };
 
-// On a break he talks about his book. Still puppetry, still nothing about the taste of anything, and no line of the books is quoted.
-const VOICE_ON_A_BREAK: Record<string, string> = {
-  "Crime and Punishment": "So many pages about one bad decision. All I have to choose is a tea.",
-  "The Idiot": "A kind man in a complicated room. One more chapter.",
-  Demons: "Everyone in this book needs to sit down with a bowl of tea.",
-  "The Brothers Karamazov": "Three brothers, one father, not one tea ceremony. It shows.",
-  "Notes from Underground": "He is spiteful, he says so himself. Has anybody offered him matcha?",
-  "White Nights": "Four nights and a morning. A short book for a short break.",
+// On a break he talks about his book. Still puppetry, still nothing about the taste of anything, and no line of the books is quoted:
+// titles, and what everybody knows happens in them. Several lines for each book, so that a viewer who sends him off often does not hear
+// the same one twice running. Which line is a matter of the bowl and of how many breaks he has been sent on, never of chance in here.
+export const BREAK_LINES: Record<string, string[]> = {
+  "Crime and Punishment": [
+    "He had a theory and an axe. I have a whisk and no theories. My table is cleaner.",
+    "The investigator simply waits. I respect that. Good water cannot be hurried either.",
+    "A very small room and very large ideas. I am smaller still, and my ideas fit in a bowl.",
+    "He confesses in the end. It would have saved a great deal of paper to do so in chapter one.",
+    "Raskolnikov walks the city in a fever. I would put a cushion by the table and ask him nothing.",
+    "A whole city to hide in, and he still cannot. I can hide behind a tea scoop.",
+    "Sonya follows him all the way to Siberia. I would pack her a small whisk for the road.",
+    "Two legs and he cannot walk away from it. I have six and I would not get far either.",
+  ],
+  "The Idiot": [
+    "A kind man walks into society and society falls over. My table is lower. Less far to fall.",
+    "The prince means well on every page. It does not help. Meaning well is not a method.",
+    "Everyone shouts in drawing rooms. A tea room has one rule, and it is the opposite.",
+    "It ends badly for everyone. I checked ahead. I am still going to read the middle.",
+    "He trusts every face he meets. From my size that looks brave.",
+    "Nastasya Filippovna never gets one calm afternoon. I would give her mine, and the good cushion.",
+    "He is too good for the room. The room should have been tidied first.",
+    "He would not hurt a fly. I notice that sort of thing. It is not common.",
+  ],
+  "Demons": [
+    "A whole town undone by a committee. This is why I work alone.",
+    "They have so many ideas and not one of them is about cleaning up afterwards.",
+    "Everyone here has a plan for mankind. I have a plan for the next bowl. Mine is on schedule.",
+    "They hold so many secret meetings. Not one of them thought to bring a kettle.",
+    "A whole town buzzing and not one wing among them.",
+    "Everyone follows someone who follows no one. I follow the lamp. At least it is honest.",
+    "Ideas spread through this town like fruit flies through a kitchen. I say that with respect.",
+    "Poor Shatov only wanted out. I would have kept a seat ready for him, well away from the meetings.",
+  ],
+  "The Brothers Karamazov": [
+    "Three brothers, one dreadful father, and nobody sifts. It was always going to end in court.",
+    "The father is a dreadful host. I say this professionally.",
+    "One brother thinks, one feels, one prays. Between them they could not lay a tea table.",
+    "Alyosha listens to everybody. Somebody should whisk a bowl just for him.",
+    "They argue about heaven for whole chapters. I have been up to the ceiling. It is mostly paint.",
+    "This book is heavier than everything I own, including the whisk, the bowl and me.",
+    "A courtroom full of people staring at one man. I know the feeling. Usually someone holds a newspaper.",
+    "Not one quiet meal in the whole family. I would seat them apart and pour slowly.",
+  ],
+  "Notes from Underground": [
+    "He has been cross in a corner for a long time. I have a corner too. Mine has a cushion.",
+    "A whole book of one man arguing with himself and losing. I admire the stamina, if not the score.",
+    "He objects to reason. I measure powder with a scoop. We would not get on.",
+    "He recalls every old slight in order. It is the only orderly thing about him.",
+    "He is spiteful on purpose, he says. I tried it for one page. The whisk felt wrong.",
+    "Such a long rant and nobody there to hear it. I am small, but I am listening.",
+    "He argues with people who are not in the room. I am the size of a comma and I would still leave.",
+    "He was cruel to Liza and he knows it. I would set a place for her first.",
+  ],
+  "White Nights": [
+    "Four nights and she goes back to the other man. I saw it coming, and I am a fly.",
+    "He dreams all day and meets one person. I brew all day and meet one bowl. We are both fine.",
+    "A summer when the sky never goes dark. Useful for reading. Less so for the dreamer.",
+    "A short sad book. I note that nobody in it was unkind, which is rare on this shelf.",
+    "He wishes her well even as she leaves. That is tidy of him. Kinder than tidy.",
+    "He walks the embankments alone at night. I would sit on the railing by him. I am quiet company.",
+    "He gets four nights and no more. For a fly that is a fair share of a life.",
+    "He talks for a whole night about himself. She is patient. I would have started whisking.",
+  ],
+  "Poor Folk": [
+    "Two people write letters across a courtyard. I could fly it in a moment. Nobody asks me.",
+    "He copies documents all day, neatly. At last, a man on this shelf I would trust with a whisk.",
+    "He spends money he lacks on gifts she begs him not to buy. Kind, and badly organised.",
+    "A novel made only of letters. Everyone is polite and everyone is poor. The politeness holds.",
+    "He worries about his worn coat and his buttons. I have no coat. Wings go with everything.",
+    "So much paper. One sheet of their letters would carpet my table twice.",
+    "Varvara sews until her eyes ache. I would trim her lamp and clear a corner of the table for her.",
+    "The letters stop when she marries and goes away. I would stay on with the old clerk a while.",
+  ],
+  "The Double": [
+    "A second Golyadkin arrives and does everything better. I would simply give him the sifting.",
+    "He keeps insisting he is his own man. The book keeps producing another one.",
+    "A minor clerk loses his life to a copy of himself. Filing error, I assume.",
+    "Nobody else seems troubled by the double. I would be. Then again, flies all look alike to people.",
+    "I see many copies of everyone, all day. It is only my eyes. Someone should tell Mr Golyadkin.",
+    "The double takes his desk, his friends, his place. Mine could have the cushion. Not the bowl.",
+    "One clerk was already too many for that office. Two is a swarm.",
+    "He runs about the city in the snow, so frightened. I would warm a bowl and leave it by the door.",
+  ],
+  "The Gambler": [
+    "The grandmother arrives in a chair and loses a fortune. A fine entrance. A poor afternoon.",
+    "A wheel goes round and everyone is ruined. My whisk goes round and there is tea.",
+    "He is a tutor, though he teaches nothing in this book but how to lose.",
+    "They keep betting on zero. I also have zero, and I have kept all of it.",
+    "Alexei watches that wheel as if it could love him back. I would turn his chair toward the window, gently.",
+    "The whole family waits for an inheritance. I will leave a whisk. Nobody is circling for it.",
+    "He keeps saying he will stop. I would not scold. I would sit with him until the casino closed.",
+    "A little ball hops around a wheel. It is about my size. I feel for it.",
+  ],
+  "The House of the Dead": [
+    "A gentleman among convicts, watching carefully. It is what I do with humans, from lower down.",
+    "Even there, men find small work for their hands. I am glad. Small work is all I have ever had.",
+    "The cold in this book is considerable. I am a fly. I read this one near the kettle.",
+    "A convict counts his days by the fence posts. I count nothing. The bowl is either clean or it is not.",
+    "The convicts keep animals in the yard. No flies are mentioned. I looked, in a calm way.",
+    "They put on a play at Christmas and are happy for an evening. I would have swept the stage for them.",
+    "The barracks are crowded and loud. My table seats one fly. I see now how lucky that is.",
+    "Every day the same walls and the same routine. Mine too, but I chose the bowl and the door is open.",
+  ],
+  "The Adolescent": [
+    "His grand idea is to become rich. He is young. My grand idea is a level scoop.",
+    "He wants to understand his father. His father explains nothing, pleasantly. Long book.",
+    "The young man narrates in a great hurry. I would ask him to sit and sift something first.",
+    "Secrets on every page. My table has one bowl and no surprises.",
+    "His father is charming and never where he should be. I know the type. Moths.",
+    "He is so easily hurt and hides it so badly. I would pretend not to notice and hand him a cloth.",
+    "He wants a fortune and to be left alone with it. I have a bowl and am left alone with it. Done.",
+    "Old Makar the pilgrim is kind to him. Every muddle needs one calm person, and a cushion for him.",
+  ],
+  "The Dream of a Ridiculous Man": [
+    "He decides nothing matters, then falls asleep and changes his mind. Efficient, for this author.",
+    "He finds an innocent world and spoils it single-handed. This is why I wipe my feet.",
+    "He flies to another star in a dream. Long way. I think twice about crossing the room.",
+    "He wakes up wanting to love everyone. Everyone is very large. I will start with the bowl.",
+    "Everyone calls him ridiculous and he agrees. It saves a lot of argument.",
+    "A ridiculous man, the title says. I am a fly with a whisk. We would get along.",
+    "A small girl asks him for help and he cannot shake it off. Good. Small things should count.",
+    "One small star catches his eye and changes everything. I understand. For me it is a lamp.",
+  ],
 };
+
+/** His words on a break: a walk through the book's lines that visits every one before it repeats. */
+export function breakLine(book: string, bowl: number, visit: number): string {
+  const lines = BREAK_LINES[book];
+  return lines ? lines[(bowl * 3 + visit * 5) % lines.length] : "One more chapter.";   // three and five share nothing with eight
+}
 
 const PHASE_WORDS: Record<Phase, string> = { select: "Selecting", sift: "Sifting", brew: "Brewing", pour: "Pouring", taste: "Tasting", clean: "Cleaning up" };
 
@@ -141,7 +263,7 @@ export function reactionCard(reg: Registry, codec: Codec, info: CloudInfo, momen
     ],
     footnote: moment.verdict
       ? `The words are puppetry and follow the verdict. So is every movement of his legs: his motor neurons firing moves nothing here. The verdict is not puppetry: it is decoded from MN9's recorded spikes by thresholds that experiment ${ref(moment.verdict.decoder.evidence.experiment)} fixed before its held-out seeds were looked at.`
-      : "The words are puppetry, and so is every movement: we move his legs, his knee sensors report it, and the rest is his wiring. His motor neurons firing moves nothing here. The spikes are the model's, recorded from runs of his whole nervous system. No verdict has been licensed yet.",
+      : "His words and his movements are puppetry: we move his legs. His motor neurons firing moves nothing here. The spikes are the model's, from recorded runs of his whole nervous system. No verdict has been licensed yet.",
   };
 }
 
@@ -179,7 +301,7 @@ function recordingsLine(reg: Registry, { replayed, summary, phase, legs }: Momen
 }
 
 function voice({ phase, away, verdict, replayed, summary, bowl }: Moment, tea: boolean): string {
-  if (away) return away.returning ? "Now, where was I?" : VOICE_ON_A_BREAK[away.book] ?? "One more chapter.";
+  if (away) return away.returning ? "Now, where was I?" : breakLine(away.book, bowl, away.visit);
   const tasted = (phase === "taste" && replayed !== null && !replayed.touching) || (phase === "clean" && summary !== null);
   if (verdict && tasted) return VOICE_AFTER_TASTING[verdict.outcome][bowl % 3];
   if (!tea && phase === "select") return "Only hot water today.";

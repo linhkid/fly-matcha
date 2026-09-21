@@ -113,5 +113,6 @@ export function onBreak(at: Pose, b: number): Pose {
 }
 
 // What he reads on a break. Titles only: not a line of any of them is quoted anywhere.
-export const BOOKS = ["Crime and Punishment", "The Idiot", "Demons", "The Brothers Karamazov", "Notes from Underground", "White Nights"] as const;
-export const bookAt = (sipIndex: number): string => BOOKS[sipIndex % BOOKS.length];
+export const BOOKS = ["Crime and Punishment", "The Idiot", "Demons", "The Brothers Karamazov", "Notes from Underground", "White Nights", "Poor Folk", "The Double", "The Gambler", "The House of the Dead", "The Adolescent", "The Dream of a Ridiculous Man"] as const;
+/** The book he picks up. It changes with the bowl and with every break he is sent on, so two breaks in a row are never the same book. */
+export const bookAt = (sipIndex: number, visit = 0): string => BOOKS[(sipIndex * 5 + visit * 7) % BOOKS.length];   // five and seven share nothing with twelve, so either walk visits every book
