@@ -6,9 +6,9 @@ The plan, the rules and the current status live in [specs/matcha-fly/README.md](
 
 ## See it
 
-![He walks to the cup, tastes, and his brain answers](assets/showcase/tour.gif)
+![The whole loop: he brews a bowl, tastes it, cleans up and takes a break with a book](assets/showcase/tour.gif)
 
-Six seconds of the loop, recorded from the page. He steps up to the cup, his taste neurons flash on his lips, and light runs through his nervous system beside him. Every flash is a spike. The whole ceremony, bowl after bowl, is in [a fifty-second recording](assets/showcase/tour.mp4).
+The loop, recorded from the page. He selects a tea, sifts, brews, pours, tastes and cleans up, then sits down with Dostoevsky until he is sent back to work. Every flash beside him is a spike: his lips while the tea is on them, his nerve cord while his legs move.
 
 ![Tasting, with the taste neurons of his lips flashing](assets/showcase/tasting.jpg)
 
@@ -54,7 +54,7 @@ He selects a tea, sifts, brews, pours, tastes and cleans up, forever, beside the
 - `circuits/` which neurons play which role, as data, with the evidence for each binding: the taste circuit, and the motor pools and knee sensors of his six legs.
 - `data/raw/` source files. Never committed.
 - `specs/matcha-fly/` the plan, its contracts and the evidence each slice was accepted on.
-- `assets/showcase/` the pictures and the recording above, from the running page. Nothing here is computed; it is what the page looked like.
+- `assets/showcase/` the pictures and the loop above, recorded from the running page. Nothing here is computed; it is what the page looked like.
 
 ## Data and credit
 
